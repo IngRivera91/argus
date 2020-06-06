@@ -169,7 +169,7 @@
             for ($i = 1 ; $i <= $numero_paginas ; $i++){
 
                 if ($i == $pagina){
-                    $paginador_html .= "        <li class='page-item' class='active'><a class='page-link' href='".$url_base.$i."'>$i</a></li>";
+                    $paginador_html .= "        <li class='page-item active' ><a class='page-link' href='".$url_base.$i."'>$i</a></li>";
                 }else{
                     $paginador_html .= "        <li class='page-item'><a class='page-link' href='".$url_base.$i."'>$i</a></li>";
                 }
