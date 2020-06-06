@@ -1,8 +1,8 @@
 <?php 
 
 namespace Ayuda;
-use Clase\Database;
 use Clase\Controlador;
+use Clase\Database;
 use Clase\Modelo;
 
 use Controlador\Controlador_Grupos;
@@ -27,7 +27,7 @@ class Creador {
         }
 
         if ($nombre_controlador == 'Controlador_Inicio'){
-            return new Inicio($link);
+            return new Controlador_Inicio($link);
         }
 
         if ($nombre_controlador == 'Controlador_Menus'){
