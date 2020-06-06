@@ -1,13 +1,5 @@
 <?php
 
-    //clases
-    require_once('clases/Controlador.php');
-    require_once('clases/Database.php');
-    require_once('clases/Errores.php');
-    require_once('clases/Html.php');
-    require_once('clases/Modelo.php');
-    require_once('clases/Seguridad.php');
-
     // modelos
     require_once('modelos/Grupos.php');
     require_once('modelos/Menus.php');
