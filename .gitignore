@@ -1,8 +1,5 @@
 *.log
 .idea/
+/vendor
 archivos/*
 config.php
-*.jpeg
-*.jpg
-*.png
-*.pdf
