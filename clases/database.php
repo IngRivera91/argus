@@ -9,6 +9,7 @@
 		private $name = DB_NAME;
 
 		private $errores;
+		public $error = null;
 
 		public $dbh;
 		public $stmt;
@@ -26,11 +27,11 @@
 			try {
 				$this->dbh = new \PDO($dsn,$this->user,$this->password,$opciones);
 				$this->dbh->exec('set names utf8');
-			} catch (PDOException $e) {
+			} catch (\PDOException $e) {
                 $error_sql = $e->getMessage();
                 $this->errores->n_error_mysql =$error_sql;
                 $this->errores->error_mysql =$error_sql;
-                return $this->errores->datos(1,'Error, al conectar a la base de datos',
+                $this->error =  $this->errores->datos(1,'Error, al conectar a la base de datos',
                     __CLASS__,__LINE__,__FILE__,$error_sql,__FUNCTION__);
 			}
 		}

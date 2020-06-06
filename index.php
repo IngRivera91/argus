@@ -26,6 +26,10 @@
     if ($_GET['controlador'] === 'session' && $_GET['metodo'] === 'login_bd'){
 
         $link = new Database(DB_USER_SESSION,DB_PASSWORD_SESSION);
+        if(!is_null($link->error)){
+            print_r($link->error);
+            exit;
+        }
         $seguridad = new Seguridad($link);
 
         $res = $seguridad->login_bd();
@@ -40,6 +44,10 @@
     if ($_GET['controlador'] === 'session' && $_GET['metodo'] === 'login_off'){
 
         $link = new Database();
+        if(!is_null($link->error)){
+            print_r($link->error);
+            exit;
+        }
         $seguridad = new Seguridad($link);
 
         $res = $seguridad->login_off();
@@ -54,6 +62,10 @@
     valida_parametro_get('session_id');
 
     $link = new Database();
+    if(!is_null($link->error)){
+        print_r($link->error);
+        exit;
+    }
 
     $seguridad = new Seguridad($link);
 
