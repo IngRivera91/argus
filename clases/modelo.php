@@ -1,7 +1,7 @@
 <?php
 
     namespace Clase;
-    
+    use Clase\Errores;
     class Modelo{
 
         public $link;
@@ -292,7 +292,7 @@
                     __CLASS__,__LINE__,__FILE__,$query_string,__FUNCTION__);
 
 
-            } catch (PDOException $e) {
+            } catch (\PDOException $e) {
                 $error_sql = $e->getMessage();
                 return $this->errores->datos(1,'Error, en consulta sql',__CLASS__,
                     __LINE__,__FILE__,'<br><br>'.$error_sql.'<br><br>'.$query_string,__FUNCTION__);
