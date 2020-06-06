@@ -1,7 +1,11 @@
 <?php
+
+namespace Controlador;
+use Clase\Controlador;
+
 /*** controlador core ***/
 
-class controlador_inicio extends Controlador{
+class Controlador_Inicio extends Controlador{
 
     public $breadcrumb =false;
 

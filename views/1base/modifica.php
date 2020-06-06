@@ -1,4 +1,5 @@
 <?php
+use Ayuda\Redirect;
 $inputs = $controlador->inputs;
 ?>
 <?php echo $HTML->hr(); ?>

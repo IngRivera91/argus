@@ -1,6 +1,8 @@
 <?php
 
     namespace Clase;
+    use Ayuda\Redirect;
+    use Ayuda\Creador;
 
     class Controlador{
 
@@ -46,9 +48,6 @@
             $this->columnas_lista = array($this->tabla.'.id');
         }
 
-        public static function crear_controlador(string $nombre_controlador,database $link ):Controlador{
-            return new $nombre_controlador($link);
-        }
 
         /*
          *   FUNCIONES PUBLICAS
@@ -248,7 +247,7 @@
 
         public function set_tabla(string $nombre_tabla){
             $this->tabla = $nombre_tabla;
-            $this->tabla_modelo = modelo::crear_modelo($this->tabla,$this->link);
+            $this->tabla_modelo = Creador::modelo($this->tabla,$this->link);
         }
 
         /*

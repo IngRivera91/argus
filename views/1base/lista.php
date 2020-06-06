@@ -1,4 +1,5 @@
 <?php
+use Ayuda\Redirect;
 $registros = $controlador->registros;
 $inputs = $controlador->inputs_filtro_lista;
 ?>

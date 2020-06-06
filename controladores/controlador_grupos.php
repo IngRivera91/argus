@@ -1,17 +1,23 @@
 <?php
+
+namespace Controlador;
+use Clase\Controlador;
+use Clase\Database;
+use Modelo\Grupos;
+
 /*** controlador core ***/
 
-class controlador_grupos extends Controlador {
+class Controlador_Grupos extends Controlador {
     public $grupo_modelo;
     public $metodos_menu;
     public $nombre_grupo;
-    public function __construct(database $link){
+    public function __construct(Database $link){
 
         parent::__construct($link,'grupos');
 
         $this->configuracion();
 
-        $this->grupo_modelo = new grupos($this->link);
+        $this->grupo_modelo = new Grupos($this->link);
     }
 
     private function configuracion(){

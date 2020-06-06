@@ -1,5 +1,5 @@
 <?php
-namespace Modelos;
+namespace Modelo;
 use Clase\Modelo;
 use Clase\Database;
 /*** modelo core ***/

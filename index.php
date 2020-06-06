@@ -3,9 +3,12 @@
     require_once('vendor/autoload.php');
 
     use Ayuda\Redirect;
+    use Ayuda\Creador;
     use Clase\Database;
     use Clase\Seguridad;
+    use Clase\Controlador;
     use Clase\Html;
+    use Controlador\Controlador_Inicio;
     
     function valida_parametro_get(string $get){
         if (!isset($_GET[$get]) || is_null($_GET[$get]) || (string)$_GET[$get] === ''){
@@ -82,9 +85,9 @@
         define('CONTROLADOR',$_GET['controlador']);
         define('METODO',$_GET['metodo']);
 
-        $nombre_controlador = 'controlador_'.CONTROLADOR;
+        $nombre_controlador = 'Controlador_'.ucwords(CONTROLADOR);
         if (file_exists('controladores/'.$nombre_controlador.'.php')){
-            $controlador = controlador::crear_controlador($nombre_controlador,$link);
+            $controlador = Creador::controlador($nombre_controlador,$link);
 
             if (method_exists($controlador,METODO)){
                 $acciones = $seguridad->genera_acciones_base();
@@ -94,6 +97,7 @@
             else{
                 $_GET['mensaje'] = 'El metodo '.METODO.' no existe';
             }
+            
         }
         else{
             $_GET['mensaje'] = 'El controldaor '.CONTROLADOR.' no existe';
@@ -103,7 +107,7 @@
         if ($_GET['controlador'] == 'inicio'){
             define('CONTROLADOR','inicio');
             define('METODO','index');
-            $controlador = new controlador_inicio();
+            $controlador = Creador::controlador('Controlador_Inicio',$link);
         }else{
 
             define('CONTROLADOR','');
