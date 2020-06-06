@@ -4,13 +4,18 @@ namespace Controlador;
 use Clase\Controlador;
 use Clase\Database;
 
+use Modelo\Menus;
+
 /*** controlador core ***/
 
 class Controlador_Menus extends Controlador {
 
     public function __construct(database $link){
 
-        parent::__construct($link,'menus');
+        parent::__construct();
+        $this->link = $link;
+        $this->tabla = 'menus';
+        $this->tabla_modelo = new Menus($this->link);
 
         $this->configuracion();
     }

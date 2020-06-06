@@ -33,17 +33,10 @@
         public $tabla_modelo; // modelo de de la tabla que se esta ocupoando
 
 
-        public function __construct(database $link,string $nombre_tabla=null){
+        public function __construct(){
 
-            $this->link = $link;
             $this->errores = new Errores();
             $this->HTML = new Html();
-
-            if (!is_null($nombre_tabla)){
-
-                $this->set_tabla($nombre_tabla);
-
-            }
 
             $this->columnas_lista = array($this->tabla.'.id');
         }
@@ -244,11 +237,6 @@
             Redirect::header_url($this->tabla,'lista',SESSION_ID,'registro modificado');
 
         }// end modifica_bd
-
-        public function set_tabla(string $nombre_tabla){
-            $this->tabla = $nombre_tabla;
-            $this->tabla_modelo = Creador::modelo($this->tabla,$this->link);
-        }
 
         /*
          *   FUNCIONES PRIVADAS

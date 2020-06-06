@@ -17,10 +17,12 @@ class Controlador_Grupos extends Controlador {
     public $nombre_grupo;
     public function __construct(Database $link){
 
-        parent::__construct($link,'grupos');
+        parent::__construct();
+        $this->link = $link;
+        $this->tabla = 'grupos';
+        $this->tabla_modelo = new Grupos($this->link);
 
         $this->configuracion();
-
         $this->grupo_modelo = new Grupos($this->link);
     }
 

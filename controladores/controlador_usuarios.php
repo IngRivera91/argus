@@ -5,6 +5,7 @@ use Clase\Controlador;
 use Clase\Database;
 
 use Modelo\Grupos;
+use Modelo\Usuarios;
 
 /*** controlador core ***/
 
@@ -16,7 +17,10 @@ class Controlador_Usuarios extends Controlador{
 
     public function __construct(database $link){
 
-        parent::__construct($link,'usuarios');
+        parent::__construct();
+        $this->link = $link;
+        $this->tabla = 'usuarios';
+        $this->tabla_modelo = new Usuarios($this->link);
 
         $this->configuracion();
     }

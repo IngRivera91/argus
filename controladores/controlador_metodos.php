@@ -4,6 +4,7 @@ namespace Controlador;
 use Clase\Controlador;
 use Clase\Database;
 use Modelo\Menus;
+use Modelo\Metodos;
 
 /*** controlador core ***/
 
@@ -14,7 +15,10 @@ class Controlador_Metodos extends Controlador {
 
     public function __construct(database $link){
 
-        parent::__construct($link,'metodos');
+        parent::__construct();
+        $this->link = $link;
+        $this->tabla = 'metodos';
+        $this->tabla_modelo = new Metodos($this->link);
 
         $this->configuracion();
     }
