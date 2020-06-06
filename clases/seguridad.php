@@ -1,6 +1,10 @@
 <?php
 
     namespace Clase;
+    use Clase\Errores;
+    use Modelo\Sessiones;
+    use Modelo\Metodo_Grupo;
+    use Modelo\Usuarios;
 
     class Seguridad{
         public $link;
@@ -8,15 +12,15 @@
         public $sessiones_modelo;
 
         public function __construct(database $link){
-            $this->errores = new errores();
+            $this->errores = new Errores();
             $this->link = $link;
-            $this->sessiones_modelo = new sessiones($this->link);
+            $this->sessiones_modelo = new Sessiones($this->link);
         }
 
         public function valida_session_id(){
             $session_id = $_GET['session_id'];
 
-            $sessiones_modelo = new sessiones($this->link);
+            $sessiones_modelo = new Sessiones($this->link);
 
             $joins = ' LEFT JOIN usuarios ON usuarios.id = sessiones.usuario_id ';
             $joins .= ' LEFT JOIN grupos ON grupos.id = sessiones.grupo_id';
@@ -49,7 +53,7 @@
         }
 
         public function genera_acciones_base () {
-            $metodo_grupo_modelo = new metodo_grupo($this->link);
+            $metodo_grupo_modelo = new Metodo_Grupo($this->link);
             $filtro = array(
                 'metodo_grupo.grupo_id' => GRUPO_ID,
                 'metodos.status_accion' => 'activo',
@@ -78,7 +82,7 @@
         }// end genera_acciones
 
         public function genera_menu () {
-            $metodo_grupo_modelo = new metodo_grupo($this->link);
+            $metodo_grupo_modelo = new Metodo_Grupo($this->link);
             $filtro = array(
                 'metodo_grupo.grupo_id' => GRUPO_ID,
                 'metodos.status_menu' => 'activo',
@@ -121,7 +125,7 @@
         }
 
         public function valida_permiso(){
-            $metodo_grupo_modelo = new metodo_grupo($this->link);
+            $metodo_grupo_modelo = new Metodo_Grupo($this->link);
             $filtro = array(
                 'metodo_grupo.grupo_id' => GRUPO_ID,
                 'metodos.descripcion_metodo' => $_GET['metodo'],
@@ -148,7 +152,7 @@
         }
 
         public function  login_bd(){
-            $usuario_modelo = new usuarios($this->link);
+            $usuario_modelo = new Usuarios($this->link);
             $columnas_base = array('id','grupo_id','nombre_completo');
             $filtro = array(
                 'usuarios.user' => $_POST['user'],

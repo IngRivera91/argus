@@ -1,11 +1,12 @@
 <?php
 namespace Modelos;
 use Clase\Modelo;
+use Clase\Database;
 /*** modelo core ***/
 
 class Grupos extends Modelo {
     private $metodo_modelo;
-    public function __construct(database $link){
+    public function __construct(Database $link){
         $tabla = 'grupos';
         parent::__construct($link, $tabla);
         $this->metodo_modelo = new Metodos($this->link);

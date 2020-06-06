@@ -49,7 +49,7 @@
 
         public function registros(){
             $this->execute();
-            return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $this->stmt->fetchAll(\PDO::FETCH_ASSOC);
         }
 
 		public function rowCount(){

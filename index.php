@@ -2,8 +2,10 @@
     require_once('config.php');
     require_once('vendor/autoload.php');
 
+    use Ayuda\Redirect;
     use Clase\Database;
     use Clase\Seguridad;
+    use Clase\Html;
     
     function valida_parametro_get(string $get){
         if (!isset($_GET[$get]) || is_null($_GET[$get]) || (string)$_GET[$get] === ''){
