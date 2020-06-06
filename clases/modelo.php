@@ -1,4 +1,7 @@
 <?php
+
+    namespace Clase;
+    
     class Modelo{
 
         public $link;

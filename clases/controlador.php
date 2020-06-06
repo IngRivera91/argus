@@ -1,4 +1,7 @@
 <?php
+
+    namespace Clase;
+
     class Controlador{
 
         public $link; // instacia de la coneccion a la base de datos
