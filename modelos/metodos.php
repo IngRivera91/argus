@@ -1,4 +1,6 @@
 <?php
+namespace Modelos;
+use Clase\Modelo;
 /*** modelo core ***/
 
 class Metodos extends Modelo {

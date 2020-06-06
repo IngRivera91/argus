@@ -1,5 +1,7 @@
 <?php
 
+    namespace Ayuda;
+
     class Redirect{
 
         public static function header_url(string $controlador='',string $metodo='', string $session_id='',string $mensaje='',

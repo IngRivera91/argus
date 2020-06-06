@@ -1,3 +1,4 @@
+<?php use Ayuda\Redirect; ?>
 <?php require_once('template/header.php'); ?>
 
     <title><?php echo NOMBRE_PROYECTO ?></title>

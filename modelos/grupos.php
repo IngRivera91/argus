@@ -1,4 +1,6 @@
 <?php
+namespace Modelos;
+use Clase\Modelo;
 /*** modelo core ***/
 
 class Grupos extends Modelo {

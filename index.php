@@ -1,11 +1,9 @@
 <?php
-    error_reporting(E_ALL);
-    ini_set('upload_max_filesize', '2048M');
-    ini_set('post_max_size', '2048M');
-	ini_set('display_errors', 1);
-    date_default_timezone_set('America/Mexico_City');
     require_once('config.php');
-    require_once('requires.php');
+    require_once('vendor/autoload.php');
+
+    use Clase\Database;
+    use Clase\Seguridad;
     
     function valida_parametro_get(string $get){
         if (!isset($_GET[$get]) || is_null($_GET[$get]) || (string)$_GET[$get] === ''){

@@ -19,12 +19,12 @@
             $this->errores = new Errores();
 			$dsn = 'mysql:host=' . $this->host . ';dbname=' . $this->name;
 			$opciones = array(
-				PDO::ATTR_PERSISTENT => true,
-				PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+				\PDO::ATTR_PERSISTENT => true,
+				\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION
 			);
 
 			try {
-				$this->dbh = new PDO($dsn,$this->user,$this->password,$opciones);
+				$this->dbh = new \PDO($dsn,$this->user,$this->password,$opciones);
 				$this->dbh->exec('set names utf8');
 			} catch (PDOException $e) {
                 $error_sql = $e->getMessage();
