@@ -1,7 +1,14 @@
 <?php
+
+namespace Controlador;
+use Clase\Controlador;
+use Clase\Database;
+
+use Modelo\Grupos;
+
 /*** controlador core ***/
 
-class controlador_usuarios extends Controlador{
+class Controlador_Usuarios extends Controlador{
 
     public $grupos = array();
     public $grupo_modelo;
@@ -19,7 +26,7 @@ class controlador_usuarios extends Controlador{
         $this->sexo[] = array('id' => 'masculino','descripcion' => 'Masculino');
         $this->sexo[] = array('id' => 'femenino','descripcion' => 'Femenino');
 
-        $this->grupo_modelo = new grupos($this->link);
+        $this->grupo_modelo = new Grupos($this->link);
 
         $this->grupos = $this->grupo_modelo->filtro_and(array('status'=>'activo'),
             array('id','descripcion_grupo'))['registros'];

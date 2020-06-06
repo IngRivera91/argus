@@ -1,7 +1,13 @@
 <?php
+
+namespace Controlador;
+use Clase\Controlador;
+use Clase\Database;
+use Modelo\Menus;
+
 /*** controlador core ***/
 
-class controlador_metodos extends Controlador {
+class Controlador_Metodos extends Controlador {
 
     public $menu_modelo;
     public $menus = array();
@@ -15,7 +21,7 @@ class controlador_metodos extends Controlador {
 
     private function configuracion(){
 
-        $this->menu_modelo = new menus($this->link);
+        $this->menu_modelo = new Menus($this->link);
 
         $this->menus = $this->menu_modelo->filtro_and(array('status'=>'activo'),
             array('id','descripcion_menu'))['registros'];

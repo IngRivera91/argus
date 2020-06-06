@@ -1,7 +1,12 @@
 <?php
+
+namespace Controlador;
+use Clase\Controlador;
+use Clase\Database;
+
 /*** controlador core ***/
 
-class controlador_menus extends Controlador {
+class Controlador_Menus extends Controlador {
 
     public function __construct(database $link){
 

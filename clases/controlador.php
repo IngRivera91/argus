@@ -18,7 +18,7 @@
         public $inputs_filtro_lista_cols = 3;
         public $filtro_lista_campos = array();
         public $inputs_filtro_lista = array();
-        public $reg_x_pag = 10; // numero de registros a mostrar por pagina
+        public $reg_x_pag = 7; // numero de registros a mostrar por pagina
         public $paginador;
         public $order_lista = ''; // sirve para agregar ORDER BY campos ASC a la consulta sql de la lista
         public $filtro_lista = array(); // sirve para agregar un filtros a la consulta de la lista

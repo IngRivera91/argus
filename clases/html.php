@@ -1,6 +1,7 @@
 <?php
 
     namespace Clase;
+    use Ayuda\Redirect;
 
     class Html
     {
