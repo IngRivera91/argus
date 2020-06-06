@@ -22,8 +22,8 @@
 
     if ($_GET['controlador'] === 'session' && $_GET['metodo'] === 'login_bd'){
 
-        $link = new database(DB_USER_SESSION,DB_PASSWORD_SESSION);
-        $seguridad = new seguridad($link);
+        $link = new Database(DB_USER_SESSION,DB_PASSWORD_SESSION);
+        $seguridad = new Seguridad($link);
 
         $res = $seguridad->login_bd();
         if (isset($res['error'])){
@@ -36,12 +36,12 @@
 
     if ($_GET['controlador'] === 'session' && $_GET['metodo'] === 'login_off'){
 
-        $link = new database();
-        $seguridad = new seguridad($link);
+        $link = new Database();
+        $seguridad = new Seguridad($link);
 
         $res = $seguridad->login_off();
         if (isset($res['error'])){
-            header_url('','','',$res['mensaje']);
+            Redirect::header_url('','','',$res['mensaje']);
             exit;
         }
         header('Location: '.RUTA_PROYECTO);
@@ -50,14 +50,14 @@
 
     valida_parametro_get('session_id');
 
-    $link = new database();
+    $link = new Database();
 
-    $seguridad = new seguridad($link);
+    $seguridad = new Seguridad($link);
 
     $valida_session = $seguridad->valida_session_id();
 
     if (isset($valida_session['error']) ){
-        header_url('','','',strip_tags($valida_session['mensaje']));
+        Redirect::header_url('','','',strip_tags($valida_session['mensaje']));
         exit;
     }
 
@@ -68,7 +68,7 @@
         exit;
     }
 
-    $HTML = new html();
+    $HTML = new Html();
 
     $valida_permiso = $seguridad->valida_permiso();
 
