@@ -1,9 +1,13 @@
 <?php
 
 namespace Controlador;
+
 use Clase\Controlador;
 use Clase\Database;
+
 use Modelo\Grupos;
+use Modelo\Metodo_Grupo;
+
 
 /*** controlador core ***/
 
@@ -63,7 +67,7 @@ class Controlador_Grupos extends Controlador {
         }
         $grupo_id = $_GET['grupo_id'];
 
-        $metodo_grupo_modelo = new metodo_grupo($this->link);
+        $metodo_grupo_modelo = new Metodo_Grupo($this->link);
         $registro = array( 'grupo_id' => $grupo_id , 'metodo_id' => $metodo_id , 'status' => 'activo',
             'usuario_alta_id' => USUARIO_ID ,'usuario_update_id' => USUARIO_ID);
         $resultado = $metodo_grupo_modelo->alta_bd($registro);
@@ -97,7 +101,7 @@ class Controlador_Grupos extends Controlador {
         }
         $grupo_id = $_GET['grupo_id'];
 
-        $metodo_grupo_modelo = new metodo_grupo($this->link);
+        $metodo_grupo_modelo = new Metodo_Grupo($this->link);
         $filtro = array( 'metodo_id' => $metodo_id , 'grupo_id' => $grupo_id );
         $resultado = $metodo_grupo_modelo->elimina_con_filtro_and($filtro);
 
