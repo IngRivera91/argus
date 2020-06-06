@@ -10,9 +10,14 @@
     use Clase\Html;
     use Clase\Seguridad;
     
+    if( isset($_GET['login']) ){
+        require_once('views/inicio/login.php');
+        exit;
+    }
+
     function valida_parametro_get(string $get){
         if (!isset($_GET[$get]) || is_null($_GET[$get]) || (string)$_GET[$get] === ''){
-            require_once('views/inicio/login.php');
+            header('Location: '.RUTA_BASE.'?login');
             exit;
         }
     }
