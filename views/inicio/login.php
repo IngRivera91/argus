@@ -21,7 +21,7 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a href="../../index2.html"><b>Acc</b>eso</a>
+    <b>Acc</b>eso
   </div>
   <!-- /.login-logo -->
   <div class="card">

@@ -1,7 +1,7 @@
 <?php
 /*** controlador core ***/
 
-class controlador_grupos extends controlador {
+class controlador_grupos extends Controlador {
     public $grupo_modelo;
     public $metodos_menu;
     public $nombre_grupo;

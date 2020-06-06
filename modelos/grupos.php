@@ -1,12 +1,12 @@
 <?php
 /*** modelo core ***/
 
-class grupos extends modelo {
+class Grupos extends Modelo {
     private $metodo_modelo;
     public function __construct(database $link){
-        $tabla = __CLASS__;
+        $tabla = 'grupos';
         parent::__construct($link, $tabla);
-        $this->metodo_modelo = new metodos($this->link);
+        $this->metodo_modelo = new Metodos($this->link);
     }
 
     public function obten_metodos(){

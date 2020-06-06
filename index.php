@@ -76,7 +76,8 @@
         print_r($valida_permiso);
         exit;
     }
-
+    // ver todas las clases declaradas
+    //print_r(get_declared_classes());exit;
     if ($valida_permiso){
         define('CONTROLADOR',$_GET['controlador']);
         define('METODO',$_GET['metodo']);

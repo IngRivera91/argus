@@ -1,7 +1,7 @@
 <?php
 /*** controlador core ***/
 
-class controlador_metodos extends controlador {
+class controlador_metodos extends Controlador {
 
     public $menu_modelo;
     public $menus = array();

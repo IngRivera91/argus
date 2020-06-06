@@ -1,9 +1,9 @@
 <?php
 /*** modelo core ***/
 
-class sessiones extends modelo {
+class Sessiones extends Modelo {
     public function __construct(database $link){
-        $tabla = __CLASS__;
+        $tabla = 'sessiones';
         parent::__construct($link, $tabla);
     }
 }

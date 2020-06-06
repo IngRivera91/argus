@@ -1,7 +1,7 @@
 <?php
 /*** controlador core ***/
 
-class controlador_inicio extends controlador{
+class controlador_inicio extends Controlador{
 
     public $breadcrumb =false;
 

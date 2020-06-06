@@ -1,7 +1,7 @@
 <?php
 
 
-class html
+class Html
 {
 
     public function input(string $label, string $name, int $col, string $placeholder = '',

@@ -1,20 +1,20 @@
 <?php
 
     //clases
-    require_once('clases/controlador.php');
-    require_once('clases/database.php');
-    require_once('clases/errores.php');
-    require_once('clases/html.php');
-    require_once('clases/modelo.php');
-    require_once('clases/seguridad.php');
+    require_once('clases/Controlador.php');
+    require_once('clases/Database.php');
+    require_once('clases/Errores.php');
+    require_once('clases/Html.php');
+    require_once('clases/Modelo.php');
+    require_once('clases/Seguridad.php');
 
     // modelos
-    require_once('modelos/grupos.php');
-    require_once('modelos/menus.php');
-    require_once('modelos/metodo_grupo.php');
-    require_once('modelos/metodos.php');
-    require_once('modelos/sessiones.php');
-    require_once('modelos/usuarios.php');
+    require_once('modelos/Grupos.php');
+    require_once('modelos/Menus.php');
+    require_once('modelos/Metodo_Grupo.php');
+    require_once('modelos/Metodos.php');
+    require_once('modelos/Sessiones.php');
+    require_once('modelos/Usuarios.php');
 
     // controladores
     require_once('controladores/controlador_grupos.php');

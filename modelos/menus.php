@@ -1,10 +1,10 @@
 <?php
 /*** modelo core ***/
 
-class menus extends modelo {
+class Menus extends Modelo {
 
     public function __construct(database $link){
-        $tabla = __CLASS__;
+        $tabla = 'menus';
         parent::__construct($link, $tabla);
     }
 

@@ -1,5 +1,5 @@
 <?php
-class errores{
+class Errores{
 
     public $mensaje = 'Error desconocido';
     public $class;

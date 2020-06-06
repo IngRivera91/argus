@@ -1,7 +1,7 @@
 <?php
 /*** controlador core ***/
 
-class controlador_usuarios extends controlador{
+class controlador_usuarios extends Controlador{
 
     public $grupos = array();
     public $grupo_modelo;

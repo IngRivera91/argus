@@ -1,6 +1,6 @@
 <?php
 
-class seguridad{
+class Seguridad{
     public $link;
     public $errores;
     public $sessiones_modelo;

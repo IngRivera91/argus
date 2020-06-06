@@ -1,5 +1,5 @@
 <?php 
-	class database{
+	class Database{
 		private $host = DB_HOST;
 		private $user = DB_USER;
 		private $password = DB_PASSWORD;
@@ -13,7 +13,7 @@
 		public function __construct($usuario = DB_USER,$password = DB_PASSWORD){
 		    $this->user = $usuario;
 		    $this->password = $password;
-            $this->errores = new errores();
+            $this->errores = new Errores();
 			$dsn = 'mysql:host=' . $this->host . ';dbname=' . $this->name;
 			$opciones = array(
 				PDO::ATTR_PERSISTENT => true,

@@ -1,10 +1,10 @@
 <?php
 /*** modelo core ***/
 
-class metodo_grupo extends modelo {
+class Metodo_Grupo extends Modelo {
 
     public function __construct(database $link){
-        $tabla = __CLASS__;
+        $tabla = 'metodo_grupo';
         parent::__construct($link, $tabla);
     }
 

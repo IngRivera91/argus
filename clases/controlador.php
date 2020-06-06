@@ -1,5 +1,5 @@
 <?php
-    class controlador{
+    class Controlador{
 
         public $link; // instacia de la coneccion a la base de datos
         public $errores; // instancia de la clase para mostrar los errores
@@ -31,8 +31,8 @@
         public function __construct(database $link,string $nombre_tabla=null){
 
             $this->link = $link;
-            $this->errores = new errores();
-            $this->HTML = new html();
+            $this->errores = new Errores();
+            $this->HTML = new Html();
 
             if (!is_null($nombre_tabla)){
 
@@ -43,7 +43,7 @@
             $this->columnas_lista = array($this->tabla.'.id');
         }
 
-        public static function crear_controlador(string $nombre_controlador,database $link ):controlador{
+        public static function crear_controlador(string $nombre_controlador,database $link ):Controlador{
             return new $nombre_controlador($link);
         }
 

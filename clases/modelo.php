@@ -1,5 +1,5 @@
 <?php
-    class modelo{
+    class Modelo{
 
         public $link;
         private $tabla;
@@ -8,12 +8,12 @@
         /* Funciones Publicas */
 
         public function __construct(database $link,$tabla){
-            $this->errores = new errores();
+            $this->errores = new Errores();
             $this->tabla = $tabla;
             $this->link = $link;
         }
 
-        public static function crear_modelo(string $nombre_modelo,database $link ):modelo{
+        public static function crear_modelo(string $nombre_modelo,database $link ):Modelo{
             return new $nombre_modelo($link);
         }
 

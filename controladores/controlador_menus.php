@@ -1,7 +1,7 @@
 <?php
 /*** controlador core ***/
 
-class controlador_menus extends controlador {
+class controlador_menus extends Controlador {
 
     public function __construct(database $link){
 
