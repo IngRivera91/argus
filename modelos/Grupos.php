@@ -48,7 +48,7 @@ class Grupos extends Modelo {
     }
 
     private function ids_metodos_grupo(){
-        $metodos_grupo_modelo = new metodo_grupo($this->link);
+        $metodos_grupo_modelo = new MetodoGrupo($this->link);
         $grupo_id = $_GET['registro_id'];
         $filtro = array( 'grupo_id' => $grupo_id);
         $resultado = $metodos_grupo_modelo->filtro_and($filtro,array('metodo_id AS id'))['registros'];

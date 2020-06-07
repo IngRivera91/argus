@@ -97,7 +97,7 @@
         define('CONTROLADOR',$_GET['controlador']);
         define('METODO',$_GET['metodo']);
 
-        $nombre_controlador = 'Controlador_'.ucwords(CONTROLADOR);
+        $nombre_controlador = 'Controlador'.ucwords(CONTROLADOR);
         if (file_exists('controladores/'.$nombre_controlador.'.php')){
             $controlador = Creador::controlador($nombre_controlador,$link);
 
@@ -119,7 +119,7 @@
         if ($_GET['controlador'] == 'inicio'){
             define('CONTROLADOR','inicio');
             define('METODO','index');
-            $controlador = Creador::controlador('Controlador_Inicio',$link);
+            $controlador = Creador::controlador('ControladorInicio',$link);
         }else{
 
             define('CONTROLADOR','');
