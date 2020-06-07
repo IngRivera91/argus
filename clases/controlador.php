@@ -402,6 +402,9 @@
             if (isset($_GET['pag'])){
                 $num_pagina = (int) $_GET['pag'];
             }
+            if ($num_pagina === 0){
+                $num_pagina = 1;
+            }
             return (int)$num_pagina;
         }
 
