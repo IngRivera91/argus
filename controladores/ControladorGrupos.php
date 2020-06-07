@@ -94,8 +94,7 @@ class ControladorGrupos extends Controlador {
         $grupo_id = $_GET['grupo_id'];
 
         $metodo_grupo_modelo = new MetodoGrupo($this->link);
-        $registro = array( 'grupo_id' => $grupo_id , 'metodo_id' => $metodo_id , 'status' => 'activo',
-            'usuario_alta_id' => USUARIO_ID ,'usuario_update_id' => USUARIO_ID);
+        $registro = array( 'grupo_id' => $grupo_id , 'metodo_id' => $metodo_id , 'status' => 'activo','usuario_alta_id' => USUARIO_ID ,'usuario_update_id' => USUARIO_ID);
         $resultado = $metodo_grupo_modelo->alta_bd($registro);
 
         if (isset($resultado['error'])){
@@ -141,9 +140,7 @@ class ControladorGrupos extends Controlador {
 
     public function modifica(){
         parent::modifica();
-        $this->inputs[] = $this->HTML->input('Grupo','descripcion_grupo',4,
-            'Grupo',$this->registro['descripcion_grupo']);
-
+        $this->inputs[] = $this->HTML->input('Grupo','descripcion_grupo',4,'Grupo',$this->registro['descripcion_grupo']);
         $this->inputs[] = $this->HTML->submit('Modificar','grupos_modifica_bd',4);
 
     }// end modifica
