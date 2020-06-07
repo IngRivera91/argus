@@ -2,6 +2,8 @@
 
 namespace Controlador;
 
+use Ayuda\Redirect;
+
 use Clase\Controlador;
 use Clase\Database;
 
@@ -42,11 +44,35 @@ class Controlador_Grupos extends Controlador {
 
     public function asigna_permisos(){
         if (!isset($_GET['registro_id'])){
-            $error = $this->errores->datos(1,'Error, registro_id debe existir',
-                __CLASS__,__LINE__,__FILE__,$_GET,__FUNCTION__);
+            $error = $this->errores->datos(1,'Error, registro_id debe existir',__CLASS__,__LINE__,__FILE__,$_GET,__FUNCTION__);
+
+            if ($this->IsTest){
+                return $error;
+            }
+            if (EN_PRODUCCION){
+                $error = $this->errores->limpia_html_error($error);
+                Redirect::header_url($this->tabla,'lista',SESSION_ID,$error['mensaje']);
+            }
+
             print_r($error);
             exit;
         }
+
+        if ($_GET['registro_id'] < 1){
+            $error = $this->errores->datos(1,'Error, registro_id debe ser un numero entero positivo',__CLASS__,__LINE__,__FILE__,$_GET,__FUNCTION__);
+
+            if ($this->IsTest){
+                return $error;
+            }
+            if (EN_PRODUCCION){
+                $error = $this->errores->limpia_html_error($error);
+                Redirect::header_url($this->tabla,'lista',SESSION_ID,$error['mensaje']);
+            }
+
+            print_r($error);
+            exit;
+        }
+
         $this->breadcrumb = true;
         $this->metodos_menu = $this->grupo_modelo->obten_metodos();
         $this->nombre_grupo = $this->grupo_modelo->obten_nombre_grupo();
@@ -56,15 +82,13 @@ class Controlador_Grupos extends Controlador {
         $respuesta = true;
         $error = '';
         if (!isset($_GET['metodo_id'])){
-            $error = $this->errores->datos(1,'Error, metodo_id debe existir',
-                __CLASS__,__LINE__,__FILE__,$_GET,__FUNCTION__);
+            $error = $this->errores->datos(1,'Error, metodo_id debe existir',__CLASS__,__LINE__,__FILE__,$_GET,__FUNCTION__);
             $respuesta = false;
         }
         $metodo_id = $_GET['metodo_id'];
 
         if (!isset($_GET['grupo_id'])){
-            $error = $this->errores->datos(1,'Error, grupo_id debe existir',
-                __CLASS__,__LINE__,__FILE__,$_GET,__FUNCTION__);
+            $error = $this->errores->datos(1,'Error, grupo_id debe existir',__CLASS__,__LINE__,__FILE__,$_GET,__FUNCTION__);
             $respuesta = false;
         }
         $grupo_id = $_GET['grupo_id'];
@@ -75,8 +99,7 @@ class Controlador_Grupos extends Controlador {
         $resultado = $metodo_grupo_modelo->alta_bd($registro);
 
         if (isset($resultado['error'])){
-            $error = $this->errores->datos(1,'Error, al eliminar permiso',
-                __CLASS__,__LINE__,__FILE__,$resultado,__FUNCTION__);
+            $error = $this->errores->datos(1,'Error, al eliminar permiso',__CLASS__,__LINE__,__FILE__,$resultado,__FUNCTION__);
             $respuesta = false;
         }
 
@@ -90,15 +113,13 @@ class Controlador_Grupos extends Controlador {
         $respuesta = true;
         $error = '';
         if (!isset($_GET['metodo_id'])){
-            $error = $this->errores->datos(1,'Error, metodo_id debe existir',
-                __CLASS__,__LINE__,__FILE__,$_GET,__FUNCTION__);
+            $error = $this->errores->datos(1,'Error, metodo_id debe existir',__CLASS__,__LINE__,__FILE__,$_GET,__FUNCTION__);
             $respuesta = false;
         }
         $metodo_id = $_GET['metodo_id'];
 
         if (!isset($_GET['grupo_id'])){
-            $error = $this->errores->datos(1,'Error, grupo_id debe existir',
-                __CLASS__,__LINE__,__FILE__,$_GET,__FUNCTION__);
+            $error = $this->errores->datos(1,'Error, grupo_id debe existir',__CLASS__,__LINE__,__FILE__,$_GET,__FUNCTION__);
             $respuesta = false;
         }
         $grupo_id = $_GET['grupo_id'];
@@ -108,8 +129,7 @@ class Controlador_Grupos extends Controlador {
         $resultado = $metodo_grupo_modelo->elimina_con_filtro_and($filtro);
 
         if (isset($resultado['error'])){
-            $error = $this->errores->datos(1,'Error, al eliminar permiso',
-                __CLASS__,__LINE__,__FILE__,$resultado,__FUNCTION__);
+            $error = $this->errores->datos(1,'Error, al eliminar permiso',__CLASS__,__LINE__,__FILE__,$resultado,__FUNCTION__);
             $respuesta = false;
         }
 
