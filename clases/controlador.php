@@ -6,6 +6,8 @@
 
     class Controlador{
 
+        public $IsTest = false; // variabla para saber si se llama desde una prueba unitaria
+
         public $link; // instacia de la coneccion a la base de datos
         public $errores; // instancia de la clase para mostrar los errores
         public $HTML; // insstancia de la clase que se encarga de crear elementos html comunes
@@ -50,6 +52,15 @@
             if (!isset($_GET['registro_id'])){
                 $error = $this->errores->datos(1,'Error, registro_id debe existir',
                     __CLASS__,__LINE__,__FILE__,$_GET,__FUNCTION__);
+
+                if ($this->IsTest){
+                    return $error;
+                }
+                if (EN_PRODUCCION){
+                    $error = $this->errores->limpia_html_error($error);
+                    Redirect::header_url($this->tabla,'lista',SESSION_ID,$error['mensaje']);
+                }
+
                 print_r($error);
                 exit;
             }
@@ -63,6 +74,15 @@
             if (isset($resultado['error'])){
                 $error = $this->errores->datos(1,'Error, al activar registro',
                     __CLASS__,__LINE__,__FILE__,$resultado,__FUNCTION__);
+
+                if ($this->IsTest){
+                    return $error;
+                }
+                if (EN_PRODUCCION && $header){
+                    $error = $this->errores->limpia_html_error($error);
+                    Redirect::header_url($this->tabla,'lista',SESSION_ID,$error['mensaje']);
+                }
+
                 print_r($error);
                 exit;
             }
@@ -103,6 +123,15 @@
                 // si llega a obtenerce algun error se muestra en pantalla
                 $error = $this->errores->datos(1,'Error, al registrar',
                     __CLASS__,__LINE__,__FILE__,$resultado,__FUNCTION__);
+                
+                if ($this->IsTest){
+                    return $error;
+                }
+                if (EN_PRODUCCION && $header){
+                    $error = $this->errores->limpia_html_error($error);
+                    Redirect::header_url($this->tabla,'alta',SESSION_ID,$error['mensaje']);
+                }
+                
                 print_r($error);
                 exit;
             }
@@ -113,12 +142,20 @@
             }
             return $resultado;
 
-        }// end alta_bd
+        }
 
-        public function desactiva_bd(){
+        public function desactiva_bd(bool $header = true){
             if (!isset($_GET['registro_id'])){
-                $error = $this->errores->datos(1,'Error, registro_id debe existir',
-                    __CLASS__,__LINE__,__FILE__,$_GET,__FUNCTION__);
+                $error = $this->errores->datos(1,'Error, registro_id debe existir',__CLASS__,__LINE__,__FILE__,$_GET,__FUNCTION__);
+                
+                if ($this->IsTest){
+                    return $error;
+                }
+                if (EN_PRODUCCION && $header){
+                    $error = $this->errores->limpia_html_error($error);
+                    Redirect::header_url($this->tabla,'lista',SESSION_ID,$error['mensaje']);
+                }
+                
                 print_r($error);
                 exit;
             }
@@ -130,18 +167,39 @@
 
             $resultado = $this->tabla_modelo->modifica_por_id($registro_id,$_POST);
             if (isset($resultado['error'])){
-                $error = $this->errores->datos(1,'Error, al desactivar registro',
-                    __CLASS__,__LINE__,__FILE__,$resultado,__FUNCTION__);
+                $error = $this->errores->datos(1,'Error, al desactivar registro',__CLASS__,__LINE__,__FILE__,$resultado,__FUNCTION__);
+
+                if ($this->IsTest){
+                    return $error;
+                }
+                if (EN_PRODUCCION && $header){
+                    $error = $this->errores->limpia_html_error($error);
+                    Redirect::header_url($this->tabla,'lista',SESSION_ID,$error['mensaje']);
+                }
+
                 print_r($error);
                 exit;
             }
-            Redirect::header_url($this->tabla,'lista',SESSION_ID,'');
+            if ($header){
+                Redirect::header_url($this->tabla,'lista',SESSION_ID,'');
+            }
+
+            return $resultado;
         }
 
-        public function elimina_bd(){
+        public function elimina_bd(bool $header = true){
             if (!isset($_GET['registro_id'])){
                 $error = $this->errores->datos(1,'Error, registro_id debe existir',
                     __CLASS__,__LINE__,__FILE__,$_GET,__FUNCTION__);
+
+                if ($this->IsTest){
+                    return $error;
+                }
+                if (EN_PRODUCCION && $header){
+                    $error = $this->errores->limpia_html_error($error);
+                    Redirect::header_url($this->tabla,'lista',SESSION_ID,$error['mensaje']);
+                }
+
                 print_r($error);
                 exit;
             }
@@ -152,11 +210,23 @@
             if (isset($resultado['error'])){
                 $error = $this->errores->datos(1,'Error, al eliminar registro',
                     __CLASS__,__LINE__,__FILE__,$resultado,__FUNCTION__);
+
+                if ($this->IsTest){
+                    return $error;
+                }
+                if (EN_PRODUCCION && $header){
+                    $error = $this->errores->limpia_html_error($error);
+                    Redirect::header_url($this->tabla,'lista',SESSION_ID,$error['mensaje']);
+                }
+
                 print_r($error);
                 exit;
             }
-            Redirect::header_url($this->tabla,'lista',SESSION_ID,'registro eliminado');
-        }// end elimina_bd
+            if ($header){
+                Redirect::header_url($this->tabla,'lista',SESSION_ID,'registro eliminado');
+            }
+            return $resultado;
+        }
 
         public function lista (){
             $this->breadcrumb = false;
@@ -173,9 +243,16 @@
                 $this->columnas_lista,$this->filtro_custom_lista,$this->joins_lista,$limit,$this->order_lista);
 
             if (isset($r_consulta['error'])){
-                $error = $this->errores->datos(1,
-                    'Error, al obtener datos de '.$this->tabla,
-                    __CLASS__,__LINE__,__FILE__,$r_consulta,__FUNCTION__);
+                $error = $this->errores->datos(1,'Error, al obtener datos de '.$this->tabla,__CLASS__,__LINE__,__FILE__,$r_consulta,__FUNCTION__);
+
+                if ($this->IsTest){
+                    return $error;
+                }
+                if (EN_PRODUCCION){
+                    $error = $this->errores->limpia_html_error($error);
+                    Redirect::header_url($this->tabla,'lista',SESSION_ID,$error['mensaje']);
+                }
+
                 print_r($error);
                 exit;
             }
@@ -187,8 +264,16 @@
 
             if (!isset($_GET['registro_id'])){
                 // valida que se tenga el id del registro a modificar de lo contrario se muestra un error
-                $error = $this->errores->datos(1,'Error, registro_id debe existir',
-                    __CLASS__,__LINE__,__FILE__,$_GET,__FUNCTION__);
+                $error = $this->errores->datos(1,'Error, registro_id debe existir',__CLASS__,__LINE__,__FILE__,$_GET,__FUNCTION__);
+
+                if ($this->IsTest){
+                    return $error;
+                }
+                if (EN_PRODUCCION){
+                    $error = $this->errores->limpia_html_error($error);
+                    Redirect::header_url($this->tabla,'lista',SESSION_ID,$error['mensaje']);
+                }
+
                 print_r($error);
                 exit;
             }
@@ -200,8 +285,16 @@
 
             if (isset($this->registros['error'])){
                 // si existe algun error al hacer la consulta se muestra en un error
-                $error = $this->errores->datos(1,'Error, al obtener datos del registro',
-                    __CLASS__,__LINE__,__FILE__,$this->registros,__FUNCTION__);
+                $error = $this->errores->datos(1,'Error, al obtener datos del registro',__CLASS__,__LINE__,__FILE__,$this->registros,__FUNCTION__);
+
+                if ($this->IsTest){
+                    return $error;
+                }
+                if (EN_PRODUCCION){
+                    $error = $this->errores->limpia_html_error($error);
+                    Redirect::header_url($this->tabla,'lista',SESSION_ID,$error['mensaje']);
+                }
+
                 print_r($error);
                 exit;
             }
@@ -210,8 +303,16 @@
         public function modifica_bd(){
 
             if (!isset($_GET['registro_id'])){
-                $error = $this->errores->datos(1,'Error, registro_id debe existir',
-                    __CLASS__,__LINE__,__FILE__,$_GET,__FUNCTION__);
+                $error = $this->errores->datos(1,'Error, registro_id debe existir',__CLASS__,__LINE__,__FILE__,$_GET,__FUNCTION__);
+
+                if ($this->IsTest){
+                    return $error;
+                }
+                if (EN_PRODUCCION){
+                    $error = $this->errores->limpia_html_error($error);
+                    Redirect::header_url($this->tabla,'lista',SESSION_ID,$error['mensaje']);
+                }
+
                 print_r($error);
                 exit;
             }
@@ -229,8 +330,16 @@
 
             $resultado = $this->tabla_modelo->modifica_por_id($registro_id,$_POST);
             if (isset($resultado['error'])){
-                $error = $this->errores->datos(1,'Error, al modificar registro',
-                    __CLASS__,__LINE__,__FILE__,$resultado,__FUNCTION__);
+                $error = $this->errores->datos(1,'Error, al modificar registro',__CLASS__,__LINE__,__FILE__,$resultado,__FUNCTION__);
+
+                if ($this->IsTest){
+                    return $error;
+                }
+                if (EN_PRODUCCION){
+                    $error = $this->errores->limpia_html_error($error);
+                    Redirect::header_url($this->tabla,'lista',SESSION_ID,$error['mensaje']);
+                }
+
                 print_r($error);
                 exit;
             }
@@ -314,8 +423,16 @@
                     ' AND '.$this->tabla.'.id != '.$registro_id);
                 if (isset($r_consulta['error'])){
                     $error = $this->errores->datos(1,
-                        'Error, al comprobar el campo: '.$campo.' de la tabla: '.$this->tabla,
-                        __CLASS__,__LINE__,__FILE__,$r_consulta,__FUNCTION__);
+                    'Error, al comprobar el campo: '.$campo.' de la tabla: '.$this->tabla,__CLASS__,__LINE__,__FILE__,$r_consulta,__FUNCTION__);
+
+                    if ($this->IsTest){
+                        return $error;
+                    }
+                    if (EN_PRODUCCION){
+                        $error = $this->errores->limpia_html_error($error);
+                        Redirect::header_url($this->tabla,'lista',SESSION_ID,$error['mensaje']);
+                    }
+
                     print_r($error);
                     exit;
                 }
