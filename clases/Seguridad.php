@@ -3,7 +3,7 @@
     namespace Clase;
     use Clase\Errores;
     use Modelo\Sessiones;
-    use Modelo\Metodo_Grupo;
+    use Modelo\MetodoGrupo;
     use Modelo\Usuarios;
 
     class Seguridad{
@@ -53,7 +53,7 @@
         }
 
         public function genera_acciones_base () {
-            $metodo_grupo_modelo = new Metodo_Grupo($this->link);
+            $metodo_grupo_modelo = new MetodoGrupo($this->link);
             $filtro = array(
                 'metodo_grupo.grupo_id' => GRUPO_ID,
                 'metodos.status_accion' => 'activo',
@@ -82,7 +82,7 @@
         }// end genera_acciones
 
         public function genera_menu () {
-            $metodo_grupo_modelo = new Metodo_Grupo($this->link);
+            $metodo_grupo_modelo = new MetodoGrupo($this->link);
             $filtro = array(
                 'metodo_grupo.grupo_id' => GRUPO_ID,
                 'metodos.status_menu' => 'activo',
@@ -125,7 +125,7 @@
         }
 
         public function valida_permiso(){
-            $metodo_grupo_modelo = new Metodo_Grupo($this->link);
+            $metodo_grupo_modelo = new MetodoGrupo($this->link);
             $filtro = array(
                 'metodo_grupo.grupo_id' => GRUPO_ID,
                 'metodos.descripcion_metodo' => $_GET['metodo'],
