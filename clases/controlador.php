@@ -43,11 +43,6 @@
             $this->columnas_lista = array($this->tabla.'.id');
         }
 
-
-        /*
-         *   FUNCIONES PUBLICAS
-        */
-
         public function activa_bd(bool $header = true){
             if (!isset($_GET['registro_id'])){
                 $error = $this->errores->datos(1,'Error, registro_id debe existir',
@@ -345,13 +340,9 @@
             }
             Redirect::header_url($this->tabla,'lista',SESSION_ID,'registro modificado');
 
-        }// end modifica_bd
+        }
 
-        /*
-         *   FUNCIONES PRIVADAS
-        */
-
-        private function genera_inputs_filtro_lista(){
+        public function genera_inputs_filtro_lista(){
 
             if (isset($_COOKIE[$this->tabla.'_lista']) && !isset($_POST[$this->tabla.'_lista'])){
                 $_POST = unserialize($_COOKIE[$this->tabla.'_lista']);
@@ -385,7 +376,7 @@
                 $this->inputs_filtro_lista_cols);
         }
 
-        private function obtene_limit_paginador(){
+        public function obtene_limit_paginador(){
             $n_registros = $this->tabla_modelo->obten_numero_registros($this->filtro_lista,$this->filtro_custom_lista,
                 $this->joins_lista);
             $pags = (int) (($n_registros-1) / (int)$this->reg_x_pag );
@@ -406,7 +397,7 @@
             return $limit;
         }
 
-        private function obtene_numero_pagina(){
+        public function obtene_numero_pagina(){
             $num_pagina = 1;
             if (isset($_GET['pag'])){
                 $num_pagina = (int) $_GET['pag'];
@@ -414,7 +405,7 @@
             return (int)$num_pagina;
         }
 
-        private function valida_campos(string $metodo, int $registro_id = -1){
+        public function valida_campos(string $metodo, int $registro_id = -1){
             foreach ($this->valida_campos_unicos as $descripcion => $campo){
 
                 $filtro = array( $this->tabla.'.'.$campo => $_POST[$campo] );
