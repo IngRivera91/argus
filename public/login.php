@@ -14,7 +14,7 @@
   <!-- /.login-logo -->
   <div class="card">
     <div class="card-body login-card-body">
-      <form autocomplete="off"  action="#" method="post">
+      <form autocomplete="off"  action="index.php?controlador=session&metodo=login_bd" method="post">
         <div class="input-group mb-3">
           <input name="user" type="text" class="form-control" placeholder="Usuario" require>
           <div class="input-group-append">
