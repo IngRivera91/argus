@@ -10,10 +10,10 @@
 
     
     if ($_GET['controlador'] === 'session' && $_GET['metodo'] === 'login_bd'){
-        print_r($_POST);exit;
-        $link = new Database(DB_USER_SESSION,DB_PASSWORD_SESSION);
+        //print_r($_POST);exit;
+        //$link = new Database(DB_USER_SESSION,DB_PASSWORD_SESSION);
     }
-
+    
 
 ?>
 <?php require_once __DIR__.'/../recursos/html/head.php'; ?>
@@ -25,7 +25,16 @@
     <div class="content-wrapper">
 
         <section class="content">
+        <?php 
+            $nombre_controlador = 'Controlador\\Prueba';
+            $controlador = new $nombre_controlador();
+            echo $controlador->nombre.'<br>'; 
 
+
+            $nombre_modelo = 'Modelo\\Prueba';
+            $modelo= new $nombre_modelo();
+            echo $modelo->nombre.'<br>'; ; 
+        ?>
                 
         </section>
 
