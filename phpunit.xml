@@ -5,4 +5,11 @@
             <directory suffix="Test.php">./tests</directory>
         </testsuite>
     </testsuites>
+    <php>
+        <includePath>.</includePath>
+        <const name="DB_HOST" value="localhost"/>
+        <const name="DB_USER" value="root"/>
+        <const name="DB_PASSWORD" value=""/>
+        <const name="DB_NAME" value="argus_tests"/>
+    </php>
 </phpunit>

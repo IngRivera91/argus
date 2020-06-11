@@ -1,6 +1,6 @@
 <?php 
     require_once __DIR__.'/../config.php'; 
-    require_once __DIR__.'/../vendor/autoload.php'; 
+    require_once __DIR__.'/../vendor/autoload.php';
 
     $parametros_get_requeridos = array('controlador','metodo');
 
@@ -25,16 +25,6 @@
     <div class="content-wrapper">
 
         <section class="content">
-        <?php 
-            $nombre_controlador = 'Controlador\\Prueba';
-            $controlador = new $nombre_controlador();
-            echo $controlador->nombre.'<br>'; 
-
-
-            $nombre_modelo = 'Modelo\\Prueba';
-            $modelo= new $nombre_modelo();
-            echo $modelo->nombre.'<br>'; ; 
-        ?>
                 
         </section>
 
