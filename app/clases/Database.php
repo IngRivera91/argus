@@ -3,8 +3,8 @@
 namespace Clase;
 
 use PDO;
-use PDOException;
 use Error\Error;
+use PDOException;
 use Error\ErrorMySQL;
 
 class Database
