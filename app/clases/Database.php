@@ -1,9 +1,10 @@
 <?php
 
 namespace Clase;
+
 use PDO;
-use Exception;
 use PDOException;
+use Clase\Error;
 
 class Database
 {
@@ -32,21 +33,21 @@ class Database
         } 
         catch (PDOException $e) 
         {
-            throw new Exception($e->getMessage(),$e->getCode());
+            throw new Error($e->getMessage(), null ,$e->getCode());
         }
     }
 
     public function ejecutaQuery(string $query_string = '' ,array $datos = array())
     {
         if( $query_string === ''){
-            throw new Exception('La query no puede estar vacia');
+            throw new Error('La query no puede estar vacia');
         }
 
         $explode_query = explode(' ',$query_string);
 
         if( count($explode_query) < 2 )
         {
-            throw new Exception('Query no valida');
+            throw new Error('Query no valida');
         }
 
         $tipo_consulta = $explode_query[0];
@@ -68,9 +69,10 @@ class Database
 
         try 
         {
-            $this->stmt->execute();
+            
             if ($tipo_consulta === 'SELECT')
             {
+                $this->stmt->execute();
                 $n_registros = $this->stmt->rowCount();
                 $resultado = $this->stmt->fetchAll(PDO::FETCH_ASSOC);
                 return array('registros' => $resultado,'n_registros'=>$n_registros);
@@ -78,11 +80,13 @@ class Database
 
             if ($tipo_consulta === 'UPDATE')
             {
+                $this->stmt->execute();
                 return array('mensaje' => 'registro modificado');
             }
 
             if ($tipo_consulta === 'INSERT')
             {
+                $this->stmt->execute();
                 $registro_id = (int) $this->dbh->lastInsertId();
                 return array(
                     'mensaje' => 'registro insertado',
@@ -95,11 +99,11 @@ class Database
                 $this->stmt->execute();
                 return array('mensaje' => 'registro eliminado');
             }
-
+            throw new Error('Consulta no valida: '.$query_string);
         } 
         catch (PDOException $e)
         {
-            throw new Exception('algo esta mal');
+            throw new Error($e->getMessage(), null ,$e->getCode());
         }
 
     }

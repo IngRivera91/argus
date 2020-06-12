@@ -5,7 +5,7 @@ namespace Ayuda;
 class Redireccion
 {
 
-    public static function redirige_url(string $controlador='',string $metodo='',string $session_id='',string $mensaje='',string $registro_id = '',string $pagina = 'index')
+    public static function enviar(string $controlador='',string $metodo='',string $session_id='',string $mensaje='',string $registro_id = '',string $pagina = 'index')
     {
         $parametros = "?";
 
@@ -38,7 +38,7 @@ class Redireccion
         header('Location: '.RUTA_PROYECTO.$pagina.'.php'.$parametros);
     }
 
-    public static function obten_url(string $controlador='',string $metodo='',string $session_id='',string $mensaje='',string $registro_id = '',string $pagina = 'index')
+    public static function obtener(string $controlador='',string $metodo='',string $session_id='',string $mensaje='',string $registro_id = '',string $pagina = 'index')
     {
 
         $parametros = "?";
