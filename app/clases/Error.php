@@ -40,10 +40,10 @@ class Error extends Exception
         $this->errorInformacion = 
         [
             'mensaje'=> '<font size="3"><div><b style="color: brown">'.$this->message.'</b></div>',
-            'origen'=> '<div><b>'.$this->getTraceAsString().'</b></div>',
             'file'=> '<div><b>'.$this->file.'</b></div>',
-            'line'=> '<div><b>'.$this->line.'</b></div><hr>',
-            'data'=>$errorAnterrior.'</font>'
+            'origen'=> '<div><b>'.$this->getTraceAsString().'</b></div>',
+            'line'=> '<div><b>'.$this->line.'</b></div>',
+            'data'=>'<hr>'.$errorAnterrior.'</font>'
         ];
     }
 
