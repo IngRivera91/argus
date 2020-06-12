@@ -1,22 +1,16 @@
 <?php
 
-namespace Clase;
-
+namespace Error;
 use Exception;
 
 class Error extends Exception
 {
 
-    private $consulta;
     private $errorInformacion;
-    public function __construct($mensaje = '', Exception $errorAnterior = null, $codigo = 0,string $consulta = '') 
+
+    public function __construct($mensaje = '', Exception $errorAnterior = null, $codigo = 0) 
     {
-        $this->consulta = $consulta;
         parent::__construct($mensaje, $codigo ,$errorAnterior);
-        if (!is_null($errorAnterior))
-        {
-            $this->previous = $previous;
-        }
     }
 
     public function muestraError()
@@ -24,24 +18,19 @@ class Error extends Exception
         if (ES_PRODUCCION)
         {
             header('Location: '.RUTA_PROYECTO.'error.php');
+            exit;
         }
         $this->configuraErrorHtml();
         print_r($this->errorInformacion);
-        exit;
     }
 
     private function configuraErrorHtml():void
     {
-        $errorAnterrior = '';
-        if (!is_null($this->getPrevious())) 
-        {
-            $errorAnterrior = $this->getPrevious();
-        }
+        $errorAnterrior = $this->obtenErrorAnterior();
         $this->errorInformacion = 
         [
             'mensaje'=> '<font size="3"><div><b style="color: brown">'.$this->message.'</b></div>',
             'file'=> '<div><b>'.$this->file.'</b></div>',
-            'origen'=> '<div><b>'.$this->getTraceAsString().'</b></div>',
             'line'=> '<div><b>'.$this->line.'</b></div><hr>',
             'data'=>$errorAnterrior.'</font>'
         ];
@@ -49,11 +38,7 @@ class Error extends Exception
 
     private function configuraErrorJson():void
     {
-        $errorAnterrior = '';
-        if (!is_null($this->getPrevious())) 
-        {
-            $errorAnterrior = $this->getPrevious();
-        }
+        $errorAnterrior = $this->obtenErrorAnterior();
         $this->errorInformacion = 
         [
             'mensaje'=> $this->message,
@@ -62,5 +47,15 @@ class Error extends Exception
             'line'=> $this->line,
             'data'=>$errorAnterrior
         ];
+    }
+
+    private function obtenErrorAnterior()
+    {
+        $errorAnterior = '';
+        if (!is_null($this->getPrevious())) 
+        {
+            $errorAnterior = $this->getPrevious()->muestraError();
+        }
+        return $errorAnterior;
     }
 }

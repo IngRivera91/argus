@@ -4,7 +4,8 @@ namespace Clase;
 
 use PDO;
 use PDOException;
-use Clase\Error;
+use Error\Error;
+use Error\ErrorMySQL;
 
 class Database
 {
@@ -33,7 +34,7 @@ class Database
         } 
         catch (PDOException $e) 
         {
-            throw new Error($e->getMessage(), null ,$e->getCode());
+            throw new ErrorMySQL($e);
         }
     }
 
@@ -65,7 +66,7 @@ class Database
         } 
         catch (PDOException $e)
         {
-            throw new Error($e->getMessage(), null ,$e->getCode());
+            throw new ErrorMySQL($e);
         }
     }
 
@@ -82,7 +83,7 @@ class Database
         } 
         catch (PDOException $e)
         {
-            throw new Error($e->getMessage(), null ,$e->getCode());
+            throw new ErrorMySQL($e);
         }
     }
 
@@ -100,7 +101,7 @@ class Database
         } 
         catch (PDOException $e)
         {
-            throw new Error($e->getMessage(), null ,$e->getCode());
+            throw new ErrorMySQL($e);
         }
     }
 
@@ -116,7 +117,7 @@ class Database
         } 
         catch (PDOException $e)
         {
-            throw new Error($e->getMessage(), null ,$e->getCode());
+            throw new ErrorMySQL($e);
         }
     }
 
