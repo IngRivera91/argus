@@ -3,6 +3,7 @@
     require_once __DIR__.'/../vendor/autoload.php';
 
     use Ayuda\Redireccion;
+    use Clase\Error;
 
     $parametros_get_requeridos = array('controlador','metodo');
 
@@ -12,15 +13,13 @@
 
     
     if ($_GET['controlador'] === 'session' && $_GET['metodo'] === 'login_bd'){
-        try {
-            $link = new Clase\Database();
-        } catch (Exception $e ) {
-            if(ES_PRODUCCION)
-            {
-                Redireccion::redirige_url();
-                exit;
-            }
-            print_r($e);
+        try 
+        {
+            $link = new Clase\Database('asd');
+        }
+        catch (Error $e) 
+        {
+            $e->muestraError();
         }
         
     }
