@@ -2,6 +2,8 @@
     require_once __DIR__.'/../config.php'; 
     require_once __DIR__.'/../vendor/autoload.php';
 
+    use Ayuda\Redireccion;
+
     $parametros_get_requeridos = array('controlador','metodo');
 
     foreach ($parametros_get_requeridos as $parametro){
@@ -10,8 +12,17 @@
 
     
     if ($_GET['controlador'] === 'session' && $_GET['metodo'] === 'login_bd'){
-        //print_r($_POST);exit;
-        //$link = new Database(DB_USER_SESSION,DB_PASSWORD_SESSION);
+        try {
+            $link = new Clase\Database();
+        } catch (Exception $e ) {
+            if(ES_PRODUCCION)
+            {
+                Redireccion::redirige_url();
+                exit;
+            }
+            print_r($e);
+        }
+        
     }
     
 

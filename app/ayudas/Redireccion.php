@@ -1,5 +1,7 @@
 <?php
 
+namespace Ayuda;
+
 class Redireccion
 {
 

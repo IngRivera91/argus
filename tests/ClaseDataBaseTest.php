@@ -13,24 +13,40 @@ class ClaseDatabaseTest extends TestCase
         $coneccion = new Database();
 
         $res = $coneccion->ejecutaQuery('DELETE FROM usuarios');
-        $this->assertSame(1, count($res));
+        $this->assertCount(1, $res);
+        $this->assertSame('registro eliminado', $res['mensaje']);
 
-        $res = $coneccion->ejecutaQuery("INSERT INTO usuarios (id,user,password) VALUES ('1','juan','juan')");
-        $this->assertSame(2, count($res));
-        $this->assertEquals(1, $res['registro_id']);
+        $datos = array('id' => 1 , 'user' => 'juan' , 'password' => 'juan');
+        $res = $coneccion->ejecutaQuery('INSERT INTO usuarios (id,user,password) VALUES (:id,:user,:password)',$datos);
+        $this->assertCount(2, $res);
+        $this->assertSame('registro insertado', $res['mensaje']);
+        $this->assertSame(1, $res['registro_id']);
 
         $res = $coneccion->ejecutaQuery('SELECT * FROM usuarios');
-        $this->assertSame(2, count($res));
-        $this->assertSame(12, count($res['registros'][0]));
+        $this->assertCount(2, $res);
+        $this->assertCount(12, $res['registros'][0]);
 
-        $res = $coneccion->ejecutaQuery('SELECT * FROM usuarios WHERE user = "juan"');
-        $this->assertSame(2, count($res));
-        $this->assertSame(1, count($res['registros']));
-        $this->assertSame(12, count($res['registros'][0]));
+        $datos = array('user' => 'juan');
+        $res = $coneccion->ejecutaQuery('SELECT * FROM usuarios WHERE user = :user',$datos);
+        $this->assertCount(2, $res);
+        $this->assertCount(1, $res['registros']);
+        $this->assertCount(12, $res['registros'][0]);
 
-        $res = $coneccion->ejecutaQuery('SELECT * FROM usuarios WHERE user = "pedro"');
-        $this->assertSame(2, count($res));
-        $this->assertSame(0, count($res['registros']));
+        $datos = array('user' => 'pedro');
+        $res = $coneccion->ejecutaQuery('SELECT * FROM usuarios WHERE user = :user',$datos);
+        $this->assertCount(2, $res);
+        $this->assertCount(0, $res['registros']);
+
+        $datos = array('id' => 1 ,'user' => 'pedro');
+        $res = $coneccion->ejecutaQuery('UPDATE usuarios SET user = :user WHERE id = :id',$datos);
+        $this->assertCount(1, $res);
+        $this->assertSame('registro modificado', $res['mensaje']);
+
+        $datos = array('user' => 'pedro');
+        $res = $coneccion->ejecutaQuery('SELECT * FROM usuarios WHERE user = :user',$datos);
+        $this->assertCount(2, $res);
+        $this->assertCount(1, $res['registros']);
+        $this->assertCount(12, $res['registros'][0]);
 
     }
 

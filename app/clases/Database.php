@@ -3,6 +3,7 @@
 namespace Clase;
 use PDO;
 use Exception;
+use PDOException;
 
 class Database
 {
@@ -14,9 +15,7 @@ class Database
     private $dbh;
     private $stmt;
 
-    public $error = null;
-
-    public function __construct($host = DB_HOST, $usuario = DB_USER,$password = DB_PASSWORD,$name = DB_NAME)
+    public function __construct($usuario = DB_USER,$password = DB_PASSWORD,$name = DB_NAME, $host = DB_HOST)
     {
         $this->host = $host;
         $this->user = $usuario;
@@ -33,7 +32,7 @@ class Database
         } 
         catch (PDOException $e) 
         {
-            $this->error = $error_sql = $e->getMessage();  
+            throw new Exception($e->getMessage(),$e->getCode());
         }
     }
 
@@ -54,6 +53,19 @@ class Database
 
         $this->stmt = $this->dbh->prepare($query_string);
 
+        if (count($datos) != 0){
+            foreach ( $datos as $campo => $valor){
+                $campo_explode = explode('.',$campo);
+                $numero = count($campo_explode);
+                if ($numero > 1){
+                    $this->stmt->bindValue(':'.$campo_explode[($numero-1)],$valor);
+                }else{
+                    $this->stmt->bindValue(':'.$campo,$valor);
+                }
+
+            }
+        }
+
         try 
         {
             $this->stmt->execute();
@@ -71,7 +83,7 @@ class Database
 
             if ($tipo_consulta === 'INSERT')
             {
-                $registro_id = $this->dbh->lastInsertId();
+                $registro_id = (int) $this->dbh->lastInsertId();
                 return array(
                     'mensaje' => 'registro insertado',
                     'registro_id' =>$registro_id
@@ -87,15 +99,9 @@ class Database
         } 
         catch (PDOException $e)
         {
-            print_r($e);
             throw new Exception('algo esta mal');
         }
 
-    }
-
-    public function bind($parametro,$valor)
-    {
-        $this->stmt->bindValue($parametro, $valor);
     }
 
 }
