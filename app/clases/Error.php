@@ -42,8 +42,8 @@ class Error extends Exception
             'mensaje'=> '<font size="3"><div><b style="color: brown">'.$this->message.'</b></div>',
             'file'=> '<div><b>'.$this->file.'</b></div>',
             'origen'=> '<div><b>'.$this->getTraceAsString().'</b></div>',
-            'line'=> '<div><b>'.$this->line.'</b></div>',
-            'data'=>'<hr>'.$errorAnterrior.'</font>'
+            'line'=> '<div><b>'.$this->line.'</b></div><hr>',
+            'data'=>$errorAnterrior.'</font>'
         ];
     }
 
