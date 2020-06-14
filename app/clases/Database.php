@@ -97,7 +97,7 @@ class Database
             $this->stmt->execute();
             $n_registros = $this->stmt->rowCount();
             $resultado = $this->stmt->fetchAll(PDO::FETCH_ASSOC);
-            return ['registros' => $resultado,'n_registros'=>$n_registros];
+            return ['registros' => $resultado,'n_registros'=>(int)$n_registros];
         } 
         catch (PDOException $e)
         {
