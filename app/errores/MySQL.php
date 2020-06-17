@@ -3,7 +3,7 @@
 namespace Error;
 use Error\Error;
 
-class ErrorMySQL extends Error
+class MySQL extends Error
 {
     public function __construct($error) 
     {

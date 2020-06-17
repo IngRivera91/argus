@@ -3,7 +3,7 @@
 namespace Error;
 use Error\Error;
 
-class ErrorEsperado extends Error
+class Esperado extends Error
 {
 
     public function __construct($mensaje = '', Exception $errorAnterior = null) 

@@ -3,22 +3,26 @@
 namespace Error;
 use Exception;
 
-class Error extends Exception
+class Base extends Exception
 {
 
     private $errorInformacion;
 
-    public function __construct($mensaje = '', Exception $errorAnterior = null, $codigo = 0) 
+    public function __construct($mensaje = '', Exception $errorAnterior = null) 
     {
         parent::__construct($mensaje, $codigo ,$errorAnterior);
     }
 
-    public function muestraError()
+    public function muestraError($esRecursivo = false)
     {
         if (ES_PRODUCCION)
         {
             header('Location: '.RUTA_PROYECTO.'error.php');
             exit;
+        }
+        if ($esRecursivo)
+        {
+            return $this->errorInformacion;
         }
         $this->configuraErrorHtml();
         print_r($this->errorInformacion);
@@ -42,7 +46,6 @@ class Error extends Exception
         $this->errorInformacion = 
         [
             'mensaje'=> $this->message,
-            'origen'=> $this->getTraceAsString(),
             'file'=> $this->file,
             'line'=> $this->line,
             'data'=>$errorAnterrior
@@ -54,7 +57,7 @@ class Error extends Exception
         $errorAnterior = '';
         if (!is_null($this->getPrevious())) 
         {
-            $errorAnterior = $this->getPrevious()->muestraError();
+            $errorAnterior = $this->getPrevious()->muestraError(true);
         }
         return $errorAnterior;
     }
