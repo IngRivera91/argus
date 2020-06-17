@@ -21,9 +21,15 @@ class Validaciones
         {
             throw new ErrorBase('Los datos deben venir en un array');
         }
+        
         if ( count($datos) === 0)
         {
             throw new ErrorBase('El array de datos no puede estar vacio');
+        }
+
+        if ( !$this->esAsociativo($datos) )
+        {
+            throw new ErrorBase('Los datos deben venir en un array asociativo');
         }
     }
 
@@ -39,5 +45,5 @@ class Validaciones
     {
         return array_keys( $array ) !== range( 0, count($array) - 1 );
     }
-    
+
 }
