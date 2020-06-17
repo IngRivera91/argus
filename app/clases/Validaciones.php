@@ -43,6 +43,7 @@ class Validaciones
 
     private function esAsociativo( $array ) 
     {
+        // https://cybmeta.com/comprobar-si-un-array-es-asociativo-o-secuencial-en-php
         return array_keys( $array ) !== range( 0, count($array) - 1 );
     }
 
