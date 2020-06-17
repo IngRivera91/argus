@@ -35,9 +35,18 @@ class Validaciones
 
     public function tabla($tabla):void
     {
+        $tabla = trim($tabla,' ');
+
         if ($tabla === '')
         {
             throw new ErrorBase('El nombre de tabla no puede venir vacio');
+        }
+
+        $explodeTabla = explode(' ',$tabla);
+        
+        if ( count($explodeTabla) != 1 )
+        {
+            throw new ErrorBase('El nombre de la tabla no es valido');
         }
     }
 
