@@ -1,9 +1,9 @@
 <?php 
 
 namespace Error;
-use Error\Error;
+use Error\Base AS ErrorBase;
 
-class Esperado extends Error
+class Esperado extends ErrorBase
 {
 
     public function __construct($mensaje = '', Exception $errorAnterior = null) 

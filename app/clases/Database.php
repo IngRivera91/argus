@@ -3,9 +3,9 @@
 namespace Clase;
 
 use PDO;
-use Error\Error;
+use Error\MySQL AS ErrorMySQL;
+use Error\Base AS ErrorBase;
 use PDOException;
-use Error\ErrorMySQL;
 
 class Database
 {
@@ -125,7 +125,7 @@ class Database
     {
         if( $consulta === '')
         {
-            throw new Error('La consulta no puede estar vacia');
+            throw new ErrorBase('La consulta no puede estar vacia');
         }
     }
 

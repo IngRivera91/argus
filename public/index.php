@@ -3,7 +3,7 @@
     require_once __DIR__.'/../vendor/autoload.php';
 
     use Ayuda\Redireccion;
-    use Error\Error;
+    use Error\Base AS ErrorBase;
 
     $parametros_get_requeridos = array('controlador','metodo');
 
@@ -17,9 +17,9 @@
         {
             $link = new Clase\Database('asd');
         }
-        catch (Error $e) 
+        catch (ErrorBase $e) 
         {
-            $error = new Error('Error al conectarce a la base de datos',$e);
+            $error = new ErrorBase('Error al conectarce a la base de datos',$e);
             $error->muestraError();
             exit;
         }

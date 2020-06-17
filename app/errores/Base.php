@@ -10,7 +10,7 @@ class Base extends Exception
 
     public function __construct($mensaje = '', Exception $errorAnterior = null) 
     {
-        parent::__construct($mensaje, $codigo ,$errorAnterior);
+        parent::__construct($mensaje, 0 ,$errorAnterior);
     }
 
     public function muestraError($esRecursivo = false)
@@ -20,12 +20,15 @@ class Base extends Exception
             header('Location: '.RUTA_PROYECTO.'error.php');
             exit;
         }
+        $this->configuraErrorHtml();
+
         if ($esRecursivo)
         {
             return $this->errorInformacion;
         }
-        $this->configuraErrorHtml();
+        echo '<font size="3">';
         print_r($this->errorInformacion);
+        echo '</font>';
     }
 
     private function configuraErrorHtml():void
@@ -33,10 +36,10 @@ class Base extends Exception
         $errorAnterrior = $this->obtenErrorAnterior();
         $this->errorInformacion = 
         [
-            'mensaje'=> '<font size="3"><div><b style="color: brown">'.$this->message.'</b></div>',
+            'mensaje'=> '<div><b style="color: brown">'.$this->message.'</b></div>',
             'file'=> '<div><b>'.$this->file.'</b></div>',
             'line'=> '<div><b>'.$this->line.'</b></div><hr>',
-            'data'=>$errorAnterrior.'</font>'
+            'anterior'=>$errorAnterrior
         ];
     }
 
@@ -48,13 +51,13 @@ class Base extends Exception
             'mensaje'=> $this->message,
             'file'=> $this->file,
             'line'=> $this->line,
-            'data'=>$errorAnterrior
+            'anterior'=>$errorAnterrior
         ];
     }
 
     private function obtenErrorAnterior()
     {
-        $errorAnterior = '';
+        $errorAnterior = '<br>';
         if (!is_null($this->getPrevious())) 
         {
             $errorAnterior = $this->getPrevious()->muestraError(true);

@@ -1,9 +1,9 @@
 <?php
 
 namespace Error;
-use Error\Error;
+use Error\Base AS ErrorBase;
 
-class MySQL extends Error
+class MySQL extends ErrorBase
 {
     public function __construct($error) 
     {
