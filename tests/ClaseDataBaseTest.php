@@ -17,6 +17,15 @@ class ClaseDatabaseTest extends TestCase
 
         $error = null;
         try{
+            $coneccion->ejecutaConsultaDelete();
+        }catch(ErrorBase $e){
+            $error = $e;
+        }
+        $mensajeEsperado = 'La consulta no puede estar vacia';
+        $this->assertSame($error->getMessage(),$mensajeEsperado);
+
+        $error = null;
+        try{
             $coneccion->ejecutaConsultaDelete('DELETEasdS FROM usuarios');
         }catch(ErrorBase $e){
             $error = $e;
@@ -35,6 +44,15 @@ class ClaseDatabaseTest extends TestCase
     public function ejecutaConsultaInsert($datos)
     {
         $coneccion = new Database();
+
+        $error = null;
+        try{
+            $resultado = $coneccion->ejecutaConsultaInsert();
+        }catch(ErrorBase $e){
+            $error = $e;
+        }
+        $mensajeEsperado = 'La consulta no puede estar vacia';
+        $this->assertSame($error->getMessage(),$mensajeEsperado);
 
         try{
             $resultado = $coneccion->ejecutaConsultaInsert('INSERT INTO usuarios (id,user,password) VALUES (:id,:user,:password) ');
@@ -68,6 +86,15 @@ class ClaseDatabaseTest extends TestCase
 
         $error = null;
         try{
+            $resultado = $coneccion->ejecutaConsultaUpdate();
+        }catch(ErrorBase $e){
+            $error = $e;
+        }
+        $mensajeEsperado = 'La consulta no puede estar vacia';
+        $this->assertSame($error->getMessage(),$mensajeEsperado);
+
+        $error = null;
+        try{
             $coneccion->ejecutaConsultaUpdate('UPDATE usuarios SET user = :user WHERE id = :id ');
         }catch(ErrorBase $e){
             $error = $e;
@@ -87,6 +114,15 @@ class ClaseDatabaseTest extends TestCase
     public function ejecutaConsultaSelect($datos)
     {
         $coneccion = new Database();
+
+        $error = null;
+        try{
+            $resultado = $coneccion->ejecutaConsultaSelect();
+        }catch(ErrorBase $e){
+            $error = $e;
+        }
+        $mensajeEsperado = 'La consulta no puede estar vacia';
+        $this->assertSame($error->getMessage(),$mensajeEsperado);
 
         $error = null;
         try{
