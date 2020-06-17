@@ -66,4 +66,22 @@ class ClaseValidacionesTest extends TestCase
         $mensajeEsperado = 'Los datos deben venir en un array asociativo';
         $this->assertSame($error->getMessage(),$mensajeEsperado);
     }
+
+    /**
+     * @test
+     */
+    public function consulta()
+    {
+        $valida = new Validaciones();
+
+        $erro = null;
+        try{
+            $valida->consulta('');
+        }catch(ErrorBase $e){
+            $error = $e;
+        }
+        $mensajeEsperado = 'La consulta no puede estar vacia';
+        $this->assertSame($error->getMessage(),$mensajeEsperado);
+
+    }
 }
