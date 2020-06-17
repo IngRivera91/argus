@@ -11,6 +11,20 @@ class GeneraConsulta
         $this->valida = new Validaciones();
     }
 
+    public function delete( $tabla , $filtros = array() ):string
+    {
+        $filtroGenerado = '';
+        if ( count($filtros) !== 0 )
+        {
+            $filtroGenerado = $this->generaFiltro($filtros);
+        }
+
+        $consulta = "DELETE FROM $tabla $filtroGenerado";
+        $consulta = trim($consulta,' ');
+
+        return $consulta;
+    }
+
     public function insert( $tabla = '' , $datos = array() ):string
     {
         $this->valida->tabla($tabla);
@@ -28,6 +42,20 @@ class GeneraConsulta
         $valores = trim($valores,',');
     
         return "INSERT INTO $tabla ($campos) VALUES ($valores)";
+    }
+
+    private function generaFiltro( $filtros ):string
+    {
+        $filtroGenerado = '';
+        foreach ($filtros as $filtro )
+        {
+            $filtroGenerado .= "{$filtro['campo']} {$filtro['signoComparacion']} :{$filtro['campo']} AND";
+        }
+
+        $filtroGenerado = trim($filtroGenerado,'AND');
+        $filtroGenerado = trim($filtroGenerado,'');
+
+        return "WHERE $filtroGenerado";
     }
 
 }
