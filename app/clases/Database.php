@@ -66,7 +66,7 @@ class Database
         } 
         catch (PDOException $e)
         {
-            throw new ErrorMySQL($e);
+            throw new ErrorMySQL($e,' Consulta: '.$consulta);
         }
     }
 
@@ -83,7 +83,7 @@ class Database
         } 
         catch (PDOException $e)
         {
-            throw new ErrorMySQL($e);
+            throw new ErrorMySQL($e,' Consulta: '.$consulta);
         }
     }
 
@@ -101,7 +101,7 @@ class Database
         } 
         catch (PDOException $e)
         {
-            throw new ErrorMySQL($e);
+            throw new ErrorMySQL($e,' Consulta: '.$consulta);
         }
     }
 
@@ -117,7 +117,7 @@ class Database
         } 
         catch (PDOException $e)
         {
-            throw new ErrorMySQL($e);
+            throw new ErrorMySQL($e,' Consulta: '.$consulta);
         }
     }
 

@@ -7,9 +7,11 @@ class Base extends Exception
 {
 
     private $errorInformacion;
+    private $consultaSQL;
 
-    public function __construct($mensaje = '', Exception $errorAnterior = null) 
+    public function __construct($mensaje = '', Exception $errorAnterior = null, $consultaSQL = null) 
     {
+        $this->consultaSQL = $consultaSQL;
         parent::__construct($mensaje, 0 ,$errorAnterior);
     }
 
@@ -39,7 +41,7 @@ class Base extends Exception
             'mensaje'=> '<div><b style="color: brown">'.$this->message.'</b></div>',
             'file'=> '<div><b>'.$this->file.'</b></div>',
             'line'=> '<div><b>'.$this->line.'</b></div><hr>',
-            'anterior'=>$errorAnterrior
+            'datos'=>$errorAnterrior
         ];
     }
 
@@ -51,13 +53,13 @@ class Base extends Exception
             'mensaje'=> $this->message,
             'file'=> $this->file,
             'line'=> $this->line,
-            'anterior'=>$errorAnterrior
+            'datos'=>$errorAnterrior
         ];
     }
 
     private function obtenErrorAnterior()
     {
-        $errorAnterior = '<br>';
+        $errorAnterior = $this->consultaSQL;
         if (!is_null($this->getPrevious())) 
         {
             $errorAnterior = $this->getPrevious()->muestraError(true);
