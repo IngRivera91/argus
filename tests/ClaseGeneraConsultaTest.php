@@ -40,6 +40,15 @@ class ClaseGeneraConsultaTest extends TestCase
         $mensajeEsperado = 'Los datos deben venir en un array';
         $this->assertSame($error->getMessage(),$mensajeEsperado);
 
+        $error = null;
+        try{
+            $consulta = $generaConsulta->insert('usuarios',['juan','password']);
+        }catch(ErrorBase $e){
+            $error = $e;
+        }
+        $mensajeEsperado = 'Los datos deben venir en un array asociativo';
+        $this->assertSame($error->getMessage(),$mensajeEsperado);
+
         $tabla = 'usuarios';
         $datos = ['user' => 'pedro' , 'password' => 'contra'];
         $consultaEsperada = 'INSERT INTO usuarios (user,password) VALUES (:user,:password)';
