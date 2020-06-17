@@ -16,6 +16,7 @@ class GeneraConsulta
         $filtroGenerado = '';
         if ( count($filtros) !== 0 )
         {
+            $this->valida->filtros($filtros);
             $filtroGenerado = $this->generaFiltro($filtros);
         }
 
