@@ -34,4 +34,10 @@ class Validaciones
             throw new ErrorBase('El nombre de tabla no puede venir vacio');
         }
     }
+
+    private function esAsociativo( $array ) 
+    {
+        return array_keys( $array ) !== range( 0, count($array) - 1 );
+    }
+    
 }
