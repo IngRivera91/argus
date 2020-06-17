@@ -12,7 +12,7 @@ class ClaseValidacionesTest extends TestCase
     {
         $valida = new Validaciones();
 
-        $erro = null;
+        $error = null;
         try{
             $valida->tabla('');
         }catch(ErrorBase $e){
@@ -21,13 +21,81 @@ class ClaseValidacionesTest extends TestCase
         $mensajeEsperado = 'El nombre de tabla no puede venir vacio';
         $this->assertSame($error->getMessage(),$mensajeEsperado);
 
-        $erro = null;
+        $error = null;
         try{
             $valida->tabla(' sessiones usuarios ');
         }catch(ErrorBase $e){
             $error = $e;
         }
         $mensajeEsperado = 'El nombre de la tabla no es valido';
+        $this->assertSame($error->getMessage(),$mensajeEsperado);
+
+    }
+
+     /**
+     * @test
+     */
+    public function validaFiltros()
+    {
+        $valida = new Validaciones();
+
+        $error = null;
+        try{
+            $valida->filtros('');
+        }catch(ErrorBase $e){
+            $error = $e;
+        }
+        $mensajeEsperado = 'Los filtros deben venir en un array';
+        $this->assertSame($error->getMessage(),$mensajeEsperado);
+
+        $error = null;
+        try{
+            $filtros = array();
+            $valida->filtros($filtros);
+        }catch(ErrorBase $e){
+            $error = $e;
+        }
+        $mensajeEsperado = 'El array de filtros no puede estar vacio';
+        $this->assertSame($error->getMessage(),$mensajeEsperado);
+
+        $error = null;
+        try{
+            $filtros = array('');
+            $valida->filtros($filtros);
+        }catch(ErrorBase $e){
+            $error = $e;
+        }
+        $mensajeEsperado = 'Los filtros deben ser un array de arrays';
+        $this->assertSame($error->getMessage(),$mensajeEsperado);
+
+        $error = null;
+        try{
+            $filtros = array([]);
+            $valida->filtros($filtros);
+        }catch(ErrorBase $e){
+            $error = $e;
+        }
+        $mensajeEsperado = 'Cada filtro debe tener el key [\'campo\']';
+        $this->assertSame($error->getMessage(),$mensajeEsperado);
+
+        $error = null;
+        try{
+            $filtros = array(['campo' => 'id']);
+            $valida->filtros($filtros);
+        }catch(ErrorBase $e){
+            $error = $e;
+        }
+        $mensajeEsperado = 'Cada filtro debe tener el key [\'valor\']';
+        $this->assertSame($error->getMessage(),$mensajeEsperado);
+
+        $error = null;
+        try{
+            $filtros = array(['campo' => 'id' , 'valor' => 1]);
+            $valida->filtros($filtros);
+        }catch(ErrorBase $e){
+            $error = $e;
+        }
+        $mensajeEsperado = 'Cada filtro debe tener el key [\'signoComparacion\']';
         $this->assertSame($error->getMessage(),$mensajeEsperado);
 
     }
@@ -39,7 +107,7 @@ class ClaseValidacionesTest extends TestCase
     {
         $valida = new Validaciones();
 
-        $erro = null;
+        $error = null;
         try{
             $valida->datos('');
         }catch(ErrorBase $e){
@@ -48,7 +116,7 @@ class ClaseValidacionesTest extends TestCase
         $mensajeEsperado = 'Los datos deben venir en un array';
         $this->assertSame($error->getMessage(),$mensajeEsperado);
 
-        $erro = null;
+        $error = null;
         try{
             $valida->datos(array());
         }catch(ErrorBase $e){
@@ -57,7 +125,7 @@ class ClaseValidacionesTest extends TestCase
         $mensajeEsperado = 'El array de datos no puede estar vacio';
         $this->assertSame($error->getMessage(),$mensajeEsperado);
 
-        $erro = null;
+        $error = null;
         try{
             $valida->datos(['juan','password']);
         }catch(ErrorBase $e){
@@ -74,7 +142,7 @@ class ClaseValidacionesTest extends TestCase
     {
         $valida = new Validaciones();
 
-        $erro = null;
+        $error = null;
         try{
             $valida->consulta('');
         }catch(ErrorBase $e){
