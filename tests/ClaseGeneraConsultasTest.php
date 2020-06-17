@@ -1,9 +1,9 @@
 <?php
 
-use Clase\GeneraConsulta; 
+use Clase\GeneraConsultas; 
 use PHPUnit\Framework\TestCase;
 
-class ClaseGeneraConsultaTest extends TestCase
+class ClaseGeneraConsultasTest extends TestCase
 {
 
     /**
@@ -11,7 +11,7 @@ class ClaseGeneraConsultaTest extends TestCase
      */
     public function generaConsultaDelete()
     {
-        $generaConsulta = new GeneraConsulta();
+        $generaConsulta = new GeneraConsultas();
         $tabla = 'usuarios';
 
         $consultaEsperada = 'DELETE FROM usuarios';
@@ -31,7 +31,7 @@ class ClaseGeneraConsultaTest extends TestCase
      */
     public function generaConsultaInsert()
     {
-        $generaConsulta = new GeneraConsulta();
+        $generaConsulta = new GeneraConsultas();
 
         $tabla = 'usuarios';
         $datos = ['user' => 'pedro' , 'password' => 'contra'];
