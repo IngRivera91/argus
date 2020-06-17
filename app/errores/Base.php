@@ -1,4 +1,6 @@
 <?php
+// https://www.php.net/manual/es/language.exceptions.php
+// https://www.php.net/manual/es/language.exceptions.extending.php
 
 namespace Error;
 use Exception;
