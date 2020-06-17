@@ -117,21 +117,4 @@ class ClaseDatabaseTest extends TestCase
         ];
     }
 
-    /**
-     * @test
-     */
-    public function generaConsultaInsert()
-    {
-        $coneccion = new Database();
-        
-        $tabla = 'usuarios';
-        $datos = ['user' => 'pedro' , 'password' => 'contra'];
-
-        $consultaEsperada = 'INSERT INTO usuarios (user,password) VALUES (:user,:password)';
-
-        $consulta = $coneccion->generaConsultaInsert($tabla,$datos);
-        $this->assertSame($consulta,$consultaEsperada);
-        
-    }
-
 }
