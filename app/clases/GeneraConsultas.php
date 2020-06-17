@@ -3,7 +3,7 @@
 namespace Clase;
 use Clase\Validaciones;
 
-class GeneraConsulta 
+class GeneraConsultas 
 {
     private $valida;
     public function __construct()
