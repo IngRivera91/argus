@@ -1,6 +1,6 @@
 <?php
 
-use Error\Error;
+use Error\Base AS ErrorBase;
 use Clase\Database; 
 use PHPUnit\Framework\TestCase;
 
@@ -18,10 +18,10 @@ class ClaseDatabaseTest extends TestCase
         $error = null;
         try{
             $coneccion->ejecutaConsultaDelete('DELETEasdS FROM usuarios');
-        }catch(Error $e){
+        }catch(ErrorBase $e){
             $error = $e;
         }
-        $this->assertInstanceOf(Error::class, $error);
+        $this->assertInstanceOf(ErrorBase::class, $error);
 
         $resultado = $coneccion->ejecutaConsultaDelete('DELETE FROM usuarios');
         $this->assertCount(1,$resultado);
@@ -38,10 +38,10 @@ class ClaseDatabaseTest extends TestCase
 
         try{
             $resultado = $coneccion->ejecutaConsultaInsert('INSERT INTO usuarios (id,user,password) VALUES (:id,:user,:password) ');
-        }catch(Error $e){
+        }catch(ErrorBase $e){
             $error = $e;
         }
-        $this->assertInstanceOf(Error::class, $error);
+        $this->assertInstanceOf(ErrorBase::class, $error);
         
         $resultado = $coneccion->ejecutaConsultaInsert('INSERT INTO usuarios (id,user,password) VALUES (:id,:user,:password) ',$datos);
         $this->assertCount(2,$resultado);
@@ -51,10 +51,10 @@ class ClaseDatabaseTest extends TestCase
         $error = null;
         try{
             $resultado = $coneccion->ejecutaConsultaInsert('INSERT INTO usuarios (id,user,password) VALUES (:id,:user,:password) ',$datos);
-        }catch(Error $e){
+        }catch(ErrorBase $e){
             $error = $e;
         }
-        $this->assertInstanceOf(Error::class, $error);
+        $this->assertInstanceOf(ErrorBase::class, $error);
         
     }
 
@@ -69,10 +69,10 @@ class ClaseDatabaseTest extends TestCase
         $error = null;
         try{
             $coneccion->ejecutaConsultaUpdate('UPDATE usuarios SET user = :user WHERE id = :id ');
-        }catch(Error $e){
+        }catch(ErrorBase $e){
             $error = $e;
         }
-        $this->assertInstanceOf(Error::class, $error);
+        $this->assertInstanceOf(ErrorBase::class, $error);
 
         $resultado = $coneccion->ejecutaConsultaUpdate('UPDATE usuarios SET user = :user, password = :password WHERE id = :id ',$datos);
         $this->assertCount(1,$resultado);
@@ -91,10 +91,10 @@ class ClaseDatabaseTest extends TestCase
         $error = null;
         try{
             $coneccion->ejecutaConsultaSelect('SELECT * FROM usuarios WHERE id = :id AND user = :user AND password = :password ');
-        }catch(Error $e){
+        }catch(ErrorBase $e){
             $error = $e;
         }
-        $this->assertInstanceOf(Error::class, $error);
+        $this->assertInstanceOf(ErrorBase::class, $error);
 
         $resultado = $coneccion->ejecutaConsultaSelect('SELECT * FROM usuarios WHERE id = :id AND user = :user AND password = :password',$datos);
         $this->assertCount(2,$resultado);
@@ -115,6 +115,23 @@ class ClaseDatabaseTest extends TestCase
             'maria' => [['id' => 3, 'user' =>'maria', 'password' =>'maria']],
             'monica' => [['id' => 4, 'user' =>'monica', 'password' =>'monica']]
         ];
+    }
+
+    /**
+     * @test
+     */
+    public function generaConsultaInsert()
+    {
+        $coneccion = new Database();
+        
+        $tabla = 'usuarios';
+        $datos = ['user' => 'pedro' , 'password' => 'contra'];
+
+        $consultaEsperada = 'INSERT INTO usuarios (user,password) VALUES (:user,:password)';
+
+        $consulta = $coneccion->generaConsultaInsert($tabla,$datos);
+        $this->assertSame($consulta,$consultaEsperada);
+        
     }
 
 }
