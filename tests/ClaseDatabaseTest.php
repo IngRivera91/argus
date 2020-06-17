@@ -22,6 +22,7 @@ class ClaseDatabaseTest extends TestCase
             $error = $e;
         }
         $this->assertInstanceOf(ErrorBase::class, $error);
+        $this->assertEquals($error->getCode(),42000);
 
         $resultado = $coneccion->ejecutaConsultaDelete('DELETE FROM usuarios');
         $this->assertCount(1,$resultado);
@@ -42,6 +43,7 @@ class ClaseDatabaseTest extends TestCase
             $error = $e;
         }
         $this->assertInstanceOf(ErrorBase::class, $error);
+        $this->assertEquals($error->getCode(),42000);
         
         $resultado = $coneccion->ejecutaConsultaInsert('INSERT INTO usuarios (id,user,password) VALUES (:id,:user,:password) ',$datos);
         $this->assertCount(2,$resultado);
@@ -55,6 +57,7 @@ class ClaseDatabaseTest extends TestCase
             $error = $e;
         }
         $this->assertInstanceOf(ErrorBase::class, $error);
+        $this->assertEquals($error->getCode(),23000);
         
     }
 
@@ -73,6 +76,7 @@ class ClaseDatabaseTest extends TestCase
             $error = $e;
         }
         $this->assertInstanceOf(ErrorBase::class, $error);
+        $this->assertEquals($error->getCode(),42000);
 
         $resultado = $coneccion->ejecutaConsultaUpdate('UPDATE usuarios SET user = :user, password = :password WHERE id = :id ',$datos);
         $this->assertCount(1,$resultado);
@@ -95,6 +99,7 @@ class ClaseDatabaseTest extends TestCase
             $error = $e;
         }
         $this->assertInstanceOf(ErrorBase::class, $error);
+        $this->assertEquals($error->getCode(),42000);
 
         $resultado = $coneccion->ejecutaConsultaSelect('SELECT * FROM usuarios WHERE id = :id AND user = :user AND password = :password',$datos);
         $this->assertCount(2,$resultado);
