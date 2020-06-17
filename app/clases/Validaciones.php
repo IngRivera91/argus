@@ -33,6 +33,36 @@ class Validaciones
         }
     }
 
+    public function filtros($filtros)
+    {
+        if ( !is_array($filtros) )
+        {
+            throw new ErrorBase('Los filtros deben venir en un array');
+        }
+
+        if ( count($filtros) === 0)
+        {
+            throw new ErrorBase('El array de filtros no puede estar vacio');
+        }
+
+        foreach ($filtros as $filtro)
+        {
+            if ( !is_array($filtro) )
+            {
+                throw new ErrorBase('Los filtros deben ser un array de arrays');
+            }
+            if (!array_key_exists('campo', $filtro)) {
+                throw new ErrorBase('Cada filtro debe tener el key [\'campo\']');
+            }
+            if (!array_key_exists('valor', $filtro)) {
+                throw new ErrorBase('Cada filtro debe tener el key [\'valor\']');
+            }
+            if (!array_key_exists('signoComparacion', $filtro)) {
+                throw new ErrorBase('Cada filtro debe tener el key [\'signoComparacion\']');
+            }
+        }
+    }
+
     public function tabla($tabla):void
     {
         $tabla = trim($tabla,' ');
