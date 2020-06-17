@@ -8,7 +8,7 @@ class ClaseValidacionesTest extends TestCase
     /**
      * @test
      */
-    public function tabla()
+    public function validaTabla()
     {
         $valida = new Validaciones();
 
@@ -35,7 +35,7 @@ class ClaseValidacionesTest extends TestCase
     /**
      * @test
      */
-    public function datos()
+    public function validaDatos()
     {
         $valida = new Validaciones();
 
@@ -70,7 +70,7 @@ class ClaseValidacionesTest extends TestCase
     /**
      * @test
      */
-    public function consulta()
+    public function validaConsulta()
     {
         $valida = new Validaciones();
 
