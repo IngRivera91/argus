@@ -31,4 +31,39 @@ class ClaseValidacionesTest extends TestCase
         $this->assertSame($error->getMessage(),$mensajeEsperado);
 
     }
+
+    /**
+     * @test
+     */
+    public function datos()
+    {
+        $valida = new Validaciones();
+
+        $erro = null;
+        try{
+            $valida->datos('');
+        }catch(ErrorBase $e){
+            $error = $e;
+        }
+        $mensajeEsperado = 'Los datos deben venir en un array';
+        $this->assertSame($error->getMessage(),$mensajeEsperado);
+
+        $erro = null;
+        try{
+            $valida->datos(array());
+        }catch(ErrorBase $e){
+            $error = $e;
+        }
+        $mensajeEsperado = 'El array de datos no puede estar vacio';
+        $this->assertSame($error->getMessage(),$mensajeEsperado);
+
+        $erro = null;
+        try{
+            $valida->datos(['juan','password']);
+        }catch(ErrorBase $e){
+            $error = $e;
+        }
+        $mensajeEsperado = 'Los datos deben venir en un array asociativo';
+        $this->assertSame($error->getMessage(),$mensajeEsperado);
+    }
 }
