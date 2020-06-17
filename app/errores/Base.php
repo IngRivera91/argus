@@ -9,10 +9,10 @@ class Base extends Exception
     private $errorInformacion;
     private $consultaSQL;
 
-    public function __construct($mensaje = '', Exception $errorAnterior = null, $consultaSQL = null) 
+    public function __construct( $mensaje = '' , Exception $errorAnterior = null , $code = 0 , $consultaSQL = null ) 
     {
         $this->consultaSQL = $consultaSQL;
-        parent::__construct($mensaje, 0 ,$errorAnterior);
+        parent::__construct($mensaje, $code ,$errorAnterior);
     }
 
     public function muestraError($esRecursivo = false)
