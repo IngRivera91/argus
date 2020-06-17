@@ -12,12 +12,37 @@ class ClaseGeneraConsultaTest extends TestCase
     public function generaConsultaInsert()
     {
         $generaConsulta = new GeneraConsulta();
-        
+
+        $error = null;
+        try{
+            $consulta = $generaConsulta->insert();
+        }catch(ErrorBase $e){
+            $error = $e;
+        }
+        $mensajeEsperado = 'El nombre de tabla no puede venir vacio';
+        $this->assertSame($error->getMessage(),$mensajeEsperado);
+
+        $error = null;
+        try{
+            $consulta = $generaConsulta->insert('usuarios');
+        }catch(ErrorBase $e){
+            $error = $e;
+        }
+        $mensajeEsperado = 'El array de datos no puede estar vacio';
+        $this->assertSame($error->getMessage(),$mensajeEsperado);
+
+        $error = null;
+        try{
+            $consulta = $generaConsulta->insert('usuarios','datos');
+        }catch(ErrorBase $e){
+            $error = $e;
+        }
+        $mensajeEsperado = 'Los datos deben venir en un array';
+        $this->assertSame($error->getMessage(),$mensajeEsperado);
+
         $tabla = 'usuarios';
         $datos = ['user' => 'pedro' , 'password' => 'contra'];
-
         $consultaEsperada = 'INSERT INTO usuarios (user,password) VALUES (:user,:password)';
-
         $consulta = $generaConsulta->insert($tabla,$datos);
         $this->assertSame($consulta,$consultaEsperada);
         
