@@ -3,9 +3,10 @@
 namespace Clase;
 
 use PDO;
-use Error\MySQL AS ErrorMySQL;
-use Error\Base AS ErrorBase;
 use PDOException;
+use Clase\Validaciones;
+use Error\MySQL AS ErrorMySQL;
+
 
 class Database
 {
@@ -17,8 +18,11 @@ class Database
     private $dbh;
     private $stmt;
 
+    private $valida;
+
     public function __construct($usuario = DB_USER,$password = DB_PASSWORD,$name = DB_NAME, $host = DB_HOST)
     {
+        $this->valida = new Validaciones;
         $this->host = $host;
         $this->user = $usuario;
         $this->password = $password;
@@ -56,7 +60,7 @@ class Database
 
     public function ejecutaConsultaDelete(string $consulta = '' ,array $blindar = array())
     {
-        $this->validaConsulta($consulta);
+        $this->valida->consulta($consulta);
         $this->stmt = $this->dbh->prepare($consulta);
         $this->blindarDatos($blindar);
         try 
@@ -72,7 +76,7 @@ class Database
 
     public function ejecutaConsultaInsert(string $consulta = '' ,array $blindar = array())
     {
-        $this->validaConsulta($consulta);
+        $this->valida->consulta($consulta);
         $this->stmt = $this->dbh->prepare($consulta);
         $this->blindarDatos($blindar);
         try 
@@ -89,7 +93,7 @@ class Database
 
     public function ejecutaConsultaSelect(string $consulta = '' ,array $blindar = array())
     {
-        $this->validaConsulta($consulta);
+        $this->valida->consulta($consulta);
         $this->stmt = $this->dbh->prepare($consulta);
         $this->blindarDatos($blindar);
         try 
@@ -107,7 +111,7 @@ class Database
 
     public function ejecutaConsultaUpdate(string $consulta = '' ,array $blindar = array())
     {
-        $this->validaConsulta($consulta);
+        $this->valida->consulta($consulta);
         $this->stmt = $this->dbh->prepare($consulta);
         $this->blindarDatos($blindar);
         try 
@@ -118,14 +122,6 @@ class Database
         catch (PDOException $e)
         {
             throw new ErrorMySQL($e,' Consulta: '.$consulta);
-        }
-    }
-
-    private function validaConsulta(string $consulta)
-    {
-        if( $consulta === '')
-        {
-            throw new ErrorBase('La consulta no puede estar vacia');
         }
     }
 
