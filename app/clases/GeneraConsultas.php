@@ -114,7 +114,7 @@ class GeneraConsultas
         $this->valida->tabla($tabla);
         $columnasGeneradas = '*';
         if ( count($columnas) !== 0 ){
-            // todo: valida->array();
+            $this->valida->array('columnas',$columnas);
             $columnasGeneradas = $this->generaColumnas($tabla,$columnas);
         }
         $filtrosGenerados = '';
