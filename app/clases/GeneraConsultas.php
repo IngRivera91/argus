@@ -13,6 +13,8 @@ class GeneraConsultas
 
     public function delete( $tabla , $filtros = array() ):string
     {
+        $this->valida->tabla($tabla);
+
         $filtroGenerado = '';
         if ( count($filtros) !== 0 )
         {
@@ -57,6 +59,31 @@ class GeneraConsultas
         $filtroGenerado = trim($filtroGenerado,'');
 
         return "WHERE $filtroGenerado";
+    }
+
+    public function update($tabla = '' , $datos = array() , $filtros = array() ):string
+    {
+        $this->valida->tabla($tabla);
+        $this->valida->datos($datos);
+
+        $filtroGenerado = '';
+        if ( count($filtros) !== 0 )
+        {
+            $this->valida->filtros($filtros);
+            $filtroGenerado = $this->generaFiltro($filtros);
+        }
+
+        $campoValor = '';
+        foreach ($datos as $campo => $valor)
+        {
+            $campoValor .= " $campo = :$campo ,";
+        }
+        $campoValor = trim($campoValor,',');
+        $campoValor = trim($campoValor,' ');
+
+        $consulta = "UPDATE $tabla SET $campoValor $filtroGenerado";
+        $consulta = trim($consulta,' ');
+        return $consulta;
     }
 
 }
