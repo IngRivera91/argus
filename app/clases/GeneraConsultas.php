@@ -47,27 +47,47 @@ class GeneraConsultas
         return "INSERT INTO $tabla ($campos) VALUES ($valores)";
     }
 
-    private function generaFiltros( $filtros ):string
+    private function generaColumnas( $tabla , $columnas ):string
     {
-        $filtrosGenerado = '';
-        foreach ($filtros as $filtro )
+        $colunmasGeneradas = '';
+        foreach ($columnas as $columna)
         {
-            $filtrosGenerado .= "{$filtro['campo']} {$filtro['signoComparacion']} :{$filtro['campo']} AND";
+            $explodeColumna = explode('.',$columna);
+            if ( count($explodeColumna) == 1 ){
+                $colunmasGeneradas .= "{$tabla}.{$columna},";
+            }
+            if ( count($explodeColumna) == 2 ){
+                $colunmasGeneradas .= "{$explodeColumna[0]}.{$explodeColumna[1]},";
+            }
         }
+        $colunmasGeneradas = trim($colunmasGeneradas,',');
+        $colunmasGeneradas = trim($colunmasGeneradas,' ');
 
-        $filtrosGenerado = trim($filtrosGenerado,'AND');
-        $filtrosGenerado = trim($filtrosGenerado,' ');
-
-        return "WHERE $filtrosGenerado";
+        return $colunmasGeneradas;
+        
     }
 
-    private function generaRelaciones( $tabla , $relaciones):string
+    private function generaFiltros( $filtros ):string
+    {
+        $filtrosGenerados = '';
+        foreach ($filtros as $filtro )
+        {
+            $filtrosGenerados .= "{$filtro['campo']} {$filtro['signoComparacion']} :{$filtro['campo']} AND";
+        }
+
+        $filtrosGenerados = trim($filtrosGenerados,'AND');
+        $filtrosGenerados = trim($filtrosGenerados,' ');
+
+        return "WHERE $filtrosGenerados";
+    }
+
+    private function generaRelaciones( $relaciones ):string
     {
         $relacionesGeneradas = '';
 
         foreach ( $relaciones as $tablaRelacionada => $llaveForania)
         {
-            $relacionesGeneradas .= " LEFT JOIN $tabla ON $tablaRelacionada.id = $llaveForania ";
+            $relacionesGeneradas .= "LEFT JOIN $tablaRelacionada ON $tablaRelacionada.id = $llaveForania";
         }
         $relacionesGeneradas = trim($relacionesGeneradas,' ');
 
@@ -75,16 +95,70 @@ class GeneraConsultas
 
     }
 
+    private function generaOrderBy( $orderBy ):string
+    {
+        $orderByGenerado = '';
+
+        foreach ( $orderBy as $campo => $DescAsc)
+        {
+            $orderByGenerado .= "ORDER BY $campo $DescAsc";
+        }
+        $orderByGenerado = trim($orderByGenerado,' ');
+
+        return $orderByGenerado;
+
+    }
+
+    public function select($tabla = '', $columnas = [] ,$filtros = [] , $limit = '' , $orderBy = [] , $relaciones = [] )
+    {   
+        $this->valida->tabla($tabla);
+        $columnasGeneradas = '*';
+        if ( count($columnas) !== 0 ){
+            // todo: valida->array();
+            $columnasGeneradas = $this->generaColumnas($tabla,$columnas);
+        }
+        $filtrosGenerados = '';
+        if ( count($filtros) !== 0 ){
+            $this->valida->filtros($filtros);
+            $filtrosGenerados = $this->generaFiltros($filtros);
+        }
+        $relacionesGeneradas = '';
+        if ( count($relaciones) !== 0 ){
+            $this->valida->arrayAsociativo('relaciones',$relaciones);
+            $relacionesGeneradas = $this->generaRelaciones($relaciones);
+        }
+        $orderByGenerado = '';
+        if ( count($orderBy) !== 0 ){
+            $this->valida->arrayAsociativo('orderBy',$orderBy);
+            $orderByGenerado = $this->generaOrderBy($orderBy);
+        }
+        $limitGenerado = '';
+        if ($limit != ''){
+            $limitGenerado = "LIMIT $limit";
+        }
+        $consulta = "SELECT $columnasGeneradas FROM {$tabla}";
+        $consulta = trim($consulta,' ');
+        $consulta .= " {$relacionesGeneradas}";
+        $consulta = trim($consulta,' ');
+        $consulta .= " {$filtrosGenerados}";
+        $consulta = trim($consulta,' ');
+        $consulta .= " {$orderByGenerado}";
+        $consulta = trim($consulta,' ');
+        $consulta .= " {$limitGenerado}";
+        $consulta = trim($consulta,' ');
+        return $consulta;
+    }
+
     public function update($tabla = '' , $datos = array() , $filtros = array() ):string
     {
         $this->valida->tabla($tabla);
         $this->valida->arrayAsociativo('datos',$datos);
 
-        $filtrosGenerado = '';
+        $filtrosGenerados = '';
         if ( count($filtros) !== 0 )
         {
             $this->valida->filtros($filtros);
-            $filtrosGenerado = $this->generaFiltros($filtros);
+            $filtrosGenerados = $this->generaFiltros($filtros);
         }
 
         $campoValor = '';
@@ -95,7 +169,7 @@ class GeneraConsultas
         $campoValor = trim($campoValor,',');
         $campoValor = trim($campoValor,' ');
 
-        $consulta = "UPDATE $tabla SET $campoValor $filtrosGenerado";
+        $consulta = "UPDATE $tabla SET $campoValor $filtrosGenerados";
         $consulta = trim($consulta,' ');
         return $consulta;
     }
