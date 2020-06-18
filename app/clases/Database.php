@@ -22,7 +22,7 @@ class Database
 
     public function __construct($usuario = DB_USER,$password = DB_PASSWORD,$name = DB_NAME, $host = DB_HOST)
     {
-        $this->valida = new Validaciones;
+        $this->valida = new Validaciones();
         $this->host = $host;
         $this->user = $usuario;
         $this->password = $password;
