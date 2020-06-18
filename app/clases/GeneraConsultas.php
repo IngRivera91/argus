@@ -31,7 +31,7 @@ class GeneraConsultas
     public function insert( $tabla = '' , $datos = array() ):string
     {
         $this->valida->tabla($tabla);
-        $this->valida->datos($datos);
+        $this->valida->arrayAsociativo('datos',$datos);
         $campos = '';
         $valores = '';
 
@@ -78,7 +78,7 @@ class GeneraConsultas
     public function update($tabla = '' , $datos = array() , $filtros = array() ):string
     {
         $this->valida->tabla($tabla);
-        $this->valida->datos($datos);
+        $this->valida->arrayAsociativo('datos',$datos);
 
         $filtrosGenerado = '';
         if ( count($filtros) !== 0 )
