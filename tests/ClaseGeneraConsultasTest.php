@@ -45,6 +45,84 @@ class ClaseGeneraConsultasTest extends TestCase
         
     }
 
+
+    /**
+     * @test
+     */
+    public function generaConsultaSelect()
+    {
+        $generaConsulta = new GeneraConsultas();
+
+        $tabla = 'usuarios';       
+        $consultaEsperada = 'SELECT * FROM usuarios';
+        $consulta = $generaConsulta->select($tabla);
+        $this->assertSame($consulta,$consultaEsperada);
+
+        $tabla = 'usuarios';
+        $colunmas = array('id');        
+        $consultaEsperada = 'SELECT usuarios.id FROM usuarios';
+        $consulta = $generaConsulta->select($tabla,$colunmas);
+        $this->assertSame($consulta,$consultaEsperada);
+
+        $tabla = 'usuarios';
+        $colunmas = array('usuarios.id');        
+        $consultaEsperada = 'SELECT usuarios.id FROM usuarios';
+        $consulta = $generaConsulta->select($tabla,$colunmas);
+        $this->assertSame($consulta,$consultaEsperada);
+
+        $tabla = 'usuarios';
+        $colunmas = array('grupos.id');        
+        $consultaEsperada = 'SELECT grupos.id FROM usuarios';
+        $consulta = $generaConsulta->select($tabla,$colunmas);
+        $this->assertSame($consulta,$consultaEsperada);
+
+        $tabla = 'usuarios';
+        $colunmas = array('id'); 
+        $filtros = [
+            ['campo' => 'id' , 'valor' => '1' , 'signoComparacion' => '=']
+        ];       
+        $consultaEsperada = 'SELECT usuarios.id FROM usuarios WHERE id = :id';
+        $consulta = $generaConsulta->select($tabla,$colunmas,$filtros);
+        $this->assertSame($consulta,$consultaEsperada);
+
+        $tabla = 'usuarios';
+        $colunmas = array('usuarios.id','grupos.id'); 
+        $filtros = [
+            ['campo' => 'id' , 'valor' => '1' , 'signoComparacion' => '=']
+        ];
+        $relaciones = ['grupos' => 'usuarios.grupo_id'];
+        $limit = '';
+        $orderBy = [];
+        $consultaEsperada = 'SELECT usuarios.id,grupos.id FROM usuarios LEFT JOIN grupos ON grupos.id = usuarios.grupo_id WHERE id = :id';
+        $consulta = $generaConsulta->select($tabla,$colunmas,$filtros,$limit,$orderBy,$relaciones);
+        $this->assertSame($consulta,$consultaEsperada);
+
+        $tabla = 'usuarios';
+        $colunmas = array('usuarios.id','grupos.id'); 
+        $filtros = [
+            ['campo' => 'id' , 'valor' => '1' , 'signoComparacion' => '=']
+        ];
+        $relaciones = ['grupos' => 'usuarios.grupo_id'];
+        $limit = 2;
+        $orderBy = [];
+        $consultaEsperada = 'SELECT usuarios.id,grupos.id FROM usuarios LEFT JOIN grupos ON grupos.id = usuarios.grupo_id WHERE id = :id LIMIT 2';
+        $consulta = $generaConsulta->select($tabla,$colunmas,$filtros,$limit,$orderBy,$relaciones);
+        $this->assertSame($consulta,$consultaEsperada);
+
+        $tabla = 'usuarios';
+        $colunmas = array('usuarios.id','grupos.id'); 
+        $filtros = [
+            ['campo' => 'id' , 'valor' => '1' , 'signoComparacion' => '=']
+        ];
+        $relaciones = ['grupos' => 'usuarios.grupo_id'];
+        $limit = 2;
+        $orderBy = ['usuarios.nombre' => 'DESC'];
+        $consultaEsperada = 'SELECT usuarios.id,grupos.id FROM usuarios LEFT JOIN grupos ON grupos.id = usuarios.grupo_id WHERE id = :id ORDER BY usuarios.nombre DESC LIMIT 2';
+        $consulta = $generaConsulta->select($tabla,$colunmas,$filtros,$limit,$orderBy,$relaciones);
+        $this->assertSame($consulta,$consultaEsperada);
+
+    }
+
     /**
      * @test
      */
