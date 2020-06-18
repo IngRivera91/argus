@@ -103,14 +103,14 @@ class ClaseValidacionesTest extends TestCase
     /**
      * @test
      */
-    public function validaArrayAsociativo()
+    public function validaArray()
     {
         $valida = new Validaciones();
 
         $error = null;
         try{
             $nombreArray = 'Array';
-            $valida->arrayAsociativo($nombreArray,'');
+            $valida->array($nombreArray,'');
         }catch(ErrorBase $e){
             $error = $e;
         }
@@ -120,12 +120,20 @@ class ClaseValidacionesTest extends TestCase
         $error = null;
         try{
             $nombreArray = 'Array';
-            $valida->arrayAsociativo($nombreArray,array());
+            $valida->array($nombreArray,array());
         }catch(ErrorBase $e){
             $error = $e;
         }
         $mensajeEsperado = "Array:$nombreArray no puede ser un array vacio";
         $this->assertSame($error->getMessage(),$mensajeEsperado);
+    }
+
+    /**
+     * @test
+     */
+    public function validaArrayAsociativo()
+    {
+        $valida = new Validaciones();
 
         $error = null;
         try{
