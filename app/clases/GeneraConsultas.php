@@ -15,14 +15,14 @@ class GeneraConsultas
     {
         $this->valida->tabla($tabla);
 
-        $filtroGenerado = '';
+        $filtrosGenerado = '';
         if ( count($filtros) !== 0 )
         {
             $this->valida->filtros($filtros);
-            $filtroGenerado = $this->generaFiltro($filtros);
+            $filtrosGenerado = $this->generaFiltros($filtros);
         }
 
-        $consulta = "DELETE FROM $tabla $filtroGenerado";
+        $consulta = "DELETE FROM $tabla $filtrosGenerado";
         $consulta = trim($consulta,' ');
 
         return $consulta;
@@ -47,18 +47,32 @@ class GeneraConsultas
         return "INSERT INTO $tabla ($campos) VALUES ($valores)";
     }
 
-    private function generaFiltro( $filtros ):string
+    private function generaFiltros( $filtros ):string
     {
-        $filtroGenerado = '';
+        $filtrosGenerado = '';
         foreach ($filtros as $filtro )
         {
-            $filtroGenerado .= "{$filtro['campo']} {$filtro['signoComparacion']} :{$filtro['campo']} AND";
+            $filtrosGenerado .= "{$filtro['campo']} {$filtro['signoComparacion']} :{$filtro['campo']} AND";
         }
 
-        $filtroGenerado = trim($filtroGenerado,'AND');
-        $filtroGenerado = trim($filtroGenerado,'');
+        $filtrosGenerado = trim($filtrosGenerado,'AND');
+        $filtrosGenerado = trim($filtrosGenerado,' ');
 
-        return "WHERE $filtroGenerado";
+        return "WHERE $filtrosGenerado";
+    }
+
+    private function generaRelaciones( $tabla , $relaciones):string
+    {
+        $relacionesGeneradas = '';
+
+        foreach ( $relaciones as $tablaRelacionada => $llaveForania)
+        {
+            $relacionesGeneradas .= " LEFT JOIN $tabla ON $tablaRelacionada.id = $llaveForania ";
+        }
+        $relacionesGeneradas = trim($relacionesGeneradas,' ');
+
+        return $relacionesGeneradas;
+
     }
 
     public function update($tabla = '' , $datos = array() , $filtros = array() ):string
@@ -66,11 +80,11 @@ class GeneraConsultas
         $this->valida->tabla($tabla);
         $this->valida->datos($datos);
 
-        $filtroGenerado = '';
+        $filtrosGenerado = '';
         if ( count($filtros) !== 0 )
         {
             $this->valida->filtros($filtros);
-            $filtroGenerado = $this->generaFiltro($filtros);
+            $filtrosGenerado = $this->generaFiltros($filtros);
         }
 
         $campoValor = '';
@@ -81,7 +95,7 @@ class GeneraConsultas
         $campoValor = trim($campoValor,',');
         $campoValor = trim($campoValor,' ');
 
-        $consulta = "UPDATE $tabla SET $campoValor $filtroGenerado";
+        $consulta = "UPDATE $tabla SET $campoValor $filtrosGenerado";
         $consulta = trim($consulta,' ');
         return $consulta;
     }
