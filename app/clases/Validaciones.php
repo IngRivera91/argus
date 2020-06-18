@@ -15,21 +15,21 @@ class Validaciones
 
     }
 
-    public function datos($datos):void
+    public function arrayAsociativo(string $nombreArray = '' ,$array):void
     {
-        if ( !is_array($datos) )
+        if ( !is_array($array) )
         {
-            throw new ErrorBase('Los datos deben venir en un array');
+            throw new ErrorBase("Array:$nombreArray debe ser un array");
         }
         
-        if ( count($datos) === 0)
+        if ( count($array) === 0)
         {
-            throw new ErrorBase('El array de datos no puede estar vacio');
+            throw new ErrorBase("Array:$nombreArray no puede ser un array vacio");
         }
 
-        if ( !$this->esAsociativo($datos) )
+        if ( !$this->esAsociativo($array) )
         {
-            throw new ErrorBase('Los datos deben venir en un array asociativo');
+            throw new ErrorBase("Array:$nombreArray debe ser un array asociativo");
         }
     }
 
