@@ -37,15 +37,15 @@ class Modelo
         try{
             $consulta = $this->generaConsulta->insert($this->tabla,$datos);
         }catch (ErrorBase $e){
-            throw new ErrorBase('Error al tratar de generar la consulta');
+            throw new ErrorBase('Error al tratar de generar la consulta',$e);
         }
         
-        $this->valida->columnasUnicas($this->columnasUnicas,$datos);
+        //$this->valida->columnasUnicas($this->columnasUnicas,$datos);
 
         try{
             $res = $this->coneccion->ejecutaConsultaInsert($consulta,$datos);
         }catch (ErrorBase $e){
-            throw new ErrorBase('Error al ejecutar la consulta: '.$consulta);
+            throw new ErrorBase('Error al ejecutar la consulta: '.$consulta,$e);
         }
         
         return $res;
