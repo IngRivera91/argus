@@ -6,6 +6,7 @@ use Clase\Database;
 use Clase\Validaciones;
 use Clase\GeneraConsultas;
 use Error\Base AS ErrorBase;
+use Error\Esperado AS ErrorEsperado;
 
 class Modelo 
 {
@@ -32,9 +33,56 @@ class Modelo
 
     public function registrarBd($datos)
     {
-        $consulta = $this->generaConsulta->insert($this->tabla,$datos);
-        $resultado = $this->coneccion->ejecutaConsultaInsert($consulta,$datos);
+        $this->validaColunmasUnicas($datos);
+        try{
+            $consulta = $this->generaConsulta->insert($this->tabla,$datos);
+        }catch(ErrorBase $e){
+            throw new ErrorBase('Error al generar consulta insert en registrarBd',$e);
+        }
+
+        try{
+            $resultado = $this->coneccion->ejecutaConsultaInsert($consulta,$datos);
+        }catch(ErrorBase $e){
+            throw new ErrorBase('Error al ejecutar consulta insert en registrarBd',$e);
+        }
+        
+        
         return $resultado;
+    }
+
+    private function validaColunmasUnicas($datos, $registro_id = 0)
+    {
+        $columnas = [$this->tabla.'.id'];
+        foreach ($this->columnasUnicas as $nombreColumnaunica => $columnaUnica)
+        {
+            $filtros = [
+                ['campo' => $columnaUnica , 'valor' =>  $datos[$columnaUnica] , 'signoComparacion' => '='],
+                ['campo' => 'id' , 'valor' =>  $registro_id , 'signoComparacion' => '<>']
+            ];
+
+            $datosGenerados = [
+                $columnaUnica => $datos[$columnaUnica],
+                'id' => $registro_id
+            ];
+
+            try{
+                $consulta = $this->generaConsulta->select($this->tabla,$columnas,$filtros);
+            }catch(ErrorBase $e){
+                throw new ErrorBase('Error al generar consulta select en validaColunmasUnicas',$e);
+            }
+
+            try{
+                $resultado = $this->coneccion->ejecutaConsultaSelect($consulta,$datosGenerados);
+            }catch(ErrorBase $e){
+                throw new ErrorBase('Error al ejecutar consulta select en validaColunmasUnicas',$e);
+            } 
+
+            if ($resultado['n_registros'] != 0)
+            {
+                throw new ErrorEsperado($nombreColumnaunica.':'.$datos[$columnaUnica].' ya registrad@');
+            }
+
+        }
     }
 
     

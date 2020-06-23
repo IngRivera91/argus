@@ -22,7 +22,7 @@ class ClaseModeloTest extends TestCase
         $relaciones = ['grupos' => 'usuarios.grupo_id'];
         
         $columnas = [
-            'unicas' => ['usuario','correo_electronico'],
+            'unicas' => ['usuario' => 'usuario','correo' => 'correo_electronico'],
             'obligatorias' => ['usuario','password','nombre_completo','grupo_id'],
             'protegidas' => ['password']
         ];
@@ -43,6 +43,29 @@ class ClaseModeloTest extends TestCase
         $this->assertIsArray($resultado);
         $this->assertSame($resultado['mensaje'],$mensajeEsperado);
         $this->assertSame($resultado['registro_id'],8);
+
+        
+
+        $error = null;
+        try{
+            $datos['usuario'] = 'ricardo';
+            $resultado = $modelo->registrarBd($datos);
+        }catch(ErrorBase $e){
+            $error = $e;
+        }
+        $mensajeEsperado = "usuario:ricardo ya registrad@";
+        $this->assertSame($error->getMessage(),$mensajeEsperado);
+
+        $error = null;
+        try{
+            $datos['usuario'] = 'ricardo2';
+            $datos['correo_electronico'] = 'mail@mail.com';
+            $resultado = $modelo->registrarBd($datos);
+        }catch(ErrorBase $e){
+            $error = $e;
+        }
+        $mensajeEsperado = "correo:mail@mail.com ya registrad@";
+        $this->assertSame($error->getMessage(),$mensajeEsperado);
 
         $coneccion->ejecutaConsultaDelete("DELETE FROM usuarios");
         $coneccion->ejecutaConsultaDelete("DELETE FROM grupos");
