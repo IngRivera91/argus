@@ -72,11 +72,12 @@ class GeneraConsultas
         $filtrosGenerados = '';
         foreach ($filtros as $filtro )
         {
-            $filtrosGenerados .= "{$filtro['campo']} {$filtro['signoComparacion']} :{$filtro['campo']} AND";
+            $filtrosGenerados .= "{$filtro['campo']} {$filtro['signoComparacion']} :{$filtro['campo']} AND ";
         }
-
-        $filtrosGenerados = trim($filtrosGenerados,'AND');
+        
         $filtrosGenerados = trim($filtrosGenerados,' ');
+        $filtrosGenerados = trim($filtrosGenerados,'AND');
+        
 
         return "WHERE $filtrosGenerados";
     }
