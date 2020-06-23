@@ -46,7 +46,6 @@ class Modelo
             throw new ErrorBase('Error al ejecutar consulta insert en registrarBd',$e);
         }
         
-        
         return $resultado;
     }
 
@@ -84,7 +83,5 @@ class Modelo
 
         }
     }
-
-    
 
 }
