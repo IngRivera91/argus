@@ -19,11 +19,15 @@ class ClaseModeloTest extends TestCase
         $coneccion->ejecutaConsultaInsert("INSERT INTO grupos (id) VALUES (1)");
 
         $tabla = 'usuarios';
-        $columnasUnicas = ['usuario','correo_electronico'];
-        $columnasObligatorias = ['usuario','password','nombre_completo','grupo_id'];
-        $columnasProtegidas = ['password'];
         $relaciones = ['grupos' => 'usuarios.grupo_id'];
-        $modelo = new Modelo($coneccion,$tabla,$columnasUnicas,$columnasObligatorias,$columnasProtegidas,$relaciones);
+        
+        $columnas = [
+            'unicas' => ['usuario','correo_electronico'],
+            'obligatorias' => ['usuario','password','nombre_completo','grupo_id'],
+            'protegidas' => ['password']
+        ];
+        
+        $modelo = new Modelo($coneccion,$tabla,$relaciones, $columnas);
 
         $datos = [
             'id' => 8,
@@ -39,8 +43,6 @@ class ClaseModeloTest extends TestCase
         $this->assertIsArray($resultado);
         $this->assertSame($resultado['mensaje'],$mensajeEsperado);
         $this->assertSame($resultado['registro_id'],8);
-
-        $this->assertSame(1,1);
 
         $coneccion->ejecutaConsultaDelete("DELETE FROM usuarios");
         $coneccion->ejecutaConsultaDelete("DELETE FROM grupos");

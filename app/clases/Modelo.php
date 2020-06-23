@@ -9,7 +9,7 @@ use Error\Base AS ErrorBase;
 
 class Modelo 
 {
-    public Validaciones $valida;
+    private Validaciones $valida;
     private GeneraConsultas $generaConsulta;
     private string $tabla;
     private Database $coneccion;
@@ -18,38 +18,23 @@ class Modelo
     private array $columnasProtegidas;
     private array $relaciones;
 
-    public function __construct(Database $coneccion,string $tabla,array $columnasUnicas,array $columnasObligatorias,array $columnasProtegidas,array $relaciones)
+    public function __construct( Database $coneccion ,string $tabla ,array $relaciones, array $columnas )
     {
         $this->valida  = new Validaciones();
         $this->generaConsulta = new GeneraConsultas();
         $this->coneccion = $coneccion;
         $this->tabla = $tabla;
-        $this->columnasUnicas = $columnasUnicas;
-        $this->columnasObligatorias = $columnasObligatorias;
-        $this->columnasProtegidas = $columnasProtegidas;
         $this->relaciones = $relaciones;
+        $this->columnasUnicas = $columnas['unicas'];
+        $this->columnasObligatorias = $columnas['obligatorias'];
+        $this->columnasProtegidas = $columnas['protegidas'];
     }
 
     public function registrarBd($datos)
     {
-        $this->valida->array('datos',$datos);
-
-        try{
-            $consulta = $this->generaConsulta->insert($this->tabla,$datos);
-        }catch (ErrorBase $e){
-            throw new ErrorBase('Error al tratar de generar la consulta',$e);
-        }
-        
-        //$this->valida->columnasUnicas($this->columnasUnicas,$datos);
-
-        try{
-            $res = $this->coneccion->ejecutaConsultaInsert($consulta,$datos);
-        }catch (ErrorBase $e){
-            throw new ErrorBase('Error al ejecutar la consulta: '.$consulta,$e);
-        }
-        
-        return $res;
-        
+        $consulta = $this->generaConsulta->insert($this->tabla,$datos);
+        $resultado = $this->coneccion->ejecutaConsultaInsert($consulta,$datos);
+        return $resultado;
     }
 
     
