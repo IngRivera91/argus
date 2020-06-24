@@ -48,7 +48,6 @@ class ClaseModeloTest extends TestCase
 
         $error = null;
         try{
-            $datos['usuario'] = 'ricardo';
             $resultado = $modelo->registrarBd($datos);
         }catch(ErrorBase $e){
             $error = $e;
@@ -59,12 +58,31 @@ class ClaseModeloTest extends TestCase
         $error = null;
         try{
             $datos['usuario'] = 'ricardo2';
-            $datos['correo_electronico'] = 'mail@mail.com';
             $resultado = $modelo->registrarBd($datos);
         }catch(ErrorBase $e){
             $error = $e;
         }
         $mensajeEsperado = "correo:mail@mail.com ya registrad@";
+        $this->assertSame($error->getMessage(),$mensajeEsperado);
+
+        $error = null;
+        try{
+            $datos['usuario'] = '';
+            $resultado = $modelo->registrarBd($datos);
+        }catch(ErrorBase $e){
+            $error = $e;
+        }
+        $mensajeEsperado = "El campo usuario no pude ser vacio o null";
+        $this->assertSame($error->getMessage(),$mensajeEsperado);
+
+        $error = null;
+        try{
+            unset($datos['usuario']);
+            $resultado = $modelo->registrarBd($datos);
+        }catch(ErrorBase $e){
+            $error = $e;
+        }
+        $mensajeEsperado = "El campo usuario debe existir en el array de datos";
         $this->assertSame($error->getMessage(),$mensajeEsperado);
 
         $coneccion->ejecutaConsultaDelete("DELETE FROM usuarios");
