@@ -33,8 +33,17 @@ class Modelo
 
     public function registrarBd($datos)
     {
-        $this->validaColumnasObligatorias( $this->columnasObligatorias , $datos );
-        $this->validaColunmasUnicas($datos);
+        try{
+            $this->validaColumnasObligatorias( $this->columnasObligatorias , $datos );
+        }catch(ErrorBase $e){
+            throw new ErrorBase($e->getMessage(),$e);
+        }
+
+        try{
+            $this->validaColunmasUnicas($datos);
+        }catch(ErrorBase $e){
+            throw new ErrorEsperado($e->getMessage(),$e);
+        }
 
         try{
             $consulta = $this->generaConsulta->insert($this->tabla,$datos);

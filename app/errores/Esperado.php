@@ -6,7 +6,7 @@ use Error\Base AS ErrorBase;
 class Esperado extends ErrorBase
 {
 
-    public function __construct( $mensaje = '' , Exception $errorAnterior = null ) 
+    public function __construct( $mensaje = '' , ErrorBase $errorAnterior = null ) 
     {
         parent::__construct( $mensaje , $errorAnterior );
     }
