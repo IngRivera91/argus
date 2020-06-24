@@ -48,13 +48,13 @@ class Modelo
         try{
             $consulta = $this->generaConsulta->insert($this->tabla,$datos);
         }catch(ErrorBase $e){
-            throw new ErrorBase('Error al generar consulta insert en registrarBd',$e);
+            throw new ErrorBase($e->getMessage(),$e);
         }
 
         try{
             $resultado = $this->coneccion->ejecutaConsultaInsert($consulta,$datos);
         }catch(ErrorBase $e){
-            throw new ErrorBase('Error al ejecutar consulta insert en registrarBd',$e);
+            throw new ErrorBase($e->getMessage(),$e);
         }
         
         return $resultado;
@@ -78,13 +78,13 @@ class Modelo
             try{
                 $consulta = $this->generaConsulta->select($this->tabla,$columnas,$filtros);
             }catch(ErrorBase $e){
-                throw new ErrorBase('Error al generar consulta select en validaColunmasUnicas',$e);
+                throw new ErrorBase($e->getMessage(),$e);
             }
 
             try{
                 $resultado = $this->coneccion->ejecutaConsultaSelect($consulta,$datosGenerados);
             }catch(ErrorBase $e){
-                throw new ErrorBase('Error al ejecutar consulta select en validaColunmasUnicas',$e);
+                throw new ErrorBase($e->getMessage(),$e);
             } 
 
             if ($resultado['n_registros'] != 0)
