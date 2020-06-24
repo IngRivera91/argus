@@ -7,27 +7,44 @@ use PHPUnit\Framework\TestCase;
 
 class ClaseModeloTest extends TestCase
 {
-
     /**
      * @test
      */
-    public function registrarBd()
+    public function creaConeccion()
     {
-        $coneccion = new Database();
+        $this->assertSame(1,1);
+        return new Database();  
+    }
 
-        $coneccion->ejecutaConsultaDelete("DELETE FROM grupos");
-        $coneccion->ejecutaConsultaInsert("INSERT INTO grupos (id) VALUES (1)");
-
+    /**
+     * @test
+     * @depends creaConeccion
+     */
+    public function creaModelo($coneccion)
+    {
+        $this->assertSame(1,1);
         $tabla = 'usuarios';
-        $relaciones = ['grupos' => 'usuarios.grupo_id'];
-        
+        $relaciones = ['grupos' => 'usuarios.grupo_id']; 
         $columnas = [
             'unicas' => ['usuario' => 'usuario','correo' => 'correo_electronico'],
             'obligatorias' => ['usuario','password','nombre_completo','grupo_id'],
             'protegidas' => ['password']
         ];
+        return new Modelo($coneccion,$tabla,$relaciones, $columnas);
         
-        $modelo = new Modelo($coneccion,$tabla,$relaciones, $columnas);
+    }
+
+    /**
+     * @test
+     * @depends creaConeccion
+     * @depends creaModelo
+     */
+    public function registrarBd($coneccion,$modelo)
+    {
+        $consultaDeleteBase = 'DELETE FROM';
+        $coneccion->ejecutaConsultaDelete("$consultaDeleteBase usuarios");
+        $coneccion->ejecutaConsultaDelete("$consultaDeleteBase grupos");
+        $coneccion->ejecutaConsultaInsert("INSERT INTO grupos (id) VALUES (1)");
 
         $datos = [
             'id' => 8,
@@ -43,8 +60,6 @@ class ClaseModeloTest extends TestCase
         $this->assertIsArray($resultado);
         $this->assertSame($resultado['mensaje'],$mensajeEsperado);
         $this->assertSame($resultado['registro_id'],8);
-
-        
 
         $error = null;
         try{
@@ -85,8 +100,6 @@ class ClaseModeloTest extends TestCase
         $mensajeEsperado = "El campo usuario debe existir en el array de datos";
         $this->assertSame($error->getMessage(),$mensajeEsperado);
 
-        $coneccion->ejecutaConsultaDelete("DELETE FROM usuarios");
-        $coneccion->ejecutaConsultaDelete("DELETE FROM grupos");
     }
 
 }
