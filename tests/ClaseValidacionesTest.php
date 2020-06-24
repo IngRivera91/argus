@@ -5,13 +5,22 @@ use PHPUnit\Framework\TestCase;
 
 class ClaseValidacionesTest extends TestCase
 {
+
     /**
      * @test
      */
-    public function validaNombreTabla()
+    public function creaValidaciones()
     {
-        $valida = new Validaciones();
+        $this->assertSame(1,1);
+        return new Validaciones();
+    }
 
+    /**
+     * @test
+     * @depends creaValidaciones
+     */
+    public function validaNombreTabla($valida)
+    {
         $error = null;
         try{
             $valida->nombreTabla('');
@@ -29,16 +38,14 @@ class ClaseValidacionesTest extends TestCase
         }
         $mensajeEsperado = 'El nombre de la tabla no es valido';
         $this->assertSame($error->getMessage(),$mensajeEsperado);
-
     }
 
      /**
      * @test
+     * @depends creaValidaciones
      */
-    public function validaFiltros()
+    public function validaFiltros($valida)
     {
-        $valida = new Validaciones();
-
         $error = null;
         try{
             $valida->filtros('');
@@ -97,16 +104,14 @@ class ClaseValidacionesTest extends TestCase
         }
         $mensajeEsperado = 'Cada filtro debe tener el key [\'signoComparacion\']';
         $this->assertSame($error->getMessage(),$mensajeEsperado);
-
     }
 
     /**
      * @test
+     * @depends creaValidaciones
      */
-    public function validaArray()
+    public function validaArray($valida)
     {
-        $valida = new Validaciones();
-
         $error = null;
         try{
             $nombreArray = 'Array';
@@ -130,11 +135,10 @@ class ClaseValidacionesTest extends TestCase
 
     /**
      * @test
+     * @depends creaValidaciones
      */
-    public function validaArrayAsociativo()
+    public function validaArrayAsociativo($valida)
     {
-        $valida = new Validaciones();
-
         $error = null;
         try{
             $nombreArray = 'Array';
@@ -148,11 +152,10 @@ class ClaseValidacionesTest extends TestCase
 
     /**
      * @test
+     * @depends creaValidaciones
      */
-    public function validaConsulta()
+    public function validaConsulta($valida)
     {
-        $valida = new Validaciones();
-
         $error = null;
         try{
             $valida->consulta('');
@@ -161,6 +164,5 @@ class ClaseValidacionesTest extends TestCase
         }
         $mensajeEsperado = 'La consulta no puede estar vacia';
         $this->assertSame($error->getMessage(),$mensajeEsperado);
-
     }
 }
