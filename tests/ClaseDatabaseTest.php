@@ -6,25 +6,33 @@ use PHPUnit\Framework\TestCase;
 
 class ClaseDatabaseTest extends TestCase
 { 
-    protected $coneccion;
-
     /**
      * @test
      */
-    public function ejecutaConsultaDelete()
+    public function creaConeccion()
     {
-        $coneccion = new Database();
+        $this->assertSame(1,1);
+        return new Database();
+        
+    }
 
+    /**
+     * @test
+     * @depends creaConeccion
+     */
+    public function ejecutaConsultaDelete($coneccion)
+    {
+        $tabla = 'usuarios';
         $error = null;
         try{
-            $coneccion->ejecutaConsultaDelete('DELETEasdS FROM usuarios');
+            $coneccion->ejecutaConsultaDelete("DELETEasdS FROM $tabla");
         }catch(ErrorBase $e){
             $error = $e;
         }
         $this->assertInstanceOf(ErrorBase::class, $error);
         $this->assertEquals($error->getCode(),42000);
 
-        $resultado = $coneccion->ejecutaConsultaDelete('DELETE FROM usuarios');
+        $resultado = $coneccion->ejecutaConsultaDelete("DELETE FROM $tabla");
         $this->assertCount(1,$resultado);
         
     }
@@ -32,27 +40,27 @@ class ClaseDatabaseTest extends TestCase
     /**
      * @test
      * @dataProvider datosUsuarios
+     * @depends creaConeccion
      */
-    public function ejecutaConsultaInsert($datos)
+    public function ejecutaConsultaInsert($datos,$coneccion)
     {
-        $coneccion = new Database();
-
+        $consulta_base = 'INSERT INTO usuarios (id,usuario,password) VALUES (:id,:usuario,:password)';
         try{
-            $resultado = $coneccion->ejecutaConsultaInsert('INSERT INTO usuarios (id,usuario,password) VALUES (:id,:usuario,:password) ');
+            $resultado = $coneccion->ejecutaConsultaInsert("$consulta_base ");
         }catch(ErrorBase $e){
             $error = $e;
         }
         $this->assertInstanceOf(ErrorBase::class, $error);
         $this->assertEquals($error->getCode(),42000);
         
-        $resultado = $coneccion->ejecutaConsultaInsert('INSERT INTO usuarios (id,usuario,password) VALUES (:id,:usuario,:password) ',$datos);
+        $resultado = $coneccion->ejecutaConsultaInsert("$consulta_base ",$datos);
         $this->assertCount(2,$resultado);
         $this->assertSame('registro insertado',$resultado['mensaje']);
         $this->assertSame($datos['id'],$resultado['registro_id']);
 
         $error = null;
         try{
-            $resultado = $coneccion->ejecutaConsultaInsert('INSERT INTO usuarios (id,usuario,password) VALUES (:id,:usuario,:password) ',$datos);
+            $resultado = $coneccion->ejecutaConsultaInsert("$consulta_base ",$datos);
         }catch(ErrorBase $e){
             $error = $e;
         }
@@ -64,51 +72,49 @@ class ClaseDatabaseTest extends TestCase
     /**
      * @test
      * @dataProvider datosUsuarios
+     * @depends creaConeccion
      */
-    public function ejecutaConsultaUpdate($datos)
+    public function ejecutaConsultaUpdate($datos,$coneccion)
     {
-        $coneccion = new Database();
-
+        $consulta_base = 'UPDATE usuarios SET usuario = :usuario';
         $error = null;
         try{
-            $coneccion->ejecutaConsultaUpdate('UPDATE usuarios SET usuario = :usuario WHERE id = :id ');
+            $coneccion->ejecutaConsultaUpdate("$consulta_base WHERE id = :id");
         }catch(ErrorBase $e){
             $error = $e;
         }
         $this->assertInstanceOf(ErrorBase::class, $error);
         $this->assertEquals($error->getCode(),42000);
 
-        $resultado = $coneccion->ejecutaConsultaUpdate('UPDATE usuarios SET usuario = :usuario, password = :password WHERE id = :id ',$datos);
+        $resultado = $coneccion->ejecutaConsultaUpdate("$consulta_base, password = :password WHERE id = :id ",$datos);
         $this->assertCount(1,$resultado);
         $this->assertSame('registro modificado',$resultado['mensaje']);
-        
     }
 
     /**
      * @test
      * @dataProvider datosUsuarios
+     * @depends creaConeccion
      */
-    public function ejecutaConsultaSelect($datos)
+    public function ejecutaConsultaSelect($datos,$coneccion)
     {
-        $coneccion = new Database();
-
+        $consulta_base = 'SELECT * FROM usuarios WHERE id = :id AND usuario = :usuario AND password = :password';
         $error = null;
         try{
-            $coneccion->ejecutaConsultaSelect('SELECT * FROM usuarios WHERE id = :id AND usuario = :usuario AND password = :password ');
+            $coneccion->ejecutaConsultaSelect("$consulta_base");
         }catch(ErrorBase $e){
             $error = $e;
         }
         $this->assertInstanceOf(ErrorBase::class, $error);
         $this->assertEquals($error->getCode(),42000);
 
-        $resultado = $coneccion->ejecutaConsultaSelect('SELECT * FROM usuarios WHERE id = :id AND usuario = :usuario AND password = :password',$datos);
+        $resultado = $coneccion->ejecutaConsultaSelect("$consulta_base",$datos);
         $this->assertCount(2,$resultado);
         $this->assertSame(1,$resultado['n_registros']);
         $this->assertCount(12,$resultado['registros'][0]);
         $this->assertEquals($datos['id'],$resultado['registros'][0]['id']);
         $this->assertSame($datos['usuario'],$resultado['registros'][0]['usuario']);
         $this->assertSame($datos['password'],$resultado['registros'][0]['password']);
-        
     }
 
 
