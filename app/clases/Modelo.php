@@ -33,8 +33,9 @@ class Modelo
 
     public function registrarBd($datos)
     {
+        $this->validaColumnasObligatorias( $this->columnasObligatorias , $datos );
         $this->validaColunmasUnicas($datos);
-        //falta validar las columnasObligatorias
+
         try{
             $consulta = $this->generaConsulta->insert($this->tabla,$datos);
         }catch(ErrorBase $e){
@@ -82,6 +83,21 @@ class Modelo
                 throw new ErrorEsperado($nombreColumnaunica.':'.$datos[$columnaUnica].' ya registrad@');
             }
 
+        }
+    }
+
+    private function validaColumnasObligatorias($columnasObligatorias,$datos)
+    {
+        foreach($columnasObligatorias as $columnaObligatoria)
+        {
+            if (!array_key_exists($columnaObligatoria, $datos))
+            {
+                throw new ErrorBase("El campo $columnaObligatoria debe existir en el array de datos");
+            }
+            if ( is_null($datos[$columnaObligatoria]) ||  $datos[$columnaObligatoria] == '' )
+            {
+                throw new ErrorBase("El campo $columnaObligatoria no pude ser vacio o null");
+            }
         }
     }
 
