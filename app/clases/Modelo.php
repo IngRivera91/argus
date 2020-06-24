@@ -34,6 +34,7 @@ class Modelo
     public function registrarBd($datos)
     {
         $this->validaColunmasUnicas($datos);
+        //falta validar las columnasObligatorias
         try{
             $consulta = $this->generaConsulta->insert($this->tabla,$datos);
         }catch(ErrorBase $e){

@@ -8,13 +8,13 @@ class ClaseValidacionesTest extends TestCase
     /**
      * @test
      */
-    public function validaTabla()
+    public function validaNombreTabla()
     {
         $valida = new Validaciones();
 
         $error = null;
         try{
-            $valida->tabla('');
+            $valida->nombreTabla('');
         }catch(ErrorBase $e){
             $error = $e;
         }
@@ -23,7 +23,7 @@ class ClaseValidacionesTest extends TestCase
 
         $error = null;
         try{
-            $valida->tabla(' sessiones usuarios ');
+            $valida->nombreTabla(' sessiones usuarios ');
         }catch(ErrorBase $e){
             $error = $e;
         }

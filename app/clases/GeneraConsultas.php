@@ -13,7 +13,7 @@ class GeneraConsultas
 
     public function delete( $tabla , $filtros = array() ):string
     {
-        $this->valida->tabla($tabla);
+        $this->valida->nombreTabla($tabla);
 
         $filtrosGenerado = '';
         if ( count($filtros) !== 0 )
@@ -30,7 +30,7 @@ class GeneraConsultas
 
     public function insert( $tabla = '' , $datos = array() ):string
     {
-        $this->valida->tabla($tabla);
+        $this->valida->nombreTabla($tabla);
         $this->valida->arrayAsociativo('datos',$datos);
         $campos = '';
         $valores = '';
@@ -112,7 +112,7 @@ class GeneraConsultas
 
     public function select($tabla = '', $columnas = [] ,$filtros = [] , $limit = '' , $orderBy = [] , $relaciones = [] )
     {   
-        $this->valida->tabla($tabla);
+        $this->valida->nombreTabla($tabla);
         $columnasGeneradas = '*';
         if ( count($columnas) !== 0 ){
             $this->valida->array('columnas',$columnas);
@@ -152,7 +152,7 @@ class GeneraConsultas
 
     public function update($tabla = '' , $datos = array() , $filtros = array() ):string
     {
-        $this->valida->tabla($tabla);
+        $this->valida->nombreTabla($tabla);
         $this->valida->arrayAsociativo('datos',$datos);
 
         $filtrosGenerados = '';

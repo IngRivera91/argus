@@ -68,7 +68,7 @@ class Validaciones
         }
     }
 
-    public function tabla($tabla):void
+    public function nombreTabla($tabla):void
     {
         $tabla = trim($tabla,' ');
 
