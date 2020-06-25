@@ -31,6 +31,27 @@ class Modelo
         $this->columnasProtegidas = $columnas['protegidas'];
     }
 
+    public function actualizarPorId($id,$datos)
+    {
+        try{
+            $this->validaColunmasUnicas($datos,$id);
+        }catch(ErrorBase $e){
+            throw new ErrorEsperado($e->getMessage(),$e);
+        }
+    
+        $filtros = [
+            ['campo' => 'id' , 'valor' => $id , 'signoComparacion' => '=']
+        ];
+
+        try{
+            $consulta = $this->generaConsulta->update($this->tabla,$datos,$filtros);
+            $resultado = $this->coneccion->ejecutaConsultaUpdate($consulta,$datos,$filtros);
+        }catch(ErrorBase $e){
+            throw new ErrorBase($e->getMessage(),$e);
+        }
+        return $resultado;
+    }
+
     public function registrar($datos)
     {
         try{
@@ -60,32 +81,36 @@ class Modelo
         $columnas = [$this->tabla.'.id'];
         foreach ($this->columnasUnicas as $nombreColumnaunica => $columnaUnica)
         {
-            $filtros = [
-                ['campo' => $columnaUnica , 'valor' =>  $datos[$columnaUnica] , 'signoComparacion' => '='],
-                ['campo' => 'id' , 'valor' =>  $registro_id , 'signoComparacion' => '<>']
-            ];
-
-            $datosGenerados = [
-                $columnaUnica => $datos[$columnaUnica],
-                'id' => $registro_id
-            ];
-
-            try{
-                $consulta = $this->generaConsulta->select($this->tabla,$columnas,$filtros);
-            }catch(ErrorBase $e){
-                throw new ErrorBase($e->getMessage(),$e);
-            }
-
-            try{
-                $resultado = $this->coneccion->ejecutaConsultaSelect($consulta,$datosGenerados);
-            }catch(ErrorBase $e){
-                throw new ErrorBase($e->getMessage(),$e);
-            } 
-
-            if ($resultado['n_registros'] != 0)
+            if ( isset($datos[$columnaUnica]) )
             {
-                throw new ErrorEsperado($nombreColumnaunica.':'.$datos[$columnaUnica].' ya registrad@');
+                $filtros = [
+                    ['campo' => $columnaUnica , 'valor' =>  $datos[$columnaUnica] , 'signoComparacion' => '='],
+                    ['campo' => 'id' , 'valor' =>  $registro_id , 'signoComparacion' => '<>']
+                ];
+    
+                $datosGenerados = [
+                    $columnaUnica => $datos[$columnaUnica],
+                    'id' => $registro_id
+                ];
+    
+                try{
+                    $consulta = $this->generaConsulta->select($this->tabla,$columnas,$filtros);
+                }catch(ErrorBase $e){
+                    throw new ErrorBase($e->getMessage(),$e);
+                }
+    
+                try{
+                    $resultado = $this->coneccion->ejecutaConsultaSelect($consulta,$datosGenerados);
+                }catch(ErrorBase $e){
+                    throw new ErrorBase($e->getMessage(),$e);
+                } 
+    
+                if ($resultado['n_registros'] != 0)
+                {
+                    throw new ErrorEsperado($nombreColumnaunica.':'.$datos[$columnaUnica].' ya registrad@');
+                }
             }
+            
 
         }
     }

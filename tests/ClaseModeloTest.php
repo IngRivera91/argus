@@ -47,6 +47,21 @@ class ClaseModeloTest extends TestCase
         $coneccion->ejecutaConsultaInsert("INSERT INTO grupos (id) VALUES (1)");
 
         $datos = [
+            'id' => 7,
+            'usuario' => 'pedro',
+            'correo_electronico' => 'pedro@mail.com',
+            'password' => 'pedro123',
+            'nombre_completo' => 'Pedro Lopez Lopez',
+            'grupo_id' => '1'
+        ];
+
+        $resultado = $modelo->registrar($datos);
+        $mensajeEsperado = 'registro insertado';
+        $this->assertIsArray($resultado);
+        $this->assertSame($resultado['mensaje'],$mensajeEsperado);
+        $this->assertSame($resultado['registro_id'],7);
+
+        $datos = [
             'id' => 8,
             'usuario' => 'ricardo',
             'correo_electronico' => 'mail@mail.com',
@@ -101,5 +116,34 @@ class ClaseModeloTest extends TestCase
         $this->assertSame($error->getMessage(),$mensajeEsperado);
 
     }
+
+    /**
+     * @test
+     * @depends creaConeccion
+     * @depends creaModelo
+     * @depends registrar
+     */
+    public function actualizarPorId($coneccion,$modelo)
+    {
+        $id = 8;
+        $datos = [
+            'correo_electronico' => 'pedro@mail.com',
+            'password' => 'password',
+        ];
+
+        try{
+            $resultado = $modelo->actualizarPorId($id,$datos);
+        }catch(ErrorBase $e){
+            $error = $e;
+        }
+        $mensajeEsperado = "correo:pedro@mail.com ya registrad@";
+        $this->assertSame($error->getMessage(),$mensajeEsperado);
+
+        $datos['correo_electronico'] = 'mail@mail.com';
+        $resultado = $modelo->actualizarPorId($id,$datos);
+        $mensajeEsperado = 'registro modificado';
+        $this->assertIsArray($resultado);
+        $this->assertSame($resultado['mensaje'],$mensajeEsperado);
+    }    
 
 }
