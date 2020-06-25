@@ -47,11 +47,6 @@ class Modelo
 
         try{
             $consulta = $this->generaConsulta->insert($this->tabla,$datos);
-        }catch(ErrorBase $e){
-            throw new ErrorBase($e->getMessage(),$e);
-        }
-
-        try{
             $resultado = $this->coneccion->ejecutaConsultaInsert($consulta,$datos);
         }catch(ErrorBase $e){
             throw new ErrorBase($e->getMessage(),$e);
