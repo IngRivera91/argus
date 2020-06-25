@@ -58,6 +58,15 @@ class Database
         }
     }
 
+    private function blindarFiltros($filtros):void
+    {
+        if (count($filtros) != 0){
+            foreach ( $filtros as $filtro){
+                $this->stmt->bindValue(':'.$filtro['campo'],$filtro['valor']);
+            }
+        }
+    }
+
     public function ejecutaConsultaDelete(string $consulta = '' ,array $blindar = array())
     {
         $this->valida->consulta($consulta);
@@ -74,11 +83,11 @@ class Database
         }
     }
 
-    public function ejecutaConsultaInsert(string $consulta = '' ,array $blindar = array())
+    public function ejecutaConsultaInsert(string $consulta = '' ,array $datos = array())
     {
         $this->valida->consulta($consulta);
         $this->stmt = $this->dbh->prepare($consulta);
-        $this->blindarDatos($blindar);
+        $this->blindarDatos($datos);
         try 
         {
             $this->stmt->execute();
@@ -109,11 +118,12 @@ class Database
         }
     }
 
-    public function ejecutaConsultaUpdate(string $consulta = '' ,array $blindar = array())
+    public function ejecutaConsultaUpdate( string $consulta = '' , array $datos = [] , array $filtros = [] )
     {
         $this->valida->consulta($consulta);
         $this->stmt = $this->dbh->prepare($consulta);
-        $this->blindarDatos($blindar);
+        $this->blindarDatos($datos);
+        $this->blindarFiltros($filtros);
         try 
         {
             $this->stmt->execute();
