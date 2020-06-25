@@ -31,7 +31,7 @@ class Modelo
         $this->columnasProtegidas = $columnas['protegidas'];
     }
 
-    public function registrarBd($datos)
+    public function registrar($datos)
     {
         try{
             $this->validaColumnasObligatorias( $this->columnasObligatorias , $datos );

@@ -39,7 +39,7 @@ class ClaseModeloTest extends TestCase
      * @depends creaConeccion
      * @depends creaModelo
      */
-    public function registrarBd($coneccion,$modelo)
+    public function registrar($coneccion,$modelo)
     {
         $consultaDeleteBase = 'DELETE FROM';
         $coneccion->ejecutaConsultaDelete("$consultaDeleteBase usuarios");
@@ -55,7 +55,7 @@ class ClaseModeloTest extends TestCase
             'grupo_id' => '1'
         ];
 
-        $resultado = $modelo->registrarBd($datos);
+        $resultado = $modelo->registrar($datos);
         $mensajeEsperado = 'registro insertado';
         $this->assertIsArray($resultado);
         $this->assertSame($resultado['mensaje'],$mensajeEsperado);
@@ -63,7 +63,7 @@ class ClaseModeloTest extends TestCase
 
         $error = null;
         try{
-            $resultado = $modelo->registrarBd($datos);
+            $resultado = $modelo->registrar($datos);
         }catch(ErrorBase $e){
             $error = $e;
         }
@@ -73,7 +73,7 @@ class ClaseModeloTest extends TestCase
         $error = null;
         try{
             $datos['usuario'] = 'ricardo2';
-            $resultado = $modelo->registrarBd($datos);
+            $resultado = $modelo->registrar($datos);
         }catch(ErrorBase $e){
             $error = $e;
         }
@@ -83,7 +83,7 @@ class ClaseModeloTest extends TestCase
         $error = null;
         try{
             $datos['usuario'] = '';
-            $resultado = $modelo->registrarBd($datos);
+            $resultado = $modelo->registrar($datos);
         }catch(ErrorBase $e){
             $error = $e;
         }
@@ -93,7 +93,7 @@ class ClaseModeloTest extends TestCase
         $error = null;
         try{
             unset($datos['usuario']);
-            $resultado = $modelo->registrarBd($datos);
+            $resultado = $modelo->registrar($datos);
         }catch(ErrorBase $e){
             $error = $e;
         }
