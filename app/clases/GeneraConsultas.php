@@ -37,8 +37,16 @@ class GeneraConsultas
 
         foreach ($datos as $campo => $valor)
         {
-            $campos .=  $campo.',';
-            $valores .=  ':'.$campo.',';
+            $campo_explode = explode('.',$campo);
+            $numero = count($campo_explode);
+            if ($numero == 2){
+                $campos .=  "{$campo[0]}_{$campo[1]} ,";
+                $valores .=  ":{$campo[0]}_{$campo[1]} ,";
+            }
+            if ($numero == 1){
+                $campos .=  $campo.',';
+                $valores .=  ':'.$campo.',';
+            }  
         }
 
         $campos = trim($campos,',');
