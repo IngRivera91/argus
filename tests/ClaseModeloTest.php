@@ -130,11 +130,10 @@ class ClaseModeloTest extends TestCase
 
     /**
      * @test
-     * @depends creaConeccion
      * @depends creaModelo
      * @depends registrar
      */
-    public function actualizarPorId($coneccion,$modelo,$datosUsuarios)
+    public function actualizarPorId($modelo,$datosUsuarios)
     {
         $idUsuarioRicardo = 2;
         $idUsuarioJuan = 0;
@@ -158,6 +157,28 @@ class ClaseModeloTest extends TestCase
         $mensajeEsperado = 'registro modificado';
         $this->assertIsArray($resultado);
         $this->assertSame($resultado['mensaje'],$mensajeEsperado);
-    }    
+
+        $datosUsuarios[$idUsuarioRicardo]['id'] = $id;
+        return $datosUsuarios;
+    }
+
+    /**
+     * @test
+     * @depends creaModelo
+     * @depends actualizarPorId
+     */
+    public function buscarPorId($modelo,$datosUsuarios)
+    {
+
+        foreach ($datosUsuarios as $datosUsuario)
+        {
+            $id = $datosUsuario['id'];
+            $resultado = $modelo->buscarPorId($id);
+            $this->assertIsArray($resultado);
+            $this->assertSame(1,$resultado['n_registros']);
+            $this->assertCount(17,$resultado['registros'][0]);
+        }
+
+    }
 
 }

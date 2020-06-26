@@ -46,11 +46,15 @@ class Database
     {
         if (count($datos) != 0){
             foreach ( $datos as $campo => $valor){
+                // un campo puede venir de 2 formas
+                // 1: campo
+                // 2: tabla.campo
                 $campo_explode = explode('.',$campo);
                 $numero = count($campo_explode);
-                if ($numero > 1){
-                    $this->stmt->bindValue(':'.$campo_explode[($numero-1)],$valor);
-                }else{
+                if ($numero == 2){
+                    $this->stmt->bindValue(":{$campo_explode[0]}_{$campo_explode[1]}",$valor);
+                }
+                if ($numero == 1){
                     $this->stmt->bindValue(':'.$campo,$valor);
                 }
 
@@ -62,7 +66,14 @@ class Database
     {
         if (count($filtros) != 0){
             foreach ( $filtros as $filtro){
-                $this->stmt->bindValue(':'.$filtro['campo'],$filtro['valor']);
+                $campo_explode = explode('.',$filtro['campo']);
+                $numero = count($campo_explode);
+                if ($numero == 2){
+                    $this->stmt->bindValue(":{$campo_explode[0]}_{$campo_explode[1]}",$filtro['valor']);
+                }
+                if ($numero == 1){
+                    $this->stmt->bindValue(':'.$filtro['campo'],$filtro['valor']);
+                }
             }
         }
     }

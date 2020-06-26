@@ -72,7 +72,16 @@ class GeneraConsultas
         $filtrosGenerados = '';
         foreach ($filtros as $filtro )
         {
-            $filtrosGenerados .= "{$filtro['campo']} {$filtro['signoComparacion']} :{$filtro['campo']} AND ";
+
+            $campo_explode = explode('.',$filtro['campo']);
+            $numero = count($campo_explode);
+            if ($numero == 2){
+                $filtrosGenerados .= "{$filtro['campo']} {$filtro['signoComparacion']} :{$campo_explode[0]}_{$campo_explode[1]} AND ";
+            }
+            if ($numero == 1){
+                $filtrosGenerados .= "{$filtro['campo']} {$filtro['signoComparacion']} :{$filtro['campo']} AND ";
+            }
+
         }
         
         $filtrosGenerados = trim($filtrosGenerados,' ');
@@ -165,7 +174,15 @@ class GeneraConsultas
         $campoValor = '';
         foreach ($datos as $campo => $valor)
         {
-            $campoValor .= " $campo = :$campo ,";
+            $campo_explode = explode('.',$campo);
+            $numero = count($campo_explode);
+            if ($numero == 2){
+                $campoValor .= " {$campo[0]}_{$campo[1]} = :{$campo[0]}_{$campo[1]} ,";
+            }
+            if ($numero == 1){
+                $campoValor .= " $campo = :$campo ,";
+            }
+
         }
         $campoValor = trim($campoValor,',');
         $campoValor = trim($campoValor,' ');

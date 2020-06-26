@@ -40,12 +40,28 @@ class Modelo
         }
     
         $filtros = [
-            ['campo' => 'id' , 'valor' => $id , 'signoComparacion' => '=']
+            ['campo' => $this->tabla.'.id' , 'valor' => $id , 'signoComparacion' => '=']
         ];
 
         try{
             $consulta = $this->generaConsulta->update($this->tabla,$datos,$filtros);
+            print_r($consulta);
             $resultado = $this->coneccion->ejecutaConsultaUpdate($consulta,$datos,$filtros);
+        }catch(ErrorBase $e){
+            throw new ErrorBase($e->getMessage(),$e);
+        }
+        return $resultado;
+    }
+
+    public function buscarPorId(int $id, $columnas = [] , $orderBy = [] , $limit = ''  )
+    {
+        $filtros = [
+            ['campo' => $this->tabla.'.id' , 'valor' => $id , 'signoComparacion' => '=']
+        ];
+
+        try{
+            $consulta = $this->generaConsulta->select($this->tabla,$columnas,$filtros,$limit,$orderBy,$this->relaciones);
+            $resultado = $this->coneccion->ejecutaConsultaSelect($consulta,$filtros);
         }catch(ErrorBase $e){
             throw new ErrorBase($e->getMessage(),$e);
         }
