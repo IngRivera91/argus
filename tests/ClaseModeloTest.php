@@ -143,7 +143,8 @@ class ClaseModeloTest extends TestCase
         unset($datosUsuarios[$idUsuarioRicardo]['id']);
         $datosUsuarios[$idUsuarioRicardo]['correo_electronico'] = $datosUsuarios[$idUsuarioJuan]['correo_electronico'];
         $datosUsuarios[$idUsuarioRicardo]['password'] = 'password';
-
+        
+        $error = null;
         try{
             $resultado = $modelo->actualizarPorId($id,$datosUsuarios[$idUsuarioRicardo]);
         }catch(ErrorBase $e){
