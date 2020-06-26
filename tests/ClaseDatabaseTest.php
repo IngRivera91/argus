@@ -39,11 +39,12 @@ class ClaseDatabaseTest extends TestCase
     
     /**
      * @test
-     * @dataProvider datosUsuarios
      * @depends creaConeccion
      */
-    public function ejecutaConsultaInsert($datos,$coneccion)
+    public function ejecutaConsultaInsert($coneccion)
     {
+        $datos = ['id' => 9, 'usuario' =>'juan', 'password' =>'juan'];
+
         $consulta_base = 'INSERT INTO usuarios (id,usuario,password) VALUES (:id,:usuario,:password)';
         try{
             $resultado = $coneccion->ejecutaConsultaInsert("$consulta_base ");
@@ -66,21 +67,24 @@ class ClaseDatabaseTest extends TestCase
         }
         $this->assertInstanceOf(ErrorBase::class, $error);
         $this->assertEquals($error->getCode(),23000);
+
+        return $datos;
         
     }
 
     /**
      * @test
      * @depends creaConeccion
+     * @depends ejecutaConsultaInsert
      */
-    public function ejecutaConsultaUpdate($coneccion)
+    public function ejecutaConsultaUpdate($coneccion,$datos)
     {
         $filtros = [
-            ['campo' => 'id' , 'valor' => '1' , 'signoComparacion' => '=']
+            ['campo' => 'id' , 'valor' => $datos['id'] , 'signoComparacion' => '=']
         ];
-        $datos = [
-            'usuario' => 'ivan'
-        ];
+
+        $datos['usuario'] = 'ivan';
+
         $consulta_base = 'UPDATE usuarios SET usuario = :usuario';
         $error = null;
         try{
@@ -96,6 +100,8 @@ class ClaseDatabaseTest extends TestCase
         $resultado = $coneccion->ejecutaConsultaUpdate("$consulta_base, password = :password WHERE id = :id ",$datos,$filtros);
         $this->assertCount(1,$resultado);
         $this->assertSame('registro modificado',$resultado['mensaje']);
+
+        return $datos;
     }
 
     /**
@@ -103,12 +109,12 @@ class ClaseDatabaseTest extends TestCase
      * @depends creaConeccion
      * @depends ejecutaConsultaUpdate
      */
-    public function ejecutaConsultaSelect($coneccion)
+    public function ejecutaConsultaSelect($coneccion,$datos)
     {
         $filtros = [
-            ['campo' => 'id' , 'valor' => '1' , 'signoComparacion' => '='],
-            ['campo' => 'usuario' , 'valor' => 'ivan' , 'signoComparacion' => '='],
-            ['campo' => 'password' , 'valor' => 'asd123' , 'signoComparacion' => '=']
+            ['campo' => 'id' , 'valor' => $datos['id'] , 'signoComparacion' => '='],
+            ['campo' => 'usuario' , 'valor' => $datos['usuario'] , 'signoComparacion' => '='],
+            ['campo' => 'password' , 'valor' => $datos['password'] , 'signoComparacion' => '=']
         ];
 
         $consulta_base = 'SELECT * FROM usuarios WHERE id = :id AND usuario = :usuario AND password = :password';
@@ -125,20 +131,9 @@ class ClaseDatabaseTest extends TestCase
         $this->assertCount(2,$resultado);
         $this->assertSame(1,$resultado['n_registros']);
         $this->assertCount(12,$resultado['registros'][0]);
-        $this->assertEquals(1,$resultado['registros'][0]['id']);
-        $this->assertSame('ivan',$resultado['registros'][0]['usuario']);
-        $this->assertSame('asd123',$resultado['registros'][0]['password']);
+        $this->assertEquals($datos['id'],$resultado['registros'][0]['id']);
+        $this->assertSame($datos['usuario'],$resultado['registros'][0]['usuario']);
+        $this->assertSame($datos['password'],$resultado['registros'][0]['password']);
     }
-
-
-    public function datosUsuarios()
-    {
-        return [
-            'juan' => [['id' => 1, 'usuario' =>'juan', 'password' =>'juan']],
-            'pedro' => [['id' => 2, 'usuario' =>'pedro', 'password' =>'pedro']],
-            'maria' => [['id' => 3, 'usuario' =>'maria', 'password' =>'maria']],
-            'monica' => [['id' => 4, 'usuario' =>'monica', 'password' =>'monica']]
-        ];
-    }
-
+    
 }
