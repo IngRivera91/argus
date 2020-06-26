@@ -46,76 +46,85 @@ class ClaseModeloTest extends TestCase
         $coneccion->ejecutaConsultaDelete("$consultaDeleteBase grupos");
         $coneccion->ejecutaConsultaInsert("INSERT INTO grupos (id) VALUES (1)");
 
-        $datos = [
-            'id' => 7,
-            'usuario' => 'pedro',
-            'correo_electronico' => 'pedro@mail.com',
-            'password' => 'pedro123',
-            'nombre_completo' => 'Pedro Lopez Lopez',
-            'grupo_id' => '1'
+        $datosUsuarios = [
+            [
+                'id' => 1,
+                'usuario' => 'juan',
+                'correo_electronico' => 'juan@mail.com',
+                'password' => 'juan123',
+                'nombre_completo' => 'Juan Perez Lopez',
+                'grupo_id' => '1'
+            ],
+            [
+                'id' => 2,
+                'usuario' => 'pedro',
+                'correo_electronico' => 'pedro@mail.com',
+                'password' => 'pedro123',
+                'nombre_completo' => 'Pedro Martines Wong',
+                'grupo_id' => '1'
+            ],
+            [
+                'id' => 3,
+                'usuario' => 'ricardo',
+                'correo_electronico' => 'ricardo@mail.com',
+                'password' => 'ricardo123',
+                'nombre_completo' => 'Ricardo Rivera Sanchez',
+                'grupo_id' => '1'
+            ]
+
         ];
 
-        $resultado = $modelo->registrar($datos);
-        $mensajeEsperado = 'registro insertado';
-        $this->assertIsArray($resultado);
-        $this->assertSame($resultado['mensaje'],$mensajeEsperado);
-        $this->assertSame($resultado['registro_id'],7);
+        foreach ($datosUsuarios as $datosUsuario) 
+        {
+            $resultado = $modelo->registrar($datosUsuario);
+            $mensajeEsperado = 'registro insertado';
+            $this->assertIsArray($resultado);
+            $this->assertSame($resultado['mensaje'],$mensajeEsperado);
+            $this->assertSame($resultado['registro_id'],$datosUsuario['id']);
 
-        $datos = [
-            'id' => 8,
-            'usuario' => 'ricardo',
-            'correo_electronico' => 'mail@mail.com',
-            'password' => '123asd',
-            'nombre_completo' => 'Ricardo Rivera Sanchez',
-            'grupo_id' => '1'
-        ];
+            $error = null;
+            try{
+                $resultado = $modelo->registrar($datosUsuario);
+            }catch(ErrorBase $e){
+                $error = $e;
+            }
+            $mensajeEsperado = "usuario:{$datosUsuario['usuario']} ya registrad@";
+            $this->assertSame($error->getMessage(),$mensajeEsperado);
 
-        $resultado = $modelo->registrar($datos);
-        $mensajeEsperado = 'registro insertado';
-        $this->assertIsArray($resultado);
-        $this->assertSame($resultado['mensaje'],$mensajeEsperado);
-        $this->assertSame($resultado['registro_id'],8);
+            $error = null;
+            try{
+                $datosUsuario['usuario'] = $datosUsuario['usuario'].'_nuevo';
+                $resultado = $modelo->registrar($datosUsuario);
+            }catch(ErrorBase $e){
+                $error = $e;
+            }
+            $mensajeEsperado = "correo:{$datosUsuario['correo_electronico']} ya registrad@";
+            $this->assertSame($error->getMessage(),$mensajeEsperado);
 
-        $error = null;
-        try{
-            $resultado = $modelo->registrar($datos);
-        }catch(ErrorBase $e){
-            $error = $e;
+            $error = null;
+            try{
+                $datosUsuario['usuario'] = '';
+                $resultado = $modelo->registrar( $datosUsuario);
+            }catch(ErrorBase $e){
+                $error = $e;
+            }
+            $mensajeEsperado = "El campo usuario no pude ser vacio o null";
+            $this->assertSame($error->getMessage(),$mensajeEsperado);
+
+            $error = null;
+            try{
+                unset($datosUsuario['usuario']);
+                $resultado = $modelo->registrar($datosUsuario);
+            }catch(ErrorBase $e){
+                $error = $e;
+            }
+            $mensajeEsperado = "El campo usuario debe existir en el array de datos";
+            $this->assertSame($error->getMessage(),$mensajeEsperado);
         }
-        $mensajeEsperado = "usuario:ricardo ya registrad@";
-        $this->assertSame($error->getMessage(),$mensajeEsperado);
 
-        $error = null;
-        try{
-            $datos['usuario'] = 'ricardo2';
-            $resultado = $modelo->registrar($datos);
-        }catch(ErrorBase $e){
-            $error = $e;
-        }
-        $mensajeEsperado = "correo:mail@mail.com ya registrad@";
-        $this->assertSame($error->getMessage(),$mensajeEsperado);
+        
 
-        $error = null;
-        try{
-            $datos['usuario'] = '';
-            $resultado = $modelo->registrar($datos);
-        }catch(ErrorBase $e){
-            $error = $e;
-        }
-        $mensajeEsperado = "El campo usuario no pude ser vacio o null";
-        $this->assertSame($error->getMessage(),$mensajeEsperado);
-
-        $error = null;
-        try{
-            unset($datos['usuario']);
-            $resultado = $modelo->registrar($datos);
-        }catch(ErrorBase $e){
-            $error = $e;
-        }
-        $mensajeEsperado = "El campo usuario debe existir en el array de datos";
-        $this->assertSame($error->getMessage(),$mensajeEsperado);
-
-        return $datos;
+        return $datosUsuarios;
 
     }
 
@@ -125,23 +134,26 @@ class ClaseModeloTest extends TestCase
      * @depends creaModelo
      * @depends registrar
      */
-    public function actualizarPorId($coneccion,$modelo,$datos)
+    public function actualizarPorId($coneccion,$modelo,$datosUsuarios)
     {
-        $id = $datos['id'];
-        unset($datos['id']);
-        $datos['correo_electronico'] = 'pedro@mail.com';
-        $datos['password'] = 'password';
+        $idUsuarioRicardo = 2;
+        $idUsuarioJuan = 0;
+
+        $id = $datosUsuarios[$idUsuarioRicardo]['id'];
+        unset($datosUsuarios[$idUsuarioRicardo]['id']);
+        $datosUsuarios[$idUsuarioRicardo]['correo_electronico'] = $datosUsuarios[$idUsuarioJuan]['correo_electronico'];
+        $datosUsuarios[$idUsuarioRicardo]['password'] = 'password';
 
         try{
-            $resultado = $modelo->actualizarPorId($id,$datos);
+            $resultado = $modelo->actualizarPorId($id,$datosUsuarios[$idUsuarioRicardo]);
         }catch(ErrorBase $e){
             $error = $e;
         }
-        $mensajeEsperado = "correo:pedro@mail.com ya registrad@";
+        $mensajeEsperado = "correo:{$datosUsuarios[$idUsuarioJuan]['correo_electronico']} ya registrad@";
         $this->assertSame($error->getMessage(),$mensajeEsperado);
 
-        $datos['correo_electronico'] = 'mail@mail.com';
-        $resultado = $modelo->actualizarPorId($id,$datos);
+        $datosUsuarios[$idUsuarioRicardo]['correo_electronico'] = $datosUsuarios[$idUsuarioRicardo]['correo_electronico'].'_nuevo';
+        $resultado = $modelo->actualizarPorId($id,$datosUsuarios[$idUsuarioRicardo]);
         $mensajeEsperado = 'registro modificado';
         $this->assertIsArray($resultado);
         $this->assertSame($resultado['mensaje'],$mensajeEsperado);
