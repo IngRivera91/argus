@@ -88,19 +88,9 @@ class Modelo
                     ['campo' => 'id' , 'valor' =>  $registro_id , 'signoComparacion' => '<>']
                 ];
     
-                $datosGenerados = [
-                    $columnaUnica => $datos[$columnaUnica],
-                    'id' => $registro_id
-                ];
-    
                 try{
                     $consulta = $this->generaConsulta->select($this->tabla,$columnas,$filtros);
-                }catch(ErrorBase $e){
-                    throw new ErrorBase($e->getMessage(),$e);
-                }
-    
-                try{
-                    $resultado = $this->coneccion->ejecutaConsultaSelect($consulta,$datosGenerados);
+                    $resultado = $this->coneccion->ejecutaConsultaSelect($consulta,$filtros);
                 }catch(ErrorBase $e){
                     throw new ErrorBase($e->getMessage(),$e);
                 } 
@@ -109,9 +99,7 @@ class Modelo
                 {
                     throw new ErrorEsperado($nombreColumnaunica.':'.$datos[$columnaUnica].' ya registrad@');
                 }
-            }
-            
-
+            }  
         }
     }
 

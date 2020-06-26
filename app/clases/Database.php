@@ -100,11 +100,11 @@ class Database
         }
     }
 
-    public function ejecutaConsultaSelect(string $consulta = '' ,array $blindar = array())
+    public function ejecutaConsultaSelect(string $consulta = '' ,array $filtros = array())
     {
         $this->valida->consulta($consulta);
         $this->stmt = $this->dbh->prepare($consulta);
-        $this->blindarDatos($blindar);
+        $this->blindarFiltros($filtros);
         try 
         {
             $this->stmt->execute();

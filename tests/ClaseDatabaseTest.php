@@ -71,11 +71,16 @@ class ClaseDatabaseTest extends TestCase
 
     /**
      * @test
-     * @dataProvider datosUsuarios
      * @depends creaConeccion
      */
-    public function ejecutaConsultaUpdate($datos,$coneccion)
+    public function ejecutaConsultaUpdate($coneccion)
     {
+        $filtros = [
+            ['campo' => 'id' , 'valor' => '1' , 'signoComparacion' => '=']
+        ];
+        $datos = [
+            'usuario' => 'ivan'
+        ];
         $consulta_base = 'UPDATE usuarios SET usuario = :usuario';
         $error = null;
         try{
@@ -86,18 +91,26 @@ class ClaseDatabaseTest extends TestCase
         $this->assertInstanceOf(ErrorBase::class, $error);
         $this->assertEquals($error->getCode(),42000);
 
-        $resultado = $coneccion->ejecutaConsultaUpdate("$consulta_base, password = :password WHERE id = :id ",$datos);
+        $datos['password'] = 'asd123';
+
+        $resultado = $coneccion->ejecutaConsultaUpdate("$consulta_base, password = :password WHERE id = :id ",$datos,$filtros);
         $this->assertCount(1,$resultado);
         $this->assertSame('registro modificado',$resultado['mensaje']);
     }
 
     /**
      * @test
-     * @dataProvider datosUsuarios
      * @depends creaConeccion
+     * @depends ejecutaConsultaUpdate
      */
-    public function ejecutaConsultaSelect($datos,$coneccion)
+    public function ejecutaConsultaSelect($coneccion)
     {
+        $filtros = [
+            ['campo' => 'id' , 'valor' => '1' , 'signoComparacion' => '='],
+            ['campo' => 'usuario' , 'valor' => 'ivan' , 'signoComparacion' => '='],
+            ['campo' => 'password' , 'valor' => 'asd123' , 'signoComparacion' => '=']
+        ];
+
         $consulta_base = 'SELECT * FROM usuarios WHERE id = :id AND usuario = :usuario AND password = :password';
         $error = null;
         try{
@@ -108,13 +121,13 @@ class ClaseDatabaseTest extends TestCase
         $this->assertInstanceOf(ErrorBase::class, $error);
         $this->assertEquals($error->getCode(),42000);
 
-        $resultado = $coneccion->ejecutaConsultaSelect("$consulta_base",$datos);
+        $resultado = $coneccion->ejecutaConsultaSelect("$consulta_base",$filtros);
         $this->assertCount(2,$resultado);
         $this->assertSame(1,$resultado['n_registros']);
         $this->assertCount(12,$resultado['registros'][0]);
-        $this->assertEquals($datos['id'],$resultado['registros'][0]['id']);
-        $this->assertSame($datos['usuario'],$resultado['registros'][0]['usuario']);
-        $this->assertSame($datos['password'],$resultado['registros'][0]['password']);
+        $this->assertEquals(1,$resultado['registros'][0]['id']);
+        $this->assertSame('ivan',$resultado['registros'][0]['usuario']);
+        $this->assertSame('asd123',$resultado['registros'][0]['password']);
     }
 
 
