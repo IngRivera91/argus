@@ -45,7 +45,6 @@ class Modelo
 
         try{
             $consulta = $this->generaConsulta->update($this->tabla,$datos,$filtros);
-            print_r($consulta);
             $resultado = $this->coneccion->ejecutaConsultaUpdate($consulta,$datos,$filtros);
         }catch(ErrorBase $e){
             throw new ErrorBase($e->getMessage(),$e);
