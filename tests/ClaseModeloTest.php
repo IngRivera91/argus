@@ -115,6 +115,8 @@ class ClaseModeloTest extends TestCase
         $mensajeEsperado = "El campo usuario debe existir en el array de datos";
         $this->assertSame($error->getMessage(),$mensajeEsperado);
 
+        return $datos;
+
     }
 
     /**
@@ -123,13 +125,12 @@ class ClaseModeloTest extends TestCase
      * @depends creaModelo
      * @depends registrar
      */
-    public function actualizarPorId($coneccion,$modelo)
+    public function actualizarPorId($coneccion,$modelo,$datos)
     {
-        $id = 8;
-        $datos = [
-            'correo_electronico' => 'pedro@mail.com',
-            'password' => 'password',
-        ];
+        $id = $datos['id'];
+        unset($datos['id']);
+        $datos['correo_electronico'] = 'pedro@mail.com';
+        $datos['password'] = 'password';
 
         try{
             $resultado = $modelo->actualizarPorId($id,$datos);
