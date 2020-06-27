@@ -67,6 +67,17 @@ class Modelo
         return $resultado;
     }
 
+    public function buscarConFiltros( $filtros, $columnas = [] , $orderBy = [] , $limit = '' )
+    {
+        try{
+            $consulta = $this->generaConsulta->select( $this->tabla , $columnas , $filtros , $limit , $orderBy , $this->relaciones );
+            $resultado = $this->coneccion->ejecutaConsultaSelect( $consulta , $filtros );
+        }catch(ErrorBase $e){
+            throw new ErrorBase($e->getMessage(),$e);
+        }
+        return $resultado;
+    }
+
     public function registrar($datos)
     {
         try{
@@ -99,8 +110,8 @@ class Modelo
             if ( isset($datos[$columnaUnica]) )
             {
                 $filtros = [
-                    ['campo' => $columnaUnica , 'valor' =>  $datos[$columnaUnica] , 'signoComparacion' => '='],
-                    ['campo' => 'id' , 'valor' =>  $registro_id , 'signoComparacion' => '<>' , 'conectivaLogica' => 'AND']
+                    ['campo' => $columnaUnica , 'valor' =>  $datos[$columnaUnica] , 'signoComparacion' => '=' , 'conectivaLogica' => '' ],
+                    ['campo' => "{$this->tabla}.id" , 'valor' =>  $registro_id , 'signoComparacion' => '<>' , 'conectivaLogica' => 'AND']
                 ];
     
                 try{
