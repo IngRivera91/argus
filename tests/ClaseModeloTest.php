@@ -181,4 +181,26 @@ class ClaseModeloTest extends TestCase
 
     }
 
+    /**
+     * @test
+     * @depends creaModelo
+     * @depends actualizarPorId
+     */
+    public function buscarConFiltros($modelo,$datosUsuarios)
+    {
+
+        foreach ($datosUsuarios as $datosUsuario)
+        {
+            $filtros = [
+                ['campo' => 'usuarios.id' , 'valor' =>  $datosUsuario['id'] , 'signoComparacion' => '=' , 'conectivaLogica' => '']
+            ];
+            
+            $resultado = $modelo->buscarConFiltros($filtros);
+            $this->assertIsArray($resultado);
+            $this->assertSame(1,$resultado['n_registros']);
+            $this->assertCount(17,$resultado['registros'][0]);
+        }
+
+    }
+
 }
