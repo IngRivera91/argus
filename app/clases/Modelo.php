@@ -100,7 +100,7 @@ class Modelo
             {
                 $filtros = [
                     ['campo' => $columnaUnica , 'valor' =>  $datos[$columnaUnica] , 'signoComparacion' => '='],
-                    ['campo' => 'id' , 'valor' =>  $registro_id , 'signoComparacion' => '<>']
+                    ['campo' => 'id' , 'valor' =>  $registro_id , 'signoComparacion' => '<>' , 'conectivaLogica' => 'AND']
                 ];
     
                 try{

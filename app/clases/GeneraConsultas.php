@@ -80,22 +80,24 @@ class GeneraConsultas
         $filtrosGenerados = '';
         foreach ($filtros as $filtro )
         {
+            $conectivaLogica = '';
+            if (isset($filtro['conectivaLogica'])){
+                $conectivaLogica = $filtro['conectivaLogica'];
+            }
 
             $campo_explode = explode('.',$filtro['campo']);
             $numero = count($campo_explode);
             if ($numero == 2){
-                $filtrosGenerados .= "{$filtro['campo']} {$filtro['signoComparacion']} :{$campo_explode[0]}_{$campo_explode[1]} AND ";
+                $filtrosGenerados .= "$conectivaLogica {$filtro['campo']} {$filtro['signoComparacion']} :{$campo_explode[0]}_{$campo_explode[1]} ";
             }
             if ($numero == 1){
-                $filtrosGenerados .= "{$filtro['campo']} {$filtro['signoComparacion']} :{$filtro['campo']} AND ";
+                $filtrosGenerados .= "$conectivaLogica {$filtro['campo']} {$filtro['signoComparacion']} :{$filtro['campo']} ";
             }
 
         }
         
         $filtrosGenerados = trim($filtrosGenerados,' ');
-        $filtrosGenerados = trim($filtrosGenerados,'AND');
         
-
         return "WHERE $filtrosGenerados";
     }
 
