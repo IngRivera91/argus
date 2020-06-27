@@ -44,7 +44,7 @@ class ClaseModeloTest extends TestCase
         $consultaDeleteBase = 'DELETE FROM';
         $coneccion->ejecutaConsultaDelete("$consultaDeleteBase usuarios");
         $coneccion->ejecutaConsultaDelete("$consultaDeleteBase grupos");
-        $coneccion->ejecutaConsultaInsert("INSERT INTO grupos (id) VALUES (1)");
+        $coneccion->ejecutaConsultaInsert("INSERT INTO grupos (id,nombre_grupo) VALUES (1,'administrador')");
 
         $datosUsuarios = [
             [
@@ -176,7 +176,7 @@ class ClaseModeloTest extends TestCase
             $resultado = $modelo->buscarPorId($id);
             $this->assertIsArray($resultado);
             $this->assertSame(1,$resultado['n_registros']);
-            $this->assertCount(17,$resultado['registros'][0]);
+            $this->assertCount(13,$resultado['registros'][0]);
         }
 
     }
@@ -198,7 +198,7 @@ class ClaseModeloTest extends TestCase
             $resultado = $modelo->buscarConFiltros($filtros);
             $this->assertIsArray($resultado);
             $this->assertSame(1,$resultado['n_registros']);
-            $this->assertCount(17,$resultado['registros'][0]);
+            $this->assertCount(13,$resultado['registros'][0]);
         }
 
     }
