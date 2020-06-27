@@ -59,8 +59,8 @@ class Modelo
         ];
 
         try{
-            $consulta = $this->generaConsulta->select($this->tabla,$columnas,$filtros,$limit,$orderBy,$this->relaciones);
-            $resultado = $this->coneccion->ejecutaConsultaSelect($consulta,$filtros);
+            $consulta = $this->generaConsulta->select( $this->tabla , $columnas , $filtros , $limit , $orderBy , $this->relaciones );
+            $resultado = $this->coneccion->ejecutaConsultaSelect( $consulta , $filtros );
         }catch(ErrorBase $e){
             throw new ErrorBase($e->getMessage(),$e);
         }
@@ -82,8 +82,8 @@ class Modelo
         }
 
         try{
-            $consulta = $this->generaConsulta->insert($this->tabla,$datos);
-            $resultado = $this->coneccion->ejecutaConsultaInsert($consulta,$datos);
+            $consulta = $this->generaConsulta->insert( $this->tabla , $datos );
+            $resultado = $this->coneccion->ejecutaConsultaInsert( $consulta , $datos );
         }catch(ErrorBase $e){
             throw new ErrorBase($e->getMessage(),$e);
         }
@@ -91,7 +91,7 @@ class Modelo
         return $resultado;
     }
 
-    private function validaColunmasUnicas($datos, $registro_id = 0)
+    private function validaColunmasUnicas( $datos , $registro_id = 0)
     {
         $columnas = [$this->tabla.'.id'];
         foreach ($this->columnasUnicas as $nombreColumnaunica => $columnaUnica)
@@ -118,7 +118,7 @@ class Modelo
         }
     }
 
-    private function validaColumnasObligatorias($columnasObligatorias,$datos)
+    private function validaColumnasObligatorias( $columnasObligatorias , $datos )
     {
         foreach($columnasObligatorias as $columnaObligatoria)
         {
@@ -126,7 +126,7 @@ class Modelo
             {
                 throw new ErrorBase("El campo $columnaObligatoria debe existir en el array de datos");
             }
-            if ( is_null($datos[$columnaObligatoria]) ||  $datos[$columnaObligatoria] == '' )
+            if ( is_null( $datos[$columnaObligatoria] ) ||  $datos[$columnaObligatoria] == '' )
             {
                 throw new ErrorBase("El campo $columnaObligatoria no pude ser vacio o null");
             }

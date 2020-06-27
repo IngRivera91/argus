@@ -11,7 +11,7 @@ class GeneraConsultas
         $this->valida = new Validaciones();
     }
 
-    public function delete( $tabla , $filtros = array() ):string
+    public function delete( $tabla , $filtros = [] ):string
     {
         $this->valida->nombreTabla($tabla);
 
@@ -28,7 +28,7 @@ class GeneraConsultas
         return $consulta;
     }
 
-    public function insert( $tabla = '' , $datos = array() ):string
+    public function insert( $tabla = '' , $datos = [] ):string
     {
         $this->valida->nombreTabla($tabla);
         $this->valida->arrayAsociativo('datos',$datos);
@@ -44,8 +44,8 @@ class GeneraConsultas
                 $valores .=  ":{$campo[0]}_{$campo[1]} ,";
             }
             if ($numero == 1){
-                $campos .=  $campo.',';
-                $valores .=  ':'.$campo.',';
+                $campos .=  "$campo,";
+                $valores .=  ":$campo,";
             }  
         }
 
@@ -167,7 +167,7 @@ class GeneraConsultas
         return $consulta;
     }
 
-    public function update($tabla = '' , $datos = array() , $filtros = array() ):string
+    public function update($tabla = '' , $datos = [] , $filtros = [] ):string
     {
         $this->valida->nombreTabla($tabla);
         $this->valida->arrayAsociativo('datos',$datos);

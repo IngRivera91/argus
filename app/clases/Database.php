@@ -46,9 +46,6 @@ class Database
     {
         if (count($datos) != 0){
             foreach ( $datos as $campo => $valor){
-                // un campo puede venir de 2 formas
-                // 1: campo
-                // 2: tabla.campo
                 $campo_explode = explode('.',$campo);
                 $numero = count($campo_explode);
                 if ($numero == 2){
@@ -72,13 +69,13 @@ class Database
                     $this->stmt->bindValue(":{$campo_explode[0]}_{$campo_explode[1]}",$filtro['valor']);
                 }
                 if ($numero == 1){
-                    $this->stmt->bindValue(':'.$filtro['campo'],$filtro['valor']);
+                    $this->stmt->bindValue(":{$filtro['campo']}",$filtro['valor']);
                 }
             }
         }
     }
 
-    public function ejecutaConsultaDelete(string $consulta = '' ,array $blindar = array())
+    public function ejecutaConsultaDelete(string $consulta = '' ,array $blindar = [])
     {
         $this->valida->consulta($consulta);
         $this->stmt = $this->dbh->prepare($consulta);
@@ -86,7 +83,7 @@ class Database
         try 
         {
             $this->stmt->execute();
-            return array('mensaje' => 'registro eliminado');
+            return ['mensaje' => 'registro eliminado'];
         } 
         catch (PDOException $e)
         {
@@ -94,7 +91,7 @@ class Database
         }
     }
 
-    public function ejecutaConsultaInsert(string $consulta = '' ,array $datos = array())
+    public function ejecutaConsultaInsert( string $consulta = '' , array $datos = [] )
     {
         $this->valida->consulta($consulta);
         $this->stmt = $this->dbh->prepare($consulta);
@@ -111,7 +108,7 @@ class Database
         }
     }
 
-    public function ejecutaConsultaSelect(string $consulta = '' ,array $filtros = array())
+    public function ejecutaConsultaSelect( string $consulta = '' , array $filtros = [] )
     {
         $this->valida->consulta($consulta);
         $this->stmt = $this->dbh->prepare($consulta);
@@ -121,7 +118,7 @@ class Database
             $this->stmt->execute();
             $n_registros = $this->stmt->rowCount();
             $resultado = $this->stmt->fetchAll(PDO::FETCH_ASSOC);
-            return ['registros' => $resultado,'n_registros'=>(int)$n_registros];
+            return [ 'registros' => $resultado , 'n_registros' => (int) $n_registros ];
         } 
         catch (PDOException $e)
         {
