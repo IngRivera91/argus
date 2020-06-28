@@ -18,6 +18,7 @@ class Modelo
     private array $columnasObligatorias;
     private array $columnasProtegidas;
     private array $relaciones;
+    private array $respaldoRelaciones;
 
     public function __construct( Database $coneccion ,string $tabla ,array $relaciones, array $columnas )
     {
@@ -26,6 +27,7 @@ class Modelo
         $this->coneccion = $coneccion;
         $this->tabla = $tabla;
         $this->relaciones = $relaciones;
+        $this->respaldoRelaciones = $relaciones;
         $this->columnasUnicas = $columnas['unicas'];
         $this->columnasObligatorias = $columnas['obligatorias'];
         $this->columnasProtegidas = $columnas['protegidas'];
@@ -52,8 +54,13 @@ class Modelo
         return $resultado;
     }
 
-    public function buscarPorId(int $id, $columnas = [] , $orderBy = [] , $limit = ''  )
+    public function buscarPorId(int $id, $columnas = [] , $orderBy = [] , $limit = '' , $noUsarRelaciones = false )
     {
+        $this->relaciones = $this->respaldoRelaciones;
+        if ($noUsarRelaciones)
+        {
+            $this->relaciones = [];
+        }
         $filtros = [
             ['campo' => $this->tabla.'.id' , 'valor' => $id , 'signoComparacion' => '=']
         ];
@@ -67,8 +74,13 @@ class Modelo
         return $resultado;
     }
 
-    public function buscarConFiltros( $filtros, $columnas = [] , $orderBy = [] , $limit = '' )
+    public function buscarConFiltros( $filtros, $columnas = [] , $orderBy = [] , $limit = '' , $noUsarRelaciones = false )
     {
+        $this->relaciones = $this->respaldoRelaciones;
+        if ($noUsarRelaciones)
+        {
+            $this->relaciones = [];
+        }
         try{
             $consulta = $this->generaConsulta->select( $this->tabla , $columnas , $filtros , $limit , $orderBy , $this->relaciones );
             $resultado = $this->coneccion->ejecutaConsultaSelect( $consulta , $filtros );
@@ -78,8 +90,13 @@ class Modelo
         return $resultado;
     }
 
-    public function buscarTodo( $columnas = [] , $orderBy = [] , $limit = '' )
+    public function buscarTodo( $columnas = [] , $orderBy = [] , $limit = '' , $noUsarRelaciones = false )
     {
+        $this->relaciones = $this->respaldoRelaciones;
+        if ($noUsarRelaciones)
+        {
+            $this->relaciones = [];
+        }
         try{
             $consulta = $this->generaConsulta->select( $this->tabla , $columnas , [] , $limit , $orderBy , $this->relaciones );
             $resultado = $this->coneccion->ejecutaConsultaSelect( $consulta );
@@ -111,6 +128,16 @@ class Modelo
         }
         
         return $resultado;
+    }
+
+    public function obtenerNumeroRegistros()
+    {
+        try{
+            $resultado = $this->buscarTodo(['id'],[],'',true);
+        }catch(ErrorBase $e){
+            throw new ErrorBase($e->getMessage(),$e);
+        }
+        return ( int ) $resultado['n_registros'];
     }
 
     private function validaColunmasUnicas( $datos , $registro_id = 0)
