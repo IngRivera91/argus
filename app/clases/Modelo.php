@@ -33,7 +33,7 @@ class Modelo
         $this->columnasProtegidas = $columnas['protegidas'];
     }
 
-    public function actualizarPorId($id,$datos)
+    public function actualizarPorId($id,$datos):array
     {
         try{
             $this->validaColunmasUnicas($datos,$id);
@@ -54,7 +54,7 @@ class Modelo
         return $resultado;
     }
 
-    public function buscarPorId(int $id, $columnas = [] , $orderBy = [] , $limit = '' , $noUsarRelaciones = false )
+    public function buscarPorId(int $id, $columnas = [] , $orderBy = [] , $limit = '' , $noUsarRelaciones = false ):array
     {
         $this->relaciones = $this->respaldoRelaciones;
         if ($noUsarRelaciones)
@@ -74,7 +74,7 @@ class Modelo
         return $resultado;
     }
 
-    public function buscarConFiltros( $filtros, $columnas = [] , $orderBy = [] , $limit = '' , $noUsarRelaciones = false )
+    public function buscarConFiltros( $filtros, $columnas = [] , $orderBy = [] , $limit = '' , $noUsarRelaciones = false ):array
     {
         $this->relaciones = $this->respaldoRelaciones;
         if ($noUsarRelaciones)
@@ -90,7 +90,7 @@ class Modelo
         return $resultado;
     }
 
-    public function buscarTodo( $columnas = [] , $orderBy = [] , $limit = '' , $noUsarRelaciones = false )
+    public function buscarTodo( $columnas = [] , $orderBy = [] , $limit = '' , $noUsarRelaciones = false ):array
     {
         $this->relaciones = $this->respaldoRelaciones;
         if ($noUsarRelaciones)
@@ -106,7 +106,7 @@ class Modelo
         return $resultado;
     }
 
-    public function registrar($datos)
+    public function registrar($datos):array
     {
         try{
             $this->validaColumnasObligatorias( $this->columnasObligatorias , $datos );
@@ -130,7 +130,7 @@ class Modelo
         return $resultado;
     }
 
-    public function obtenerNumeroRegistros()
+    public function obtenerNumeroRegistros():int
     {
         try{
             $resultado = $this->buscarTodo(['id'],[],'',true);
@@ -140,7 +140,7 @@ class Modelo
         return ( int ) $resultado['n_registros'];
     }
 
-    private function validaColunmasUnicas( $datos , $registro_id = 0)
+    private function validaColunmasUnicas( $datos , $registro_id = 0):void
     {
         $columnas = [$this->tabla.'.id'];
         foreach ($this->columnasUnicas as $nombreColumnaunica => $columnaUnica)
@@ -167,7 +167,7 @@ class Modelo
         }
     }
 
-    private function validaColumnasObligatorias( $columnasObligatorias , $datos )
+    private function validaColumnasObligatorias( $columnasObligatorias , $datos ):void
     {
         foreach($columnasObligatorias as $columnaObligatoria)
         {
