@@ -78,6 +78,17 @@ class Modelo
         return $resultado;
     }
 
+    public function buscarTodo( $columnas = [] , $orderBy = [] , $limit = '' )
+    {
+        try{
+            $consulta = $this->generaConsulta->select( $this->tabla , $columnas , [] , $limit , $orderBy , $this->relaciones );
+            $resultado = $this->coneccion->ejecutaConsultaSelect( $consulta );
+        }catch(ErrorBase $e){
+            throw new ErrorBase($e->getMessage(),$e);
+        }
+        return $resultado;
+    }
+
     public function registrar($datos)
     {
         try{

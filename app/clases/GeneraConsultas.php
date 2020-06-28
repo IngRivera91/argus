@@ -86,6 +86,12 @@ class GeneraConsultas
         return $colunmasGeneradas; 
     }
 
+    private function generaTodasLasColumnas( $tabla , $relaciones ):string
+    {//aun si terminar
+        $colunmasGeneradas = '';
+        return $colunmasGeneradas; 
+    }
+
     private function generaFiltros( $filtros ):string
     {
         $filtrosGenerados = '';
