@@ -169,7 +169,6 @@ class ClaseModeloTest extends TestCase
      */
     public function buscarPorId($modelo,$datosUsuarios)
     {
-
         foreach ($datosUsuarios as $datosUsuario)
         {
             $id = $datosUsuario['id'];
@@ -178,17 +177,16 @@ class ClaseModeloTest extends TestCase
             $this->assertSame(1,$resultado['n_registros']);
             $this->assertCount(13,$resultado['registros'][0]);
         }
-
+        return $datosUsuarios;
     }
 
     /**
      * @test
      * @depends creaModelo
-     * @depends actualizarPorId
+     * @depends buscarPorId
      */
     public function buscarConFiltros($modelo,$datosUsuarios)
     {
-
         foreach ($datosUsuarios as $datosUsuario)
         {
             $filtros = [
@@ -200,13 +198,13 @@ class ClaseModeloTest extends TestCase
             $this->assertSame(1,$resultado['n_registros']);
             $this->assertCount(13,$resultado['registros'][0]);
         }
-
+        return $datosUsuarios;
     }
 
     /**
      * @test
      * @depends creaModelo
-     * @depends actualizarPorId
+     * @depends buscarConFiltros
      */
     public function buscarTodo($modelo,$datosUsuarios)
     {
