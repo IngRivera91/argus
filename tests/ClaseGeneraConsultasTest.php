@@ -67,23 +67,23 @@ class ClaseGeneraConsultasTest extends TestCase
         $consulta = $generaConsulta->select($tabla);
         $this->assertSame($consulta,$consultaEsperada);
 
-        $consultaEsperada = 'SELECT usuarios.id FROM usuarios';
+        $consultaEsperada = 'SELECT usuarios.id AS usuarios_id FROM usuarios';
         $consulta = $generaConsulta->select($tabla,$colunmas);
         $this->assertSame($consulta,$consultaEsperada);
 
         $colunmas = array('usuarios.id');  
 
-        $consultaEsperada = 'SELECT usuarios.id FROM usuarios';
+        $consultaEsperada = 'SELECT usuarios.id AS usuarios_id FROM usuarios';
         $consulta = $generaConsulta->select($tabla,$colunmas);
         $this->assertSame($consulta,$consultaEsperada);
 
         $colunmas = array('grupos.id');
 
-        $consultaEsperada = 'SELECT grupos.id FROM usuarios';
+        $consultaEsperada = 'SELECT grupos.id AS grupos_id FROM usuarios';
         $consulta = $generaConsulta->select($tabla,$colunmas);
         $this->assertSame($consulta,$consultaEsperada);
        
-        $consultaEsperada = 'SELECT grupos.id FROM usuarios WHERE id = :id';
+        $consultaEsperada = 'SELECT grupos.id AS grupos_id FROM usuarios WHERE id = :id';
         $consulta = $generaConsulta->select($tabla,$colunmas,$filtros);
         $this->assertSame($consulta,$consultaEsperada);
 
@@ -92,19 +92,19 @@ class ClaseGeneraConsultasTest extends TestCase
         $limit = '';
         $orderBy = [];
 
-        $consultaEsperada = 'SELECT usuarios.id,grupos.id FROM usuarios LEFT JOIN grupos ON grupos.id = usuarios.grupo_id WHERE id = :id';
+        $consultaEsperada = 'SELECT usuarios.id AS usuarios_id,grupos.id AS grupos_id FROM usuarios LEFT JOIN grupos ON grupos.id = usuarios.grupo_id WHERE id = :id';
         $consulta = $generaConsulta->select($tabla,$colunmas,$filtros,$limit,$orderBy,$relaciones);
         $this->assertSame($consulta,$consultaEsperada);
 
         $limit = 2;
 
-        $consultaEsperada = 'SELECT usuarios.id,grupos.id FROM usuarios LEFT JOIN grupos ON grupos.id = usuarios.grupo_id WHERE id = :id LIMIT 2';
+        $consultaEsperada = 'SELECT usuarios.id AS usuarios_id,grupos.id AS grupos_id FROM usuarios LEFT JOIN grupos ON grupos.id = usuarios.grupo_id WHERE id = :id LIMIT 2';
         $consulta = $generaConsulta->select($tabla,$colunmas,$filtros,$limit,$orderBy,$relaciones);
         $this->assertSame($consulta,$consultaEsperada);
 
         $orderBy = ['usuarios.nombre' => 'DESC'];
 
-        $consultaEsperada = 'SELECT usuarios.id,grupos.id FROM usuarios LEFT JOIN grupos ON grupos.id = usuarios.grupo_id WHERE id = :id ORDER BY usuarios.nombre DESC LIMIT 2';
+        $consultaEsperada = 'SELECT usuarios.id AS usuarios_id,grupos.id AS grupos_id FROM usuarios LEFT JOIN grupos ON grupos.id = usuarios.grupo_id WHERE id = :id ORDER BY usuarios.nombre DESC LIMIT 2';
         $consulta = $generaConsulta->select($tabla,$colunmas,$filtros,$limit,$orderBy,$relaciones);
         $this->assertSame($consulta,$consultaEsperada);
     }
