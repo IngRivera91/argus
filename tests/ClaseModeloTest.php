@@ -211,6 +211,19 @@ class ClaseModeloTest extends TestCase
         $resultado = $modelo->buscarTodo();
         $this->assertIsArray($resultado);
         $this->assertSame( count($datosUsuarios) ,$resultado['n_registros']);
+        return $datosUsuarios;
+    }
+
+    /**
+     * @test
+     * @depends creaModelo
+     * @depends buscarTodo
+     */
+    public function obtenerNumeroRegistros($modelo,$datosUsuarios)
+    {
+        $resultado = $modelo->obtenerNumeroRegistros();
+        $this->assertSame( count($datosUsuarios) ,  $resultado );
+        return $datosUsuarios;
     }
 
 }
