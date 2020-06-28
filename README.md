@@ -1,3 +1,4 @@
 # ARGUS
 
 -Filtros
+-generaConsultas
