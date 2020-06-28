@@ -203,4 +203,16 @@ class ClaseModeloTest extends TestCase
 
     }
 
+    /**
+     * @test
+     * @depends creaModelo
+     * @depends actualizarPorId
+     */
+    public function buscarTodo($modelo,$datosUsuarios)
+    {
+        $resultado = $modelo->buscarTodo();
+        $this->assertIsArray($resultado);
+        $this->assertSame( count($datosUsuarios) ,$resultado['n_registros']);
+    }
+
 }
