@@ -61,12 +61,22 @@ class GeneraConsultas
         foreach ($columnas as $columna)
         {
             $explodeColumna = explode('.',$columna);
-            if ( count($explodeColumna) == 1 ){
-                $colunmasGeneradas .= "{$tabla}.{$columna},";
-            }
             if ( count($explodeColumna) == 2 ){
-                $colunmasGeneradas .= "{$explodeColumna[0]}.{$explodeColumna[1]},";
+                $colunmasGeneradas .= "{$explodeColumna[0]}.{$explodeColumna[1]} AS {$explodeColumna[0]}_{$explodeColumna[1]},";
             }
+            if ( count($explodeColumna) == 1 ){
+
+                $explodeColumna = explode('_',$columna);
+                if ( count($explodeColumna) == 2 ){
+                    $colunmasGeneradas .= "{$explodeColumna[0]}.{$explodeColumna[1]} AS {$explodeColumna[0]}_{$explodeColumna[1]},";
+                }
+                
+                if ( count($explodeColumna) == 1 ){
+                    $colunmasGeneradas .= "{$tabla}.{$columna} AS {$tabla}_{$columna},";
+                }
+            }
+            
+            
         }
         $colunmasGeneradas = trim($colunmasGeneradas,',');
         $colunmasGeneradas = trim($colunmasGeneradas,' ');
