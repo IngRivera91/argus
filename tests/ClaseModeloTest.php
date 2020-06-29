@@ -183,7 +183,7 @@ class ClaseModeloTest extends TestCase
             $resultado = $modelo->buscarPorId($id);
             $this->assertIsArray($resultado);
             $this->assertSame(1,$resultado['n_registros']);
-            $this->assertCount(19,$resultado['registros'][0]);
+            $this->assertCount(18,$resultado['registros'][0]);
 
             $columnas = [];
             $orderBy = [];
@@ -192,7 +192,7 @@ class ClaseModeloTest extends TestCase
             $resultado = $modelo->buscarPorId( $id , $columnas , $orderBy , $limit , $noUsarRelaciones );
             $this->assertIsArray($resultado);
             $this->assertSame(1,$resultado['n_registros']);
-            $this->assertCount(12,$resultado['registros'][0]);
+            $this->assertCount(11,$resultado['registros'][0]);
         }
         return $datosUsuarios;
     }
@@ -213,7 +213,7 @@ class ClaseModeloTest extends TestCase
             $resultado = $modelo->buscarConFiltros($filtros);
             $this->assertIsArray($resultado);
             $this->assertSame(1,$resultado['n_registros']);
-            $this->assertCount(19,$resultado['registros'][0]);
+            $this->assertCount(18,$resultado['registros'][0]);
 
             $columnas = [];
             $orderBy = [];
@@ -222,7 +222,7 @@ class ClaseModeloTest extends TestCase
             $resultado = $modelo->buscarConFiltros( $filtros , $columnas , $orderBy , $limit , $noUsarRelaciones );
             $this->assertIsArray($resultado);
             $this->assertSame(1,$resultado['n_registros']);
-            $this->assertCount(12,$resultado['registros'][0]);
+            $this->assertCount(11,$resultado['registros'][0]);
         }
         return $datosUsuarios;
     }
