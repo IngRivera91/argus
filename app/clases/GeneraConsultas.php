@@ -14,18 +14,6 @@ class GeneraConsultas
         $this->valida = new Validaciones();
     }
 
-    private function analizaCampo($campo)
-    {
-        $campo_explode = explode('.',$campo);
-        $numero = count($campo_explode);
-        if ($numero == 2){
-            return "{$campo_explode[0]}_{$campo_explode[1]}";
-        }
-        if ($numero == 1){
-            return $campo;
-        }  
-    }
-
     public function delete( $tabla , $filtros = [] ):string
     {
         $this->valida->nombreTabla($tabla);
@@ -43,8 +31,8 @@ class GeneraConsultas
 
         foreach ($datos as $campo => $valor)
         {
-            $campos .=  "{$this->analizaCampo($campo)},";
-            $valores .=  ":{$this->analizaCampo($campo)},";
+            $campos .=  "{$this->valida->analizaCampo($campo)},";
+            $valores .=  ":{$this->valida->analizaCampo($campo)},";
         }
 
         $campos = trim($campos,',');
@@ -92,7 +80,7 @@ class GeneraConsultas
             if (isset($filtro['conectivaLogica'])){
                 $conectivaLogica = $filtro['conectivaLogica'];
             }
-            $filtrosGenerados .= "$conectivaLogica {$filtro['campo']} {$filtro['signoComparacion']} :{$this->analizaCampo($filtro['campo'])} ";
+            $filtrosGenerados .= "$conectivaLogica {$filtro['campo']} {$filtro['signoComparacion']} :{$this->valida->analizaCampo($filtro['campo'])} ";
         }
         $filtrosGenerados = trim($filtrosGenerados,' ');
         return " WHERE $filtrosGenerados";
@@ -199,7 +187,7 @@ class GeneraConsultas
         $campoValor = '';
         foreach ($datos as $campo => $valor)
         {
-            $campoValor .= " {$this->analizaCampo($campo)} = :{$this->analizaCampo($campo)} ,";
+            $campoValor .= " {$this->valida->analizaCampo($campo)} = :{$this->valida->analizaCampo($campo)} ,";
         }
         $campoValor = trim($campoValor,',');
         $campoValor = trim($campoValor,' ');
