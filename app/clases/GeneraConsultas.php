@@ -2,12 +2,15 @@
 
 namespace Clase;
 use Clase\Validaciones;
+use Clase\Database;
 
 class GeneraConsultas 
 {
     private $valida;
-    public function __construct()
+    private $coneccion;
+    public function __construct(Database $coneccion)
     {
+        $this->coneccion = $coneccion;
         $this->valida = new Validaciones();
     }
 
@@ -89,6 +92,23 @@ class GeneraConsultas
     private function generaTodasLasColumnas( $tabla , $relaciones ):string
     {//aun si terminar
         $colunmasGeneradas = '';
+
+        $arrayColumnas = $this->coneccion->obtenColumnasTabla($tabla);
+        foreach ($arrayColumnas as $columna)
+        {
+            $colunmasGeneradas .= "{$tabla}.{$columna} AS {$tabla}_{$columna},";
+        }
+
+        foreach ($relaciones as $tablaRelacion => $relacion)
+        {
+            $arrayColumnas = $this->coneccion->obtenColumnasTabla($tablaRelacion);
+            foreach ($arrayColumnas as $columna)
+            {
+                $colunmasGeneradas .= "{$tablaRelacion}.{$columna} AS {$tablaRelacion}_{$columna},";
+            }
+        }
+
+        $colunmasGeneradas = trim($colunmasGeneradas,',');
         return $colunmasGeneradas; 
     }
 
@@ -149,7 +169,9 @@ class GeneraConsultas
     public function select($tabla = '', $columnas = [] ,$filtros = [] , $limit = '' , $orderBy = [] , $relaciones = [] )
     {   
         $this->valida->nombreTabla($tabla);
-        $columnasGeneradas = '*';
+        if ( count($columnas) === 0 ){
+            $columnasGeneradas = $this->generaTodasLasColumnas($tabla,$relaciones);
+        }
         if ( count($columnas) !== 0 ){
             $this->valida->array('columnas',$columnas);
             $columnasGeneradas = $this->generaColumnas($tabla,$columnas);
