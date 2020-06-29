@@ -107,6 +107,7 @@ class Modelo
         }catch(ErrorBase $e){
             throw new ErrorBase($e->getMessage(),$e);
         }
+        $resultado = $this->eliminaColumnasProtegidas($resultado);
         return $resultado;
     }
 
@@ -123,6 +124,7 @@ class Modelo
         }catch(ErrorBase $e){
             throw new ErrorBase($e->getMessage(),$e);
         }
+        $resultado = $this->eliminaColumnasProtegidas($resultado);
         return $resultado;
     }
 
@@ -139,6 +141,7 @@ class Modelo
         }catch(ErrorBase $e){
             throw new ErrorBase($e->getMessage(),$e);
         }
+        $resultado = $this->eliminaColumnasProtegidas($resultado);
         return $resultado;
     }
 
