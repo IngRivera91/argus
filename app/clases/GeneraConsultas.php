@@ -18,7 +18,7 @@ class GeneraConsultas
     {
         $this->valida->nombreTabla($tabla);
 
-        $filtrosGenerados = $this->obtenFiltros($filtros);
+        $filtrosGenerados = $this->generaFiltros($filtros);
 
         $consulta = "DELETE FROM $tabla $filtrosGenerados";
         $consulta = trim($consulta,' ');
@@ -110,6 +110,11 @@ class GeneraConsultas
     private function generaFiltros( $filtros ):string
     {
         $filtrosGenerados = '';
+        if ( count($filtros) === 0 )
+        {
+             return $filtrosGenerados;
+        }
+        $this->valida->filtros($filtros);
         foreach ($filtros as $filtro )
         {
             $conectivaLogica = '';
@@ -172,7 +177,7 @@ class GeneraConsultas
             $columnasGeneradas = $this->generaColumnas($tabla,$columnas);
         }
 
-        $filtrosGenerados = $this->obtenFiltros($filtros);
+        $filtrosGenerados = $this->generaFiltros($filtros);
 
         $relacionesGeneradas = '';
         if ( count($relaciones) !== 0 ){
@@ -206,7 +211,7 @@ class GeneraConsultas
         $this->valida->nombreTabla($tabla);
         $this->valida->arrayAsociativo('datos',$datos);
 
-        $filtrosGenerados = $this->obtenFiltros($filtros);
+        $filtrosGenerados = $this->generaFiltros($filtros);
 
         $campoValor = '';
         foreach ($datos as $campo => $valor)
@@ -227,17 +232,6 @@ class GeneraConsultas
         $consulta = "UPDATE $tabla SET $campoValor $filtrosGenerados";
         $consulta = trim($consulta,' ');
         return $consulta;
-    }
-
-    private function obtenFiltros($filtros)
-    {
-        
-        if ( count($filtros) !== 0 )
-        {
-            $this->valida->filtros($filtros);
-            return $this->generaFiltros($filtros);
-        }
-        return '';
     }
 
 }
