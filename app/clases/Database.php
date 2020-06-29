@@ -60,11 +60,11 @@ class Database
         }
     }
 
-    public function ejecutaConsultaDelete(string $consulta = '' ,array $blindar = [])
+    public function ejecutaConsultaDelete(string $consulta = '' ,array $filtros = [])
     {
         $this->valida->consulta($consulta);
         $this->stmt = $this->dbh->prepare($consulta);
-        $this->blindarDatos($blindar);
+        $this->blindarFiltros($filtros);
         try 
         {
             $this->stmt->execute();
