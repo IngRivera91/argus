@@ -23,7 +23,7 @@ class Modelo
     public function __construct( Database $coneccion ,string $tabla ,array $relaciones, array $columnas )
     {
         $this->valida  = new Validaciones();
-        $this->generaConsulta = new GeneraConsultas();
+        $this->generaConsulta = new GeneraConsultas($coneccion);
         $this->coneccion = $coneccion;
         $this->tabla = $tabla;
         $this->relaciones = $relaciones;
