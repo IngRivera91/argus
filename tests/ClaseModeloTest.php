@@ -70,6 +70,14 @@ class ClaseModeloTest extends TestCase
                 'password' => 'ricardo123',
                 'nombre_completo' => 'Ricardo Rivera Sanchez',
                 'grupo_id' => '1'
+            ],
+            [
+                'id' => 4,
+                'usuario' => 'maria',
+                'correo_electronico' => 'maria@mail.com',
+                'password' => 'ricardo123',
+                'nombre_completo' => 'Maria Rivera Sanchez',
+                'grupo_id' => '1'
             ]
 
         ];
@@ -290,6 +298,23 @@ class ClaseModeloTest extends TestCase
         $this->assertSame( count($datosUsuarios) ,  $numeroRegistros );
         
         return $datosUsuarios;
+    }
+
+    /**
+     * @test
+     * @depends creaModelo
+     * @depends eliminarConFiltro
+     */
+    public function eliminarTodo($modelo,$datosUsuarios)
+    {
+
+        $resultado = $modelo->eliminarTodo();
+        $this->assertIsArray($resultado);
+        $this->assertSame('registro eliminado',$resultado['mensaje']);
+
+        $numeroRegistros = $modelo->obtenerNumeroRegistros();
+        $this->assertSame( 0 ,  $numeroRegistros );
+        
     }
 
 }
