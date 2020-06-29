@@ -20,6 +20,25 @@ class ClaseDatabaseTest extends TestCase
      * @test
      * @depends creaConeccion
      */
+    public function obtenColumnasTabla($coneccion)
+    {
+        $tabla = 'usuarios';
+        $resultado = $coneccion->obtenColumnasTabla($tabla);
+        $this->assertIsArray($resultado);
+        $this->assertSame("{$tabla}_id",$resultado[0]);
+        $this->assertCount(12,$resultado);
+
+        $tabla = 'grupos';
+        $resultado = $coneccion->obtenColumnasTabla($tabla);
+        $this->assertIsArray($resultado);
+        $this->assertSame("{$tabla}_id",$resultado[0]);
+        $this->assertCount(7,$resultado);
+    }
+
+    /**
+     * @test
+     * @depends creaConeccion
+     */
     public function ejecutaConsultaDelete($coneccion)
     {
         $tabla = 'usuarios';
