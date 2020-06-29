@@ -44,7 +44,7 @@ class ClaseModeloTest extends TestCase
         $consultaDeleteBase = 'DELETE FROM';
         $coneccion->ejecutaConsultaDelete("$consultaDeleteBase usuarios");
         $coneccion->ejecutaConsultaDelete("$consultaDeleteBase grupos");
-        $coneccion->ejecutaConsultaInsert("INSERT INTO grupos (id,nombre_grupo) VALUES (1,'administrador')");
+        $coneccion->ejecutaConsultaInsert("INSERT INTO grupos (id,nombre) VALUES (1,'administrador')");
 
         $datosUsuarios = [
             [
