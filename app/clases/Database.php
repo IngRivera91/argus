@@ -151,7 +151,7 @@ class Database
         {
             $this->stmt->execute();
             $resultado = (array) $this->stmt->fetchAll(PDO::FETCH_ASSOC);
-            return $this->generaArrayColumnas($tabla,$resultado);
+            return $this->generaArrayColumnas($resultado);
         } 
         catch (PDOException $e)
         {
@@ -159,13 +159,13 @@ class Database
         }
     }
 
-    private function generaArrayColumnas( string $tabla , array $columnasArray ):array
+    private function generaArrayColumnas( array $columnasArray ):array
     {
         $arrayColumnas = [];
 
         foreach ($columnasArray as $columna)
         {
-            $arrayColumnas[] = "{$tabla}_{$columna['Field']}";
+            $arrayColumnas[] = "{$columna['Field']}";
         }
 
         return $arrayColumnas;
