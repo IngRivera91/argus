@@ -58,7 +58,6 @@ class GeneraConsultas
         $colunmasGeneradas = '';
         foreach ($columnas as $columna)
         {
-
             $explodeColumna = explode('_',$columna);
             if ( count($explodeColumna) > 1 ){
                 $explodeColumnasFinal = '';
@@ -73,7 +72,6 @@ class GeneraConsultas
             if ( count($explodeColumna) == 1 ){
                 $colunmasGeneradas .= "{$tabla}.{$columna} AS {$tabla}_{$columna},";
             }
-              
         }
         $colunmasGeneradas = trim($colunmasGeneradas,',');
         $colunmasGeneradas = trim($colunmasGeneradas,' ');
