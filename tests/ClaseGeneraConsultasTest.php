@@ -82,13 +82,13 @@ class ClaseGeneraConsultasTest extends TestCase
         $consulta = $generaConsulta->select($tabla,$colunmas);
         $this->assertSame($consulta,$consultaEsperada);
 
-        $colunmas = ['usuarios.id'];
+        $colunmas = ['usuarios_id'];
 
         $consultaEsperada = 'SELECT usuarios.id AS usuarios_id FROM usuarios';
         $consulta = $generaConsulta->select($tabla,$colunmas);
         $this->assertSame($consulta,$consultaEsperada);
 
-        $colunmas = ['grupos.id'];
+        $colunmas = ['grupos_id'];
 
         $consultaEsperada = 'SELECT grupos.id AS grupos_id FROM usuarios';
         $consulta = $generaConsulta->select($tabla,$colunmas);
@@ -98,7 +98,7 @@ class ClaseGeneraConsultasTest extends TestCase
         $consulta = $generaConsulta->select($tabla,$colunmas,$filtros);
         $this->assertSame($consulta,$consultaEsperada);
 
-        $colunmas = ['usuarios.id','grupos.id'];
+        $colunmas = ['usuarios_id','grupos_id'];
         $relaciones = ['grupos' => 'usuarios.grupo_id'];
         $limit = '';
         $orderBy = [];
