@@ -7,7 +7,7 @@ use Error\Base AS ErrorBase;
 class Validaciones 
 {
 
-    private function analizaCampo($campo)
+    public function analizaCampo($campo)
     {
         $campo_explode = explode('.',$campo);
         $numero = count($campo_explode);
