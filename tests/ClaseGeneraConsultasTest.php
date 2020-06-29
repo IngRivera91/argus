@@ -78,10 +78,6 @@ class ClaseGeneraConsultasTest extends TestCase
             ['campo' => 'id' , 'valor' => '1' , 'signoComparacion' => '=']
         ]; 
 
-        $consultaEsperada = 'SELECT * FROM usuarios';
-        $consulta = $generaConsulta->select($tabla);
-        $this->assertSame($consulta,$consultaEsperada);
-
         $consultaEsperada = 'SELECT usuarios.id AS usuarios_id FROM usuarios';
         $consulta = $generaConsulta->select($tabla,$colunmas);
         $this->assertSame($consulta,$consultaEsperada);
