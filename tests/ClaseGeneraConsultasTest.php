@@ -1,5 +1,6 @@
 <?php
 
+use Clase\Database;
 use Clase\GeneraConsultas; 
 use PHPUnit\Framework\TestCase;
 
@@ -11,7 +12,8 @@ class ClaseGeneraConsultasTest extends TestCase
     public function creaGeneraConsultas()
     {
         $this->assertSame(1,1);
-        return new GeneraConsultas();
+        $coneccion = new Database;
+        return new GeneraConsultas($coneccion);
     }
 
     /**
