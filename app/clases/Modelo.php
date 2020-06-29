@@ -176,6 +176,23 @@ class Modelo
         return ( int ) $resultado['n_registros'];
     }
 
+    private function eliminaColumnasProtegidas($registros)
+    {
+        if ( count($registros) > 0 )
+        {
+            foreach ($this->columnasProtegidas as $columnaProtegida)
+            {
+                if ( isset($registros[0][$columnaProtegida]) )
+                {
+                    foreach($registros as $clave => $registro)
+                    {
+                        unset($registros[$clave][$columnaProtegida]);
+                    }
+                }
+            }
+        }
+    }
+
     private function validaColunmasUnicas( $datos , $registro_id = 0):void
     {
         $columnas = [$this->tabla.'_id'];
