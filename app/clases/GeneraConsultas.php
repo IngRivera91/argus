@@ -80,29 +80,6 @@ class GeneraConsultas
         return $colunmasGeneradas; 
     }
 
-    private function generaTodasLasColumnas( $tabla , $relaciones ):string
-    {
-        $colunmasGeneradas = '';
-
-        $arrayColumnas = $this->coneccion->obtenColumnasTabla($tabla);
-        foreach ($arrayColumnas as $columna)
-        {
-            $colunmasGeneradas .= "{$tabla}.{$columna} AS {$tabla}_{$columna},";
-        }
-
-        foreach ($relaciones as $tablaRelacion => $relacion)
-        {
-            $arrayColumnas = $this->coneccion->obtenColumnasTabla($tablaRelacion);
-            foreach ($arrayColumnas as $columna)
-            {
-                $colunmasGeneradas .= "{$tablaRelacion}.{$columna} AS {$tablaRelacion}_{$columna},";
-            }
-        }
-
-        $colunmasGeneradas = trim($colunmasGeneradas,',');
-        return $colunmasGeneradas; 
-    }
-
     private function generaFiltros( $filtros ):string
     {
         $filtrosGenerados = '';
@@ -142,24 +119,6 @@ class GeneraConsultas
         return '';
     }
 
-    private function generaRelaciones( $relaciones ):string
-    {
-        $relacionesGeneradas = '';
-        if ( count($relaciones) === 0 )
-        {
-             return $relacionesGeneradas;
-        }
-        $this->valida->arrayAsociativo('relaciones',$relaciones);
-        foreach ( $relaciones as $tablaRelacionada => $llaveForania)
-        {
-            $relacionesGeneradas .= "LEFT JOIN $tablaRelacionada ON $tablaRelacionada.id = $llaveForania";
-        }
-        $relacionesGeneradas = trim($relacionesGeneradas,' ');
-
-        return " $relacionesGeneradas";
-
-    }
-
     private function generaOrderBy( $orderBy ):string
     {
         $orderByGenerado = '';
@@ -178,6 +137,60 @@ class GeneraConsultas
 
     }
 
+    private function generaRelaciones( $relaciones ):string
+    {
+        $relacionesGeneradas = '';
+        if ( count($relaciones) === 0 )
+        {
+             return $relacionesGeneradas;
+        }
+        $this->valida->arrayAsociativo('relaciones',$relaciones);
+        foreach ( $relaciones as $tablaRelacionada => $llaveForania)
+        {
+            $relacionesGeneradas .= "LEFT JOIN $tablaRelacionada ON $tablaRelacionada.id = $llaveForania";
+        }
+        $relacionesGeneradas = trim($relacionesGeneradas,' ');
+
+        return " $relacionesGeneradas";
+
+    }
+
+    private function generaTodasLasColumnas( $tabla , $relaciones ):string
+    {
+        $colunmasGeneradas = '';
+
+        $arrayColumnas = $this->coneccion->obtenColumnasTabla($tabla);
+        foreach ($arrayColumnas as $columna)
+        {
+            $colunmasGeneradas .= "{$tabla}.{$columna} AS {$tabla}_{$columna},";
+        }
+
+        foreach ($relaciones as $tablaRelacion => $relacion)
+        {
+            $arrayColumnas = $this->coneccion->obtenColumnasTabla($tablaRelacion);
+            foreach ($arrayColumnas as $columna)
+            {
+                $colunmasGeneradas .= "{$tablaRelacion}.{$columna} AS {$tablaRelacion}_{$columna},";
+            }
+        }
+
+        $colunmasGeneradas = trim($colunmasGeneradas,',');
+        return $colunmasGeneradas; 
+    }
+
+    private function obtenColumnas($tabla,$columnas,$relaciones):string
+    {
+        $columnasGeneradas = '';
+        if ( count($columnas) === 0 ){
+            $columnasGeneradas = $this->generaTodasLasColumnas($tabla,$relaciones);
+        }
+        if ( count($columnas) !== 0 ){
+            $this->valida->array('columnas',$columnas);
+            $columnasGeneradas = $this->generaColumnas($tabla,$columnas);
+        }
+        return $columnasGeneradas;
+    }
+    
     public function select($tabla = '', $columnas = [] ,$filtros = [] , $limit = '' , $orderBy = [] , $relaciones = [] )
     {   
         $this->valida->nombreTabla($tabla);
@@ -214,19 +227,6 @@ class GeneraConsultas
 
         $consulta = "UPDATE $tabla SET {$campoValor}{$filtrosGenerados}";
         return $consulta;
-    }
-
-    private function obtenColumnas($tabla,$columnas,$relaciones):string
-    {
-        $columnasGeneradas = '';
-        if ( count($columnas) === 0 ){
-            $columnasGeneradas = $this->generaTodasLasColumnas($tabla,$relaciones);
-        }
-        if ( count($columnas) !== 0 ){
-            $this->valida->array('columnas',$columnas);
-            $columnasGeneradas = $this->generaColumnas($tabla,$columnas);
-        }
-        return $columnasGeneradas;
     }
 
 }
