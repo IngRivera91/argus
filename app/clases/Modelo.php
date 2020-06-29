@@ -54,6 +54,31 @@ class Modelo
         return $resultado;
     }
 
+    public function eliminarPorId($id)
+    {
+        $filtros = [
+            ['campo' => $this->tabla.'.id' , 'valor' => $id , 'signoComparacion' => '=']
+        ];
+        try{
+            $consulta = $this->generaConsulta->delete( $this->tabla , $filtros );
+            $resultado = $this->coneccion->ejecutaConsultaDelete( $consulta , $filtros );
+        }catch(ErrorBase $e){
+            throw new ErrorBase($e->getMessage(),$e);
+        }
+        return $resultado;
+    }
+
+    public function eliminarConFiltros($filtros)
+    {
+        try{
+            $consulta = $this->generaConsulta->delete( $this->tabla , $filtros );
+            $resultado = $this->coneccion->ejecutaConsultaDelete( $consulta , $filtros );
+        }catch(ErrorBase $e){
+            throw new ErrorBase($e->getMessage(),$e);
+        }
+        return $resultado;
+    }
+
     public function buscarPorId(int $id, $columnas = [] , $orderBy = [] , $limit = '' , $noUsarRelaciones = false ):array
     {
         $this->relaciones = $this->respaldoRelaciones;
