@@ -14,6 +14,18 @@ class GeneraConsultas
         $this->valida = new Validaciones();
     }
 
+    private function analizaCampo($campo)
+    {
+        $campo_explode = explode('.',$campo);
+        $numero = count($campo_explode);
+        if ($numero == 2){
+            return "{$campo_explode[0]}_{$campo_explode[1]}";
+        }
+        if ($numero == 1){
+            return $campo;
+        }  
+    }
+
     public function delete( $tabla , $filtros = [] ):string
     {
         $this->valida->nombreTabla($tabla);
@@ -31,16 +43,8 @@ class GeneraConsultas
 
         foreach ($datos as $campo => $valor)
         {
-            $campo_explode = explode('.',$campo);
-            $numero = count($campo_explode);
-            if ($numero == 2){
-                $campos .=  "{$campo[0]}_{$campo[1]} ,";
-                $valores .=  ":{$campo[0]}_{$campo[1]} ,";
-            }
-            if ($numero == 1){
-                $campos .=  "$campo,";
-                $valores .=  ":$campo,";
-            }  
+            $campos .=  "{$this->analizaCampo($campo)},";
+            $valores .=  ":{$this->analizaCampo($campo)},";
         }
 
         $campos = trim($campos,',');
