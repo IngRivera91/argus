@@ -58,26 +58,22 @@ class GeneraConsultas
         $colunmasGeneradas = '';
         foreach ($columnas as $columna)
         {
-            $explodeColumna = explode('.',$columna);
-            if ( count($explodeColumna) == 2 ){
-                $colunmasGeneradas .= "{$explodeColumna[0]}.{$explodeColumna[1]} AS {$explodeColumna[0]}_{$explodeColumna[1]},";
+
+            $explodeColumna = explode('_',$columna);
+            if ( count($explodeColumna) > 1 ){
+                $explodeColumnasFinal = '';
+                for($i = 1 ; $i < count($explodeColumna) ; $i ++)
+                {
+                    $explodeColumnasFinal .= "{$explodeColumna[$i]}_";
+                    
+                }
+                $explodeColumnasFinal = trim($explodeColumnasFinal,'_');
+                $colunmasGeneradas .= "{$explodeColumna[0]}.$explodeColumnasFinal AS {$explodeColumna[0]}_$explodeColumnasFinal,";
             }
             if ( count($explodeColumna) == 1 ){
-                $explodeColumna = explode('_',$columna);
-                if ( count($explodeColumna) > 1 ){
-                    $explodeColumnasFinal = '';
-                    for($i = 1 ; $i < count($explodeColumna) ; $i ++)
-                    {
-                        $explodeColumnasFinal .= "{$explodeColumna[$i]}_";
-                        
-                    }
-                    $explodeColumnasFinal = trim($explodeColumnasFinal,'_');
-                    $colunmasGeneradas .= "{$explodeColumna[0]}.$explodeColumnasFinal AS {$explodeColumna[0]}_$explodeColumnasFinal,";
-                }
-                if ( count($explodeColumna) == 1 ){
-                    $colunmasGeneradas .= "{$tabla}.{$columna} AS {$tabla}_{$columna},";
-                }
-            }   
+                $colunmasGeneradas .= "{$tabla}.{$columna} AS {$tabla}_{$columna},";
+            }
+              
         }
         $colunmasGeneradas = trim($colunmasGeneradas,',');
         $colunmasGeneradas = trim($colunmasGeneradas,' ');
