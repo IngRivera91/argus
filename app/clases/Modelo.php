@@ -79,6 +79,17 @@ class Modelo
         return $resultado;
     }
 
+    public function eliminarTodo()
+    {
+        try{
+            $consulta = $this->generaConsulta->delete( $this->tabla  );
+            $resultado = $this->coneccion->ejecutaConsultaDelete( $consulta  );
+        }catch(ErrorBase $e){
+            throw new ErrorBase($e->getMessage(),$e);
+        }
+        return $resultado;
+    }
+
     public function buscarPorId(int $id, $columnas = [] , $orderBy = [] , $limit = '' , $noUsarRelaciones = false ):array
     {
         $this->relaciones = $this->respaldoRelaciones;
