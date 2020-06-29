@@ -142,7 +142,7 @@ class Modelo
 
     private function validaColunmasUnicas( $datos , $registro_id = 0):void
     {
-        $columnas = [$this->tabla.'.id'];
+        $columnas = [$this->tabla.'_id'];
         foreach ($this->columnasUnicas as $nombreColumnaunica => $columnaUnica)
         {
             if ( isset($datos[$columnaUnica]) )
