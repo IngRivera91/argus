@@ -176,21 +176,22 @@ class Modelo
         return ( int ) $resultado['n_registros'];
     }
 
-    private function eliminaColumnasProtegidas($registros)
+    private function eliminaColumnasProtegidas($resultado)
     {
-        if ( count($registros) > 0 )
+        if ( count($resultado['registros']) > 0 )
         {
             foreach ($this->columnasProtegidas as $columnaProtegida)
             {
-                if ( isset($registros[0][$columnaProtegida]) )
+                if ( isset($resultado['registros'][0]["{$this->tabla}_{$columnaProtegida}"]) )
                 {
-                    foreach($registros as $clave => $registro)
+                    foreach($resultado['registros'] as $clave => $registro)
                     {
-                        unset($registros[$clave][$columnaProtegida]);
+                        unset($resultado['registros'][$clave]["{$this->tabla}_{$columnaProtegida}"]);
                     }
                 }
             }
         }
+        return $resultado;
     }
 
     private function validaColunmasUnicas( $datos , $registro_id = 0):void
