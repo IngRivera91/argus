@@ -25,13 +25,13 @@ class ClaseDatabaseTest extends TestCase
         $tabla = 'usuarios';
         $resultado = $coneccion->obtenColumnasTabla($tabla);
         $this->assertIsArray($resultado);
-        $this->assertSame("{$tabla}_id",$resultado[0]);
+        $this->assertSame("id",$resultado[0]);
         $this->assertCount(12,$resultado);
 
         $tabla = 'grupos';
         $resultado = $coneccion->obtenColumnasTabla($tabla);
         $this->assertIsArray($resultado);
-        $this->assertSame("{$tabla}_id",$resultado[0]);
+        $this->assertSame("id",$resultado[0]);
         $this->assertCount(7,$resultado);
     }
 
