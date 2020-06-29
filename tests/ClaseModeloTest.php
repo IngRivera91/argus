@@ -244,4 +244,52 @@ class ClaseModeloTest extends TestCase
         return $datosUsuarios;
     }
 
+    /**
+     * @test
+     * @depends creaModelo
+     * @depends obtenerNumeroRegistros
+     */
+    public function eliminarPorId($modelo,$datosUsuarios)
+    {
+        $id = array_key_last($datosUsuarios);
+        $usuario = end($datosUsuarios);
+
+        $resultado = $modelo->eliminarPorId($usuario['id']);
+        $this->assertIsArray($resultado);
+        $this->assertSame('registro eliminado',$resultado['mensaje']);
+
+        unset($datosUsuarios[$id]);
+
+        $numeroRegistros = $modelo->obtenerNumeroRegistros();
+        $this->assertSame( count($datosUsuarios) ,  $numeroRegistros );
+
+        return $datosUsuarios;
+    }
+
+    /**
+     * @test
+     * @depends creaModelo
+     * @depends eliminarPorId
+     */
+    public function eliminarConFiltro($modelo,$datosUsuarios)
+    {
+        $id = array_key_last($datosUsuarios);
+        $usuario = $datosUsuarios[$id];
+
+        $filtros = [
+            ['campo' => 'usuario' , 'valor' =>  $usuario['usuario'] , 'signoComparacion' => '=' , 'conectivaLogica' => '']
+        ];
+
+        $resultado = $modelo->eliminarConFiltros($filtros);
+        $this->assertIsArray($resultado);
+        $this->assertSame('registro eliminado',$resultado['mensaje']);
+
+        unset($datosUsuarios[$id]);
+
+        $numeroRegistros = $modelo->obtenerNumeroRegistros();
+        $this->assertSame( count($datosUsuarios) ,  $numeroRegistros );
+        
+        return $datosUsuarios;
+    }
+
 }
