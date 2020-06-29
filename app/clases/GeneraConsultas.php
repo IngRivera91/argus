@@ -141,7 +141,11 @@ class GeneraConsultas
     private function generaRelaciones( $relaciones ):string
     {
         $relacionesGeneradas = '';
-
+        if ( count($relaciones) === 0 )
+        {
+             return $relacionesGeneradas;
+        }
+        $this->valida->arrayAsociativo('relaciones',$relaciones);
         foreach ( $relaciones as $tablaRelacionada => $llaveForania)
         {
             $relacionesGeneradas .= "LEFT JOIN $tablaRelacionada ON $tablaRelacionada.id = $llaveForania";
@@ -155,7 +159,11 @@ class GeneraConsultas
     private function generaOrderBy( $orderBy ):string
     {
         $orderByGenerado = '';
-
+        if ( count($orderBy) === 0 )
+        {
+             return $orderByGenerado;
+        }
+        $this->valida->arrayAsociativo('orderBy',$orderBy);
         foreach ( $orderBy as $campo => $DescAsc)
         {
             $orderByGenerado .= "ORDER BY $campo $DescAsc";
@@ -178,21 +186,14 @@ class GeneraConsultas
         }
 
         $filtrosGenerados = $this->generaFiltros($filtros);
-
-        $relacionesGeneradas = '';
-        if ( count($relaciones) !== 0 ){
-            $this->valida->arrayAsociativo('relaciones',$relaciones);
-            $relacionesGeneradas = $this->generaRelaciones($relaciones);
-        }
-        $orderByGenerado = '';
-        if ( count($orderBy) !== 0 ){
-            $this->valida->arrayAsociativo('orderBy',$orderBy);
-            $orderByGenerado = $this->generaOrderBy($orderBy);
-        }
+        $relacionesGeneradas = $this->generaRelaciones($relaciones);
+        $orderByGenerado = $this->generaOrderBy($orderBy);
+        
         $limitGenerado = '';
         if ($limit != ''){
             $limitGenerado = "LIMIT $limit";
         }
+        
         $consulta = "SELECT $columnasGeneradas FROM {$tabla}";
         $consulta = trim($consulta,' ');
         $consulta .= " {$relacionesGeneradas}";
