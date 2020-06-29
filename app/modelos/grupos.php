@@ -1,0 +1,21 @@
+<?php 
+
+namespace Modelo;
+
+use Clase\Modelo;
+use Clase\Database;
+
+class grupos extends Modelo
+{
+    public function __construct(Database $coneccion)
+    {
+        $tabla = 'grupos';
+        $relaciones = []; 
+        $columnas = [
+            'unicas' => ['grupo' => 'nombre'],
+            'obligatorias' => ['nombre'],
+            'protegidas' => []
+        ];
+        parent::__construct($coneccion ,$tabla ,$relaciones,$columnas );
+    }
+}
