@@ -10,30 +10,30 @@ use Error\MySQL AS ErrorMySQL;
 
 class Database
 {
-    private $host = DB_HOST;
-    private $user = DB_USER;
-    private $password = DB_PASSWORD;
-    private $name = DB_NAME;
+    private $hostBd = DB_HOST;
+    private $usuarioBD = DB_USER;
+    private $passwordBd = DB_PASSWORD;
+    private $nombreBd = DB_NAME;
 
     private $dbh;
     private $stmt;
 
     private $valida;
 
-    public function __construct($usuario = DB_USER,$password = DB_PASSWORD,$name = DB_NAME, $host = DB_HOST)
+    public function __construct($usuario = DB_USER,$passwordBd = DB_PASSWORD,$nombreBd = DB_NAME, $hostBd = DB_HOST)
     {
         $this->valida = new Validaciones();
-        $this->host = $host;
-        $this->user = $usuario;
-        $this->password = $password;
-        $this->name = $name;
+        $this->hostBd = $hostBd;
+        $this->usuarioBD = $usuario;
+        $this->passwordBd = $passwordBd;
+        $this->nombreBd = $nombreBd;
         
-        $dsn = 'mysql:host=' . $this->host . ';dbname=' . $this->name;
+        $dsn = 'mysql:host=' . $this->hostBd . ';dbname=' . $this->nombreBd;
         $opciones = array(PDO::ATTR_PERSISTENT=>true, PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION);
 
         try
         {
-            $this->dbh = new PDO($dsn,$this->user,$this->password,$opciones);
+            $this->dbh = new PDO($dsn,$this->usuarioBD,$this->passwordBd,$opciones);
             $this->dbh->exec('set names utf8');
         } 
         catch (PDOException $e) 
@@ -143,4 +143,31 @@ class Database
         }
     }
 
+    public function obtenColumnasTabla(string $tabla )
+    {
+        $consulta = "SHOW COLUMNS FROM $tabla FROM {$this->nombreBd}";
+        $this->stmt = $this->dbh->prepare($consulta);
+        try 
+        {
+            $this->stmt->execute();
+            $resultado = (array) $this->stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $this->generaArrayColumnas($tabla,$resultado);
+        } 
+        catch (PDOException $e)
+        {
+            throw new ErrorMySQL($e,' Consulta: '.$consulta);
+        }
+    }
+
+    private function generaArrayColumnas( string $tabla , array $columnasArray ):array
+    {
+        $arrayColumnas = [];
+
+        foreach ($columnasArray as $columna)
+        {
+            $arrayColumnas[] = "{$tabla}_{$columna['Field']}";
+        }
+
+        return $arrayColumnas;
+    }
 }
