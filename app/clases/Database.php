@@ -55,14 +55,7 @@ class Database
     {
         if (count($filtros) != 0){
             foreach ( $filtros as $filtro){
-                $campo_explode = explode('.',$filtro['campo']);
-                $numero = count($campo_explode);
-                if ($numero == 2){
-                    $this->stmt->bindValue(":{$campo_explode[0]}_{$campo_explode[1]}",$filtro['valor']);
-                }
-                if ($numero == 1){
-                    $this->stmt->bindValue(":{$filtro['campo']}",$filtro['valor']);
-                }
+                $this->stmt->bindValue(":{$this->valida->analizaCampo($filtro['campo'])}",$filtro['valor']);
             }
         }
     }
