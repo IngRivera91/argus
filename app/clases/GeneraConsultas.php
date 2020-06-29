@@ -177,14 +177,8 @@ class GeneraConsultas
     public function select($tabla = '', $columnas = [] ,$filtros = [] , $limit = '' , $orderBy = [] , $relaciones = [] )
     {   
         $this->valida->nombreTabla($tabla);
-        if ( count($columnas) === 0 ){
-            $columnasGeneradas = $this->generaTodasLasColumnas($tabla,$relaciones);
-        }
-        if ( count($columnas) !== 0 ){
-            $this->valida->array('columnas',$columnas);
-            $columnasGeneradas = $this->generaColumnas($tabla,$columnas);
-        }
-
+        
+        $columnasGeneradas = $this->obtenColumnas($tabla,$columnas,$relaciones);
         $filtrosGenerados = $this->generaFiltros($filtros);
         $relacionesGeneradas = $this->generaRelaciones($relaciones);
         $orderByGenerado = $this->generaOrderBy($orderBy);
@@ -193,7 +187,7 @@ class GeneraConsultas
         if ($limit != ''){
             $limitGenerado = "LIMIT $limit";
         }
-        
+
         $consulta = "SELECT $columnasGeneradas FROM {$tabla}";
         $consulta = trim($consulta,' ');
         $consulta .= " {$relacionesGeneradas}";
@@ -233,6 +227,19 @@ class GeneraConsultas
         $consulta = "UPDATE $tabla SET $campoValor $filtrosGenerados";
         $consulta = trim($consulta,' ');
         return $consulta;
+    }
+
+    private function obtenColumnas($tabla,$columnas,$relaciones):string
+    {
+        $columnasGeneradas = '';
+        if ( count($columnas) === 0 ){
+            $columnasGeneradas = $this->generaTodasLasColumnas($tabla,$relaciones);
+        }
+        if ( count($columnas) !== 0 ){
+            $this->valida->array('columnas',$columnas);
+            $columnasGeneradas = $this->generaColumnas($tabla,$columnas);
+        }
+        return $columnasGeneradas;
     }
 
 }
