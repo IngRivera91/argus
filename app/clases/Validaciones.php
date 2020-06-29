@@ -6,6 +6,19 @@ use Error\Base AS ErrorBase;
 
 class Validaciones 
 {
+
+    private function analizaCampo($campo)
+    {
+        $campo_explode = explode('.',$campo);
+        $numero = count($campo_explode);
+        if ($numero == 2){
+            return "{$campo_explode[0]}_{$campo_explode[1]}";
+        }
+        if ($numero == 1){
+            return $campo;
+        }  
+    }
+    
     public function consulta(string $consulta = ''):void
     {
         if( $consulta === '')
