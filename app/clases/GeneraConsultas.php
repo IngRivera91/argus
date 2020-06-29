@@ -181,17 +181,11 @@ class GeneraConsultas
     public function select($tabla = '', $columnas = [] ,$filtros = [] , $limit = '' , $orderBy = [] , $relaciones = [] )
     {   
         $this->valida->nombreTabla($tabla);
-        
         $columnasGeneradas = $this->obtenColumnas($tabla,$columnas,$relaciones);
         $filtrosGenerados = $this->generaFiltros($filtros);
         $relacionesGeneradas = $this->generaRelaciones($relaciones);
         $orderByGenerado = $this->generaOrderBy($orderBy);
-        
-        $limitGenerado = '';
-        if ($limit != ''){
-            $limitGenerado = " LIMIT $limit";
-        }
-
+        $limitGenerado = $this->generaLimit($limit);
         return "SELECT {$columnasGeneradas} FROM {$tabla}{$relacionesGeneradas}{$filtrosGenerados}{$orderByGenerado}{$limitGenerado}";
     }
 
