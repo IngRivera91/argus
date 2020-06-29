@@ -14,17 +14,9 @@ class usuarios extends Modelo
             'grupos' => 'usuarios.grupo_id'
         ]; 
         $columnas = [
-            'unicas' => [
-                'usuario' => 'usuario',
-                'correo' => 'correo_electronico'
-            ],
-            'obligatorias' => [
-                'usuario','password',
-                'correo_electronico','grupo_id'
-            ],
-            'protegidas' => [
-                'password'
-            ]
+            'unicas' => ['usuario' => 'usuario','correo' => 'correo_electronico'],
+            'obligatorias' => ['usuario','password','correo_electronico','grupo_id'],
+            'protegidas' => ['password']
         ];
         parent::__construct($coneccion ,$tabla ,$relaciones,$columnas );
     }
