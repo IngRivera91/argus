@@ -134,6 +134,14 @@ class GeneraConsultas
         return " WHERE $filtrosGenerados";
     }
 
+    private function generaLimit( $limit ):string
+    {
+        if ($limit != ''){
+            return " LIMIT $limit";
+        }
+        return '';
+    }
+
     private function generaRelaciones( $relaciones ):string
     {
         $relacionesGeneradas = '';
