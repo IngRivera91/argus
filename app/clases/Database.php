@@ -46,15 +46,7 @@ class Database
     {
         if (count($datos) != 0){
             foreach ( $datos as $campo => $valor){
-                $campo_explode = explode('.',$campo);
-                $numero = count($campo_explode);
-                if ($numero == 2){
-                    $this->stmt->bindValue(":{$campo_explode[0]}_{$campo_explode[1]}",$valor);
-                }
-                if ($numero == 1){
-                    $this->stmt->bindValue(':'.$campo,$valor);
-                }
-
+                $this->stmt->bindValue(":{$this->valida->analizaCampo($campo)}",$valor);
             }
         }
     }
