@@ -17,12 +17,8 @@ class GeneraConsultas
     public function delete( $tabla , $filtros = [] ):string
     {
         $this->valida->nombreTabla($tabla);
-
         $filtrosGenerados = $this->generaFiltros($filtros);
-
-        $consulta = "DELETE FROM $tabla $filtrosGenerados";
-        $consulta = trim($consulta,' ');
-
+        $consulta = "DELETE FROM {$tabla}{$filtrosGenerados}";
         return $consulta;
     }
 
@@ -135,7 +131,7 @@ class GeneraConsultas
         
         $filtrosGenerados = trim($filtrosGenerados,' ');
         
-        return "WHERE $filtrosGenerados";
+        return " WHERE $filtrosGenerados";
     }
 
     private function generaRelaciones( $relaciones ):string
@@ -152,7 +148,7 @@ class GeneraConsultas
         }
         $relacionesGeneradas = trim($relacionesGeneradas,' ');
 
-        return $relacionesGeneradas;
+        return " $relacionesGeneradas";
 
     }
 
@@ -170,7 +166,7 @@ class GeneraConsultas
         }
         $orderByGenerado = trim($orderByGenerado,' ');
 
-        return $orderByGenerado;
+        return " $orderByGenerado";
 
     }
 
@@ -185,20 +181,10 @@ class GeneraConsultas
         
         $limitGenerado = '';
         if ($limit != ''){
-            $limitGenerado = "LIMIT $limit";
+            $limitGenerado = " LIMIT $limit";
         }
 
-        $consulta = "SELECT $columnasGeneradas FROM {$tabla}";
-        $consulta = trim($consulta,' ');
-        $consulta .= " {$relacionesGeneradas}";
-        $consulta = trim($consulta,' ');
-        $consulta .= " {$filtrosGenerados}";
-        $consulta = trim($consulta,' ');
-        $consulta .= " {$orderByGenerado}";
-        $consulta = trim($consulta,' ');
-        $consulta .= " {$limitGenerado}";
-        $consulta = trim($consulta,' ');
-        return $consulta;
+        return "SELECT {$columnasGeneradas} FROM {$tabla}{$relacionesGeneradas}{$filtrosGenerados}{$orderByGenerado}{$limitGenerado}";
     }
 
     public function update($tabla = '' , $datos = [] , $filtros = [] ):string
@@ -224,8 +210,7 @@ class GeneraConsultas
         $campoValor = trim($campoValor,',');
         $campoValor = trim($campoValor,' ');
 
-        $consulta = "UPDATE $tabla SET $campoValor $filtrosGenerados";
-        $consulta = trim($consulta,' ');
+        $consulta = "UPDATE $tabla SET {$campoValor}{$filtrosGenerados}";
         return $consulta;
     }
 
