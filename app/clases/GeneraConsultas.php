@@ -18,14 +18,9 @@ class GeneraConsultas
     {
         $this->valida->nombreTabla($tabla);
 
-        $filtrosGenerado = '';
-        if ( count($filtros) !== 0 )
-        {
-            $this->valida->filtros($filtros);
-            $filtrosGenerado = $this->generaFiltros($filtros);
-        }
+        $filtrosGenerados = $this->obtenFiltros($filtros);
 
-        $consulta = "DELETE FROM $tabla $filtrosGenerado";
+        $consulta = "DELETE FROM $tabla $filtrosGenerados";
         $consulta = trim($consulta,' ');
 
         return $consulta;
@@ -90,7 +85,7 @@ class GeneraConsultas
     }
 
     private function generaTodasLasColumnas( $tabla , $relaciones ):string
-    {//aun si terminar
+    {
         $colunmasGeneradas = '';
 
         $arrayColumnas = $this->coneccion->obtenColumnasTabla($tabla);
@@ -176,11 +171,9 @@ class GeneraConsultas
             $this->valida->array('columnas',$columnas);
             $columnasGeneradas = $this->generaColumnas($tabla,$columnas);
         }
-        $filtrosGenerados = '';
-        if ( count($filtros) !== 0 ){
-            $this->valida->filtros($filtros);
-            $filtrosGenerados = $this->generaFiltros($filtros);
-        }
+
+        $filtrosGenerados = $this->obtenFiltros($filtros);
+
         $relacionesGeneradas = '';
         if ( count($relaciones) !== 0 ){
             $this->valida->arrayAsociativo('relaciones',$relaciones);
@@ -213,12 +206,7 @@ class GeneraConsultas
         $this->valida->nombreTabla($tabla);
         $this->valida->arrayAsociativo('datos',$datos);
 
-        $filtrosGenerados = '';
-        if ( count($filtros) !== 0 )
-        {
-            $this->valida->filtros($filtros);
-            $filtrosGenerados = $this->generaFiltros($filtros);
-        }
+        $filtrosGenerados = $this->obtenFiltros($filtros);
 
         $campoValor = '';
         foreach ($datos as $campo => $valor)
@@ -239,6 +227,17 @@ class GeneraConsultas
         $consulta = "UPDATE $tabla SET $campoValor $filtrosGenerados";
         $consulta = trim($consulta,' ');
         return $consulta;
+    }
+
+    private function obtenFiltros($filtros)
+    {
+        
+        if ( count($filtros) !== 0 )
+        {
+            $this->valida->filtros($filtros);
+            return $this->generaFiltros($filtros);
+        }
+        return '';
     }
 
 }
