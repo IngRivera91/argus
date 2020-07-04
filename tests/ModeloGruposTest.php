@@ -1,7 +1,7 @@
 <?php
 
 use Clase\Database;
-use Modelo\grupos;
+use Modelo\Grupos;
 use Error\Base AS ErrorBase;
 use PHPUnit\Framework\TestCase;
 
@@ -15,7 +15,7 @@ class ModeloGruposTest extends TestCase
         $this->assertSame(1,1);
         $coneccion = new Database();
         $coneccion->ejecutaConsultaDelete('DELETE FROM grupos');
-        return new grupos($coneccion);
+        return new Grupos($coneccion);
     }
 
     /**
