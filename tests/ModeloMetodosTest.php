@@ -1,7 +1,7 @@
 <?php
 
 use Clase\Database;
-use Modelo\metodos;
+use Modelo\Metodos;
 use Error\Base AS ErrorBase;
 use PHPUnit\Framework\TestCase;
 
@@ -14,7 +14,7 @@ class ModeloMetodosTest extends TestCase
     {
         $this->assertSame(1,1);
         $coneccion = new Database();
-        return new metodos($coneccion);
+        return new Metodos($coneccion);
     }
 
     /**
