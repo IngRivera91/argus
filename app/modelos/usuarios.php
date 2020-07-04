@@ -5,7 +5,7 @@ namespace Modelo;
 use Clase\Modelo;
 use Clase\Database;
 
-class usuarios extends Modelo
+class Usuarios extends Modelo
 {
     public function __construct(Database $coneccion)
     {
