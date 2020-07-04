@@ -1,7 +1,7 @@
 <?php
 
 use Clase\Database;
-use Modelo\menus;
+use Modelo\Menus;
 use Error\Base AS ErrorBase;
 use PHPUnit\Framework\TestCase;
 
@@ -14,7 +14,7 @@ class ModeloMenusTest extends TestCase
     {
         $this->assertSame(1,1);
         $coneccion = new Database();
-        return new menus($coneccion);
+        return new Menus($coneccion);
     }
 
     /**
