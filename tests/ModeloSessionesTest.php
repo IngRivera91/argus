@@ -1,7 +1,7 @@
 <?php
 
 use Clase\Database;
-use Modelo\sessiones;
+use Modelo\Sessiones;
 use Error\Base AS ErrorBase;
 use PHPUnit\Framework\TestCase;
 
@@ -14,7 +14,7 @@ class ModeloSessionesTest extends TestCase
     {
         $this->assertSame(1,1);
         $coneccion = new Database();
-        return new sessiones($coneccion);
+        return new Sessiones($coneccion);
     }
 
     /**
