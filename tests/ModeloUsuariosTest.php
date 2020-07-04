@@ -1,7 +1,7 @@
 <?php
 
 use Clase\Database;
-use Modelo\usuarios;
+use Modelo\Usuarios;
 use Error\Base AS ErrorBase;
 use PHPUnit\Framework\TestCase;
 
@@ -14,7 +14,7 @@ class ModeloUsuariosTest extends TestCase
     {
         $this->assertSame(1,1);
         $coneccion = new Database();
-        return new usuarios($coneccion);
+        return new Usuarios($coneccion);
     }
 
     /**
