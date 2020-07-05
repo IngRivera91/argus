@@ -11,7 +11,7 @@ class Usuarios extends Modelo
     {
         $tabla = 'usuarios';
         $relaciones = [
-            'grupos' => 'usuarios.grupo_id'
+            'grupos' => "{$tabla}.grupo_id"
         ]; 
         $columnas = [
             'unicas' => ['usuario' => 'usuario','correo' => 'correo_electronico'],
