@@ -122,7 +122,7 @@ class GeneraConsultas
         $this->valida->arrayAsociativo('relaciones',$relaciones);
         foreach ( $relaciones as $tablaRelacionada => $llaveForania)
         {
-            $relacionesGeneradas .= "LEFT JOIN $tablaRelacionada ON $tablaRelacionada.id = $llaveForania";
+            $relacionesGeneradas .= " LEFT JOIN $tablaRelacionada ON $tablaRelacionada.id = $llaveForania";
         }
         $relacionesGeneradas = trim($relacionesGeneradas,' ');
 
