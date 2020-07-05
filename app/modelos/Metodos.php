@@ -11,7 +11,7 @@ class Metodos extends Modelo
     {
         $tabla = 'metodos';
         $relaciones = [
-            'menus' => 'metodos.menu_id'
+            'menus' => "{$tabla}.menu_id"
 
         ]; 
         $columnas = [
