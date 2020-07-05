@@ -11,8 +11,8 @@ class MetodoGrupo extends Modelo
     {
         $tabla = 'metodo_grupo';
         $relaciones = [
-            'metodos' => 'metodo_grupo.metodo_id',
-            'grupos' => 'metodo_grupo.grupo_id'
+            'metodos' => "{$tabla}.metodo_id",
+            'grupos' => "{$tabla}.grupo_id"
         ]; 
         $columnas = [
             'unicas' => ['usuario' => 'usuario','correo' => 'correo_electronico'],
