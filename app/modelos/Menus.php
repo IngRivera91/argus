@@ -13,7 +13,7 @@ class Menus extends Modelo
         $relaciones = []; 
         $columnas = [
             'unicas' => ['menu' => 'nombre'],
-            'obligatorias' => ['nombre','etiqueta'],
+            'obligatorias' => ['nombre'],
             'protegidas' => []
         ];
         parent::__construct($coneccion ,$tabla ,$relaciones,$columnas );
