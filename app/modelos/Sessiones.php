@@ -11,7 +11,7 @@ class Sessiones extends Modelo
     {
         $tabla = 'sessiones';
         $relaciones = [
-            'usuarios' => 'sessiones.usuario_id'
+            'usuarios' => "{$tabla}.usuario_id"
         ]; 
         $columnas = [
             'unicas' => [],
