@@ -1,30 +1,28 @@
 <?php 
-    require_once __DIR__.'/../config.php'; 
-    require_once __DIR__.'/../vendor/autoload.php';
 
-    use Ayuda\Redireccion;
-    use Error\Base AS ErrorBase;
+require_once __DIR__.'/../config.php'; 
+require_once __DIR__.'/../vendor/autoload.php';
 
-    $parametros_get_requeridos = array('controlador','metodo');
+use Ayuda\Redireccion;
+use Clase\Database;
+use Error\Base AS ErrorBase;
 
-    foreach ($parametros_get_requeridos as $parametro){
-        valida_parametro_get($parametro);
-    }
+$parametros_get_requeridos = array('controlador','metodo');
 
+foreach ($parametros_get_requeridos as $parametro){
+    valida_parametro_get($parametro);
+}
+try {
+    $coneccion = new Database();
+}catch (ErrorBase $e) {
+    $error = new ErrorBase('Error al conectarce a la base de datos',$e);
+    $error->muestraError();
+    exit;
+}
+
+if ($_GET['controlador'] === 'session' && $_GET['metodo'] === 'login_bd'){
     
-    if ($_GET['controlador'] === 'session' && $_GET['metodo'] === 'login_bd'){
-        try 
-        {
-            $link = new Clase\Database('asd');
-        }
-        catch (ErrorBase $e) 
-        {
-            $error = new ErrorBase('Error al conectarce a la base de datos',$e);
-            $error->muestraError();
-            exit;
-        }
-        
-    }
+}
     
 
 ?>
