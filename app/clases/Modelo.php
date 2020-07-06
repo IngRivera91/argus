@@ -90,12 +90,16 @@ class Modelo
         return $resultado;
     }
 
-    public function buscarPorId(int $id, $columnas = [] , $orderBy = [] , $limit = '' , $noUsarRelaciones = false ):array
+    public function buscarPorId(int $id, $columnas = [] , $orderBy = [] , $limit = '' , $noUsarRelaciones = false , $nuevasRelaciones = [] ):array
     {
         $this->relaciones = $this->respaldoRelaciones;
         if ($noUsarRelaciones)
         {
             $this->relaciones = [];
+        }
+        if ( count($nuevasRelaciones) )
+        {
+            $this->relaciones = $nuevasRelaciones;
         }
         $filtros = [
             ['campo' => $this->tabla.'.id' , 'valor' => $id , 'signoComparacion' => '=']
@@ -111,12 +115,16 @@ class Modelo
         return $resultado;
     }
 
-    public function buscarConFiltros( $filtros, $columnas = [] , $orderBy = [] , $limit = '' , $noUsarRelaciones = false ):array
+    public function buscarConFiltros( $filtros, $columnas = [] , $orderBy = [] , $limit = '' , $noUsarRelaciones = false , $nuevasRelaciones = [] ):array
     {
         $this->relaciones = $this->respaldoRelaciones;
         if ($noUsarRelaciones)
         {
             $this->relaciones = [];
+        }
+        if ( count($nuevasRelaciones) )
+        {
+            $this->relaciones = $nuevasRelaciones;
         }
         try{
             $consulta = $this->generaConsulta->select( $this->tabla , $columnas , $filtros , $limit , $orderBy , $this->relaciones );
@@ -128,12 +136,16 @@ class Modelo
         return $resultado;
     }
 
-    public function buscarTodo( $columnas = [] , $orderBy = [] , $limit = '' , $noUsarRelaciones = false ):array
+    public function buscarTodo( $columnas = [] , $orderBy = [] , $limit = '' , $noUsarRelaciones = false , $nuevasRelaciones = [] ):array
     {
         $this->relaciones = $this->respaldoRelaciones;
         if ($noUsarRelaciones)
         {
             $this->relaciones = [];
+        }
+        if ( count($nuevasRelaciones) )
+        {
+            $this->relaciones = $nuevasRelaciones;
         }
         try{
             $consulta = $this->generaConsulta->select( $this->tabla , $columnas , [] , $limit , $orderBy , $this->relaciones );
