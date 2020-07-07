@@ -23,17 +23,21 @@ class Autentificacion
         $this->validaUsuarioYPassword($_POST);
 
         $usuario = $this->modeloUsuarios->login($_POST);
-
         $fechaHora = date('Y-m-d h:m:s');
         $session_id = md5( md5( $_POST['usuario'].$_POST['password'].$fechaHora ) );
 
+        $this->registraSessionId( $session_id , $usuario , $fechaHora );
+
+        return ['session_id' => $session_id , 'usuario' => $usuario , 'fechaHora' => $fechaHora];
+    }
+
+    private function registraSessionId($session_id, $usuario, $fechaHora):void
+    {
         $datos['session_id'] = $session_id;
         $datos['usuario_id'] = $usuario['usuarios_id'];
         $datos['grupo_id'] = $usuario['usuarios_grupo_id'];
         $datos['fecha_registro'] = $fechaHora;
-
-        $resultado = $this->modeloSessiones->registrar($datos);
-        return ['session_id' => $session_id , 'usuario' => $usuario , 'fechaHora' => $fechaHora];
+        $this->modeloSessiones->registrar($datos);
     }
 
     private function validaUsuarioYPassword($datosPost){
