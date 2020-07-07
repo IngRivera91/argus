@@ -22,18 +22,8 @@ class Autentificacion
     {
         $this->validaUsuarioYPassword($_POST);
 
-        $filtros = [
-            ['campo' => "usuarios.usuario" , 'valor' =>  $_POST['usuario'] , 'signoComparacion' => '=' , 'conectivaLogica' => '' ],
-            ['campo' => "usuarios.password", 'valor' =>  md5($_POST['password']) , 'signoComparacion' => '=' , 'conectivaLogica' => 'AND']
-        ];
-        
-        $resultado = $this->modeloUsuarios->buscarConFiltros($filtros);
-        
-        if ( $resultado['n_registros'] !== 1){
-            throw new ErrorEsperado('usuario o contraseña incorrecto');
-        }
+        $usuario = $this->modeloUsuarios->login($_POST);
 
-        $usuario = $resultado['registros'][0];
         $fechaHora = date('Y-m-d h:m:s');
         $session_id = md5( md5( $_POST['usuario'].$_POST['password'].$fechaHora ) );
 
