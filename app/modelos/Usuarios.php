@@ -20,4 +20,11 @@ class Usuarios extends Modelo
         ];
         parent::__construct($coneccion ,$tabla ,$relaciones,$columnas );
     }
+
+    public function registrar($datos):array
+    {
+        $datos['password'] = md5($datos['password']);
+        $resultado = parent::registrar($datos);
+        return $resultado;
+    }
 }
