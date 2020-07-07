@@ -14,6 +14,7 @@ class ModeloSessionesTest extends TestCase
     {
         $this->assertSame(1,1);
         $coneccion = new Database();
+        $coneccion->ejecutaConsultaDelete('DELETE FROM sessiones');
         return new Sessiones($coneccion);
     }
 
