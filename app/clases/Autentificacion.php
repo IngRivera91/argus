@@ -20,16 +20,13 @@ class Autentificacion
 
     public function login()
     {
-        $this->validaUsuarioYPassword_Post();
+        $this->validaUsuarioYPassword($_POST);
 
         $filtros = [
             ['campo' => "usuarios.usuario" , 'valor' =>  $_POST['usuario'] , 'signoComparacion' => '=' , 'conectivaLogica' => '' ],
             ['campo' => "usuarios.password", 'valor' =>  md5($_POST['password']) , 'signoComparacion' => '=' , 'conectivaLogica' => 'AND']
         ];
-        $columnas  = ['id'];
-        $orderBy = []; 
-        $limit = '';
-        $noUsarRelaciones = true;
+        
         $resultado = $this->modeloUsuarios->buscarConFiltros($filtros);
         
         if ( $resultado['n_registros'] !== 1){
@@ -49,17 +46,17 @@ class Autentificacion
         return ['session_id' => $session_id , 'usuario' => $usuario , 'fechaHora' => $fechaHora];
     }
 
-    private function validaUsuarioYPassword_Post(){
-        if ( !isset($_POST['usuario']) ){
+    private function validaUsuarioYPassword($datosPost){
+        if ( !isset($datosPost['usuario']) ){
             throw new ErrorBase('Debe existir $_POST[\'usuarios\']');
         }
-        if ( $_POST['usuario'] == ''){
+        if ( $datosPost['usuario'] == ''){
             throw new ErrorBase('$_POST[\'usuarios\'] no pude estar vacio');
         }
-        if ( !isset($_POST['password']) ){
+        if ( !isset($datosPost['password']) ){
             throw new ErrorBase('Debe existir $_POST[\'password\']');
         }
-        if ( $_POST['password'] == ''){
+        if ( $datosPost['password'] == ''){
             throw new ErrorBase('$_POST[\'password\'] no pude estar vacio');
         }
     }
