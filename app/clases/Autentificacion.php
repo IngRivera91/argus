@@ -40,18 +40,27 @@ class Autentificacion
         $this->modeloSessiones->registrar($datos);
     }
 
-    private function validaUsuarioYPassword($datosPost){
-        if ( !isset($datosPost['usuario']) ){
+    private function validaUsuarioYPassword($datosPost)
+    {
+        if ( !isset($datosPost['usuario']) )
+        {
             throw new ErrorBase('Debe existir $_POST[\'usuarios\']');
         }
-        if ( $datosPost['usuario'] == ''){
+        if ( $datosPost['usuario'] == '')
+        {
             throw new ErrorBase('$_POST[\'usuarios\'] no pude estar vacio');
         }
-        if ( !isset($datosPost['password']) ){
+        if ( !isset($datosPost['password']) )
+        {
             throw new ErrorBase('Debe existir $_POST[\'password\']');
         }
-        if ( $datosPost['password'] == ''){
+        if ( $datosPost['password'] == '')
+        {
             throw new ErrorBase('$_POST[\'password\'] no pude estar vacio');
+        }
+        if  ( count($datosPost) !== 2 )
+        {
+            throw new ErrorBase('En la variable $_POST solo debe venir el usuario y el password');
         }
     }
 }
