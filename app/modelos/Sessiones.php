@@ -11,11 +11,12 @@ class Sessiones extends Modelo
     {
         $tabla = 'sessiones';
         $relaciones = [
-            'usuarios' => "{$tabla}.usuario_id"
+            'usuarios' => "{$tabla}.usuario_id",
+            'grupos' => "{$tabla}.grupo_id"
         ]; 
         $columnas = [
             'unicas' => [],
-            'obligatorias' => ['session_id','usuario_id'],
+            'obligatorias' => ['session_id','usuario_id','grupo_id'],
             'protegidas' => ['session_id']
         ];
         parent::__construct($coneccion ,$tabla ,$relaciones,$columnas );
