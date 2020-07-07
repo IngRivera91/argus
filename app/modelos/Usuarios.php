@@ -4,6 +4,7 @@ namespace Modelo;
 
 use Clase\Modelo;
 use Clase\Database;
+use Error\Esperado AS ErrorEsperado;
 
 class Usuarios extends Modelo
 {
@@ -26,5 +27,21 @@ class Usuarios extends Modelo
         $datos['password'] = md5($datos['password']);
         $resultado = parent::registrar($datos);
         return $resultado;
+    }
+
+    public function login(array $datosPost):array
+    {
+        $filtros = [
+            ['campo' => "usuarios.usuario" , 'valor' =>  $datosPost['usuario'] , 'signoComparacion' => '=' , 'conectivaLogica' => '' ],
+            ['campo' => "usuarios.password", 'valor' =>  md5($datosPost['password']) , 'signoComparacion' => '=' , 'conectivaLogica' => 'AND']
+        ];
+
+        $resultado = parent::buscarConFiltros($filtros); 
+
+        if ( $resultado['n_registros'] !== 1){
+            throw new ErrorEsperado('usuario o contraseña incorrecto');
+        }
+        
+        return $resultado['registros'][0];
     }
 }
