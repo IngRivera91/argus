@@ -42,6 +42,7 @@ class Autentificacion
 
         $datos['session_id'] = $session_id;
         $datos['usuario_id'] = $usuario['usuarios_id'];
+        $datos['grupo_id'] = $usuario['usuarios_grupo_id'];
         $datos['fecha_registro'] = $fechaHora;
 
         $resultado = $this->modeloSessiones->registrar($datos);
