@@ -4,6 +4,10 @@ namespace Ayuda;
 
 class Redireccion
 {
+    public static function enviar_login(string $mensaje)
+    {
+        header('Location: '.RUTA_PROYECTO."login.php?mensaje=$mensaje");
+    }
 
     public static function enviar(string $controlador='',string $metodo='',string $session_id='',string $mensaje='',string $registro_id = '',string $pagina = 'index')
     {
