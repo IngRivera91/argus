@@ -44,6 +44,10 @@ class Modelo
         $filtros = [
             ['campo' => $this->tabla.'.id' , 'valor' => $id , 'signoComparacion' => '=']
         ];
+        
+        if ( isset(get_defined_constants(true)['user']['USUARIO_ID']) ){
+            $datos['usuario_actualizacion_id'] = USUARIO_ID;
+        }
 
         try{
             $consulta = $this->generaConsulta->update($this->tabla,$datos,$filtros);
