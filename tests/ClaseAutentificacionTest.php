@@ -92,10 +92,21 @@ class ClaseAutentificacionTest extends TestCase
         
         $resultado = $autentificacion->login();
         $this->assertIsArray($resultado);
-        $this->assertArrayHasKey('session_id',$resultado);
+        $this->assertArrayHasKey('sessionId',$resultado);
         $this->assertArrayHasKey('usuario',$resultado);
         $this->assertIsArray($resultado['usuario']);
-        $session_id = md5( md5( $_POST['usuario'].$_POST['password'].$resultado['fechaHora'] ) );
-        $this->assertSame($session_id,$resultado['session_id']);
+        $sessionId = md5( md5( $_POST['usuario'].$_POST['password'].$resultado['fechaHora'] ) );
+        $this->assertSame($sessionId,$resultado['sessionId']);
+
+        return $sessionId;
+    }
+
+    /**
+     * @test
+     * @depends login
+     */
+    public function validaSessionId($sessionId)
+    {
+        $this->assertSame(1,1);
     }
 }
