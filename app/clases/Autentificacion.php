@@ -17,6 +17,16 @@ class Autentificacion
         $this->modeloSessiones = new Sessiones($coneccion);
         $this->modeloUsuarios = new Usuarios($coneccion);
     }
+    
+    public function defineConstantes(array $datos, string $sessionId):void
+    {
+        define('USUARIO_ID',$datos['usuarios_id']);
+        define('GRUPO_ID',$datos['grupos_id']);
+        define('SESSION_ID',$sessionId);
+        define('NOMBRE_USUARIO',strtoupper($datos['usuarios_nombre_completo']));
+        define('GRUPO',strtoupper($datos['grupos_nombre']));
+        define('SEXO',$datos['usuarios_sexo']);
+    }
 
     public function login()
     {
