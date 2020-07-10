@@ -170,7 +170,12 @@ class Modelo
         }catch(ErrorBase $e){
             throw new ErrorEsperado($e->getMessage(),$e);
         }
-
+               
+        if ( isset(get_defined_constants(true)['user']['USUARIO_ID']) ){
+            $datos['usuario_registro_id'] = USUARIO_ID;
+            $datos['usuario_actualizacion_id'] = USUARIO_ID;
+        }
+              
         try{
             $consulta = $this->generaConsulta->insert( $this->tabla , $datos );
             $resultado = $this->coneccion->ejecutaConsultaInsert( $consulta , $datos );
