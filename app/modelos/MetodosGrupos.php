@@ -5,7 +5,7 @@ namespace Modelo;
 use Clase\Modelo;
 use Clase\Database;
 
-class MetodoGrupo extends Modelo
+class MetodosGrupos extends Modelo
 {
     public function __construct(Database $coneccion)
     {
