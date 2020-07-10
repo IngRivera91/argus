@@ -8,6 +8,21 @@
 
 <body class="hold-transition login-page">
 <div class="login-box">
+
+<?php if (isset($_GET['mensaje'])){ ?>
+    <br>
+    <div class="row">
+      <div class="col-md-12">
+          <div class="alert alert-info alert-dismissible fade show" role="alert">
+              <strong><?php echo $_GET['mensaje']; ?></strong>.
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+      </div>
+    </div>
+<?php } // end if (isset($_GET['mensaje'])) ?>
+
   <div class="login-logo">
     <b>Acc</b>eso
   </div>
