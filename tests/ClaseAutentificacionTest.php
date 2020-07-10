@@ -3,7 +3,7 @@
 use Clase\Autentificacion; 
 use Clase\Database;
 use Error\Base AS ErrorBase;
-use Error\Esperado AS ErrorEsperado;
+use Error\Autentificacion AS ErrorAutentificacion;
 use PHPUnit\Framework\TestCase;
 
 class ClaseAutentificacionTest extends TestCase
@@ -85,7 +85,7 @@ class ClaseAutentificacionTest extends TestCase
         }
         $mensajeEsperado = "usuario o contraseña incorrecto";
         $this->assertSame($error->getMessage(),$mensajeEsperado);
-        $this->assertInstanceOf(ErrorEsperado::class, $error);
+        $this->assertInstanceOf(ErrorAutentificacion::class, $error);
         
         $_POST['password'] = 'admin';
         $_POST['usuario'] = 'admin';
