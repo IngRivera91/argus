@@ -33,7 +33,7 @@ class Sessiones extends Modelo
         if ( $resultado['n_registros'] !== 1){
             throw new ErrorBase('sessionId no valido');
         }
-
+        unset($resultado['registros'][0]['usuarios_password']);
         return $resultado['registros'][0];
     }
 }

@@ -110,7 +110,11 @@ class ClaseAutentificacionTest extends TestCase
     {
         $resultado = $autentificacion->validaSessionId($sessionId);
         $this->assertIsArray($resultado);
+        $this->assertCount(22,$resultado);
         $this->assertArrayHasKey('usuarios_id',$resultado);
         $this->assertArrayHasKey('grupos_id',$resultado);
+        $this->assertArrayHasKey('grupos_nombre',$resultado);
+        $this->assertArrayHasKey('usuarios_nombre_completo',$resultado);
+        $this->assertArrayHasKey('usuarios_sexo',$resultado);
     }
 }
