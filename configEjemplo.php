@@ -21,3 +21,7 @@
 
     define('DB_USER_SESSION', DB_USER);
 	define('DB_PASSWORD_SESSION', DB_PASSWORD);
+
+	// COLORES
+    define('COLORBASE','style="color:#17a2b8"');
+	define('COLORBASE_BOOTSTRAP','info');
