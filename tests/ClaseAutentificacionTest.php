@@ -103,10 +103,14 @@ class ClaseAutentificacionTest extends TestCase
 
     /**
      * @test
+     * @depends creaAutentificacion
      * @depends login
      */
-    public function validaSessionId($sessionId)
+    public function validaSessionId($autentificacion,$sessionId)
     {
-        $this->assertSame(1,1);
+        $resultado = $autentificacion->validaSessionId($sessionId);
+        $this->assertIsArray($resultado);
+        $this->assertArrayHasKey('usuarios_id',$resultado);
+        $this->assertArrayHasKey('grupos_id',$resultado);
     }
 }
