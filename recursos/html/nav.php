@@ -1,3 +1,4 @@
+<?php use Ayuda\Redireccion; ?>
 <body class="hold-transition sidebar-mini">
     <!-- Site wrapper -->
     <div class="wrapper">
@@ -14,7 +15,7 @@
         <ul class="navbar-nav ml-auto">
         <!-- Messages Dropdown Menu -->
         <li class="nav-item" >
-            <a href="" >Salir <i class="fas fa-power-off"></i></a>
+            <a <?php echo COLORBASE; ?> href="<?php echo Redireccion::obtener('session','logout',SESSION_ID); ?>" >Salir <i class="fas fa-power-off"></i></a>
         </li>
         </ul>
     </nav>
