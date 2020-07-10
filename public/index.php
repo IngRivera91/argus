@@ -21,8 +21,9 @@ try {
     exit;
 }
 
+$autentificacion = new Autentificacion($coneccion);
+
 if ($_GET['controlador'] === 'session' && $_GET['metodo'] === 'login'){
-    $autentificacion = new Autentificacion($coneccion);
     try{
         $resultado = $autentificacion->login();
     }catch(ErrorBase $e){
@@ -37,8 +38,26 @@ if ($_GET['controlador'] === 'session' && $_GET['metodo'] === 'login'){
         exit;
     }
     Redireccion::enviar('inicio','index',$resultado['sessionId'],'Bienvenido');
+    exit;
 }
-    
+
+valida_parametro_get('session_id');
+
+try{
+    $datos = $autentificacion->validaSessionId($_GET['session_id']);
+}catch(ErrorBase $e){
+    if (get_class($e) == 'Error\Base') 
+    {
+        print_r( get_class($e) );
+        $error = new ErrorBase('Error al validar session_id',$e);
+        $error->muestraError();
+        exit;
+    }
+    $e->muestraError();
+    exit;
+}
+
+$autentificacion->defineConstantes($datos,$_GET['session_id']);
 
 ?>
 <?php require_once __DIR__.'/../recursos/html/head.php'; ?>
