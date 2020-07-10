@@ -24,16 +24,16 @@ class Autentificacion
 
         $usuario = $this->modeloUsuarios->login($_POST);
         $fechaHora = date('Y-m-d h:m:s');
-        $session_id = md5( md5( $_POST['usuario'].$_POST['password'].$fechaHora ) );
+        $sessionId = md5( md5( $_POST['usuario'].$_POST['password'].$fechaHora ) );
 
-        $this->registraSessionId( $session_id , $usuario , $fechaHora );
+        $this->registraSessionId( $sessionId , $usuario , $fechaHora );
 
-        return ['session_id' => $session_id , 'usuario' => $usuario , 'fechaHora' => $fechaHora];
+        return ['sessionId' => $sessionId , 'usuario' => $usuario , 'fechaHora' => $fechaHora];
     }
 
-    private function registraSessionId($session_id, $usuario, $fechaHora):void
+    private function registraSessionId($sessionId, $usuario, $fechaHora):void
     {
-        $datos['session_id'] = $session_id;
+        $datos['session_id'] = $sessionId;
         $datos['usuario_id'] = $usuario['usuarios_id'];
         $datos['grupo_id'] = $usuario['usuarios_grupo_id'];
         $datos['fecha_registro'] = $fechaHora;
