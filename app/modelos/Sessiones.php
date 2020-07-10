@@ -4,7 +4,7 @@ namespace Modelo;
 
 use Clase\Modelo;
 use Clase\Database;
-use Error\Base AS ErrorBase;
+use Error\Esperado AS ErrorEsperado;
 class Sessiones extends Modelo
 {
     public function __construct(Database $coneccion)
@@ -31,7 +31,7 @@ class Sessiones extends Modelo
         $resultado = parent::buscarConFiltros($filtros);
 
         if ( $resultado['n_registros'] !== 1){
-            throw new ErrorBase('sessionId no valido');
+            throw new ErrorEsperado('sessionId no valido');
         }
         unset($resultado['registros'][0]['usuarios_password']);
         return $resultado['registros'][0];
