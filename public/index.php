@@ -3,8 +3,9 @@
 require_once __DIR__.'/../config.php'; 
 require_once __DIR__.'/../vendor/autoload.php';
 
-use Ayuda\Redireccion;
 use Clase\Database;
+use Ayuda\Redireccion;
+use Clase\Autentificacion;
 use Error\Base AS ErrorBase;
 
 $parametros_get_requeridos = array('controlador','metodo');
@@ -20,8 +21,22 @@ try {
     exit;
 }
 
-if ($_GET['controlador'] === 'session' && $_GET['metodo'] === 'login_bd'){
-    
+if ($_GET['controlador'] === 'session' && $_GET['metodo'] === 'login'){
+    $autentificacion = new Autentificacion($coneccion);
+    try{
+        $resultado = $autentificacion->login();
+    }catch(ErrorBase $e){
+        if (get_class($e) == 'Error\Base') 
+        {
+            print_r( get_class($e) );
+            $error = new ErrorBase('Error al hacer login',$e);
+            $error->muestraError();
+            exit;
+        }
+        $e->muestraError();
+        exit;
+    }
+    Redireccion::enviar('inicio','index',$resultado['sessionId'],'Bienvenido');
 }
     
 
