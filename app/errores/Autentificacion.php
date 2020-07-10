@@ -12,7 +12,7 @@ class Autentificacion extends ErrorBase
         parent::__construct( $mensaje , $errorAnterior );
     }
 
-    public function muestraError()
+    public function muestraError($esRecursivo = false)
     {
         Redireccion::enviar_login($this->message);
         exit;
