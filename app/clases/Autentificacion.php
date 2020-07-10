@@ -6,7 +6,6 @@ use Clase\Database;
 use Modelo\Usuarios;
 use Modelo\Sessiones;
 use Error\Base AS ErrorBase;
-use Error\Esperado AS ErrorEsperado;
 
 class Autentificacion 
 {
