@@ -4,7 +4,7 @@ namespace Modelo;
 
 use Clase\Modelo;
 use Clase\Database;
-use Error\Esperado AS ErrorEsperado;
+use Error\Autentificacion AS ErrorAutentificacion;
 
 class Usuarios extends Modelo
 {
@@ -39,7 +39,7 @@ class Usuarios extends Modelo
         $resultado = parent::buscarConFiltros($filtros); 
 
         if ( $resultado['n_registros'] !== 1){
-            throw new ErrorEsperado('usuario o contraseña incorrecto');
+            throw new ErrorAutentificacion('usuario o contraseña incorrecto');
         }
         
         return $resultado['registros'][0];
