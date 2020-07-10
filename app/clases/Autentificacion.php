@@ -31,6 +31,11 @@ class Autentificacion
         return ['sessionId' => $sessionId , 'usuario' => $usuario , 'fechaHora' => $fechaHora];
     }
 
+    public function validaSessionId(string $sessionId):array
+    {
+        return $this->modeloSessiones->buscarPorSessionId($sessionId);
+    }
+
     private function registraSessionId($sessionId, $usuario, $fechaHora):void
     {
         $datos['session_id'] = $sessionId;
