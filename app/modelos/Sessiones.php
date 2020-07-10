@@ -4,7 +4,7 @@ namespace Modelo;
 
 use Clase\Modelo;
 use Clase\Database;
-
+use Error\Base AS ErrorBase;
 class Sessiones extends Modelo
 {
     public function __construct(Database $coneccion)
@@ -20,5 +20,20 @@ class Sessiones extends Modelo
             'protegidas' => ['session_id']
         ];
         parent::__construct($coneccion ,$tabla ,$relaciones,$columnas );
+    }
+
+    public function buscarPorSessionId(string $sessionId):array
+    {
+        $filtros = [
+            ['campo' => "sessiones.session_id" , 'valor' =>  $sessionId , 'signoComparacion' => '=' , 'conectivaLogica' => '' ]
+        ];
+
+        $resultado = parent::buscarConFiltros($filtros);
+
+        if ( $resultado['n_registros'] !== 1){
+            throw new ErrorBase('sessionId no valido');
+        }
+
+        return $resultado['registros'][0];
     }
 }
