@@ -1,11 +1,11 @@
 <?php
 
 use Clase\Database;
-use Modelo\MetodoGrupo;
+use Modelo\MetodosGrupos;
 use Error\Base AS ErrorBase;
 use PHPUnit\Framework\TestCase;
 
-class ModeloMetodoGrupoTest extends TestCase
+class ModeloMetodosGruposTest extends TestCase
 {
     /**
      * @test
@@ -14,7 +14,7 @@ class ModeloMetodoGrupoTest extends TestCase
     {
         $this->assertSame(1,1);
         $coneccion = new Database();
-        return new MetodoGrupo($coneccion);
+        return new MetodosGrupos($coneccion);
     }
 
     /**
