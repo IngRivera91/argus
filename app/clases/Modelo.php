@@ -20,7 +20,7 @@ class Modelo
     private array $relaciones;
     private array $respaldoRelaciones;
 
-    public function __construct( Database $coneccion ,string $tabla ,array $relaciones, array $columnas )
+    public function __construct(Database $coneccion, string $tabla, array $relaciones, array $columnas)
     {
         $this->valida  = new Validaciones();
         $this->generaConsulta = new GeneraConsultas($coneccion);
@@ -33,7 +33,7 @@ class Modelo
         $this->columnasProtegidas = $columnas['protegidas'];
     }
 
-    public function actualizarPorId($id,$datos):array
+    public function actualizarPorId(int $id, array $datos):array
     {
         try{
             $this->validaColunmasUnicas($datos,$id);
@@ -58,7 +58,7 @@ class Modelo
         return $resultado;
     }
 
-    public function eliminarPorId($id)
+    public function eliminarPorId(int $id):array
     {
         $filtros = [
             ['campo' => $this->tabla.'.id' , 'valor' => $id , 'signoComparacion' => '=']
@@ -72,7 +72,7 @@ class Modelo
         return $resultado;
     }
 
-    public function eliminarConFiltros($filtros)
+    public function eliminarConFiltros(array $filtros):array
     {
         try{
             $consulta = $this->generaConsulta->delete( $this->tabla , $filtros );
@@ -83,7 +83,7 @@ class Modelo
         return $resultado;
     }
 
-    public function eliminarTodo()
+    public function eliminarTodo():array
     {
         try{
             $consulta = $this->generaConsulta->delete( $this->tabla  );
@@ -94,8 +94,14 @@ class Modelo
         return $resultado;
     }
 
-    public function buscarPorId(int $id, $columnas = [] , $orderBy = [] , $limit = '' , $noUsarRelaciones = false , $nuevasRelaciones = [] ):array
-    {
+    public function buscarPorId(
+        int $id,
+        array $columnas = [],
+        array $orderBy = [],
+        string $limit = '',
+        bool $noUsarRelaciones = false,
+        array $nuevasRelaciones = []
+    ): array {
         $this->relaciones = $this->respaldoRelaciones;
         if ($noUsarRelaciones)
         {
@@ -110,7 +116,14 @@ class Modelo
         ];
 
         try{
-            $consulta = $this->generaConsulta->select( $this->tabla , $columnas , $filtros , $limit , $orderBy , $this->relaciones );
+            $consulta = $this->generaConsulta->select(
+                $this->tabla,
+                $columnas,
+                $filtros,
+                $limit,
+                $orderBy,
+                $this->relaciones
+            );
             $resultado = $this->coneccion->ejecutaConsultaSelect( $consulta , $filtros );
         }catch(ErrorBase $e){
             throw new ErrorBase($e->getMessage(),$e);
@@ -119,8 +132,14 @@ class Modelo
         return $resultado;
     }
 
-    public function buscarConFiltros( $filtros, $columnas = [] , $orderBy = [] , $limit = '' , $noUsarRelaciones = false , $nuevasRelaciones = [] ):array
-    {
+    public function buscarConFiltros( 
+        array $filtros,
+        array $columnas = [],
+        array $orderBy = [],
+        string $limit = '',
+        bool $noUsarRelaciones = false,
+        array $nuevasRelaciones = []
+    ): array {
         $this->relaciones = $this->respaldoRelaciones;
         if ($noUsarRelaciones)
         {
@@ -131,7 +150,14 @@ class Modelo
             $this->relaciones = $nuevasRelaciones;
         }
         try{
-            $consulta = $this->generaConsulta->select( $this->tabla , $columnas , $filtros , $limit , $orderBy , $this->relaciones );
+            $consulta = $this->generaConsulta->select(
+                $this->tabla,
+                $columnas,
+                $filtros,
+                $limit,
+                $orderBy,
+                $this->relaciones 
+            );
             $resultado = $this->coneccion->ejecutaConsultaSelect( $consulta , $filtros );
         }catch(ErrorBase $e){
             throw new ErrorBase($e->getMessage(),$e);
@@ -140,8 +166,13 @@ class Modelo
         return $resultado;
     }
 
-    public function buscarTodo( $columnas = [] , $orderBy = [] , $limit = '' , $noUsarRelaciones = false , $nuevasRelaciones = [] ):array
-    {
+    public function buscarTodo(
+        array $columnas = [], 
+        array $orderBy = [], 
+        string $limit = '', 
+        bool $noUsarRelaciones = false, 
+        array $nuevasRelaciones = []
+    ): array {
         $this->relaciones = $this->respaldoRelaciones;
         if ($noUsarRelaciones)
         {
@@ -152,7 +183,14 @@ class Modelo
             $this->relaciones = $nuevasRelaciones;
         }
         try{
-            $consulta = $this->generaConsulta->select( $this->tabla , $columnas , [] , $limit , $orderBy , $this->relaciones );
+            $consulta = $this->generaConsulta->select(
+                $this->tabla,
+                $columnas, 
+                [], 
+                $limit, 
+                $orderBy, 
+                $this->relaciones
+            );
             $resultado = $this->coneccion->ejecutaConsultaSelect( $consulta );
         }catch(ErrorBase $e){
             throw new ErrorBase($e->getMessage(),$e);
@@ -161,10 +199,10 @@ class Modelo
         return $resultado;
     }
 
-    public function registrar($datos):array
+    public function registrar(array $datos):array
     {
         try{
-            $this->validaColumnasObligatorias( $this->columnasObligatorias , $datos );
+            $this->validaColumnasObligatorias($this->columnasObligatorias, $datos);
         }catch(ErrorBase $e){
             throw new ErrorBase($e->getMessage(),$e);
         }
@@ -182,8 +220,8 @@ class Modelo
         }
               
         try{
-            $consulta = $this->generaConsulta->insert( $this->tabla , $datos );
-            $resultado = $this->coneccion->ejecutaConsultaInsert( $consulta , $datos );
+            $consulta = $this->generaConsulta->insert($this->tabla, $datos);
+            $resultado = $this->coneccion->ejecutaConsultaInsert($consulta, $datos);
         }catch(ErrorBase $e){
             throw new ErrorBase($e->getMessage(),$e);
         }
@@ -194,14 +232,18 @@ class Modelo
     public function obtenerNumeroRegistros():int
     {
         try{
-            $resultado = $this->buscarTodo(['id'],[],'',true);
+            $columnas = ['id']; 
+            $orderBy = []; 
+            $limit = ''; 
+            $noUsarRelaciones = true; 
+            $resultado = $this->buscarTodo($columnas, $orderBy, $limit , $noUsarRelaciones);
         }catch(ErrorBase $e){
             throw new ErrorBase($e->getMessage(),$e);
         }
         return ( int ) $resultado['n_registros'];
     }
 
-    private function eliminaColumnasProtegidas($resultado)
+    private function eliminaColumnasProtegidas(array $resultado):array
     {
         if ( count($resultado['registros']) > 0 )
         {
@@ -219,7 +261,7 @@ class Modelo
         return $resultado;
     }
 
-    private function validaColunmasUnicas( $datos , $registro_id = 0):void
+    private function validaColunmasUnicas(array $datos , int $registro_id = 0):void
     {
         $columnas = [$this->tabla.'_id'];
         foreach ($this->columnasUnicas as $nombreColumnaunica => $columnaUnica)
@@ -227,8 +269,18 @@ class Modelo
             if ( isset($datos[$columnaUnica]) )
             {
                 $filtros = [
-                    ['campo' => $columnaUnica , 'valor' =>  $datos[$columnaUnica] , 'signoComparacion' => '=' , 'conectivaLogica' => '' ],
-                    ['campo' => "{$this->tabla}.id" , 'valor' =>  $registro_id , 'signoComparacion' => '<>' , 'conectivaLogica' => 'AND']
+                    [
+                        'campo' => $columnaUnica,
+                        'valor' =>  $datos[$columnaUnica],
+                        'signoComparacion' => '=',
+                        'conectivaLogica' => '' 
+                    ],
+                    [
+                        'campo' => "{$this->tabla}.id",
+                        'valor' =>  $registro_id,
+                        'signoComparacion' => '<>',
+                        'conectivaLogica' => 'AND'
+                    ]
                 ];
     
                 try{
@@ -246,7 +298,7 @@ class Modelo
         }
     }
 
-    private function validaColumnasObligatorias( $columnasObligatorias , $datos ):void
+    private function validaColumnasObligatorias(array $columnasObligatorias ,array $datos ):void
     {
         foreach($columnasObligatorias as $columnaObligatoria)
         {
