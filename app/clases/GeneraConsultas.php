@@ -6,15 +6,15 @@ use Clase\Database;
 
 class GeneraConsultas 
 {
-    private $valida;
-    private $coneccion;
+    private Validaciones $valida;
+    private Database $coneccion;
     public function __construct(Database $coneccion)
     {
         $this->coneccion = $coneccion;
         $this->valida = new Validaciones();
     }
 
-    public function delete( $tabla , $filtros = [] ):string
+    public function delete(string $tabla, array $filtros = []):string
     {
         $this->valida->nombreTabla($tabla);
         $filtrosGenerados = $this->generaFiltros($filtros);
@@ -22,7 +22,7 @@ class GeneraConsultas
         return $consulta;
     }
 
-    public function insert( $tabla = '' , $datos = [] ):string
+    public function insert(string $tabla = '', array $datos = []):string
     {
         $this->valida->nombreTabla($tabla);
         $this->valida->arrayAsociativo('datos',$datos);
@@ -41,7 +41,7 @@ class GeneraConsultas
         return "INSERT INTO $tabla ($campos) VALUES ($valores)";
     }
 
-    private function generaColumnas( $tabla , $columnas ):string
+    private function generaColumnas(string $tabla, array $columnas):string
     {
         $colunmasGeneradas = '';
         foreach ($columnas as $columna)
@@ -55,7 +55,8 @@ class GeneraConsultas
                     
                 }
                 $explodeColumnasFinal = trim($explodeColumnasFinal,'_');
-                $colunmasGeneradas .= "{$explodeColumna[0]}.$explodeColumnasFinal AS {$explodeColumna[0]}_$explodeColumnasFinal,";
+                $colunmasGeneradas .= "{$explodeColumna[0]}.$explodeColumnasFinal ";
+                $colunmasGeneradas .= "AS {$explodeColumna[0]}_$explodeColumnasFinal,";
             }
             if ( count($explodeColumna) == 1 ){
                 $colunmasGeneradas .= "{$tabla}.{$columna} AS {$tabla}_{$columna},";
@@ -66,7 +67,7 @@ class GeneraConsultas
         return $colunmasGeneradas; 
     }
 
-    private function generaFiltros( $filtros ):string
+    private function generaFiltros(array $filtros):string
     {
         $filtrosGenerados = '';
         if ( count($filtros) === 0 )
@@ -80,13 +81,14 @@ class GeneraConsultas
             if (isset($filtro['conectivaLogica'])){
                 $conectivaLogica = $filtro['conectivaLogica'];
             }
-            $filtrosGenerados .= "$conectivaLogica {$filtro['campo']} {$filtro['signoComparacion']} :{$this->valida->analizaCampo($filtro['campo'])} ";
+            $filtrosGenerados .= "$conectivaLogica {$filtro['campo']} {$filtro['signoComparacion']} ";
+            $filtrosGenerados .= ":{$this->valida->analizaCampo($filtro['campo'])} ";
         }
         $filtrosGenerados = trim($filtrosGenerados,' ');
         return " WHERE $filtrosGenerados";
     }
 
-    private function generaLimit( $limit ):string
+    private function generaLimit(string $limit):string
     {
         if ($limit != ''){
             return " LIMIT $limit";
@@ -94,7 +96,7 @@ class GeneraConsultas
         return '';
     }
 
-    private function generaOrderBy( $orderBy ):string
+    private function generaOrderBy(array $orderBy):string
     {
         $orderByGenerado = '';
         if ( count($orderBy) === 0 )
@@ -109,10 +111,9 @@ class GeneraConsultas
         $orderByGenerado = trim($orderByGenerado,' ');
 
         return " $orderByGenerado";
-
     }
 
-    private function generaRelaciones( $relaciones ):string
+    private function generaRelaciones(array $relaciones):string
     {
         $relacionesGeneradas = '';
         if ( count($relaciones) === 0 )
@@ -127,10 +128,9 @@ class GeneraConsultas
         $relacionesGeneradas = trim($relacionesGeneradas,' ');
 
         return " $relacionesGeneradas";
-
     }
 
-    private function generaTodasLasColumnas( $tabla , $relaciones ):string
+    private function generaTodasLasColumnas(string $tabla, array $relaciones):string
     {
         $colunmasGeneradas = '';
 
@@ -153,7 +153,7 @@ class GeneraConsultas
         return $colunmasGeneradas; 
     }
 
-    private function obtenColumnas($tabla,$columnas,$relaciones):string
+    private function obtenColumnas(string $tabla, array $columnas, array $relaciones):string
     {
         $columnasGeneradas = '';
         if ( count($columnas) === 0 ){
@@ -166,19 +166,30 @@ class GeneraConsultas
         return $columnasGeneradas;
     }
     
-    public function select($tabla = '', $columnas = [] ,$filtros = [] , $limit = '' , $orderBy = [] , $relaciones = [] )
-    {   
+    public function select(
+        string $tabla = '',
+        array $columnas = [],
+        array $filtros = [], 
+        string $limit = '',
+        array $orderBy = [],
+        array $relaciones = []
+    ) {   
         $this->valida->nombreTabla($tabla);
         $columnasGeneradas = $this->obtenColumnas($tabla,$columnas,$relaciones);
         $filtrosGenerados = $this->generaFiltros($filtros);
         $relacionesGeneradas = $this->generaRelaciones($relaciones);
         $orderByGenerado = $this->generaOrderBy($orderBy);
         $limitGenerado = $this->generaLimit($limit);
-        return "SELECT {$columnasGeneradas} FROM {$tabla}{$relacionesGeneradas}{$filtrosGenerados}{$orderByGenerado}{$limitGenerado}";
+        $consultaSelect = "SELECT {$columnasGeneradas} FROM {$tabla}";
+        $consultaSelect .= "{$relacionesGeneradas}{$filtrosGenerados}{$orderByGenerado}{$limitGenerado}";
+        return $consultaSelect;
     }
 
-    public function update($tabla = '' , $datos = [] , $filtros = [] ):string
-    {
+    public function update(
+        string $tabla = '', 
+        array $datos = [], 
+        array $filtros = [] 
+    ): string {
         $this->valida->nombreTabla($tabla);
         $this->valida->arrayAsociativo('datos',$datos);
 
