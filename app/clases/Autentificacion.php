@@ -2,6 +2,7 @@
 
 namespace Clase;
 
+use Clase\Modelo;
 use Clase\Database;
 use Modelo\Usuarios;
 use Modelo\Sessiones;
@@ -9,12 +10,12 @@ use Error\Base AS ErrorBase;
 
 class Autentificacion 
 {
-    private $modeloUsuarios;
-    private $modeloSessiones;
+    private Modelo $usuarios;
+    private Modelo $sessiones;
     public function __construct(Database $coneccion)
     {
-        $this->modeloSessiones = new Sessiones($coneccion);
-        $this->modeloUsuarios = new Usuarios($coneccion);
+        $this->sessiones = new Sessiones($coneccion);
+        $this->usuarios = new Usuarios($coneccion);
     }
     
     public function defineConstantes(array $datos, string $sessionId):void
@@ -27,12 +28,12 @@ class Autentificacion
         define('SEXO',$datos['usuarios_sexo']);
     }
 
-    public function login()
+    public function login():array
     {
         $this->validaUsuarioYPassword($_POST);
 
-        $usuario = $this->modeloUsuarios->login($_POST);
-        $fechaHora = date('Y-m-d h:m:s');
+        $usuario = $this->usuarios->login($_POST);
+        $fechaHora = date('Y-m-d H:i:s');
         $sessionId = md5( md5( $_POST['usuario'].$_POST['password'].$fechaHora ) );
 
         $this->registraSessionId( $sessionId , $usuario , $fechaHora );
@@ -42,19 +43,19 @@ class Autentificacion
 
     public function validaSessionId(string $sessionId):array
     {
-        return $this->modeloSessiones->buscarPorSessionId($sessionId);
+        return $this->sessiones->buscarPorSessionId($sessionId);
     }
 
-    private function registraSessionId($sessionId, $usuario, $fechaHora):void
+    private function registraSessionId(string $sessionId, array $usuario, string $fechaHora):void
     {
         $datos['session_id'] = $sessionId;
         $datos['usuario_id'] = $usuario['usuarios_id'];
         $datos['grupo_id'] = $usuario['usuarios_grupo_id'];
         $datos['fecha_registro'] = $fechaHora;
-        $this->modeloSessiones->registrar($datos);
+        $this->sessiones->registrar($datos);
     }
 
-    private function validaUsuarioYPassword($datosPost)
+    private function validaUsuarioYPassword(array $datosPost):void
     {
         if ( !isset($datosPost['usuario']) )
         {
