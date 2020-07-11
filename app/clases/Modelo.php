@@ -22,7 +22,7 @@ class Modelo
 
     public function __construct(Database $coneccion, string $tabla, array $relaciones, array $columnas)
     {
-        $this->valida  = new Validaciones();
+        $this->valida = new Validaciones();
         $this->generaConsulta = new GeneraConsultas($coneccion);
         $this->coneccion = $coneccion;
         $this->tabla = $tabla;
@@ -64,8 +64,8 @@ class Modelo
             ['campo'=>$this->tabla.'.id', 'valor'=>$id, 'signoComparacion'=>'=']
         ];
         try {
-            $consulta = $this->generaConsulta->delete( $this->tabla , $filtros );
-            $resultado = $this->coneccion->ejecutaConsultaDelete( $consulta , $filtros );
+            $consulta = $this->generaConsulta->delete($this->tabla, $filtros);
+            $resultado = $this->coneccion->ejecutaConsultaDelete($consulta, $filtros);
         } catch(ErrorBase $e) {
             throw new ErrorBase($e->getMessage(),$e);
         }
@@ -75,8 +75,8 @@ class Modelo
     public function eliminarConFiltros(array $filtros):array
     {
         try {
-            $consulta = $this->generaConsulta->delete( $this->tabla , $filtros );
-            $resultado = $this->coneccion->ejecutaConsultaDelete( $consulta , $filtros );
+            $consulta = $this->generaConsulta->delete($this->tabla, $filtros);
+            $resultado = $this->coneccion->ejecutaConsultaDelete($consulta, $filtros);
         } catch(ErrorBase $e) {
             throw new ErrorBase($e->getMessage(),$e);
         }
@@ -86,8 +86,8 @@ class Modelo
     public function eliminarTodo():array
     {
         try {
-            $consulta = $this->generaConsulta->delete( $this->tabla  );
-            $resultado = $this->coneccion->ejecutaConsultaDelete( $consulta  );
+            $consulta = $this->generaConsulta->delete($this->tabla);
+            $resultado = $this->coneccion->ejecutaConsultaDelete($consulta);
         } catch(ErrorBase $e) {
             throw new ErrorBase($e->getMessage(),$e);
         }
@@ -115,7 +115,7 @@ class Modelo
                 $orderBy,
                 $this->relaciones
             );
-            $resultado = $this->coneccion->ejecutaConsultaSelect( $consulta , $filtros );
+            $resultado = $this->coneccion->ejecutaConsultaSelect($consulta, $filtros);
         } catch(ErrorBase $e) {
             throw new ErrorBase($e->getMessage(),$e);
         }
@@ -141,7 +141,7 @@ class Modelo
                 $orderBy,
                 $this->relaciones 
             );
-            $resultado = $this->coneccion->ejecutaConsultaSelect( $consulta , $filtros );
+            $resultado = $this->coneccion->ejecutaConsultaSelect($consulta, $filtros);
         } catch(ErrorBase $e) {
             throw new ErrorBase($e->getMessage(),$e);
         }
@@ -166,7 +166,7 @@ class Modelo
                 $orderBy, 
                 $this->relaciones
             );
-            $resultado = $this->coneccion->ejecutaConsultaSelect( $consulta );
+            $resultado = $this->coneccion->ejecutaConsultaSelect($consulta);
         } catch(ErrorBase $e) {
             throw new ErrorBase($e->getMessage(),$e);
         }
@@ -211,7 +211,7 @@ class Modelo
             $orderBy = []; 
             $limit = ''; 
             $noUsarRelaciones = true; 
-            $resultado = $this->buscarTodo($columnas, $orderBy, $limit , $noUsarRelaciones);
+            $resultado = $this->buscarTodo($columnas, $orderBy, $limit, $noUsarRelaciones);
         } catch(ErrorBase $e) {
             throw new ErrorBase($e->getMessage(),$e);
         }
