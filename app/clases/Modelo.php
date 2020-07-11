@@ -37,22 +37,22 @@ class Modelo
     {
         try{
             $this->validaColunmasUnicas($datos,$id);
-        }catch(ErrorBase $e){
+        } catch(ErrorBase $e) {
             throw new ErrorEsperado($e->getMessage(),$e);
         }
     
         $filtros = [
-            ['campo' => $this->tabla.'.id' , 'valor' => $id , 'signoComparacion' => '=']
+            ['campo'=>$this->tabla.'.id', 'valor'=>$id, 'signoComparacion'=>'=']
         ];
         
-        if ( isset(get_defined_constants(true)['user']['USUARIO_ID']) ){
+        if (isset(get_defined_constants(true)['user']['USUARIO_ID'])) {
             $datos['usuario_actualizacion_id'] = USUARIO_ID;
         }
 
-        try{
+        try {
             $consulta = $this->generaConsulta->update($this->tabla,$datos,$filtros);
             $resultado = $this->coneccion->ejecutaConsultaUpdate($consulta,$datos,$filtros);
-        }catch(ErrorBase $e){
+        } catch(ErrorBase $e) {
             throw new ErrorBase($e->getMessage(),$e);
         }
         return $resultado;
@@ -61,12 +61,12 @@ class Modelo
     public function eliminarPorId(int $id):array
     {
         $filtros = [
-            ['campo' => $this->tabla.'.id' , 'valor' => $id , 'signoComparacion' => '=']
+            ['campo'=>$this->tabla.'.id', 'valor'=>$id, 'signoComparacion'=>'=']
         ];
-        try{
+        try {
             $consulta = $this->generaConsulta->delete( $this->tabla , $filtros );
             $resultado = $this->coneccion->ejecutaConsultaDelete( $consulta , $filtros );
-        }catch(ErrorBase $e){
+        } catch(ErrorBase $e) {
             throw new ErrorBase($e->getMessage(),$e);
         }
         return $resultado;
@@ -74,10 +74,10 @@ class Modelo
 
     public function eliminarConFiltros(array $filtros):array
     {
-        try{
+        try {
             $consulta = $this->generaConsulta->delete( $this->tabla , $filtros );
             $resultado = $this->coneccion->ejecutaConsultaDelete( $consulta , $filtros );
-        }catch(ErrorBase $e){
+        } catch(ErrorBase $e) {
             throw new ErrorBase($e->getMessage(),$e);
         }
         return $resultado;
@@ -85,10 +85,10 @@ class Modelo
 
     public function eliminarTodo():array
     {
-        try{
+        try {
             $consulta = $this->generaConsulta->delete( $this->tabla  );
             $resultado = $this->coneccion->ejecutaConsultaDelete( $consulta  );
-        }catch(ErrorBase $e){
+        } catch(ErrorBase $e) {
             throw new ErrorBase($e->getMessage(),$e);
         }
         return $resultado;
@@ -102,20 +102,11 @@ class Modelo
         bool $noUsarRelaciones = false,
         array $nuevasRelaciones = []
     ): array {
-        $this->relaciones = $this->respaldoRelaciones;
-        if ($noUsarRelaciones)
-        {
-            $this->relaciones = [];
-        }
-        if ( count($nuevasRelaciones) )
-        {
-            $this->relaciones = $nuevasRelaciones;
-        }
+        $this->analizaRelaciones($noUsarRelaciones, $nuevasRelaciones);
         $filtros = [
-            ['campo' => $this->tabla.'.id' , 'valor' => $id , 'signoComparacion' => '=']
+            ['campo'=>$this->tabla.'.id', 'valor'=>$id, 'signoComparacion'=>'=']
         ];
-
-        try{
+        try {
             $consulta = $this->generaConsulta->select(
                 $this->tabla,
                 $columnas,
@@ -125,7 +116,7 @@ class Modelo
                 $this->relaciones
             );
             $resultado = $this->coneccion->ejecutaConsultaSelect( $consulta , $filtros );
-        }catch(ErrorBase $e){
+        } catch(ErrorBase $e) {
             throw new ErrorBase($e->getMessage(),$e);
         }
         $resultado = $this->eliminaColumnasProtegidas($resultado);
@@ -140,16 +131,8 @@ class Modelo
         bool $noUsarRelaciones = false,
         array $nuevasRelaciones = []
     ): array {
-        $this->relaciones = $this->respaldoRelaciones;
-        if ($noUsarRelaciones)
-        {
-            $this->relaciones = [];
-        }
-        if ( count($nuevasRelaciones) )
-        {
-            $this->relaciones = $nuevasRelaciones;
-        }
-        try{
+        $this->analizaRelaciones($noUsarRelaciones, $nuevasRelaciones);
+        try {
             $consulta = $this->generaConsulta->select(
                 $this->tabla,
                 $columnas,
@@ -159,7 +142,7 @@ class Modelo
                 $this->relaciones 
             );
             $resultado = $this->coneccion->ejecutaConsultaSelect( $consulta , $filtros );
-        }catch(ErrorBase $e){
+        } catch(ErrorBase $e) {
             throw new ErrorBase($e->getMessage(),$e);
         }
         $resultado = $this->eliminaColumnasProtegidas($resultado);
@@ -173,16 +156,8 @@ class Modelo
         bool $noUsarRelaciones = false, 
         array $nuevasRelaciones = []
     ): array {
-        $this->relaciones = $this->respaldoRelaciones;
-        if ($noUsarRelaciones)
-        {
-            $this->relaciones = [];
-        }
-        if ( count($nuevasRelaciones) )
-        {
-            $this->relaciones = $nuevasRelaciones;
-        }
-        try{
+        $this->analizaRelaciones($noUsarRelaciones, $nuevasRelaciones);
+        try {
             $consulta = $this->generaConsulta->select(
                 $this->tabla,
                 $columnas, 
@@ -192,7 +167,7 @@ class Modelo
                 $this->relaciones
             );
             $resultado = $this->coneccion->ejecutaConsultaSelect( $consulta );
-        }catch(ErrorBase $e){
+        } catch(ErrorBase $e) {
             throw new ErrorBase($e->getMessage(),$e);
         }
         $resultado = $this->eliminaColumnasProtegidas($resultado);
@@ -201,28 +176,28 @@ class Modelo
 
     public function registrar(array $datos):array
     {
-        try{
+        try {
             $this->validaColumnasObligatorias($this->columnasObligatorias, $datos);
-        }catch(ErrorBase $e){
+        } catch(ErrorBase $e) {
             throw new ErrorBase($e->getMessage(),$e);
         }
 
-        try{
+        try {
             $this->validaColunmasUnicas($datos);
-        }catch(ErrorBase $e){
+        } catch(ErrorBase $e) {
             throw new ErrorEsperado($e->getMessage(),$e);
         }
                
-        if ( isset(get_defined_constants(true)['user']['USUARIO_ID']) ){
+        if (isset(get_defined_constants(true)['user']['USUARIO_ID'])) {
             $datos['usuario_registro_id'] = USUARIO_ID;
             $datos['usuario_actualizacion_id'] = USUARIO_ID;
             $datos['activo'] = true;
         }
               
-        try{
+        try {
             $consulta = $this->generaConsulta->insert($this->tabla, $datos);
             $resultado = $this->coneccion->ejecutaConsultaInsert($consulta, $datos);
-        }catch(ErrorBase $e){
+        } catch(ErrorBase $e) {
             throw new ErrorBase($e->getMessage(),$e);
         }
         
@@ -231,13 +206,13 @@ class Modelo
 
     public function obtenerNumeroRegistros():int
     {
-        try{
+        try {
             $columnas = ['id']; 
             $orderBy = []; 
             $limit = ''; 
             $noUsarRelaciones = true; 
             $resultado = $this->buscarTodo($columnas, $orderBy, $limit , $noUsarRelaciones);
-        }catch(ErrorBase $e){
+        } catch(ErrorBase $e) {
             throw new ErrorBase($e->getMessage(),$e);
         }
         return ( int ) $resultado['n_registros'];
@@ -245,14 +220,10 @@ class Modelo
 
     private function eliminaColumnasProtegidas(array $resultado):array
     {
-        if ( count($resultado['registros']) > 0 )
-        {
-            foreach ($this->columnasProtegidas as $columnaProtegida)
-            {
-                if ( isset($resultado['registros'][0]["{$this->tabla}_{$columnaProtegida}"]) )
-                {
-                    foreach($resultado['registros'] as $clave => $registro)
-                    {
+        if (count($resultado['registros']) > 0) {
+            foreach ($this->columnasProtegidas as $columnaProtegida) {
+                if (isset($resultado['registros'][0]["{$this->tabla}_{$columnaProtegida}"])) {
+                    foreach($resultado['registros'] as $clave => $registro) {
                         unset($resultado['registros'][$clave]["{$this->tabla}_{$columnaProtegida}"]);
                     }
                 }
@@ -264,34 +235,19 @@ class Modelo
     private function validaColunmasUnicas(array $datos , int $registro_id = 0):void
     {
         $columnas = [$this->tabla.'_id'];
-        foreach ($this->columnasUnicas as $nombreColumnaunica => $columnaUnica)
-        {
-            if ( isset($datos[$columnaUnica]) )
-            {
+        foreach ($this->columnasUnicas as $nombreColumnaunica => $columnaUnica) {
+            if (isset($datos[$columnaUnica])) {
                 $filtros = [
-                    [
-                        'campo' => $columnaUnica,
-                        'valor' =>  $datos[$columnaUnica],
-                        'signoComparacion' => '=',
-                        'conectivaLogica' => '' 
-                    ],
-                    [
-                        'campo' => "{$this->tabla}.id",
-                        'valor' =>  $registro_id,
-                        'signoComparacion' => '<>',
-                        'conectivaLogica' => 'AND'
-                    ]
+                    ['campo'=>$columnaUnica, 'valor'=>$datos[$columnaUnica], 'signoComparacion'=>'=','conectivaLogica'=>''],
+                    ['campo'=>"{$this->tabla}.id", 'valor'=>$registro_id, 'signoComparacion'=>'<>', 'conectivaLogica'=>'AND']
                 ];
-    
-                try{
+                try {
                     $consulta = $this->generaConsulta->select($this->tabla,$columnas,$filtros);
                     $resultado = $this->coneccion->ejecutaConsultaSelect($consulta,$filtros);
-                }catch(ErrorBase $e){
+                } catch(ErrorBase $e) {
                     throw new ErrorBase($e->getMessage(),$e);
                 } 
-    
-                if ($resultado['n_registros'] != 0)
-                {
+                if ($resultado['n_registros'] != 0) {
                     throw new ErrorEsperado($nombreColumnaunica.':'.$datos[$columnaUnica].' ya registrad@');
                 }
             }  
@@ -300,16 +256,24 @@ class Modelo
 
     private function validaColumnasObligatorias(array $columnasObligatorias ,array $datos ):void
     {
-        foreach($columnasObligatorias as $columnaObligatoria)
-        {
-            if (!array_key_exists($columnaObligatoria, $datos))
-            {
+        foreach($columnasObligatorias as $columnaObligatoria) {
+            if (!array_key_exists($columnaObligatoria, $datos)) {
                 throw new ErrorBase("El campo $columnaObligatoria debe existir en el array de datos");
             }
-            if ( is_null( $datos[$columnaObligatoria] ) ||  $datos[$columnaObligatoria] == '' )
-            {
+            if (is_null( $datos[$columnaObligatoria] ) ||  $datos[$columnaObligatoria] == '') {
                 throw new ErrorBase("El campo $columnaObligatoria no pude ser vacio o null");
             }
+        }
+    }
+
+    private function analizaRelaciones(bool $noUsarRelaciones, array $nuevasRelaciones):void
+    {
+        $this->relaciones = $this->respaldoRelaciones;
+        if ($noUsarRelaciones){
+            $this->relaciones = [];
+        }
+        if (count($nuevasRelaciones)){
+            $this->relaciones = $nuevasRelaciones;
         }
     }
 
