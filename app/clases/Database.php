@@ -4,24 +4,27 @@ namespace Clase;
 
 use PDO;
 use PDOException;
+use PDOStatement;
 use Clase\Validaciones;
 use Error\MySQL AS ErrorMySQL;
 
 
 class Database
 {
-    private $hostBd = DB_HOST;
-    private $usuarioBD = DB_USER;
-    private $passwordBd = DB_PASSWORD;
-    private $nombreBd = DB_NAME;
+    private string $hostBd = DB_HOST;
+    private string $usuarioBD = DB_USER;
+    private string $passwordBd = DB_PASSWORD;
+    private string $nombreBd = DB_NAME;
+    private PDO $dbh;
+    private PDOStatement $stmt;
+    private Validaciones $valida;
 
-    private $dbh;
-    private $stmt;
-
-    private $valida;
-
-    public function __construct($usuario = DB_USER,$passwordBd = DB_PASSWORD,$nombreBd = DB_NAME, $hostBd = DB_HOST)
-    {
+    public function __construct(
+        string $usuario = DB_USER, 
+        string $passwordBd = DB_PASSWORD,
+        string $nombreBd = DB_NAME, 
+        string $hostBd = DB_HOST
+    ) {
         $this->valida = new Validaciones();
         $this->hostBd = $hostBd;
         $this->usuarioBD = $usuario;
@@ -42,16 +45,18 @@ class Database
         }
     }
 
-    private function blindarDatos($datos):void
+    private function blindarDatos(array $datos):void
     {
-        if (count($datos) != 0){
-            foreach ( $datos as $campo => $valor){
+        if (count($datos) != 0)
+        {
+            foreach ( $datos as $campo => $valor)
+            {
                 $this->stmt->bindValue(":{$this->valida->analizaCampo($campo)}",$valor);
             }
         }
     }
 
-    private function blindarFiltros($filtros):void
+    private function blindarFiltros(array $filtros):void
     {
         if (count($filtros) != 0){
             foreach ( $filtros as $filtro){
@@ -60,7 +65,7 @@ class Database
         }
     }
 
-    public function ejecutaConsultaDelete(string $consulta = '' ,array $filtros = [])
+    public function ejecutaConsultaDelete(string $consulta = '', array $filtros = []):array
     {
         $this->valida->consulta($consulta);
         $this->stmt = $this->dbh->prepare($consulta);
@@ -76,7 +81,7 @@ class Database
         }
     }
 
-    public function ejecutaConsultaInsert( string $consulta = '' , array $datos = [] )
+    public function ejecutaConsultaInsert(string $consulta = '', array $datos = []):array
     {
         $this->valida->consulta($consulta);
         $this->stmt = $this->dbh->prepare($consulta);
@@ -93,7 +98,7 @@ class Database
         }
     }
 
-    public function ejecutaConsultaSelect( string $consulta = '' , array $filtros = [] )
+    public function ejecutaConsultaSelect(string $consulta = '', array $filtros = []):array
     {
         $this->valida->consulta($consulta);
         $this->stmt = $this->dbh->prepare($consulta);
@@ -111,7 +116,7 @@ class Database
         }
     }
 
-    public function ejecutaConsultaUpdate( string $consulta = '' , array $datos = [] , array $filtros = [] )
+    public function ejecutaConsultaUpdate(string $consulta = '', array $datos = [], array $filtros = []):array
     {
         $this->valida->consulta($consulta);
         $this->stmt = $this->dbh->prepare($consulta);
@@ -128,7 +133,7 @@ class Database
         }
     }
 
-    public function obtenColumnasTabla(string $tabla )
+    public function obtenColumnasTabla(string $tabla):array
     {
         $consulta = "SHOW COLUMNS FROM $tabla FROM {$this->nombreBd}";
         $this->stmt = $this->dbh->prepare($consulta);
@@ -144,7 +149,7 @@ class Database
         }
     }
 
-    private function generaArrayColumnas( array $columnasArray ):array
+    private function generaArrayColumnas(array $columnasArray):array
     {
         $arrayColumnas = [];
 
