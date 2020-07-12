@@ -36,4 +36,12 @@ class Sessiones extends Modelo
         unset($resultado['registros'][0]['usuarios_password']);
         return $resultado['registros'][0];
     }
+
+    public function eliminarConSessionId(string $sessionId):void
+    {
+        $filtros = [
+            ['campo' => "sessiones.session_id" , 'valor' =>  $sessionId , 'signoComparacion' => '=' , 'conectivaLogica' => '' ]
+        ];
+        parent::eliminarConFiltros($filtros);
+    }
 }
