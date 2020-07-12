@@ -1,11 +1,12 @@
 <?php
 
-use Clase\Database;
-use Modelo\Sessiones;
+use Clase\DatabaseMySQL;
+use Clase\GeneraConsultasMySQL;
+use Modelo\MetodosGrupos;
 use Error\Base AS ErrorBase;
 use PHPUnit\Framework\TestCase;
 
-class ModeloSessionesTest extends TestCase
+class ModeloMetodosGruposMySQLTest extends TestCase
 {
     /**
      * @test
@@ -13,9 +14,9 @@ class ModeloSessionesTest extends TestCase
     public function creaModelo()
     {
         $this->assertSame(1,1);
-        $coneccion = new Database();
-        $coneccion->ejecutaConsultaDelete('DELETE FROM sessiones');
-        return new Sessiones($coneccion);
+        $coneccion = new DatabaseMySQL();
+        $generaConsultas = new GeneraConsultasMySQL($coneccion);
+        return new MetodosGrupos($coneccion,$generaConsultas);
     }
 
     /**

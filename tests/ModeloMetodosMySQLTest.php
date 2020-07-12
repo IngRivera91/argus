@@ -1,11 +1,12 @@
 <?php
 
-use Clase\Database;
+use Clase\DatabaseMySQL;
+use Clase\GeneraConsultasMySQL;
 use Modelo\Metodos;
 use Error\Base AS ErrorBase;
 use PHPUnit\Framework\TestCase;
 
-class ModeloMetodosTest extends TestCase
+class ModeloMetodosMySQLTest extends TestCase
 {
     /**
      * @test
@@ -13,8 +14,9 @@ class ModeloMetodosTest extends TestCase
     public function creaModelo()
     {
         $this->assertSame(1,1);
-        $coneccion = new Database();
-        return new Metodos($coneccion);
+        $coneccion = new DatabaseMySQL();
+        $generaConsultas = new GeneraConsultasMySQL($coneccion);
+        return new Metodos($coneccion,$generaConsultas);
     }
 
     /**

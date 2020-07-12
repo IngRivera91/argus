@@ -1,10 +1,10 @@
 <?php
 
 use Error\Base AS ErrorBase;
-use Clase\Database; 
+use Clase\DatabaseMySQL; 
 use PHPUnit\Framework\TestCase;
 
-class ClaseDatabaseTest extends TestCase
+class ClaseDatabaseMySQLTest extends TestCase
 { 
     /**
      * @test
@@ -12,7 +12,7 @@ class ClaseDatabaseTest extends TestCase
     public function creaConeccion()
     {
         $this->assertSame(1,1);
-        return new Database();
+        return new DatabaseMySQL();
         
     }
 

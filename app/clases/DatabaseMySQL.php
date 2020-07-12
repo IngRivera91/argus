@@ -6,10 +6,11 @@ use PDO;
 use PDOException;
 use PDOStatement;
 use Clase\Validaciones;
+use Interfas\Database;
 use Error\MySQL AS ErrorMySQL;
 
 
-class Database
+class DatabaseMySQL implements Database
 {
     private string $hostBd = DB_HOST;
     private string $usuarioBD = DB_USER;

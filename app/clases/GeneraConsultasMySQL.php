@@ -2,9 +2,10 @@
 
 namespace Clase;
 use Clase\Validaciones;
-use Clase\Database;
+use Interfas\GeneraConsultas;
+use Interfas\Database;
 
-class GeneraConsultas 
+class GeneraConsultasMySQL implements GeneraConsultas
 {
     private Validaciones $valida;
     private Database $coneccion;

@@ -1,12 +1,13 @@
 <?php
 
 use Clase\Autentificacion; 
-use Clase\Database;
+use Clase\DatabaseMySQL;
+use Clase\GeneraConsultasMySQL;
 use Error\Base AS ErrorBase;
 use Error\Autentificacion AS ErrorAutentificacion;
 use PHPUnit\Framework\TestCase;
 
-class ClaseAutentificacionTest extends TestCase
+class ClaseAutentificacionMySQLTest extends TestCase
 {
 
     /**
@@ -15,7 +16,8 @@ class ClaseAutentificacionTest extends TestCase
     public function creaAutentificacion()
     {
         $this->assertSame(1,1);
-        $coneccion = new Database();
+        $coneccion = new DatabaseMySQL();
+        $generaConsultas = new GeneraConsultasMySQL($coneccion);
         $password = md5('admin');
         $coneccion->ejecutaConsultaDelete('DELETE FROM sessiones');
         $coneccion->ejecutaConsultaDelete('DELETE FROM usuarios');
@@ -23,7 +25,7 @@ class ClaseAutentificacionTest extends TestCase
         $coneccion->ejecutaConsultaInsert("INSERT INTO grupos (id,nombre) VALUES (1,'programador')");
         $coneccion->ejecutaConsultaInsert("INSERT INTO usuarios (id,usuario,password,grupo_id,activo) VALUES (1,'admin','$password',1,true)");
         $coneccion->ejecutaConsultaInsert("INSERT INTO usuarios (id,usuario,password,grupo_id,activo) VALUES (2,'admin2','$password',1,false)");
-        $autentificacion = new Autentificacion($coneccion);
+        $autentificacion = new Autentificacion($coneccion, $generaConsultas);
         return $autentificacion;
     }
 
@@ -127,7 +129,7 @@ class ClaseAutentificacionTest extends TestCase
     public function logout($autentificacion,$sessionId)
     {
         $autentificacion->logout($sessionId);
-        $coneccion = new Database();
+        $coneccion = new DatabaseMySQL();
         $resultado = $coneccion->ejecutaConsultaSelect('SELECT id FROM sessiones');
         $this->assertSame(0,$resultado['n_registros']);
     }

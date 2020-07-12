@@ -1,11 +1,12 @@
 <?php
 
-use Clase\Database;
-use Modelo\Menus;
+use Clase\DatabaseMySQL;
+use Clase\GeneraConsultasMySQL;
+use Modelo\Sessiones;
 use Error\Base AS ErrorBase;
 use PHPUnit\Framework\TestCase;
 
-class ModeloMenusTest extends TestCase
+class ModeloSessionesMySQLTest extends TestCase
 {
     /**
      * @test
@@ -13,8 +14,10 @@ class ModeloMenusTest extends TestCase
     public function creaModelo()
     {
         $this->assertSame(1,1);
-        $coneccion = new Database();
-        return new Menus($coneccion);
+        $coneccion = new DatabaseMySQL();
+        $generaConsultas = new GeneraConsultasMySQL($coneccion);
+        $coneccion->ejecutaConsultaDelete('DELETE FROM sessiones');
+        return new Sessiones($coneccion,$generaConsultas);
     }
 
     /**

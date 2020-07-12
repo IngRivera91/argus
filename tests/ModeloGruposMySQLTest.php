@@ -1,11 +1,12 @@
 <?php
 
-use Clase\Database;
+use Clase\DatabaseMySQL;
+use Clase\GeneraConsultasMySQL;
 use Modelo\Grupos;
 use Error\Base AS ErrorBase;
 use PHPUnit\Framework\TestCase;
 
-class ModeloGruposTest extends TestCase
+class ModeloGruposMySQLTest extends TestCase
 {
     /**
      * @test
@@ -13,9 +14,10 @@ class ModeloGruposTest extends TestCase
     public function creaModelo()
     {
         $this->assertSame(1,1);
-        $coneccion = new Database();
+        $coneccion = new DatabaseMySQL();
+        $generaConsultas = new GeneraConsultasMySQL($coneccion);
         $coneccion->ejecutaConsultaDelete('DELETE FROM grupos');
-        return new Grupos($coneccion);
+        return new Grupos($coneccion,$generaConsultas);
     }
 
     /**

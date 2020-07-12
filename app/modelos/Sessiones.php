@@ -3,11 +3,13 @@
 namespace Modelo;
 
 use Clase\Modelo;
-use Clase\Database;
+use Interfas\Database;
+use Interfas\GeneraConsultas;
 use Error\Autentificacion AS ErrorAutentificacion;
+
 class Sessiones extends Modelo
 {
-    public function __construct(Database $coneccion)
+    public function __construct(Database $coneccion, GeneraConsultas $generaConsulta)
     {
         $tabla = 'sessiones';
         $relaciones = [
@@ -19,7 +21,7 @@ class Sessiones extends Modelo
             'obligatorias' => ['session_id','usuario_id','grupo_id'],
             'protegidas' => ['session_id']
         ];
-        parent::__construct($coneccion ,$tabla ,$relaciones,$columnas );
+        parent::__construct($coneccion, $generaConsulta, $tabla, $relaciones, $columnas );
     }
 
     public function buscarPorSessionId(string $sessionId):array

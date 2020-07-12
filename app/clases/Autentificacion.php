@@ -3,7 +3,8 @@
 namespace Clase;
 
 use Clase\Modelo;
-use Clase\Database;
+use Interfas\Database;
+use Interfas\GeneraConsultas;
 use Modelo\Usuarios;
 use Modelo\Sessiones;
 use Error\Base AS ErrorBase;
@@ -12,10 +13,10 @@ class Autentificacion
 {
     private Modelo $usuarios;
     private Modelo $sessiones;
-    public function __construct(Database $coneccion)
+    public function __construct(Database $coneccion, GeneraConsultas $generaConsulta)
     {
-        $this->sessiones = new Sessiones($coneccion);
-        $this->usuarios = new Usuarios($coneccion);
+        $this->sessiones = new Sessiones($coneccion, $generaConsulta);
+        $this->usuarios = new Usuarios($coneccion, $generaConsulta);
     }
     
     public function defineConstantes(array $datos, string $sessionId):void

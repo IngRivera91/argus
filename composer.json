@@ -5,7 +5,8 @@
             "Clase\\": "app/clases/",
             "Modelo\\": "app/modelos/",
             "Ayuda\\": "app/ayudas/",
-            "Error\\": "app/errores/"
+            "Error\\": "app/errores/",
+            "Interfas\\": "app/interfaces/"
         }
     },
     "require-dev": {

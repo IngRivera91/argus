@@ -1,11 +1,12 @@
 <?php
 
-use Clase\Database;
+use Clase\DatabaseMySQL;
+use Clase\GeneraConsultasMySQL;
 use Modelo\Usuarios;
 use Error\Base AS ErrorBase;
 use PHPUnit\Framework\TestCase;
 
-class ModeloUsuariosTest extends TestCase
+class ModeloUsuariosMySQLTest extends TestCase
 {
     /**
      * @test
@@ -13,12 +14,13 @@ class ModeloUsuariosTest extends TestCase
     public function creaModelo()
     {
         $this->assertSame(1,1);
-        $coneccion = new Database();
+        $coneccion = new DatabaseMySQL();
+        $generaConsultas = new GeneraConsultasMySQL($coneccion);
         $consultaDeleteBase = 'DELETE FROM';
         $coneccion->ejecutaConsultaDelete("$consultaDeleteBase usuarios");
         $coneccion->ejecutaConsultaDelete("$consultaDeleteBase grupos");
         $coneccion->ejecutaConsultaInsert("INSERT INTO grupos (id,nombre) VALUES (1,'administrador')");
-        return new Usuarios($coneccion);
+        return new Usuarios($coneccion,$generaConsultas);
     }
 
     /**

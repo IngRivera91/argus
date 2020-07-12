@@ -3,7 +3,6 @@
 require_once __DIR__.'/../config.php'; 
 require_once __DIR__.'/../vendor/autoload.php';
 
-use Clase\Database;
 use Ayuda\Redireccion;
 use Clase\Autentificacion;
 use Error\Base AS ErrorBase;
@@ -14,14 +13,15 @@ foreach ($parametros_get_requeridos as $parametro){
     valida_parametro_get($parametro);
 }
 try {
-    $coneccion = new Database();
+    $coneccion = new Clase\DatabaseMySQL();
+    $generaConsultas = new Clase\GeneraConsultasMySQL($coneccion);
 }catch (ErrorBase $e) {
     $error = new ErrorBase('Error al conectarce a la base de datos',$e);
     $error->muestraError();
     exit;
 }
 
-$autentificacion = new Autentificacion($coneccion);
+$autentificacion = new Autentificacion($coneccion,$generaConsultas);
 
 if ($_GET['controlador'] === 'session' && $_GET['metodo'] === 'login'){
     try{
