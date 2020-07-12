@@ -116,5 +116,19 @@ class ClaseAutentificacionTest extends TestCase
         $this->assertArrayHasKey('grupos_nombre',$resultado);
         $this->assertArrayHasKey('usuarios_nombre_completo',$resultado);
         $this->assertArrayHasKey('usuarios_sexo',$resultado);
+        return $sessionId;
+    }
+
+    /**
+     * @test
+     * @depends creaAutentificacion
+     * @depends validaSessionId
+     */
+    public function logout($autentificacion,$sessionId)
+    {
+        $autentificacion->logout($sessionId);
+        $coneccion = new Database();
+        $resultado = $coneccion->ejecutaConsultaSelect('SELECT id FROM sessiones');
+        $this->assertSame(0,$resultado['n_registros']);
     }
 }
