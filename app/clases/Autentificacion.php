@@ -41,6 +41,11 @@ class Autentificacion
         return ['sessionId' => $sessionId , 'usuario' => $usuario , 'fechaHora' => $fechaHora];
     }
 
+    public function logout(string $sessionId):void
+    {
+        $this->sessiones->eliminarConSessionId($sessionId);
+    }
+
     public function validaSessionId(string $sessionId):array
     {
         return $this->sessiones->buscarPorSessionId($sessionId);
