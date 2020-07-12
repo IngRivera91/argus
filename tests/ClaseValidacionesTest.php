@@ -48,15 +48,6 @@ class ClaseValidacionesTest extends TestCase
     {
         $error = null;
         try{
-            $valida->filtros('');
-        }catch(ErrorBase $e){
-            $error = $e;
-        }
-        $mensajeEsperado = 'Los filtros deben venir en un array';
-        $this->assertSame($error->getMessage(),$mensajeEsperado);
-
-        $error = null;
-        try{
             $filtros = array();
             $valida->filtros($filtros);
         }catch(ErrorBase $e){
@@ -112,16 +103,6 @@ class ClaseValidacionesTest extends TestCase
      */
     public function validaArray($valida)
     {
-        $error = null;
-        try{
-            $nombreArray = 'Array';
-            $valida->array($nombreArray,'');
-        }catch(ErrorBase $e){
-            $error = $e;
-        }
-        $mensajeEsperado = "Array:$nombreArray debe ser un array";
-        $this->assertSame($error->getMessage(),$mensajeEsperado);
-
         $error = null;
         try{
             $nombreArray = 'Array';
