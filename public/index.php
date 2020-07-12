@@ -57,6 +57,17 @@ try{
     exit;
 }
 
+if ($_GET['controlador'] === 'session' && $_GET['metodo'] === 'logout'){
+    try{
+        session_destroy();
+        $resultado = $autentificacion->logout($_GET['session_id']);
+    }catch(ErrorBase $e){
+        
+    }
+    header('Location: login.php');
+    exit;
+}
+
 $autentificacion->defineConstantes($datos,$_GET['session_id']);
 
 ?>
