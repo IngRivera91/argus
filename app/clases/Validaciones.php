@@ -7,66 +7,49 @@ use Error\Base AS ErrorBase;
 class Validaciones 
 {
 
-    public function analizaCampo($campo)
+    public function analizaCampo(string $campo):string
     {
-        $campo_explode = explode('.',$campo);
+        $campo_explode = explode('.', $campo);
         $numero = count($campo_explode);
-        if ($numero == 2){
+        if ($numero == 2) {
             return "{$campo_explode[0]}_{$campo_explode[1]}";
         }
-        if ($numero == 1){
+        if ($numero == 1) {
             return $campo;
         }  
     }
     
     public function consulta(string $consulta = ''):void
     {
-        if( $consulta === '')
-        {
+        if($consulta === '') {
             throw new ErrorBase('La consulta no puede estar vacia');
         }
-
     }
 
-    public function arrayAsociativo(string $nombreArray = '' ,$array):void
+    public function arrayAsociativo(string $nombreArray = '' ,array $array):void
     {
         $this->array($nombreArray,$array);
-
-        if ( !$this->esAsociativo($array) )
-        {
+        if (!$this->esAsociativo($array)) {
             throw new ErrorBase("Array:$nombreArray debe ser un array asociativo");
         }
     }
 
-    public function array(string $nombreArray = '' ,$array):void
-    {
-        if ( !is_array($array) )
-        {
-            throw new ErrorBase("Array:$nombreArray debe ser un array");
-        }
-        
-        if ( count($array) === 0)
-        {
+    public function array(string $nombreArray = '', array $array):void
+    {        
+        if (count($array) === 0) {
             throw new ErrorBase("Array:$nombreArray no puede ser un array vacio");
         }
     }
 
-    public function filtros($filtros)
+    public function filtros(array $filtros):void
     {
-        if ( !is_array($filtros) )
-        {
-            throw new ErrorBase('Los filtros deben venir en un array');
-        }
-
-        if ( count($filtros) === 0)
-        {
+        if (count($filtros) === 0) {
             throw new ErrorBase('El array de filtros no puede estar vacio');
         }
 
         foreach ($filtros as $filtro)
         {
-            if ( !is_array($filtro) )
-            {
+            if (!is_array($filtro)) {
                 throw new ErrorBase('Los filtros deben ser un array de arrays');
             }
             if (!array_key_exists('campo', $filtro)) {
@@ -81,24 +64,22 @@ class Validaciones
         }
     }
 
-    public function nombreTabla($tabla):void
+    public function nombreTabla(string $tabla):void
     {
         $tabla = trim($tabla,' ');
 
-        if ($tabla === '')
-        {
+        if ($tabla === '') {
             throw new ErrorBase('El nombre de tabla no puede venir vacio');
         }
 
         $explodeTabla = explode(' ',$tabla);
         
-        if ( count($explodeTabla) != 1 )
-        {
+        if (count($explodeTabla) != 1) {
             throw new ErrorBase('El nombre de la tabla no es valido');
         }
     }
 
-    private function esAsociativo( $array ) 
+    private function esAsociativo(array $array):bool 
     {
         // https://cybmeta.com/comprobar-si-un-array-es-asociativo-o-secuencial-en-php
         return array_keys( $array ) !== range( 0, count($array) - 1 );
