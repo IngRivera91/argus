@@ -29,7 +29,7 @@ class ClaseGeneraConsultasMySQLTest extends TestCase
         $this->assertSame($consulta,$consultaEsperada);
 
         $filtros = [
-            ['campo' => 'id' , 'valor' => '1' , 'signoComparacion' => '=']
+            ['campo' => 'id' , 'valor' => '1' , 'signoComparacion' => '=', 'conectivaLogica' => '']
         ];
 
         $consultaEsperada = 'DELETE FROM usuarios WHERE id = :id';
@@ -75,7 +75,7 @@ class ClaseGeneraConsultasMySQLTest extends TestCase
 
         $colunmas = ['id'];
         $filtros = [
-            ['campo' => 'id' , 'valor' => '1' , 'signoComparacion' => '=']
+            ['campo' => 'id' , 'valor' => '1' , 'signoComparacion' => '=', 'conectivaLogica' => '']
         ]; 
 
         $consultaEsperada = 'SELECT usuarios.id AS usuarios_id FROM usuarios';
@@ -135,7 +135,7 @@ class ClaseGeneraConsultasMySQLTest extends TestCase
         $this->assertSame($consulta,$consultaEsperada);
 
         $filtros = [
-            ['campo' => 'id' , 'valor' => '1' , 'signoComparacion' => '=']
+            ['campo' => 'id' , 'valor' => '1' , 'signoComparacion' => '=', 'conectivaLogica' => '']
         ];
 
         $consultaEsperada = 'UPDATE usuarios SET user = :user , password = :password WHERE id = :id';
