@@ -1,47 +1,35 @@
 <?php
 
-namespace Clase;
+namespace Ayuda;
 
 use Error\Base AS ErrorBase;
 
 class Validaciones 
 {
-
-    public function analizaCampo(string $campo):string
-    {
-        $campo_explode = explode('.', $campo);
-        $numero = count($campo_explode);
-        if ($numero == 2) {
-            return "{$campo_explode[0]}_{$campo_explode[1]}";
-        }
-        if ($numero == 1) {
-            return $campo;
-        }  
-    }
     
-    public function consulta(string $consulta = ''):void
+    public static function consulta(string $consulta = ''):void
     {
         if($consulta === '') {
             throw new ErrorBase('La consulta no puede estar vacia');
         }
     }
 
-    public function arrayAsociativo(string $nombreArray = '' ,array $array):void
+    public static function arrayAsociativo(string $nombreArray = '' ,array $array):void
     {
-        $this->array($nombreArray,$array);
-        if (!$this->esAsociativo($array)) {
+        array($nombreArray,$array);
+        if (!esAsociativo($array)) {
             throw new ErrorBase("Array:$nombreArray debe ser un array asociativo");
         }
     }
 
-    public function array(string $nombreArray = '', array $array):void
+    public static function array(string $nombreArray = '', array $array):void
     {        
         if (count($array) === 0) {
             throw new ErrorBase("Array:$nombreArray no puede ser un array vacio");
         }
     }
 
-    public function filtros(array $filtros):void
+    public static function filtros(array $filtros):void
     {
         if (count($filtros) === 0) {
             throw new ErrorBase('El array de filtros no puede estar vacio');
@@ -64,7 +52,7 @@ class Validaciones
         }
     }
 
-    public function nombreTabla(string $tabla):void
+    public static function nombreTabla(string $tabla):void
     {
         $tabla = trim($tabla,' ');
 
