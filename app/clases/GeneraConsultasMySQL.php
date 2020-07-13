@@ -105,11 +105,13 @@ class GeneraConsultasMySQL implements GeneraConsultas
              return $orderByGenerado;
         }
         $this->valida->arrayAsociativo('orderBy',$orderBy);
+        $orderByGenerado = 'ORDER BY ';
         foreach ( $orderBy as $campo => $DescAsc)
         {
-            $orderByGenerado .= "ORDER BY $campo $DescAsc";
+            $orderByGenerado .= "$campo $DescAsc, ";
         }
         $orderByGenerado = trim($orderByGenerado,' ');
+        $orderByGenerado = trim($orderByGenerado,',');
 
         return " $orderByGenerado";
     }
