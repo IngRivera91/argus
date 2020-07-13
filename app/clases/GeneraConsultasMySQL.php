@@ -1,9 +1,10 @@
 <?php 
 
 namespace Clase;
-use Clase\Validaciones;
-use Interfas\GeneraConsultas;
+use Ayuda\Valida;
+use Ayuda\Analiza;
 use Interfas\Database;
+use Interfas\GeneraConsultas;
 
 class GeneraConsultasMySQL implements GeneraConsultas
 {
@@ -12,12 +13,11 @@ class GeneraConsultasMySQL implements GeneraConsultas
     public function __construct(Database $coneccion)
     {
         $this->coneccion = $coneccion;
-        $this->valida = new Validaciones();
     }
 
     public function delete(string $tabla, array $filtros = []):string
     {
-        $this->valida->nombreTabla($tabla);
+        Valida::nombreTabla($tabla);
         $filtrosGenerados = $this->generaFiltros($filtros);
         $consulta = "DELETE FROM {$tabla}{$filtrosGenerados}";
         return $consulta;
@@ -25,15 +25,16 @@ class GeneraConsultasMySQL implements GeneraConsultas
 
     public function insert(string $tabla = '', array $datos = []):string
     {
-        $this->valida->nombreTabla($tabla);
-        $this->valida->arrayAsociativo('datos',$datos);
+        Valida::nombreTabla($tabla);
+        Valida::arrayAsociativo('datos',$datos);
         $campos = '';
         $valores = '';
 
         foreach ($datos as $campo => $valor)
         {
-            $campos .=  "{$this->valida->analizaCampo($campo)},";
-            $valores .=  ":{$this->valida->analizaCampo($campo)},";
+            $campo = Analiza::campoMySQL($campo);
+            $campos .=  "{$campo},";
+            $valores .=  ":{$campo},";
         }
 
         $campos = trim($campos,',');
@@ -75,7 +76,7 @@ class GeneraConsultasMySQL implements GeneraConsultas
         {
              return $filtrosGenerados;
         }
-        $this->valida->filtros($filtros);
+        Valida::filtros($filtros);
         foreach ($filtros as $filtro )
         {
             $conectivaLogica = '';
@@ -83,7 +84,8 @@ class GeneraConsultasMySQL implements GeneraConsultas
                 $conectivaLogica = $filtro['conectivaLogica'];
             }
             $filtrosGenerados .= "$conectivaLogica {$filtro['campo']} {$filtro['signoComparacion']} ";
-            $filtrosGenerados .= ":{$this->valida->analizaCampo($filtro['campo'])} ";
+            $filtro['campo'] = Analiza::campoMySQL($filtro['campo']);
+            $filtrosGenerados .= ":{$filtro['campo']} ";
         }
         $filtrosGenerados = trim($filtrosGenerados,' ');
         return " WHERE $filtrosGenerados";
@@ -104,7 +106,7 @@ class GeneraConsultasMySQL implements GeneraConsultas
         {
              return $orderByGenerado;
         }
-        $this->valida->arrayAsociativo('orderBy',$orderBy);
+        Valida::arrayAsociativo('orderBy',$orderBy);
         $orderByGenerado = 'ORDER BY ';
         foreach ( $orderBy as $campo => $DescAsc)
         {
@@ -123,7 +125,7 @@ class GeneraConsultasMySQL implements GeneraConsultas
         {
              return $relacionesGeneradas;
         }
-        $this->valida->arrayAsociativo('relaciones',$relaciones);
+        Valida::arrayAsociativo('relaciones',$relaciones);
         foreach ( $relaciones as $tablaRelacionada => $llaveForania)
         {
             $relacionesGeneradas .= " LEFT JOIN $tablaRelacionada ON $tablaRelacionada.id = $llaveForania";
@@ -163,7 +165,7 @@ class GeneraConsultasMySQL implements GeneraConsultas
             $columnasGeneradas = $this->generaTodasLasColumnas($tabla,$relaciones);
         }
         if ( count($columnas) !== 0 ){
-            $this->valida->array('columnas',$columnas);
+            Valida::array('columnas',$columnas);
             $columnasGeneradas = $this->generaColumnas($tabla,$columnas);
         }
         return $columnasGeneradas;
@@ -177,7 +179,7 @@ class GeneraConsultasMySQL implements GeneraConsultas
         array $orderBy = [],
         array $relaciones = []
     ) {   
-        $this->valida->nombreTabla($tabla);
+        Valida::nombreTabla($tabla);
         $columnasGeneradas = $this->obtenColumnas($tabla,$columnas,$relaciones);
         $filtrosGenerados = $this->generaFiltros($filtros);
         $relacionesGeneradas = $this->generaRelaciones($relaciones);
@@ -193,15 +195,16 @@ class GeneraConsultasMySQL implements GeneraConsultas
         array $datos = [], 
         array $filtros = [] 
     ): string {
-        $this->valida->nombreTabla($tabla);
-        $this->valida->arrayAsociativo('datos',$datos);
+        Valida::nombreTabla($tabla);
+        Valida::arrayAsociativo('datos',$datos);
 
         $filtrosGenerados = $this->generaFiltros($filtros);
 
         $campoValor = '';
         foreach ($datos as $campo => $valor)
         {
-            $campoValor .= " {$this->valida->analizaCampo($campo)} = :{$this->valida->analizaCampo($campo)} ,";
+            $campo = Analiza::campoMySQL($campo);
+            $campoValor .= " {$campo} = :{$campo} ,";
         }
         $campoValor = trim($campoValor,',');
         $campoValor = trim($campoValor,' ');
