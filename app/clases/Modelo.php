@@ -41,7 +41,7 @@ class Modelo
         }
     
         $filtros = [
-            ['campo'=>$this->tabla.'.id', 'valor'=>$id, 'signoComparacion'=>'=']
+            ['campo'=>$this->tabla.'.id', 'valor'=>$id, 'signoComparacion'=>'=', 'conectivaLogica' => '']
         ];
         
         if (isset(get_defined_constants(true)['user']['USUARIO_ID'])) {
@@ -60,7 +60,7 @@ class Modelo
     public function eliminarPorId(int $id):array
     {
         $filtros = [
-            ['campo'=>$this->tabla.'.id', 'valor'=>$id, 'signoComparacion'=>'=']
+            ['campo'=>$this->tabla.'.id', 'valor'=>$id, 'signoComparacion'=>'=', 'conectivaLogica' => '']
         ];
         try {
             $consulta = $this->generaConsulta->delete($this->tabla, $filtros);
@@ -103,7 +103,7 @@ class Modelo
     ): array {
         $this->analizaRelaciones($noUsarRelaciones, $nuevasRelaciones);
         $filtros = [
-            ['campo'=>$this->tabla.'.id', 'valor'=>$id, 'signoComparacion'=>'=']
+            ['campo'=>$this->tabla.'.id', 'valor'=>$id, 'signoComparacion'=>'=', 'conectivaLogica' => '']
         ];
         try {
             $consulta = $this->generaConsulta->select(
