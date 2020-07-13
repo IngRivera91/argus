@@ -9,7 +9,7 @@
         <includePath>.</includePath>
         <const name="DB_HOST" value="localhost"/>
         <const name="DB_USER" value="root"/>
-        <const name="DB_PASSWORD" value=""/>
-        <const name="DB_NAME" value="argus_tests"/>
+        <const name="DB_PASSWORD" value="12345678"/>
+        <const name="DB_NAME" value="argus_test"/>
     </php>
 </phpunit>
