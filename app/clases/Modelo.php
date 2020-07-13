@@ -4,7 +4,6 @@ namespace Clase;
 
 use Interfas\Database;
 use Interfas\GeneraConsultas;
-use Clase\Validaciones;
 use Clase\GeneraConsultasMySQL;
 use Error\Base AS ErrorBase;
 use Error\Esperado AS ErrorEsperado;
@@ -23,7 +22,6 @@ class Modelo
 
     public function __construct(Database $coneccion, GeneraConsultas $generaConsulta, string $tabla, array $relaciones, array $columnas)
     {
-        $this->valida = new Validaciones();
         $this->generaConsulta = $generaConsulta;
         $this->coneccion = $coneccion;
         $this->tabla = $tabla;
