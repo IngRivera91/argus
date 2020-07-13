@@ -17,7 +17,8 @@ class Valida
     public static function arrayAsociativo(string $nombreArray = '' ,array $array):void
     {
         array($nombreArray,$array);
-        if (!esAsociativo($array)) {
+        // https://cybmeta.com/comprobar-si-un-array-es-asociativo-o-secuencial-en-php
+        if (!(array_keys( $array ) !== range( 0, count($array) - 1 ))) {
             throw new ErrorBase("Array:$nombreArray debe ser un array asociativo");
         }
     }
@@ -65,12 +66,6 @@ class Valida
         if (count($explodeTabla) != 1) {
             throw new ErrorBase('El nombre de la tabla no es valido');
         }
-    }
-
-    private function esAsociativo(array $array):bool 
-    {
-        // https://cybmeta.com/comprobar-si-un-array-es-asociativo-o-secuencial-en-php
-        return array_keys( $array ) !== range( 0, count($array) - 1 );
     }
 
 }
