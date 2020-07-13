@@ -1,29 +1,21 @@
 <?php
-use Clase\Validaciones;
+
+use Ayuda\Valida;
 use Error\Base AS ErrorBase;
 use PHPUnit\Framework\TestCase;
 
-class ClaseValidacionesTest extends TestCase
+class AyudaValidaTest extends TestCase
 {
 
+   
     /**
      * @test
      */
-    public function creaValidaciones()
-    {
-        $this->assertSame(1,1);
-        return new Validaciones();
-    }
-
-    /**
-     * @test
-     * @depends creaValidaciones
-     */
-    public function validaNombreTabla($valida)
+    public function validaNombreTabla()
     {
         $error = null;
         try{
-            $valida->nombreTabla('');
+            Valida::nombreTabla('');
         }catch(ErrorBase $e){
             $error = $e;
         }
@@ -32,7 +24,7 @@ class ClaseValidacionesTest extends TestCase
 
         $error = null;
         try{
-            $valida->nombreTabla(' sessiones usuarios ');
+            Valida::nombreTabla(' sessiones usuarios ');
         }catch(ErrorBase $e){
             $error = $e;
         }
@@ -42,14 +34,13 @@ class ClaseValidacionesTest extends TestCase
 
      /**
      * @test
-     * @depends creaValidaciones
      */
-    public function validaFiltros($valida)
+    public function validaFiltros()
     {
         $error = null;
         try{
             $filtros = array();
-            $valida->filtros($filtros);
+            Valida::filtros($filtros);
         }catch(ErrorBase $e){
             $error = $e;
         }
@@ -59,7 +50,7 @@ class ClaseValidacionesTest extends TestCase
         $error = null;
         try{
             $filtros = array('');
-            $valida->filtros($filtros);
+            Valida::filtros($filtros);
         }catch(ErrorBase $e){
             $error = $e;
         }
@@ -69,7 +60,7 @@ class ClaseValidacionesTest extends TestCase
         $error = null;
         try{
             $filtros = array([]);
-            $valida->filtros($filtros);
+            Valida::filtros($filtros);
         }catch(ErrorBase $e){
             $error = $e;
         }
@@ -79,7 +70,7 @@ class ClaseValidacionesTest extends TestCase
         $error = null;
         try{
             $filtros = array(['campo' => 'id']);
-            $valida->filtros($filtros);
+            Valida::filtros($filtros);
         }catch(ErrorBase $e){
             $error = $e;
         }
@@ -89,7 +80,7 @@ class ClaseValidacionesTest extends TestCase
         $error = null;
         try{
             $filtros = array(['campo' => 'id' , 'valor' => 1]);
-            $valida->filtros($filtros);
+            Valida::filtros($filtros);
         }catch(ErrorBase $e){
             $error = $e;
         }
@@ -99,14 +90,13 @@ class ClaseValidacionesTest extends TestCase
 
     /**
      * @test
-     * @depends creaValidaciones
      */
-    public function validaArray($valida)
+    public function validaArray()
     {
         $error = null;
         try{
             $nombreArray = 'Array';
-            $valida->array($nombreArray,array());
+            Valida::array($nombreArray,array());
         }catch(ErrorBase $e){
             $error = $e;
         }
@@ -116,14 +106,13 @@ class ClaseValidacionesTest extends TestCase
 
     /**
      * @test
-     * @depends creaValidaciones
      */
-    public function validaArrayAsociativo($valida)
+    public function validaArrayAsociativo()
     {
         $error = null;
         try{
             $nombreArray = 'Array';
-            $valida->arrayAsociativo($nombreArray,['juan','password']);
+            Valida::arrayAsociativo($nombreArray,['juan','password']);
         }catch(ErrorBase $e){
             $error = $e;
         }
@@ -133,13 +122,12 @@ class ClaseValidacionesTest extends TestCase
 
     /**
      * @test
-     * @depends creaValidaciones
      */
-    public function validaConsulta($valida)
+    public function validaConsulta()
     {
         $error = null;
         try{
-            $valida->consulta('');
+            Valida::consulta('');
         }catch(ErrorBase $e){
             $error = $e;
         }
