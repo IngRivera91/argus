@@ -5,7 +5,8 @@ namespace Clase;
 use PDO;
 use PDOException;
 use PDOStatement;
-use Clase\Validaciones;
+use Ayuda\Valida;
+use Ayuda\Analiza;
 use Interfas\Database;
 use Error\MySQL AS ErrorMySQL;
 
@@ -18,7 +19,6 @@ class DatabaseMySQL implements Database
     private string $nombreBd = DB_NAME;
     private PDO $dbh;
     private PDOStatement $stmt;
-    private Validaciones $valida;
 
     public function __construct(
         string $usuario = DB_USER, 
@@ -26,7 +26,6 @@ class DatabaseMySQL implements Database
         string $nombreBd = DB_NAME, 
         string $hostBd = DB_HOST
     ) {
-        $this->valida = new Validaciones();
         $this->hostBd = $hostBd;
         $this->usuarioBD = $usuario;
         $this->passwordBd = $passwordBd;
@@ -52,7 +51,8 @@ class DatabaseMySQL implements Database
         {
             foreach ( $datos as $campo => $valor)
             {
-                $this->stmt->bindValue(":{$this->valida->analizaCampo($campo)}",$valor);
+                $campo = Analiza::campoMySQL($campo);
+                $this->stmt->bindValue(":{$campo}",$valor);
             }
         }
     }
@@ -61,14 +61,15 @@ class DatabaseMySQL implements Database
     {
         if (count($filtros) != 0){
             foreach ( $filtros as $filtro){
-                $this->stmt->bindValue(":{$this->valida->analizaCampo($filtro['campo'])}",$filtro['valor']);
+                $filtro['campo'] = Analiza::campoMySQL($filtro['campo']);
+                $this->stmt->bindValue(":{$filtro['campo']}",$filtro['valor']);
             }
         }
     }
 
     public function ejecutaConsultaDelete(string $consulta = '', array $filtros = []):array
     {
-        $this->valida->consulta($consulta);
+        Valida::consulta($consulta);
         $this->stmt = $this->dbh->prepare($consulta);
         $this->blindarFiltros($filtros);
         try 
@@ -84,7 +85,7 @@ class DatabaseMySQL implements Database
 
     public function ejecutaConsultaInsert(string $consulta = '', array $datos = []):array
     {
-        $this->valida->consulta($consulta);
+        Valida::consulta($consulta);
         $this->stmt = $this->dbh->prepare($consulta);
         $this->blindarDatos($datos);
         try 
@@ -101,7 +102,7 @@ class DatabaseMySQL implements Database
 
     public function ejecutaConsultaSelect(string $consulta = '', array $filtros = []):array
     {
-        $this->valida->consulta($consulta);
+        Valida::consulta($consulta);
         $this->stmt = $this->dbh->prepare($consulta);
         $this->blindarFiltros($filtros);
         try 
@@ -119,7 +120,7 @@ class DatabaseMySQL implements Database
 
     public function ejecutaConsultaUpdate(string $consulta = '', array $datos = [], array $filtros = []):array
     {
-        $this->valida->consulta($consulta);
+        Valida::consulta($consulta);
         $this->stmt = $this->dbh->prepare($consulta);
         $this->blindarDatos($datos);
         $this->blindarFiltros($filtros);
