@@ -13,7 +13,8 @@ class MetodosGrupos extends Modelo
         $tabla = 'metodo_grupo';
         $relaciones = [
             'metodos' => "{$tabla}.metodo_id",
-            'grupos' => "{$tabla}.grupo_id"
+            'grupos' => "{$tabla}.grupo_id",
+            'menus' => 'metodos.menu_id'
         ]; 
         $columnas = [
             'unicas' => [],
