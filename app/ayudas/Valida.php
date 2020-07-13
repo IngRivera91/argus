@@ -50,6 +50,9 @@ class Valida
             if (!array_key_exists('signoComparacion', $filtro)) {
                 throw new ErrorBase('Cada filtro debe tener el key [\'signoComparacion\']');
             }
+            if (!array_key_exists('conectivaLogica', $filtro)) {
+                throw new ErrorBase('Cada filtro debe tener el key [\'conectivaLogica\']');
+            }
         }
     }
 
