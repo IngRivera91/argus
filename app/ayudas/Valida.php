@@ -4,7 +4,7 @@ namespace Ayuda;
 
 use Error\Base AS ErrorBase;
 
-class Validaciones 
+class Valida 
 {
     
     public static function consulta(string $consulta = ''):void
