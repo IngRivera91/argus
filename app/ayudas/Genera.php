@@ -37,7 +37,21 @@ class Genera
         ];
 
         $resultado = $modeloMetodosGrupos->buscarConFiltros($filtros, $columnas, $orderBy);
-        print_r($resultado);exit;
-        return $resultado;
+
+        $menuDefinido = array();
+
+        foreach ( $resultado['registros'] as $menu){
+            if (!isset($menuDefinido[ $menu['menus_etiqueta'] ])){
+                $menuDefinido[ $menu['menus_etiqueta'] ] = array($menu['menus_nombre'],
+                    $menu['menus_icono'],$menu['menus_etiqueta']);
+            }
+            array_push($menuDefinido[ $menu['menus_etiqueta'] ] ,array(
+                'label' =>  $menu['metodos_etiqueta'],
+                'metodo' => $menu['metodos_nombre']
+            ));
+
+        }
+        
+        return $menuDefinido;
     }
 }
