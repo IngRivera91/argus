@@ -55,6 +55,9 @@ class AyudaGeneraMySQLTest extends TestCase
 
         $menu = Genera::menu($coneccion, $generaConsultas, $grupoId);
         $this->assertIsArray($menu);
+        $this->assertCount(2,$menu);
+        $this->assertSame('METODOS',$menu['METODOS'][2]);
+        $this->assertSame('USUARIOS',$menu['USUARIOS'][2]);
 
         $this->eliminarDatos($coneccion);
     }
