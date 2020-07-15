@@ -1,8 +1,6 @@
 <?php
 
 use Clase\Modelo; 
-use Clase\DatabaseMySQL;
-use Clase\GeneraConsultasMySQL;
 use Error\Base AS ErrorBase;
 use PHPUnit\Framework\TestCase;
 
@@ -14,7 +12,10 @@ class ClaseModeloMySQLTest extends TestCase
     public function creaConeccion()
     {
         $this->assertSame(1,1);
-        return new DatabaseMySQL();  
+        $claseDatabase = 'Clase\\Database'.DB_TIPO;
+        $coneccion = new $claseDatabase();
+
+        return $coneccion;
     }
 
     /**
@@ -23,7 +24,9 @@ class ClaseModeloMySQLTest extends TestCase
      */
     public function creaModelo($coneccion)
     {
-        $generaConsultas = new GeneraConsultasMySQL($coneccion);
+        $claseGeneraConsultas = 'Clase\\GeneraConsultas'.DB_TIPO;
+        $generaConsultas = new $claseGeneraConsultas($coneccion);
+        
         $this->assertSame(1,1);
         $tabla = 'usuarios';
         $relaciones = ['grupos' => 'usuarios.grupo_id']; 
