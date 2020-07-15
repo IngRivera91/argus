@@ -13,7 +13,7 @@ foreach ($parametros_get_requeridos as $parametro){
     valida_parametro_get($parametro);
 }
 try {
-    
+
     $claseDatabase = 'Clase\\'.DB_TIPO.'\\Database';
     $coneccion = new $claseDatabase();
 
@@ -105,7 +105,8 @@ $autentificacion->defineConstantes($datos,$_GET['session_id']);
 <?php
     require_once __DIR__.'/../recursos/html/final.php'; 
     
-    function valida_parametro_get(string $parameto_get){
+    function valida_parametro_get(string $parameto_get):void
+    {
         if (!isset($_GET[$parameto_get]) || is_null($_GET[$parameto_get]) || (string)$_GET[$parameto_get] === ''){
             header('Location: login.php');
             exit;
