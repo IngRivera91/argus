@@ -1,7 +1,5 @@
 <?php
 
-use Clase\DatabaseMySQL;
-use Clase\GeneraConsultasMySQL; 
 use PHPUnit\Framework\TestCase;
 
 class ClaseGeneraConsultasMySQLTest extends TestCase
@@ -12,8 +10,14 @@ class ClaseGeneraConsultasMySQLTest extends TestCase
     public function creaGeneraConsultas()
     {
         $this->assertSame(1,1);
-        $coneccion = new DatabaseMySQL;
-        return new GeneraConsultasMySQL($coneccion);
+
+        $claseDatabase = 'Clase\\Database'.DB_TIPO;
+        $coneccion = new $claseDatabase();
+
+        $claseGeneraConsultas = 'Clase\\GeneraConsultas'.DB_TIPO;
+        $generaConsultas = new $claseGeneraConsultas($coneccion);
+
+        return $generaConsultas;
     }
 
     /**
