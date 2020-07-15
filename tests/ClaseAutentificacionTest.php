@@ -1,8 +1,6 @@
 <?php
 
-use Clase\Autentificacion; 
-use Clase\DatabaseMySQL;
-use Clase\GeneraConsultasMySQL;
+use Clase\Autentificacion;
 use Error\Base AS ErrorBase;
 use Error\Autentificacion AS ErrorAutentificacion;
 use PHPUnit\Framework\TestCase;
@@ -13,11 +11,27 @@ class ClaseAutentificacionMySQLTest extends TestCase
     /**
      * @test
      */
-    public function creaAutentificacion()
+    public function creaConeccion()
     {
         $this->assertSame(1,1);
-        $coneccion = new DatabaseMySQL();
-        $generaConsultas = new GeneraConsultasMySQL($coneccion);
+
+        $claseDatabase = 'Clase\\Database'.DB_TIPO;
+        $coneccion = new $claseDatabase();
+
+        return $coneccion;
+    }
+
+    /**
+     * @test
+     * @depends creaConeccion
+     */
+    public function creaAutentificacion($coneccion)
+    {
+        $this->assertSame(1,1);
+
+        $claseGeneraConsultas = 'Clase\\GeneraConsultas'.DB_TIPO;
+        $generaConsultas = new $claseGeneraConsultas($coneccion);
+
         $password = md5('admin');
         $coneccion->ejecutaConsultaDelete('DELETE FROM sessiones');
         $coneccion->ejecutaConsultaDelete('DELETE FROM usuarios');
@@ -125,11 +139,11 @@ class ClaseAutentificacionMySQLTest extends TestCase
      * @test
      * @depends creaAutentificacion
      * @depends validaSessionId
+     * @depends creaConeccion
      */
-    public function logout($autentificacion,$sessionId)
+    public function logout($autentificacion, $sessionId, $coneccion)
     {
         $autentificacion->logout($sessionId);
-        $coneccion = new DatabaseMySQL();
         $resultado = $coneccion->ejecutaConsultaSelect('SELECT id FROM sessiones');
         $this->assertSame(0,$resultado['n_registros']);
     }
