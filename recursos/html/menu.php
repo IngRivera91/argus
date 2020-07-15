@@ -4,7 +4,7 @@
     <img src="img/AdminLTELogo.png"
         class="brand-image img-circle elevation-3"
         style="opacity: .8">
-    <span class="brand-text font-weight-light"><b><?= NOMBRE_PROYECTO ?></b></span>
+    <span class="brand-text font-weight-light" <?php echo COLORBASE; ?>><b><?= NOMBRE_PROYECTO ?></b></span>
   </a>
 
   
@@ -12,10 +12,16 @@
 
   <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="image">
-        <img src="img/avatar4.png" class="img-circle elevation-2" alt="User Image">
+      <?php 
+        $numero = '4';
+        if (SEXO == 'f'){
+          $numero = '3';
+        } 
+      ?>
+        <img src="img/avatar<?=$numero?>.png" class="img-circle elevation-2" alt="User Image">
       </div>
       <div class="info">
-        <a class="d-block">JUAN</a>
+        <a class="d-block" <?php echo COLORBASE; ?>><?= NOMBRE_USUARIO ?></a>
       </div>
     </div>
 
