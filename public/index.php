@@ -72,7 +72,8 @@ if ($_GET['controlador'] === 'session' && $_GET['metodo'] === 'logout'){
     header('Location: login.php');
     exit;
 }
-
+define('CONTROLADOR',$_GET['controlador']);
+define('METODO',$_GET['metodo']);
 $autentificacion->defineConstantes($datos,$_GET['session_id']);
 
 $menu_navegacion = Ayuda\Genera::menu($coneccion,$generaConsultas,GRUPO_ID);
