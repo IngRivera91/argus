@@ -15,7 +15,7 @@ class ClaseAutentificacionTest extends TestCase
     {
         $this->assertSame(1,1);
 
-        $claseDatabase = 'Clase\\Database'.DB_TIPO;
+        $claseDatabase = 'Clase\\'.DB_TIPO.'\\Database';
         $coneccion = new $claseDatabase();
 
         return $coneccion;
@@ -29,7 +29,7 @@ class ClaseAutentificacionTest extends TestCase
     {
         $this->assertSame(1,1);
 
-        $claseGeneraConsultas = 'Clase\\GeneraConsultas'.DB_TIPO;
+        $claseGeneraConsultas = 'Clase\\'.DB_TIPO.'\\GeneraConsultas';
         $generaConsultas = new $claseGeneraConsultas($coneccion);
 
         $password = md5('admin');

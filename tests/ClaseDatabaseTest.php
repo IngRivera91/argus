@@ -11,7 +11,7 @@ class ClaseDatabaseTest extends TestCase
     public function creaConeccion()
     {
         $this->assertSame(1,1);
-        $claseDatabase = 'Clase\\Database'.DB_TIPO;
+        $claseDatabase = 'Clase\\'.DB_TIPO.'\\Database';
         $coneccion = new $claseDatabase();
         return $coneccion;
         

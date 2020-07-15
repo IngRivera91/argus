@@ -12,7 +12,7 @@ class ClaseModeloTest extends TestCase
     public function creaConeccion()
     {
         $this->assertSame(1,1);
-        $claseDatabase = 'Clase\\Database'.DB_TIPO;
+        $claseDatabase = 'Clase\\'.DB_TIPO.'\\Database';
         $coneccion = new $claseDatabase();
 
         return $coneccion;
@@ -24,7 +24,7 @@ class ClaseModeloTest extends TestCase
      */
     public function creaModelo($coneccion)
     {
-        $claseGeneraConsultas = 'Clase\\GeneraConsultas'.DB_TIPO;
+        $claseGeneraConsultas = 'Clase\\'.DB_TIPO.'\\GeneraConsultas';
         $generaConsultas = new $claseGeneraConsultas($coneccion);
         
         $this->assertSame(1,1);

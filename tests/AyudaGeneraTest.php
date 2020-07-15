@@ -18,10 +18,10 @@ class AyudaGeneraTest extends TestCase
      */
     public function menu()
     {
-        $claseDatabase = 'Clase\\Database'.DB_TIPO;
+        $claseDatabase = 'Clase\\'.DB_TIPO.'\\Database';
         $coneccion = new $claseDatabase();
 
-        $claseGeneraConsultas = 'Clase\\GeneraConsultas'.DB_TIPO;
+        $claseGeneraConsultas = 'Clase\\'.DB_TIPO.'\\GeneraConsultas';
         $generaConsultas = new $claseGeneraConsultas($coneccion);
         
         $grupoId = 1;

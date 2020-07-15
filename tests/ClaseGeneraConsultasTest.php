@@ -11,10 +11,10 @@ class ClaseGeneraConsultasTest extends TestCase
     {
         $this->assertSame(1,1);
 
-        $claseDatabase = 'Clase\\Database'.DB_TIPO;
+        $claseDatabase = 'Clase\\'.DB_TIPO.'\\Database';
         $coneccion = new $claseDatabase();
 
-        $claseGeneraConsultas = 'Clase\\GeneraConsultas'.DB_TIPO;
+        $claseGeneraConsultas = 'Clase\\'.DB_TIPO.'\\GeneraConsultas';
         $generaConsultas = new $claseGeneraConsultas($coneccion);
 
         return $generaConsultas;
