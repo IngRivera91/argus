@@ -75,6 +75,7 @@ if ($_GET['controlador'] === 'session' && $_GET['metodo'] === 'logout'){
 
 $autentificacion->defineConstantes($datos,$_GET['session_id']);
 
+$menu_navegacion = Ayuda\Genera::menu($coneccion,$generaConsultas,GRUPO_ID);
 ?>
 <?php require_once __DIR__.'/../recursos/html/head.php'; ?>
 <?php require_once __DIR__.'/../recursos/html/nav.php'; ?>
