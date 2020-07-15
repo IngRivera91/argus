@@ -1,12 +1,10 @@
 <?php
 
-use Clase\DatabaseMySQL;
-use Clase\GeneraConsultasMySQL;
 use Modelo\Menus;
 use Error\Base AS ErrorBase;
 use PHPUnit\Framework\TestCase;
 
-class ModeloMenusMySQLTest extends TestCase
+class ModeloMenusTest extends TestCase
 {
     /**
      * @test
@@ -14,8 +12,12 @@ class ModeloMenusMySQLTest extends TestCase
     public function creaModelo()
     {
         $this->assertSame(1,1);
-        $coneccion = new DatabaseMySQL();
-        $generaConsultas = new GeneraConsultasMySQL($coneccion);
+        $claseDatabase = 'Clase\\Database'.DB_TIPO;
+        $coneccion = new $claseDatabase();
+
+        $claseGeneraConsultas = 'Clase\\GeneraConsultas'.DB_TIPO;
+        $generaConsultas = new $claseGeneraConsultas($coneccion);
+        
         return new Menus($coneccion,$generaConsultas);
     }
 
