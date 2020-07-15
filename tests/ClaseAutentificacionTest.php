@@ -5,7 +5,7 @@ use Error\Base AS ErrorBase;
 use Error\Autentificacion AS ErrorAutentificacion;
 use PHPUnit\Framework\TestCase;
 
-class ClaseAutentificacionMySQLTest extends TestCase
+class ClaseAutentificacionTest extends TestCase
 {
 
     /**

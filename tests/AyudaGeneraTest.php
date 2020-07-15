@@ -3,7 +3,7 @@
 use Ayuda\Genera; 
 use PHPUnit\Framework\TestCase;
 
-class AyudaGeneraMySQLTest extends TestCase
+class AyudaGeneraTest extends TestCase
 {
     public function eliminarDatos($coneccion)
     {

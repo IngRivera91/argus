@@ -3,7 +3,7 @@
 use Error\Base AS ErrorBase;
 use PHPUnit\Framework\TestCase;
 
-class ClaseDatabaseMySQLTest extends TestCase
+class ClaseDatabaseTest extends TestCase
 { 
     /**
      * @test

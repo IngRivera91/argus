@@ -4,7 +4,7 @@ use Modelo\Grupos;
 use Error\Base AS ErrorBase;
 use PHPUnit\Framework\TestCase;
 
-class ModeloGruposMySQLTest extends TestCase
+class ModeloGruposTest extends TestCase
 {
     /**
      * @test

@@ -2,7 +2,7 @@
 
 use PHPUnit\Framework\TestCase;
 
-class ClaseGeneraConsultasMySQLTest extends TestCase
+class ClaseGeneraConsultasTest extends TestCase
 {
     /**
      * @test

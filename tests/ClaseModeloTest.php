@@ -4,7 +4,7 @@ use Clase\Modelo;
 use Error\Base AS ErrorBase;
 use PHPUnit\Framework\TestCase;
 
-class ClaseModeloMySQLTest extends TestCase
+class ClaseModeloTest extends TestCase
 {
     /**
      * @test
