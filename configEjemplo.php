@@ -13,7 +13,8 @@
 
 	define('RUTA_PROYECTO','http://localhost/nombreProyecto/public/');
 	define('NOMBRE_PROYECTO','');
-
+	
+	define('DB_TIPO', 'MySQL');
 	define('DB_HOST', 'localhost');
 	define('DB_USER', '');
 	define('DB_PASSWORD', '');
