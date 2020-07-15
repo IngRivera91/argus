@@ -1,17 +1,17 @@
 <?php
 
-namespace Clase;
+namespace Clase\MySQL;
 
 use PDO;
 use PDOException;
 use PDOStatement;
 use Ayuda\Valida;
 use Ayuda\Analiza;
-use Interfas\Database;
+use Interfas\Database AS DatabaseInterface;
 use Error\MySQL AS ErrorMySQL;
 
 
-class DatabaseMySQL implements Database
+class Database implements DatabaseInterface
 {
     private string $hostBd = DB_HOST;
     private string $usuarioBD = DB_USER;
