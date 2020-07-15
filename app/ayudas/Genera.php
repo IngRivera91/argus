@@ -8,7 +8,7 @@ use Modelo\MetodosGrupos;
 
 class Genera
 {
-    public function menu(
+    public static function menu(
         Database $coneccion, 
         GeneraConsultas $generaConsultas, 
         int $grupoId
