@@ -1,7 +1,7 @@
 <?php use Ayuda\Redireccion; ?>
 <aside class="main-sidebar sidebar-light-primary elevation-4">
 
-  <a  href="#" class="brand-link">
+  <a  href="<?php echo Redireccion::obtener('inicio','index',SESSION_ID);?>" class="brand-link">
     <img src="img/AdminLTELogo.png"
         class="brand-image img-circle elevation-3"
         style="opacity: .8">
