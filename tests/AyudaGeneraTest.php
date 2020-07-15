@@ -1,8 +1,6 @@
 <?php
 
 use Ayuda\Genera; 
-use Clase\DatabaseMySQL;
-use Clase\GeneraConsultasMySQL;
 use PHPUnit\Framework\TestCase;
 
 class AyudaGeneraMySQLTest extends TestCase
@@ -20,8 +18,12 @@ class AyudaGeneraMySQLTest extends TestCase
      */
     public function menu()
     {
-        $coneccion = new DatabaseMySQL();
-        $generaConsultas = new GeneraConsultasMySQL($coneccion);
+        $claseDatabase = 'Clase\\Database'.DB_TIPO;
+        $coneccion = new $claseDatabase();
+
+        $claseGeneraConsultas = 'Clase\\GeneraConsultas'.DB_TIPO;
+        $generaConsultas = new $claseGeneraConsultas($coneccion);
+        
         $grupoId = 1;
         
         $this->eliminarDatos($coneccion);
