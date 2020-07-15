@@ -1,3 +1,4 @@
+<?php use Ayuda\Redireccion; ?>
 <aside class="main-sidebar sidebar-light-primary elevation-4">
 
   <a  href="#" class="brand-link">
@@ -59,7 +60,7 @@
                 
                 ?>
                 <li class="nav-item">
-                  <a href="<?php echo Redirect::get_url($menu_navegacion[$item_menu][0],$metodo['metodo'],SESSION_ID);?>" class="nav-link">
+                  <a href="<?php echo Redireccion::obtener($menu_navegacion[$item_menu][0],$metodo['metodo'],SESSION_ID);?>" class="nav-link">
                     <i class="fa<?php echo $letra ?> fa-circle nav-icon" <?php echo COLORBASE; ?>></i>
                     <p><?php echo $metodo['label']; ?></p>
                   </a>
