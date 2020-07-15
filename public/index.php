@@ -13,8 +13,13 @@ foreach ($parametros_get_requeridos as $parametro){
     valida_parametro_get($parametro);
 }
 try {
-    $coneccion = new Clase\DatabaseMySQL();
-    $generaConsultas = new Clase\GeneraConsultasMySQL($coneccion);
+    
+    $claseDatabase = 'Clase\\'.DB_TIPO.'\\Database';
+    $coneccion = new $claseDatabase();
+
+    $claseGeneraConsultas = 'Clase\\'.DB_TIPO.'\\GeneraConsultas';
+    $generaConsultas = new $claseGeneraConsultas($coneccion);
+
 }catch (ErrorBase $e) {
     $error = new ErrorBase('Error al conectarce a la base de datos',$e);
     $error->muestraError();
