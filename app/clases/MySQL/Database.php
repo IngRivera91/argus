@@ -135,6 +135,20 @@ class Database implements DatabaseInterface
         }
     }
 
+    public function ejecutaQuery(string $query)
+    {
+        $this->stmt = $this->dbh->prepare($query);
+        try 
+        {
+            $this->stmt->execute();
+            return ['mensaje' => 'query ejecutada'];
+        } 
+        catch (PDOException $e)
+        {
+            throw new ErrorMySQL($e,' Consulta: '.$consulta);
+        }
+    }
+
     public function obtenColumnasTabla(string $tabla):array
     {
         $consulta = "SHOW COLUMNS FROM $tabla FROM {$this->nombreBd}";
