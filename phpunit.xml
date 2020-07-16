@@ -2,6 +2,7 @@
 <phpunit bootstrap="vendor/autoload.php" colors="true">
     <testsuites>
         <testsuite name="Argus Tests Suite">
+            <file>./tests/configuracion/CrearDatabase.php</file>
             <directory suffix="Test.php">./tests</directory>
         </testsuite>
     </testsuites>
