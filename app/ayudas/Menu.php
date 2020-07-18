@@ -6,9 +6,9 @@ use Interfas\Database;
 use Interfas\GeneraConsultas;
 use Modelo\MetodosGrupos;
 
-class Genera
+class Menu
 {
-    public static function menu(
+    public static function crear(
         Database $coneccion, 
         GeneraConsultas $generaConsultas, 
         int $grupoId
