@@ -100,7 +100,7 @@ $controladorNombre = 'Controlador\\'.$controladorActual;
 $controlador = new $controladorNombre($coneccion, $generaConsultas);
 
 if (!method_exists($controlador,$metodoActual)){
-    Redireccion::enviar('inicio','index',SESSION_ID,"No existe el metodo del controlador:{$controladorActual}");
+    Redireccion::enviar('inicio','index',SESSION_ID,"No existe el metodo:{$metodoActual} del controlador:{$controladorActual}");
     exit;
 }
 
