@@ -12,6 +12,10 @@ $parametros_get_requeridos = array('controlador','metodo');
 foreach ($parametros_get_requeridos as $parametro){
     valida_parametro_get($parametro);
 }
+
+$controladorActual = $_GET['controlador'];
+$metodoActual = $_GET['metodo'];
+
 try {
 
     $claseDatabase = 'Clase\\'.DB_TIPO.'\\Database';
@@ -28,7 +32,7 @@ try {
 
 $autentificacion = new Autentificacion($coneccion,$generaConsultas);
 
-if ($_GET['controlador'] === 'session' && $_GET['metodo'] === 'login'){
+if ($controladorActual === 'session' && $metodoActual === 'login'){
     try{
         $resultado = $autentificacion->login();
     }catch(ErrorBase $e){
@@ -47,9 +51,10 @@ if ($_GET['controlador'] === 'session' && $_GET['metodo'] === 'login'){
 }
 
 valida_parametro_get('session_id');
+$sessionId = $_GET['session_id'];
 
 try{
-    $datos = $autentificacion->validaSessionId($_GET['session_id']);
+    $datos = $autentificacion->validaSessionId($sessionId);
 }catch(ErrorBase $e){
     if (get_class($e) == 'Error\Base') 
     {
@@ -62,7 +67,7 @@ try{
     exit;
 }
 
-if ($_GET['controlador'] === 'session' && $_GET['metodo'] === 'logout'){
+if ($controladorActual === 'session' && $metodoActual === 'logout'){
     try{
         session_destroy();
         $resultado = $autentificacion->logout($_GET['session_id']);
@@ -72,11 +77,21 @@ if ($_GET['controlador'] === 'session' && $_GET['metodo'] === 'logout'){
     header('Location: login.php');
     exit;
 }
-define('CONTROLADOR',$_GET['controlador']);
-define('METODO',$_GET['metodo']);
+
+# falta validar permiso
+
+if (!file_exists('../app/controladores/'.$controladorActual.'.php')){
+    # Esto es para hacer pruebas al final si no existe el controlador redirecciona al controlador inicio
+    print_r("El controlador:{$controladorActual} no existe");
+}
+$controladorNombre = 'Controlador\\'.$controladorActual;
+$controlador = new $controladorNombre($coneccion, $generaConsultas);
+
+
 $autentificacion->defineConstantes($datos,$_GET['session_id']);
 
-$menu_navegacion = Ayuda\Genera::menu($coneccion,$generaConsultas,GRUPO_ID);
+$menu_navegacion = Ayuda\Menu::crear($coneccion,$generaConsultas,GRUPO_ID);
+
 ?>
 <?php require_once __DIR__.'/../recursos/html/head.php'; ?>
 <?php require_once __DIR__.'/../recursos/html/nav.php'; ?>
