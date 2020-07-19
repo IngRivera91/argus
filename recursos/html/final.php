@@ -3,8 +3,6 @@
     <script src="adminlte3/jquery/jquery.min.js"></script>
     <!-- Select2 -->
     <script src="adminlte3/select2/js/select2.full.min.js"></script>
-    <!-- InputMask -->
-    <script src="adminlte3/inputmask/min/jquery.inputmask.bundle.min.js"></script>
     <!-- Bootstrap Switch -->
     <script src="adminlte3/bootstrap-switch/js/bootstrap-switch.min.js"></script>
     <!-- AdminLTE App -->
