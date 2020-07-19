@@ -84,9 +84,16 @@ if (!file_exists('../app/controladores/'.$controladorActual.'.php')){
     # Esto es para hacer pruebas al final si no existe el controlador redirecciona al controlador inicio
     print_r("El controlador:{$controladorActual} no existe");
 }
+
 $controladorNombre = 'Controlador\\'.$controladorActual;
 $controlador = new $controladorNombre($coneccion, $generaConsultas);
 
+if (!method_exists($controlador,$metodoActual)){
+    # Esto es para hacer pruebas al final si no existe el metodo redirecciona al controlador inicio
+    print_r("El metodo:{$metodoActual} no existe no existe en el controlado:{$controladorActual}");
+}
+
+$controlador->$metodoActual();
 
 $autentificacion->defineConstantes($datos,$_GET['session_id']);
 
