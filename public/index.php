@@ -108,6 +108,34 @@ $controlador->$metodoActual();
 
 $menu_navegacion = Ayuda\Menu::crear($coneccion,$generaConsultas,GRUPO_ID);
 
+#seleciona la vista
+
+$rutaVistasBase = '../app/vistas';
+$rutaVista = '';
+if ( $metodoActual == 'registrar') {
+    $rutaVista = "{$rutaVistasBase}/1base/registrar.php";
+}
+
+if ($metodoActual == 'modificar') {
+    $rutaVista = "{$rutaVistasBase}/1base/modificar.php";
+}
+
+if ($metodoActual == 'lista') {
+    $rutaVista = "{$rutaVistasBase}/1base/lista.php";
+}
+
+$vista = "{$rutaVistasBase}/{$controladorActual}/{$metodoActual}.php";
+
+if(file_exists($vista)) {
+    $rutaVista = $vista;
+}
+
+if ($rutaVista == '') {
+    $error = new ErrorBase("No se puedo cargar la vista controlador:{$controladorActual} metodo:{$metodoActual}");
+    $error->muestraError();
+    exit;
+}
+
 ?>
 <?php require_once __DIR__.'/../recursos/html/head.php'; ?>
 <?php require_once __DIR__.'/../recursos/html/nav.php'; ?>
@@ -135,7 +163,9 @@ $menu_navegacion = Ayuda\Menu::crear($coneccion,$generaConsultas,GRUPO_ID);
                 <div class="col-md-1"></div>
             </div>
         <?php } // end if (isset($_GET['mensaje'])) ?>
-        
+
+        <?php require_once ($rutaVista); ?>
+
         </section> <!-- end section content -->
 
     </div><!-- end content-wrapper -->
