@@ -1,4 +1,4 @@
-<?php ?>
+<?php $teme = "bootstrap4"; ?>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="adminlte3/jquery/jquery.min.js"></script>
@@ -17,7 +17,7 @@
 
             //Initialize Select2 Elements
             $('.select2bs4').select2({
-            theme: 'bootstrap4'
+            theme: '<?= $teme ?>'
             });
         });
     </script>
