@@ -3,3 +3,4 @@
 /vendor
 archivos/*
 config.php
+phpunit.xml
