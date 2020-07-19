@@ -1,3 +1,4 @@
+<?php ?>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="adminlte3/jquery/jquery.min.js"></script>
