@@ -106,8 +106,6 @@ if (!method_exists($controlador,$metodoActual)){
 
 $controlador->$metodoActual();
 
-$menu_navegacion = Ayuda\Menu::crear($coneccion,$generaConsultas,GRUPO_ID);
-
 #seleciona la vista
 
 $rutaVistasBase = '../app/vistas';
@@ -135,6 +133,9 @@ if ($rutaVista == '') {
     $error->muestraError();
     exit;
 }
+
+# El menu se carga hasta el final
+$menu_navegacion = Ayuda\Menu::crear($coneccion,$generaConsultas,GRUPO_ID);
 
 ?>
 <?php require_once __DIR__.'/../recursos/html/head.php'; ?>
