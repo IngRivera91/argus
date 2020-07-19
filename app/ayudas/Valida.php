@@ -77,9 +77,9 @@ class Valida
     public static function permiso(
         Database $coneccion, 
         GeneraConsultas $generaConsultas,
-        $grupoId,
-        $controladorActual,
-        $metodoActual
+        int $grupoId,
+        string $controladorActual,
+        string $metodoActual
     ): bool {
         $modeloMetodosGrupos = new MetodosGrupos($coneccion,$generaConsultas);
 
