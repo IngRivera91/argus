@@ -3,6 +3,7 @@
 require_once __DIR__.'/../config.php'; 
 require_once __DIR__.'/../vendor/autoload.php';
 
+use Ayuda\Valida;
 use Ayuda\Redireccion;
 use Clase\Autentificacion;
 use Error\Base AS ErrorBase;
@@ -70,7 +71,7 @@ try{
 if ($controladorActual === 'session' && $metodoActual === 'logout'){
     try{
         session_destroy();
-        $resultado = $autentificacion->logout($_GET['session_id']);
+        $resultado = $autentificacion->logout($sessionId);
     }catch(ErrorBase $e){
         
     }
@@ -78,24 +79,32 @@ if ($controladorActual === 'session' && $metodoActual === 'logout'){
     exit;
 }
 
-# falta validar permiso
+$autentificacion->defineConstantes($datos,$sessionId);
+
+if ($controladorActual != 'inicio'){
+
+    if (!Valida::permiso($coneccion, $generaConsultas, GRUPO_ID, $controladorActual, $metodoActual)) {
+        Redireccion::enviar('inicio','index',SESSION_ID,"No tienes permisos para acceder al metodo:{$metodoActual} del controlador:{$controladorActual}");
+        exit;
+    }
+
+}
+
 
 if (!file_exists('../app/controladores/'.$controladorActual.'.php')){
-    # Esto es para hacer pruebas al final si no existe el controlador redirecciona al controlador inicio
-    print_r("El controlador:{$controladorActual} no existe");
+    Redireccion::enviar('inicio','index',SESSION_ID,"No existe el controlador:{$controladorActual}");
+    exit;
 }
 
 $controladorNombre = 'Controlador\\'.$controladorActual;
 $controlador = new $controladorNombre($coneccion, $generaConsultas);
 
 if (!method_exists($controlador,$metodoActual)){
-    # Esto es para hacer pruebas al final si no existe el metodo redirecciona al controlador inicio
-    print_r("El metodo:{$metodoActual} no existe no existe en el controlado:{$controladorActual}");
+    Redireccion::enviar('inicio','index',SESSION_ID,"No existe el metodo del controlador:{$controladorActual}");
+    exit;
 }
 
 $controlador->$metodoActual();
-
-$autentificacion->defineConstantes($datos,$_GET['session_id']);
 
 $menu_navegacion = Ayuda\Menu::crear($coneccion,$generaConsultas,GRUPO_ID);
 
