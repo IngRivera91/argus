@@ -147,6 +147,16 @@ if ($rutaVista == '') {
 
         <section class="content">
 
+        <?php if ($controlador->breadcrumb){ ?>
+            <br>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item active" aria-current="page"><?php echo strtoupper($controladorActual); ?></li>
+                    <li class="breadcrumb-item active" aria-current="page"><?php echo strtoupper($metodoActual); ?></li>
+                </ol>
+            </nav>
+        <?php }// end if ($controlador->breadcrumb)  ?>
+
         <?php if (isset($_GET['mensaje'])){ ?>
             <br>
             <div class="row">
