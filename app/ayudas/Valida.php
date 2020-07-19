@@ -2,7 +2,10 @@
 
 namespace Ayuda;
 
+use Interfas\Database;
+use Modelo\MetodosGrupos;
 use Error\Base AS ErrorBase;
+use Interfas\GeneraConsultas;
 
 class Valida 
 {
@@ -69,6 +72,36 @@ class Valida
         if (count($explodeTabla) != 1) {
             throw new ErrorBase('El nombre de la tabla no es valido');
         }
+    }
+
+    public static function permiso(
+        Database $coneccion, 
+        GeneraConsultas $generaConsultas,
+        $grupoId,
+        $controladorActual,
+        $metodoActual
+    ): bool {
+        $modeloMetodosGrupos = new MetodosGrupos($coneccion,$generaConsultas);
+
+        $filtros = [
+            ['campo' => "metodo_grupo.grupo_id",'valor'=>$grupoId,          'signoComparacion'=>'=', 'conectivaLogica'=>''],
+            ['campo' => "metodos.nombre",       'valor'=>$metodoActual,     'signoComparacion'=>'=', 'conectivaLogica'=>'AND'],
+            ['campo' => "menus.nombre",         'valor'=>$controladorActual,'signoComparacion'=>'=', 'conectivaLogica'=>'AND']
+        ];
+
+        $columnas = [
+            'id',
+            'metodos_nombre',
+            'menus_nombre'
+        ];
+
+        $resultado = $modeloMetodosGrupos->buscarConFiltros($filtros, $columnas);
+        
+        if ($resultado['n_registros'] == 1) {
+            return true;
+        }
+
+        return false;
     }
 
 }
