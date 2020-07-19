@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="vendor/autoload.php" colors="true">
+    <testsuites>
+        <testsuite name="Argus Tests Suite">
+            <file>./tests/configuracion/CrearDatabase.php</file>
+            <directory suffix="Test.php">./tests</directory>
+        </testsuite>
+    </testsuites>
+    <php>
+        <includePath>.</includePath>
+        <const name="DB_HOST" value="localhost"/>
+        <const name="DB_USER" value=""/>
+        <const name="DB_PASSWORD" value=""/>
+        <const name="DB_NAME" value=""/>
+        <const name="DB_TIPO" value=""/>
+    </php>
+</phpunit>
