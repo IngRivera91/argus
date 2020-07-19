@@ -15,4 +15,9 @@ class inicio
         $this->coneccion = $coneccion;
         $this->generaConsulta = $generaConsulta;
     }
+
+    public function index()
+    {
+        
+    }
 }
