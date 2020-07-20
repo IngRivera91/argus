@@ -41,12 +41,22 @@ $acciones = Acciones::crear($coneccion, $generaConsultas, GRUPO_ID, $controlador
             <?php foreach ($registros as $registro): ?>
                 <?php 
                     $id = $registro["{$nombreMenu}_id"]; 
-                    $registroActivo = $registro["{$nombreMenu}_activo"]; 
+                    $registroActivo = $registro["{$nombreMenu}_activo"];
+
+                    if ($registroActivo) {
+                        unset($acciones['activar_bd']);
+                    }
+
+                    if (!$registroActivo) {
+                        unset($acciones['desactivar_bd']);
+                    } 
                 ?>
                 <tr>
+
                     <?php foreach ($controlador->camposLista as $label => $campo): ?>
                         <td><?= $registro[$campo]; ?></td>
                     <?php endforeach; ?>
+
                     <td class='text-center'>
                         <?php foreach ($acciones as $nombre => $accion): ?>
                                 <?php
@@ -60,13 +70,18 @@ $acciones = Acciones::crear($coneccion, $generaConsultas, GRUPO_ID, $controlador
                                 </a>
                         <?php endforeach; ?>
                     </td>
+
                 </tr>
             <?php endforeach; ?>
         
         </tbody>
         <?php }else{ ?>
             <thead>
-                <tr><h3 style="margin-top:.7em" class='text-center'><span <?php echo COLORBASE; ?> class="fas fa-times"></span> no existen registros</h3></tr>
+                <tr>
+                    <h3 style="margin-top:.7em" class='text-center'>
+                        <span <?php echo COLORBASE; ?> class="fas fa-times"></span> no existen registros
+                    </h3>
+                </tr>
             </thead>
         <?php } // end if count ?>
 
