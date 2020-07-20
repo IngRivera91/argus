@@ -1,6 +1,21 @@
 <?php
+use Ayuda\Redireccion;
+use Ayuda\Html;
 $registros = $controlador->registros;
+$inputs = $controlador->htmlInputFiltros;
 ?>
+<br>
+<form autocomplete="off" role="form" method="POST" action="<?php echo Redireccion::obtener($controlador->nombreMenu,'lista',SESSION_ID) ?>">
+    <div class="row">
+        <?php
+        foreach ($inputs as $input) {
+            echo $input;
+        }
+        ?>
+    </div>
+</form>
+
+<?php if ($controlador->usarFiltros) { echo Html::hr(); } ?>
 
 <div style="background-color: white;" class="table-responsive">
     <table class="table table-hover">
