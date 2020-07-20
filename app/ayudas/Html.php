@@ -139,7 +139,7 @@ class Html
             array('id' => 'activo','value'=>'activo'),
             array('id' => 'inactivo','value'=>'inactivo')
         );
-        return $this->select($label,$name,$col,$registros,'value',$value,$required,$chart,$ln);
+        return Html::select($label,$name,$col,$registros,'value',$value,$required,$chart,$ln);
 
     }
 
