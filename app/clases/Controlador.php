@@ -15,6 +15,7 @@ class Controlador
     public array $filtrosLista = []; // Define los filtros que se deben aplicar para obtener los registros de las listas
     public bool $breadcrumb = true; // define si se muestran o no los breadcrumb
     public string $htmlPaginador; // codigo html del paginador
+    public string $htmlInputFiltros; // codigo html de los inputs del filtro para la lista
     public array $registro; // almacena el registros para poder editarlo
     public array $registros; // almacena los resgistros para poder mostrarlos en la lista
 
