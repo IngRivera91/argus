@@ -145,7 +145,7 @@ class Html
 
     public static function submit(string $label, string $name, int $col, bool $ln = true)
     {
-
+        $submit_html = '';
         if ($ln) {
             $submit_html = "<div class='col-md-12'></div>";
         }
