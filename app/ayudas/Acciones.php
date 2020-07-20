@@ -40,6 +40,12 @@ class Acciones
             return [];
         }
 
-        return $resultado['registros'];
+        $acciones = [];
+
+        foreach ($resultado['registros'] as $accion){
+            $acciones[$accion['metodos_nombre']] = $accion;
+        }
+
+        return $acciones;
     }
 }
