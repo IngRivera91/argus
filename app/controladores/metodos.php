@@ -21,7 +21,8 @@ class metodos extends Controlador
             'Metodo' => 'metodos_nombre',
             'Etiqueta' => 'metodos_etiqueta',
             'Icono' => 'metodos_icono',
-            'Activo' => 'metodos_activo'
+            'Activo' => 'metodos_activo',
+            'Activo Accion' => 'metodos_activo_accion'
         ];
 
         $camposFiltrosLista = [

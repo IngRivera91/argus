@@ -37,11 +37,15 @@ $acciones = Acciones::crear($coneccion, $generaConsultas, GRUPO_ID, $controlador
             </tr>
         </thead>
         <tbody>
-            
+            <?php 
+                
+            ?>
             <?php foreach ($registros as $registro): ?>
                 <?php 
                     $id = $registro["{$nombreMenu}_id"]; 
                     $registroActivo = $registro["{$nombreMenu}_activo"];
+
+                    $respaldoAcciones = $acciones;
 
                     if ($registroActivo) {
                         unset($acciones['activar_bd']);
@@ -54,7 +58,17 @@ $acciones = Acciones::crear($coneccion, $generaConsultas, GRUPO_ID, $controlador
                 <tr>
 
                     <?php foreach ($controlador->camposLista as $label => $campo): ?>
-                        <td><?= $registro[$campo]; ?></td>
+                        <?php
+                            $campoRegistro = $registro[$campo];
+                            # https://www.php.net/manual/es/function.stristr.php Ejemplo 2
+                            if (!stristr($campo, "{$nombreMenu}_activo") === false) {
+                                $campoRegistro = "inactivo";
+                                if ($registro[$campo]) {
+                                    $campoRegistro = "activo"; 
+                                }
+                            }
+                        ?>
+                        <td><?= $campoRegistro; ?></td>
                     <?php endforeach; ?>
 
                     <td class='text-center'>
@@ -72,6 +86,7 @@ $acciones = Acciones::crear($coneccion, $generaConsultas, GRUPO_ID, $controlador
                     </td>
 
                 </tr>
+                <?php $acciones = $respaldoAcciones; ?>
             <?php endforeach; ?>
         
         </tbody>
