@@ -14,6 +14,10 @@
 	// la ruta del proyecto siempre debe terminar con /
 	define('RUTA_PROYECTO','http://localhost/nombreProyecto/public/');
 	define('NOMBRE_PROYECTO','');
+
+	define('TEXTO_REGISTRO_ACTIVO','si');
+	define('TEXTO_REGISTRO_INACTIVO','no');
+	define('STYLE_REGISTRO_INACTIVO',"style='color:red;'");
 	
 	// datos para conectarse a la base de datos
 	define('DB_TIPO', 'MySQL');
