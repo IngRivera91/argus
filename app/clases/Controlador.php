@@ -8,7 +8,6 @@ use Ayuda\Redireccion;
 
 class Controlador
 {
-    
     private Modelo $modelo; // Modelo del menu con el que se esta trabajando
     private int $registrosPorPagina = 10; // numero de registros por pagina en la lista
     public string $nombreMenu; // Define el menu al cual se deben hacer la redirecciones
