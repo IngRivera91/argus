@@ -1,9 +1,14 @@
 <?php
-use Ayuda\Redireccion;
+
 use Ayuda\Html;
+use Ayuda\Acciones;
+use Ayuda\Redireccion;
+
 $registros = $controlador->registros;
 $inputs = $controlador->htmlInputFiltros;
 $nombreMenu = $controlador->nombreMenu;
+$acciones = Acciones::crear($coneccion, $generaConsultas, GRUPO_ID, $controladorActual);
+
 ?>
 <br>
 <form autocomplete="off" role="form" method="POST" action="<?php echo Redireccion::obtener($nombreMenu,'lista',SESSION_ID) ?>">
@@ -34,12 +39,28 @@ $nombreMenu = $controlador->nombreMenu;
         <tbody>
             
             <?php foreach ($registros as $registro): ?>
-            <tr>
-                <?php foreach ($controlador->camposLista as $label => $campo): ?>
-                    <td><?= $registro[$campo]; ?></td>
-                <?php endforeach; ?>
-                <td class='text-center'>acciones</td>
-            </tr>
+                <?php 
+                    $id = $registro["{$nombreMenu}_id"]; 
+                    $registroActivo = $registro["{$nombreMenu}_activo"]; 
+                ?>
+                <tr>
+                    <?php foreach ($controlador->camposLista as $label => $campo): ?>
+                        <td><?= $registro[$campo]; ?></td>
+                    <?php endforeach; ?>
+                    <td class='text-center'>
+                        <?php foreach ($acciones as $nombre => $accion): ?>
+                                <?php
+                                    $metodo = $accion['metodos_nombre'];
+                                    $url = Redireccion::obtener($accion['menus_nombre'],$metodo,SESSION_ID,'',$id);
+                                    $accionString =  $accion['metodos_accion'];
+                                    $icono =  $accion['metodos_icono'];
+                                ?>
+                                <a <?= COLORBASE; ?> title="<?= $accionString ?>" href="<?= $url; ?>">
+                                    <i class="<?= $icono ?>"></i>
+                                </a>
+                        <?php endforeach; ?>
+                    </td>
+                </tr>
             <?php endforeach; ?>
         
         </tbody>
