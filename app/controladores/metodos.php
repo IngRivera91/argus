@@ -20,7 +20,8 @@ class metodos extends Controlador
             'Menu' => 'menus_nombre',
             'Metodo' => 'metodos_nombre',
             'Etiqueta' => 'metodos_etiqueta',
-            'Icono' => 'metodos_icono'
+            'Icono' => 'metodos_icono',
+            'Activo' => 'metodos_activo'
         ];
 
         $camposFiltrosLista = [
