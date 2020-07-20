@@ -44,6 +44,11 @@ $acciones = Acciones::crear($coneccion, $generaConsultas, GRUPO_ID, $controlador
                 <?php 
                     $id = $registro["{$nombreMenu}_id"]; 
                     $registroActivo = $registro["{$nombreMenu}_activo"];
+                    $styleRegistros = '';
+
+                    if (!$registroActivo) {
+                        $styleRegistros = STYLE_REGISTRO_INACTIVO; 
+                    }
 
                     $respaldoAcciones = $acciones;
 
@@ -55,16 +60,16 @@ $acciones = Acciones::crear($coneccion, $generaConsultas, GRUPO_ID, $controlador
                         unset($acciones['desactivar_bd']);
                     } 
                 ?>
-                <tr>
+                <tr <?= $styleRegistros; ?> >
 
                     <?php foreach ($controlador->camposLista as $label => $campo): ?>
                         <?php
                             $campoRegistro = $registro[$campo];
                             # https://www.php.net/manual/es/function.stristr.php Ejemplo 2
                             if (!stristr($campo, "{$nombreMenu}_activo") === false) {
-                                $campoRegistro = "inactivo";
+                                $campoRegistro = TEXTO_REGISTRO_INACTIVO;
                                 if ($registro[$campo]) {
-                                    $campoRegistro = "activo"; 
+                                    $campoRegistro = TEXTO_REGISTRO_ACTIVO; 
                                 }
                             }
                         ?>
@@ -75,7 +80,11 @@ $acciones = Acciones::crear($coneccion, $generaConsultas, GRUPO_ID, $controlador
                         <?php foreach ($acciones as $nombre => $accion): ?>
                                 <?php
                                     $metodo = $accion['metodos_nombre'];
-                                    $url = Redireccion::obtener($accion['menus_nombre'],$metodo,SESSION_ID,'',$id);
+                                    $numeroPagina = 1;
+                                    if (isset($_GET['pag'])) {
+                                        $numeroPagina = $_GET['pag'];
+                                    }
+                                    $url = Redireccion::obtener($accion['menus_nombre'],$metodo,SESSION_ID,'',$id)."&pag={$numeroPagina}";
                                     $accionString =  $accion['metodos_accion'];
                                     $icono =  $accion['metodos_icono'];
                                 ?>
