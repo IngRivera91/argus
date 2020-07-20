@@ -7,7 +7,7 @@ use Ayuda\Redireccion;
 class Html
 {
 
-    public function input(
+    public static function input(
         string $label,
         string $name,
         int $col,
@@ -31,7 +31,7 @@ class Html
         return $input_html;
     }
 
-    public function select(string $label, string $name, int $col, array $registros = array(),
+    public static function select(string $label, string $name, int $col, array $registros = array(),
                            string $elementos = '', string $value = '-1', string $required = 'required',
                            string $chart = ' ', bool $ln = false){
         $array_elementos = explode(',',$elementos);
@@ -65,7 +65,7 @@ class Html
 
     }
 
-    public function select_buscador(string $label, string $name, int $col, array $registros = array(),
+    public static function select_buscador(string $label, string $name, int $col, array $registros = array(),
                                     string $elementos = '', string $value = '-1', string $required = 'required',
                                     string $chart = ' ', bool $ln = false, int $select2id = 1){
         $array_elementos = explode(',',$elementos);
@@ -99,7 +99,7 @@ class Html
 
     }
 
-    public function select_multiple(string $label, string $name, int $col, array $registros = array(),
+    public static function select_multiple(string $label, string $name, int $col, array $registros = array(),
                                     string $elementos = '', array $value = array(), string $required = 'required',
                                     string $chart = ' ', bool $ln = false, int $select2id = 1){
         $array_elementos = explode(',',$elementos);
@@ -133,7 +133,7 @@ class Html
 
     }
 
-    public function select_status(string $label, string $name, int $col, string $value = '-1',
+    public static function select_status(string $label, string $name, int $col, string $value = '-1',
                                   string $required = 'required',string $chart = ' ', bool $ln = false){
         $registros = array(
             array('id' => 'activo','value'=>'activo'),
@@ -143,7 +143,7 @@ class Html
 
     }
 
-    public function submit(string $label, string $name, int $col, bool $ln = true)
+    public static function submit(string $label, string $name, int $col, bool $ln = true)
     {
 
         if ($ln) {
@@ -158,8 +158,8 @@ class Html
         return $submit_html;
     }// end submit
 
-    public function paginador(int $numero_paginas, int $pagina, string $tabla){
-        $url_base = Redireccion::obten($tabla,'lista',SESSION_ID).'&pag=';
+    public static function paginador(int $numero_paginas, int $pagina, string $tabla){
+        $url_base = Redireccion::obtener($tabla,'lista',SESSION_ID).'&pag=';
         $paginador_html = '';
         $paginador_html .= "<br><nav aria-label='navigation'>";
         $paginador_html .= "    <ul class='pagination'>";
@@ -198,7 +198,7 @@ class Html
         return $paginador_html;
     }
 
-    public function link_boton(string $url_destino, string $label, int $col, bool $ln = false){
+    public static function link_boton(string $url_destino, string $label, int $col, bool $ln = false){
         $link_boton_html = '';
         if ($ln) {
             $link_boton_html .= "<div class='col-md-12'></div>";
@@ -212,7 +212,7 @@ class Html
         return $link_boton_html;
     }
 
-    public function hr(){
+    public static function hr(){
         return '<hr style="border: 0;border-top: 1px solid #999;height:0;">';
     }
 }
