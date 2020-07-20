@@ -203,14 +203,14 @@ class Modelo
         return $resultado;
     }
 
-    public function obtenerNumeroRegistros():int
+    public function obtenerNumeroRegistros(array $filtros =[]):int
     {
         try {
             $columnas = ['id']; 
             $orderBy = []; 
             $limit = ''; 
             $noUsarRelaciones = true; 
-            $resultado = $this->buscarTodo($columnas, $orderBy, $limit, $noUsarRelaciones);
+            $resultado = $this->buscarConFiltros($filtros,$columnas, $orderBy, $limit, $noUsarRelaciones);
         } catch(ErrorBase $e) {
             throw new ErrorBase($e->getMessage(),$e);
         }
