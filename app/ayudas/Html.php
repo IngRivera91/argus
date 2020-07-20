@@ -21,8 +21,8 @@ class Html
         $input_html = '';
         $input_html .= "<div class=col-md-$col>";
         $input_html .= "<div class='form-group'>";
-        $input_html .= "<label>$label</label>";
-        $input_html .= "<input $required $atributos value='$value' name='$name' type='$type' placeholder='$placeholder' class='form-control'>";
+        $input_html .= "<p style='margin-bottom:-.2em'><b>$label</b></p>";
+        $input_html .= "<input $required $atributos value='$value' name='$name' type='$type' placeholder='$placeholder' class='form-control  form-control-sm'>";
         $input_html .= "</div>";
         $input_html .= "</div>";
         if ($ln) {
@@ -145,13 +145,13 @@ class Html
 
     public static function submit(string $label, string $name, int $col, bool $ln = true)
     {
-
+        $submit_html = '';
         if ($ln) {
             $submit_html = "<div class='col-md-12'></div>";
         }
         $submit_html .= "<div class=col-md-$col>";
         $submit_html .= "<div class='form-group'>";
-        $submit_html .= "<button type='submit' name='$name' class='btn btn-block btn-" . COLORBASE_BOOTSTRAP . " btn-flat'>$label</button>";
+        $submit_html .= "<button type='submit' name='$name' class='btn btn-block btn-" . COLORBASE_BOOTSTRAP . " btn-flat btn-sm'>$label</button>";
         $submit_html .= "</div>";
         $submit_html .= "</div>";
 
@@ -205,7 +205,7 @@ class Html
         }
         $link_boton_html .= "<div class=col-md-$col>";
         $link_boton_html .= "<div class='form-group'>";
-        $link_boton_html .= "<a class='btn btn-block btn-" . COLORBASE_BOOTSTRAP . " btn-flat' href='$url_destino'>$label</a>";
+        $link_boton_html .= "<a class='btn  btn-block btn-" . COLORBASE_BOOTSTRAP . " btn-flat btn-sm' href='$url_destino'>$label</a>";
         $link_boton_html .= "</div>";
         $link_boton_html .= "</div>";
 

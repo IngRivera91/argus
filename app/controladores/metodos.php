@@ -11,8 +11,9 @@ class metodos extends Controlador
 {
     public function __construct(Database $coneccion, GeneraConsultas $generaConsulta)
     {
-        $modeloMetodos = new ModeloMetodos($coneccion,$generaConsulta);
+        $modelo = new ModeloMetodos($coneccion,$generaConsulta);
         $nombreMenu = 'metodos';
+        $this->breadcrumb = false;
 
         $camposLista = [
             'Id' => 'metodos_id',
@@ -22,7 +23,12 @@ class metodos extends Controlador
             'Icono' => 'metodos_icono'
         ];
 
-        parent::__construct($modeloMetodos, $nombreMenu, $camposLista);
+        $camposFiltrosLista = [
+            'Menu' => 'menus.nombre',
+            'Metodo' => 'metodos.nombre'
+        ];
+
+        parent::__construct($modelo, $nombreMenu, $camposLista, $camposFiltrosLista);
     }
 
 }

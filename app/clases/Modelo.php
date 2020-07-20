@@ -209,7 +209,10 @@ class Modelo
             $columnas = ['id']; 
             $orderBy = []; 
             $limit = ''; 
-            $noUsarRelaciones = true; 
+            $noUsarRelaciones = false;
+            if (count($filtros) == 0){
+                $noUsarRelaciones = true;
+            } 
             $resultado = $this->buscarConFiltros($filtros,$columnas, $orderBy, $limit, $noUsarRelaciones);
         } catch(ErrorBase $e) {
             throw new ErrorBase($e->getMessage(),$e);
