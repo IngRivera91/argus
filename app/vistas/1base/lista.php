@@ -3,9 +3,10 @@ use Ayuda\Redireccion;
 use Ayuda\Html;
 $registros = $controlador->registros;
 $inputs = $controlador->htmlInputFiltros;
+$nombreMenu = $controlador->nombreMenu;
 ?>
 <br>
-<form autocomplete="off" role="form" method="POST" action="<?php echo Redireccion::obtener($controlador->nombreMenu,'lista',SESSION_ID) ?>">
+<form autocomplete="off" role="form" method="POST" action="<?php echo Redireccion::obtener($nombreMenu,'lista',SESSION_ID) ?>">
     <div class="row">
         <?php
         foreach ($inputs as $input) {
