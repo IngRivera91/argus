@@ -1,6 +1,7 @@
 <?php
 // https://www.php.net/manual/es/language.exceptions.php
 // https://www.php.net/manual/es/language.exceptions.extending.php
+# todo: grabar video de como funciona esto 
 
 namespace Error;
 use Exception;
@@ -19,17 +20,19 @@ class Base extends Exception
 
     public function muestraError(bool $esRecursivo = false)
     {
-        if (ES_PRODUCCION)
-        {
-            header('Location: '.RUTA_PROYECTO.'error.php');
-            exit;
-        }
         $this->configuraErrorHtml();
 
         if ($esRecursivo)
         {
             return $this->errorInformacion;
         }
+
+        if (ES_PRODUCCION)
+        {
+            header('Location: '.RUTA_PROYECTO.'error.php');
+            exit;
+        }
+        
         echo '<font size="3">';
         print_r($this->errorInformacion);
         echo '</font>';
@@ -64,6 +67,7 @@ class Base extends Exception
         $errorAnterior = $this->consultaSQL;
         if (!is_null($this->getPrevious())) 
         {
+            # todo: verificar que no sea un error que no sea base o mysql
             $errorAnterior = $this->getPrevious()->muestraError(true);
         }
         return $errorAnterior;
