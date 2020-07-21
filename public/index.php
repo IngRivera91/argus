@@ -37,13 +37,8 @@ if ($controladorActual === 'session' && $metodoActual === 'login'){
     try{
         $resultado = $autentificacion->login();
     }catch(ErrorBase $e){
-        if (get_class($e) == 'Error\Base') 
-        {
-            $error = new ErrorBase('Error al hacer login',$e);
-            $error->muestraError();
-            exit;
-        }
-        $e->muestraError();
+        $error = new ErrorBase('Error al hacer login',$e);
+        $error->muestraError();
         exit;
     }
     Redireccion::enviar('inicio','index',$resultado['sessionId'],'Bienvenido');
@@ -56,14 +51,8 @@ $sessionId = $_GET['session_id'];
 try{
     $datos = $autentificacion->validaSessionId($sessionId);
 }catch(ErrorBase $e){
-    if (get_class($e) == 'Error\Base') 
-    {
-        print_r( get_class($e) );
-        $error = new ErrorBase('Error al validar session_id',$e);
-        $error->muestraError();
-        exit;
-    }
-    $e->muestraError();
+    $error = new ErrorBase('Error al validar session_id',$e);
+    $error->muestraError();
     exit;
 }
 
