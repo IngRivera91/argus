@@ -4,6 +4,8 @@ namespace Clase;
 
 use Ayuda\Html;
 use Clase\Modelo;
+use Error\Esperado AS ErrorEsperado;
+use Error\Base AS ErrorBase;
 use Ayuda\Redireccion;
 
 class Controlador
@@ -35,11 +37,30 @@ class Controlador
 
     public function activar_bd(){
 
-        $registroId = $_GET['registro_id'];
+        if (!isset($_GET['registro_id'])) {
+            $error = new ErrorEsperado('no se puede activar un registro sin su id', $this->nombreMenu, 'lista');
+            $error->muestraError();
+            exit;
+        }
+
+        $registroId = (int) $_GET['registro_id'];
+
+        if (!$this->modelo->existeRegistroId($registroId)) {
+            $error = new ErrorEsperado('no se puede activar un registro que no existe', $this->nombreMenu, 'lista');
+            $error->muestraError();
+            exit;
+        }
+
 
         $datos["activo"] = 1;
 
-        $resultado = $this->modelo->actualizarPorId($registroId, $datos);
+        try {
+            $resultado = $this->modelo->actualizarPorId($registroId, $datos);
+        } catch (ErrorBase $e) {
+            $error = new ErrorBase('Error al desactivar registro',$e);
+            $error->muestraError();
+            exit;
+        }
 
         $url = Redireccion::obtener($this->nombreMenu,'lista',SESSION_ID)."&pag={$this->obteneNumeroPagina()}";
         header("Location: {$url}");
@@ -48,11 +69,29 @@ class Controlador
 
     public function desactivar_bd(){
 
-        $registroId = $_GET['registro_id'];
+        if (!isset($_GET['registro_id'])) {
+            $error = new ErrorEsperado('no se puede desactivar un registro sin su id', $this->nombreMenu, 'lista');
+            $error->muestraError();
+            exit;
+        }
+
+        $registroId = (int) $_GET['registro_id'];
+
+        if (!$this->modelo->existeRegistroId($registroId)) {
+            $error = new ErrorEsperado('no se puede desactivar un registro que no existe', $this->nombreMenu, 'lista');
+            $error->muestraError();
+            exit;
+        }
 
         $datos["activo"] = 0;
 
-        $resultado = $this->modelo->actualizarPorId($registroId, $datos);
+        try {
+            $resultado = $this->modelo->actualizarPorId($registroId, $datos);
+        } catch (ErrorBase $e) {
+            $error = new ErrorBase('Error al desactivar registro',$e);
+            $error->muestraError();
+            exit;
+        }
 
         $url = Redireccion::obtener($this->nombreMenu,'lista',SESSION_ID)."&pag={$this->obteneNumeroPagina()}";
         header("Location: {$url}");
