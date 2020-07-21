@@ -173,6 +173,22 @@ class Modelo
         return $resultado;
     }
 
+    public function existeRegistroId(int $id):bool
+    {
+        $columnas = ["{$this->tabla}_id"];
+        $orderBy = [];
+        $limit = '';
+        $noUsarRelaciones = true;
+
+        $resultado = $this->buscarPorId($id, $columnas, $orderBy, $limit, $noUsarRelaciones);
+        
+        if ($resultado['n_registros'] === 1) {
+            return true;
+        }
+
+        return false;
+    }
+
     public function registrar(array $datos):array
     {
         try {
