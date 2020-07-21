@@ -39,7 +39,6 @@ if ($controladorActual === 'session' && $metodoActual === 'login'){
     }catch(ErrorBase $e){
         if (get_class($e) == 'Error\Base') 
         {
-            print_r( get_class($e) );
             $error = new ErrorBase('Error al hacer login',$e);
             $error->muestraError();
             exit;
