@@ -1,7 +1,6 @@
 <?php
 // https://www.php.net/manual/es/language.exceptions.php
 // https://www.php.net/manual/es/language.exceptions.extending.php
-# todo: grabar video de como funciona esto 
 
 namespace Error;
 use Exception;
@@ -65,10 +64,11 @@ class Base extends Exception
     private function obtenErrorAnterior()
     {
         $errorAnterior = $this->consultaSQL;
+        
         if (!is_null($this->getPrevious())) 
         {
-            # todo: verificar que no sea un error que no sea base o mysql
             $errorAnterior = $this->getPrevious()->muestraError(true);
+            $nombreCalse = get_class($errorAnterior);
         }
         return $errorAnterior;
     }
