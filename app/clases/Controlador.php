@@ -33,6 +33,33 @@ class Controlador
         }
     }
 
+    public function activar_bd(){
+
+        $registroId = $_GET['registro_id'];
+
+        $datos["activo"] = 1;
+
+        $resultado = $this->modelo->actualizarPorId($registroId, $datos);
+
+        $url = Redireccion::obtener($this->nombreMenu,'lista',SESSION_ID)."&pag={$this->obteneNumeroPagina()}";
+        header("Location: {$url}");
+        exit;   
+    }
+
+    public function desactivar_bd(){
+
+        $registroId = $_GET['registro_id'];
+
+        $datos["activo"] = 0;
+
+        $resultado = $this->modelo->actualizarPorId($registroId, $datos);
+
+        $url = Redireccion::obtener($this->nombreMenu,'lista',SESSION_ID)."&pag={$this->obteneNumeroPagina()}";
+        header("Location: {$url}");
+        exit;
+        
+    }
+
     public function lista()
     {
         $columnas = [];
