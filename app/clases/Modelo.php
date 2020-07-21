@@ -37,7 +37,7 @@ class Modelo
         try{
             $this->validaColunmasUnicas($datos,$id);
         } catch(ErrorBase $e) {
-            throw new ErrorEsperado($e->getMessage(),$e);
+            throw new ErrorEsperado($e->getMessage(), $this->tabla, 'modificar');
         }
     
         $filtros = [
@@ -200,7 +200,7 @@ class Modelo
         try {
             $this->validaColunmasUnicas($datos);
         } catch(ErrorBase $e) {
-            throw new ErrorEsperado($e->getMessage(),$e);
+            throw new ErrorEsperado($e->getMessage(), $this->tabla, 'registrar');
         }
                
         if (isset(get_defined_constants(true)['user']['USUARIO_ID'])) {
