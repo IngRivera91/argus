@@ -57,7 +57,7 @@ class Controlador
         try {
             $resultado = $this->modelo->actualizarPorId($registroId, $datos);
         } catch (ErrorBase $e) {
-            $error = new ErrorBase('Error al desactivar registro',$e);
+            $error = new ErrorBase('Error al activar registro',$e);
             $error->muestraError();
             exit;
         }
