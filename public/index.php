@@ -11,7 +11,7 @@ use Error\Base AS ErrorBase;
 $parametros_get_requeridos = array('controlador','metodo');
 
 foreach ($parametros_get_requeridos as $parametro){
-    valida_parametro_get($parametro);
+    validaParametroGet($parametro);
 }
 
 $controladorActual = $_GET['controlador'];
@@ -51,7 +51,7 @@ if ($controladorActual === 'session' && $metodoActual === 'login'){
     exit;
 }
 
-valida_parametro_get('session_id');
+validaParametroGet('session_id');
 $sessionId = $_GET['session_id'];
 
 try{
@@ -196,7 +196,7 @@ $menu_navegacion = Ayuda\Menu::crear($coneccion,$generaConsultas,GRUPO_ID);
 <?php
     require_once __DIR__.'/../recursos/html/final.php'; 
     
-    function valida_parametro_get(string $parameto_get):void
+    function validaParametroGet(string $parameto_get):void
     {
         if (!isset($_GET[$parameto_get]) || is_null($_GET[$parameto_get]) || (string)$_GET[$parameto_get] === ''){
             header('Location: login.php');
