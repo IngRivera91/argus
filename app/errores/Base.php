@@ -8,10 +8,10 @@ use Exception;
 class Base extends Exception
 {
 
-    private $errorInformacion;
-    private $consultaSQL;
+    private string $consultaSQL;
+    private array $errorInformacion;
 
-    public function __construct(string $mensaje = '' , Base $errorAnterior = null , $code = 0 , $consultaSQL = null ) 
+    public function __construct(string $mensaje = '' , Base $errorAnterior = null , int $code = 0 , string $consultaSQL = '' ) 
     {
         $this->consultaSQL = $consultaSQL;
         parent::__construct($mensaje, $code ,$errorAnterior);

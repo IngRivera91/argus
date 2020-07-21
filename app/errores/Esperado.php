@@ -18,7 +18,7 @@ class Esperado extends ErrorBase
 
     public function muestraError(bool $esRecursivo = false)
     {
-        Redireccion::enviar($this->controlador,$this->metodo,SESSION_ID,$this->message);
+        Redireccion::enviar($this->controlador, $this->metodo, SESSION_ID, $this->message);
         exit;
     }
 
