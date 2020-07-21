@@ -37,7 +37,7 @@ class Modelo
         try{
             $this->validaColunmasUnicas($datos,$id);
         } catch(ErrorBase $e) {
-            throw new ErrorEsperado($e->getMessage(), $this->tabla, 'modificar');
+            throw new ErrorEsperado($e->getMessage(), $this->tabla, 'modificar', $id);
         }
     
         $filtros = [
