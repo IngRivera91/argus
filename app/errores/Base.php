@@ -11,13 +11,13 @@ class Base extends Exception
     private $errorInformacion;
     private $consultaSQL;
 
-    public function __construct( $mensaje = '' , Base $errorAnterior = null , $code = 0 , $consultaSQL = null ) 
+    public function __construct(string $mensaje = '' , Base $errorAnterior = null , $code = 0 , $consultaSQL = null ) 
     {
         $this->consultaSQL = $consultaSQL;
         parent::__construct($mensaje, $code ,$errorAnterior);
     }
 
-    public function muestraError($esRecursivo = false)
+    public function muestraError(bool $esRecursivo = false)
     {
         if (ES_PRODUCCION)
         {
