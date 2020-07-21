@@ -146,6 +146,26 @@ class ClaseModeloTest extends TestCase
      * @depends creaModelo
      * @depends registrar
      */
+    public function existeRegistroId($modelo, $datosUsuarios)
+    {
+        foreach ($datosUsuarios as $datosUsuario)
+        {
+            $id = $datosUsuario['id'];
+            $resultado = $modelo->existeRegistroId($id);
+            $this->assertIsBool($resultado);
+            $this->assertSame(true,$resultado);
+        }
+
+        $resultado = $modelo->existeRegistroId(-1);
+        $this->assertIsBool($resultado);
+        $this->assertSame(false,$resultado);
+    }
+
+    /**
+     * @test
+     * @depends creaModelo
+     * @depends registrar
+     */
     public function actualizarPorId($modelo,$datosUsuarios)
     {
         $idUsuarioRicardo = 2;
