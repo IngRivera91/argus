@@ -21,6 +21,7 @@ class Controlador
     public bool $breadcrumb = true; // define si se muestran o no los breadcrumb
     public string $htmlPaginador = ''; // codigo html del paginador
     public array $htmlInputFiltros = []; // codigo html de los inputs del filtro para la lista
+    public array $htmlInputFormulario = []; // codigo html de los inputs del del formulario de registro y modificacion
     public array $registro; // almacena el registros para poder editarlo
     public array $registros; // almacena los resgistros para poder mostrarlos en la lista
 
