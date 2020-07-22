@@ -13,8 +13,17 @@ class Base extends Exception
 
     public function __construct(string $mensaje = '' , Base $errorAnterior = null , int $code = 0 , string $consultaSQL = '' ) 
     {
+        if (!is_null($errorAnterior)) {
+            $code = $errorAnterior->getCode();
+            $consultaSQL = $errorAnterior->obtenConsultaSQL();
+        }
         $this->consultaSQL = $consultaSQL;
         parent::__construct($mensaje, $code ,$errorAnterior);
+    }
+
+    public function obtenConsultaSQL()
+    {
+        return $this->consultaSQL;
     }
 
     public function muestraError(bool $esRecursivo = false)
@@ -68,7 +77,6 @@ class Base extends Exception
         if (!is_null($this->getPrevious())) 
         {
             $errorAnterior = $this->getPrevious()->muestraError(true);
-            $nombreCalse = get_class($errorAnterior);
         }
         return $errorAnterior;
     }
