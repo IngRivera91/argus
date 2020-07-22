@@ -10,6 +10,7 @@ use Ayuda\Redireccion;
 
 class Controlador
 {
+    public string $llaveFormulario; // llava que se ocupa que los $_POST son de un formulario valido
     public Modelo $modelo; // Modelo del menu con el que se esta trabajando
     public int $registrosPorPagina = 10; // numero de registros por pagina en la lista
     public string $nombreMenu; // Define el menu al cual se deben hacer la redirecciones
@@ -27,6 +28,7 @@ class Controlador
 
     public function __construct(Modelo $modelo, string $nombreMenu, array $camposLista, array $camposFiltrosLista)
     {
+        $this->llaveFormulario = md5(SESSION_ID);
         $this->modelo = $modelo;
         $this->nombreMenu = $nombreMenu;
         $this->camposLista = $camposLista;
@@ -34,6 +36,27 @@ class Controlador
         if (count($camposFiltrosLista) == 0) {
             $this->usarFiltros = false;
         }
+    }
+
+    public function registrar_bd()
+    {
+        $datos = $_POST;
+        $nombreLlaveFormulario = $this->llaveFormulario;
+        if (!isset($datos[$nombreLlaveFormulario])) {
+            Redireccion::enviar($this->nombreMenu,'registrar',SESSION_ID);
+        }
+        
+        unset($datos[$nombreLlaveFormulario]);
+
+        try {
+            $resultado = $this->modelo->registrar($datos);
+        } catch (ErrorBase $e) {
+            $error = new ErrorBase('Error al registrar datos',$e);
+            $error->muestraError();
+            exit;
+        }
+
+        Redireccion::enviar($this->nombreMenu,'lista',SESSION_ID,'registro exitoso');
     }
 
     public function activar_bd(){
