@@ -112,8 +112,6 @@ if ($metodoActual == 'lista') {
 
 $vista = "{$rutaVistasBase}/{$controladorActual}/{$metodoActual}.php";
 
-$rutaVista = '';
-
 if(file_exists($vista)) {
     $rutaVista = $vista;
 }
