@@ -99,6 +99,42 @@ class Controlador
         
     }
 
+    public function eliminar_bd()
+    {
+        if (!isset($_GET['registro_id'])) {
+            $error = new ErrorEsperado('no se puede eliminar un registro sin su id', $this->nombreMenu, 'lista');
+            $error->muestraError();
+            exit;
+        }
+
+        $registroId = (int) $_GET['registro_id'];
+
+        if (!$this->modelo->existeRegistroId($registroId)) {
+            $error = new ErrorEsperado('no se puede eliminar un registro que no existe', $this->nombreMenu, 'lista');
+            $error->muestraError();
+            exit;
+        }
+
+        try {
+            $resultado = $this->modelo->eliminarPorId($registroId);
+        } catch (ErrorBase $e) {
+            $codigoError = $e->getCode();
+            if ($codigoError == 23000) {
+                $mensaje = 'No se puede eliminar un registro que     esta relacionado';
+                $url = Redireccion::obtener($this->nombreMenu,'lista',SESSION_ID,$mensaje)."&pag={$this->obteneNumeroPagina()}";
+                header("Location: {$url}");
+                exit;
+            }
+            $error = new ErrorBase('Error al eliminar registro',$e);
+            $error->muestraError();
+            exit;
+        }
+
+        $url = Redireccion::obtener($this->nombreMenu,'lista',SESSION_ID)."&pag={$this->obteneNumeroPagina()}";
+        header("Location: {$url}");
+        exit;
+    }
+
     public function lista()
     {
         $columnas = [];
