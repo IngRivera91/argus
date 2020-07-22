@@ -37,7 +37,7 @@ class menus extends Controlador
         $this->htmlInputFormulario[] = Html::input('Etiqueta','etiqueta',4,'Etiqueta');
         $this->htmlInputFormulario[] = Html::input('Icon','icono',4,'Icon');
 
-        $this->htmlInputFormulario[] = Html::submit('Registrar','menus_registrar_bd',4);
+        $this->htmlInputFormulario[] = Html::submit('Registrar',$this->llaveFormulario,4);
     }
 
 }
