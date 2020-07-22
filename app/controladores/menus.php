@@ -2,10 +2,11 @@
 
 namespace Controlador;
 
+use Ayuda\Html;
 use Clase\Controlador;
 use Interfas\Database;
-use Modelo\Menus AS ModeloMenus;
 use Interfas\GeneraConsultas;
+use Modelo\Menus AS ModeloMenus;
 
 class menus extends Controlador
 {
@@ -28,6 +29,15 @@ class menus extends Controlador
         ];
 
         parent::__construct($modelo, $nombreMenu, $camposLista, $camposFiltrosLista);
+    }
+
+    public function registrar()
+    {
+        $this->htmlInputFormulario[] = Html::input('Menu','nombre',4,'Menu');
+        $this->htmlInputFormulario[] = Html::input('Etiqueta','etiqueta',4,'Etiqueta');
+        $this->htmlInputFormulario[] = Html::input('Icon','icono',4,'Icon');
+
+        $this->htmlInputFormulario[] = Html::submit('Registrar','menus_registrar_bd',4);
     }
 
 }
