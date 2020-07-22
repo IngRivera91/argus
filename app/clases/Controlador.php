@@ -120,7 +120,7 @@ class Controlador
         } catch (ErrorBase $e) {
             $codigoError = $e->getCode();
             if ($codigoError == 23000) {
-                $mensaje = 'No se puede eliminar un registro que     esta relacionado';
+                $mensaje = 'No se puede eliminar un registro que esta relacionado';
                 $url = Redireccion::obtener($this->nombreMenu,'lista',SESSION_ID,$mensaje)."&pag={$this->obteneNumeroPagina()}";
                 header("Location: {$url}");
                 exit;
