@@ -10,13 +10,13 @@ class Html
     public static function input(
         string $label,
         string $name,
-        int $col,
-        string $value = '',
-        string $placeholder = '',             
-        string $type = 'text',
-        string $required = 'required',
-        bool $saltarLinea = false,
-        string $atributos = ''
+        int    $col,
+        string $value       = '',
+        string $placeholder = '',  
+        string $type        = 'text',
+        string $required    = 'required',
+        bool   $saltarLinea = false,
+        string $atributos   = ''
     ) :string {
         if ($placeholder == '') {
             $placeholder = $label;
@@ -39,105 +39,126 @@ class Html
         return $inputHtml;
     }
 
-    public static function select(string $label, string $name, int $col, array $registros = array(),
-                           string $elementos = '', string $value = '-1', string $required = 'required',
-                           string $chart = ' ', bool $saltarLinea = false){
-        $array_elementos = explode(',',$elementos);
-        $select_html = '';
-        $select_html .= "<div class=col-md-$col>";
-        $select_html .= "<div class='form-group'>";
-        $select_html .= "<label>$label</label>";
-        $select_html .= "<select $required name='$name' class='form-control'>";
+    private static function generaSelectOptions(string $nombreTabla, array $registros, string $elementos, string $value, string $chart):string
+    {
+        $elementosArray = explode(',',$elementos);
 
-        foreach ($registros as $registro){
-            $text = '';
-            foreach ($array_elementos as $elemento){
-                $text .= $registro[$elemento].$chart;
-            }
-            $text = trim($text,$chart);
-            if ($value == $registro['id']){
-                $select_html .= "<option selected='true' value='".$registro['id']."'>$text</option>";
-            }else{
-                $select_html .= "<option value='".$registro['id']."'>$text</option>";
-            }
+        $optionsGenerados = "<option hidden ></option>";
 
+        foreach ($registros as $registro) {
+
+            $valorRegistroId = $registro["{$nombreTabla}_id"];
+
+            $textValueOption = '';
+
+            foreach ($elementosArray as $elemento){
+                $textValueOption .= $registro[$elemento].$chart;
+            }
+            $textValueOption = trim($textValueOption,$chart);
+
+            $selected = "";
+            if ($value == $valorRegistroId){
+                $selected = "selected='true'";
+            }
+                
+            $optionsGenerados .= "<option $selected value='$valorRegistroId'>$textValueOption</option>";
         }
+        return $optionsGenerados;
+    }
 
-        $select_html .= "</select>";
-        $select_html .= "</div>";
-        $select_html .= "</div>";
+    public static function select(
+        string $nombreTabla,
+        string $label,
+        string $name,
+        int    $col,
+        array  $registros   = array(),
+        string $elementos   = '',
+        string $value       = '-1',
+        string $required    = 'required',
+        string $chart       = ' ',
+        bool   $saltarLinea = false
+    ) :string {
+        $selectHtml = '';
+        $selectHtml .= "<div class=col-md-$col>";
+        $selectHtml .= "<div class='form-group'>";
+        $selectHtml .= "<label>$label</label>";
+        $selectHtml .= "<select data-placeholder='$label' $required name='$name' class='form-control form-control-sm' >";
+
+        $selectHtml .= self::generaSelectOptions($nombreTabla, $registros, $elementos, $value, $chart);
+
+        $selectHtml .= "</select>";
+        $selectHtml .= "</div>";
+        $selectHtml .= "</div>";
         if ($saltarLinea) {
-            $select_html .= "<div class='col-md-12'></div>";
+            $selectHtml .= "<div class='col-md-12'></div>";
         }
-        return $select_html;
+        return $selectHtml;
 
     }
 
-    public static function select_buscador(string $nombreTabla, string $label, string $name, int $col, array $registros = array(),
-                                    string $elementos = '', string $value = '-1', string $required = 'required',
-                                    string $chart = ' ', bool $saltarLinea = false, int $select2id = 1){
-        $array_elementos = explode(',',$elementos);
-        $select_html = '';
-        $select_html .= "<div class=col-md-$col>";
-        $select_html .= "<div class='form-group'>";
-        $select_html .= "<label>$label</label>";
-        $select_html .= "<select $required name='$name' class='form-control form-control-sm select2'  data-placeholder='$label'  data-select2-id='$select2id' tabindex='-1' >";
+    public static function selectConBuscador(
+        string $nombreTabla, 
+        string $label, 
+        string $name, 
+        int    $col, 
+        array  $registros   = array(),
+        string $elementos   = '', 
+        string $value       = '-1', 
+        int    $select2Id   = 1, 
+        string $required    = 'required',
+        string $chart       = ' ', 
+        bool   $saltarLinea = false
+    ) :string {
+        $elementosArray = explode(',',$elementos);
+        $selectHtml = '';
+        $selectHtml .= "<div class=col-md-$col>";
+        $selectHtml .= "<div class='form-group'>";
+        $selectHtml .= "<label>$label</label>";
 
-        foreach ($registros as $registro){
-            $text = '';
-            foreach ($array_elementos as $elemento){
-                $text .= $registro[$elemento].$chart;
-            }
-            $text = trim($text,$chart);
-            if ($value == $registro["{$nombreTabla}_id"]){
-                $select_html .= "<option selected='true' value='".$registro["{$nombreTabla}_id"]."'>$text</option>";
-            }else{
-                $select_html .= "<option value='".$registro["{$nombreTabla}_id"]."'>$text</option>";
-            }
+        $selectHtml .= "<select $required name='$name' class='form-control form-control-sm select2'";
+        $selectHtml .= " data-placeholder='$label'  data-select2-id='$select2Id' tabindex='-1' >";
 
-        }
+        $selectHtml .= self::generaSelectOptions($nombreTabla, $registros, $elementos, $value, $chart);
 
-        $select_html .= "</select>";
-        $select_html .= "</div>";
-        $select_html .= "</div>";
+        $selectHtml .= "</select>";
+        $selectHtml .= "</div>";
+        $selectHtml .= "</div>";
         if ($saltarLinea) {
-            $select_html .= "<div class='col-md-12'></div>";
+            $selectHtml .= "<div class='col-md-12'></div>";
         }
-        return $select_html;
+        return $selectHtml;
 
     }
 
-    public static function select_multiple(string $label, string $name, int $col, array $registros = array(),
-                                    string $elementos = '', array $value = array(), string $required = 'required',
-                                    string $chart = ' ', bool $saltarLinea = false, int $select2id = 1){
-        $array_elementos = explode(',',$elementos);
-        $select_html = '';
-        $select_html .= "<div class=col-md-$col>";
-        $select_html .= "<div class='form-group'>";
-        $select_html .= "<label>$label</label>";
-        $select_html .= "<select $required name='$name' class='form-control select2 select2-hidden-accessible' multiple='' data-placeholder='$label' style='width: 100%;' data-select2-id='$select2id' tabindex='-1' aria-hidden='true'>";
+    public static function selectMultiple(
+        string $nombreTabla,
+        string $label,
+        string $name,
+        int    $col,
+        array  $registros   = array(),
+        string $elementos   = '',
+        array  $value       = array(),
+        int    $select2Id   = 1,
+        string $required    = 'required',
+        string $chart       = ' ',
+        bool   $saltarLinea = false
+    ) :string {
+        $elementosArray = explode(',',$elementos);
+        $selectHtml = '';
+        $selectHtml .= "<div class=col-md-$col>";
+        $selectHtml .= "<div class='form-group'>";
+        $selectHtml .= "<label>$label</label>";
+        $selectHtml .= "<select $required name='$name' class='form-control select2 select2-hidden-accessible' multiple='' data-placeholder='$label' style='width: 100%;' data-select2-id='$select2Id' tabindex='-1' aria-hidden='true'>";
 
-        foreach ($registros as $registro){
-            $text = '';
-            foreach ($array_elementos as $elemento){
-                $text .= $registro[$elemento].$chart;
-            }
-            $text = trim($text,$chart);
-            if (in_array($registro['id'],$value)){
-                $select_html .= "<option selected='true' value='".$registro['id']."'>$text</option>";
-            }else{
-                $select_html .= "<option value='".$registro['id']."'>$text</option>";
-            }
+        $selectHtml .= self::generaSelectOptions($nombreTabla, $registros, $elementos, $value, $chart);
 
-        }
-
-        $select_html .= "</select>";
-        $select_html .= "</div>";
-        $select_html .= "</div>";
+        $selectHtml .= "</select>";
+        $selectHtml .= "</div>";
+        $selectHtml .= "</div>";
         if ($saltarLinea) {
-            $select_html .= "<div class='col-md-12'></div>";
+            $selectHtml .= "<div class='col-md-12'></div>";
         }
-        return $select_html;
+        return $selectHtml;
 
     }
 
@@ -147,77 +168,79 @@ class Html
             array('id' => 'activo','value'=>'activo'),
             array('id' => 'inactivo','value'=>'inactivo')
         );
-        return Html::select($label,$name,$col,$registros,'value',$value,$required,$chart,$saltarLinea);
+        return self::select($label,$name,$col,$registros,'value',$value,$required,$chart,$saltarLinea);
 
     }
 
-    public static function submit(string $label, string $name, int $col, bool $saltarLinea = true)
+    public static function submit(string $label, string $name, int $col, bool $saltarLinea = true):string
     {
-        $submit_html = '';
+        $submitHtml = '';
         if ($saltarLinea) {
-            $submit_html = "<div class='col-md-12'></div>";
+            $submitHtml = "<div class='col-md-12'></div>";
         }
-        $submit_html .= "<div class=col-md-$col>";
-        $submit_html .= "<div class='form-group'>";
-        $submit_html .= "<button type='submit' name='$name' class='btn btn-block btn-" . COLORBASE_BOOTSTRAP . " btn-flat btn-sm'>$label</button>";
-        $submit_html .= "</div>";
-        $submit_html .= "</div>";
+        $submitHtml .= "<div class=col-md-$col>";
+        $submitHtml .= "<div class='form-group'>";
+        $submitHtml .= "<button type='submit' name='$name' class='btn btn-block btn-" . COLORBASE_BOOTSTRAP . " btn-flat btn-sm'>$label</button>";
+        $submitHtml .= "</div>";
+        $submitHtml .= "</div>";
 
-        return $submit_html;
-    }// end submit
+        return $submitHtml;
+    }
 
-    public static function paginador(int $numero_paginas, int $pagina, string $tabla){
-        $url_base = Redireccion::obtener($tabla,'lista',SESSION_ID).'&pag=';
-        $paginador_html = '';
-        $paginador_html .= "<br><nav aria-label='navigation'>";
-        $paginador_html .= "    <ul class='pagination'>";
+    public static function paginador(int $numeroDePaginas, int $pagina, string $tabla):string
+    {
+        $urlBase = Redireccion::obtener($tabla,'lista',SESSION_ID).'&pag=';
+        $paginadorHtml = '';
+        $paginadorHtml .= "<br><nav aria-label='navigation'>";
+        $paginadorHtml .= "    <ul class='pagination'>";
 
-        $paginador_html .= "        <li class='page-item'>";
+        $paginadorHtml .= "        <li class='page-item'>";
         if ($pagina > 1){
-            $paginador_html .= "            <a class='page-link' href='".$url_base.($pagina-1)."' aria-label='Anterior'>";
+            $paginadorHtml .= "            <a class='page-link' href='".$urlBase.($pagina-1)."' aria-label='Anterior'>";
         }else{
-            $paginador_html .= "            <a class='page-link' aria-label='Anterior'>";
+            $paginadorHtml .= "            <a class='page-link' aria-label='Anterior'>";
         }
-        $paginador_html .= "                <span aria-hidden='true'>&laquo;</span>";
-        $paginador_html .= "            </a>";
-        $paginador_html .= "        </li>";
+        $paginadorHtml .= "                <span aria-hidden='true'>&laquo;</span>";
+        $paginadorHtml .= "            </a>";
+        $paginadorHtml .= "        </li>";
 
-        for ($i = 1 ; $i <= $numero_paginas ; $i++){
+        for ($i = 1 ; $i <= $numeroDePaginas ; $i++){
 
             if ($i == $pagina){
-                $paginador_html .= "        <li class='page-item active'><a class='page-link' href='".$url_base.$i."'>$i</a></li>";
+                $paginadorHtml .= "        <li class='page-item active'><a class='page-link' href='".$urlBase.$i."'>$i</a></li>";
             }else{
-                $paginador_html .= "        <li class='page-item'><a class='page-link' href='".$url_base.$i."'>$i</a></li>";
+                $paginadorHtml .= "        <li class='page-item'><a class='page-link' href='".$urlBase.$i."'>$i</a></li>";
             }
 
         }
-        $paginador_html .= "        <li class='page-item'>";
-        if ($pagina < $numero_paginas){
-            $paginador_html .= "            <a class='page-link' href='".$url_base.($pagina+1)."' aria-label='Siguiente'>";
+        $paginadorHtml .= "        <li class='page-item'>";
+        if ($pagina < $numeroDePaginas){
+            $paginadorHtml .= "            <a class='page-link' href='".$urlBase.($pagina+1)."' aria-label='Siguiente'>";
         }else{
-            $paginador_html .= "            <a class='page-link' aria-label='Siguiente'>";
+            $paginadorHtml .= "            <a class='page-link' aria-label='Siguiente'>";
         }
-        $paginador_html .= "                <span aria-hidden='true'>&raquo;</span>";
-        $paginador_html .= "            </a>";
-        $paginador_html .= "        </li>";
-        $paginador_html .= "    </ul>";
-        $paginador_html .= "</nav>";
+        $paginadorHtml .= "                <span aria-hidden='true'>&raquo;</span>";
+        $paginadorHtml .= "            </a>";
+        $paginadorHtml .= "        </li>";
+        $paginadorHtml .= "    </ul>";
+        $paginadorHtml .= "</nav>";
 
-        return $paginador_html;
+        return $paginadorHtml;
     }
 
-    public static function link_boton(string $url_destino, string $label, int $col, bool $saltarLinea = false){
-        $link_boton_html = '';
+    public static function linkBoton(string $urlDestino, string $label, int $col, bool $saltarLinea = false):string
+    {
+        $linkBotonHtml = '';
         if ($saltarLinea) {
-            $link_boton_html .= "<div class='col-md-12'></div>";
+            $linkBotonHtml .= "<div class='col-md-12'></div>";
         }
-        $link_boton_html .= "<div class=col-md-$col>";
-        $link_boton_html .= "<div class='form-group'>";
-        $link_boton_html .= "<a class='btn  btn-block btn-" . COLORBASE_BOOTSTRAP . " btn-flat btn-sm' href='$url_destino'>$label</a>";
-        $link_boton_html .= "</div>";
-        $link_boton_html .= "</div>";
+        $linkBotonHtml .= "<div class=col-md-$col>";
+        $linkBotonHtml .= "<div class='form-group'>";
+        $linkBotonHtml .= "<a class='btn  btn-block btn-" . COLORBASE_BOOTSTRAP . " btn-flat btn-sm' href='$urlDestino'>$label</a>";
+        $linkBotonHtml .= "</div>";
+        $linkBotonHtml .= "</div>";
 
-        return $link_boton_html;
+        return $linkBotonHtml;
     }
 
     public static function hr(){
