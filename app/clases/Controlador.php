@@ -258,7 +258,7 @@ class Controlador
         }
         $this->htmlInputFiltros[] = Html::submit('Filtrar', $nameSubmit, $cols);
         $url_destino = Redireccion::obtener($this->nombreMenu,'lista',SESSION_ID).'&limpiaFiltro';
-        $this->htmlInputFiltros[] = Html::link_boton($url_destino, 'Limpiar', $cols);
+        $this->htmlInputFiltros[] = Html::linkBoton($url_destino, 'Limpiar', $cols);
     }
 
     private function generaHtmlInputFiltros(string $cols, array $datosValue = []): void
