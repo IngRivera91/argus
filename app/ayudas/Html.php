@@ -11,24 +11,32 @@ class Html
         string $label,
         string $name,
         int $col,
-        string $placeholder = '',             
         string $value = '',
+        string $placeholder = '',             
         string $type = 'text',
         string $required = 'required',
-        bool $ln = false,
+        bool $saltarLinea = false,
         string $atributos = ''
     ) :string {
-        $input_html = '';
-        $input_html .= "<div class=col-md-$col>";
-        $input_html .= "<div class='form-group'>";
-        $input_html .= "<p style='margin-bottom:-.2em'><b>$label</b></p>";
-        $input_html .= "<input $required $atributos value='$value' name='$name' type='$type' placeholder='$placeholder' class='form-control  form-control-sm'>";
-        $input_html .= "</div>";
-        $input_html .= "</div>";
-        if ($ln) {
-            $input_html .= "<div class='col-md-12'></div>";
+        if ($placeholder == '') {
+            $placeholder = $label;
         }
-        return $input_html;
+        $inputHtml = '';
+        $inputHtml .= "<div class=col-md-$col>";
+        $inputHtml .=   "<div class='form-group'>";
+
+        $inputHtml .=       "<p style='margin-bottom:-.2em'><b>$label</b></p>";
+
+        $inputHtml .=       "<input $required $atributos value='$value' name='$name' type='$type'";
+        $inputHtml .=       "placeholder='$placeholder' class='form-control  form-control-sm'>";
+
+        $inputHtml .=   "</div>";
+        $inputHtml .= "</div>";
+        
+        if ($saltarLinea) {
+            $inputHtml .= "<div class='col-md-12'></div>";
+        }
+        return $inputHtml;
     }
 
     public static function select(string $label, string $name, int $col, array $registros = array(),
