@@ -40,6 +40,22 @@ class Controlador
 
     public function modificar()
     {
+        $registroId = $this->validaRegistoIdModificar();
+
+        try {
+            $resultado = $this->modelo->buscarPorId($registroId);
+        } catch (ErrorBase $e) {
+            $error = new ErrorBase('Error al obtener datos de el registro a modificar',$e);
+            $error->muestraError();
+            exit;
+        }
+
+        $this->registro = $resultado['registros'][0];
+
+    }
+
+    private function validaRegistoIdModificar():int
+    {
         if (!isset($_GET['registro_id'])) {
             $error = new ErrorEsperado('no se puede modificar un registro sin su id', $this->nombreMenu, 'lista');
             $error->muestraError();
@@ -54,16 +70,32 @@ class Controlador
             exit;
         }
 
+        return $registroId;
+    }
+
+    public function modificar_bd()
+    {
+        $registroId = $this->validaRegistoIdModificar();
+
+        $datos = $_POST;
+        $nombreLlaveFormulario = $this->llaveFormulario;
+        if (!isset($datos[$nombreLlaveFormulario])) {
+            Redireccion::enviar($this->nombreMenu,'lista',SESSION_ID);
+        }
+
+        unset($datos[$nombreLlaveFormulario]);
+
         try {
-            $resultado = $this->modelo->buscarPorId($registroId);
+            $resultado = $this->modelo->actualizarPorId($registroId, $datos);
         } catch (ErrorBase $e) {
-            $error = new ErrorBase('Error al obtener datos de el registro a modificar',$e);
+            $error = new ErrorBase('Error al modificar datos',$e);
             $error->muestraError();
             exit;
         }
 
-        $this->registro = $resultado['registros'][0];
-
+        $url = Redireccion::obtener($this->nombreMenu,'lista',SESSION_ID,'registro modificado')."&pag={$this->obtenerNumeroPagina()}";
+        header("Location: {$url}");
+        exit;   
     }
 
     public function registrar_bd()
