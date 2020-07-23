@@ -41,7 +41,7 @@ class Html
 
     public static function select(string $label, string $name, int $col, array $registros = array(),
                            string $elementos = '', string $value = '-1', string $required = 'required',
-                           string $chart = ' ', bool $ln = false){
+                           string $chart = ' ', bool $saltarLinea = false){
         $array_elementos = explode(',',$elementos);
         $select_html = '';
         $select_html .= "<div class=col-md-$col>";
@@ -66,7 +66,7 @@ class Html
         $select_html .= "</select>";
         $select_html .= "</div>";
         $select_html .= "</div>";
-        if ($ln) {
+        if ($saltarLinea) {
             $select_html .= "<div class='col-md-12'></div>";
         }
         return $select_html;
@@ -75,13 +75,13 @@ class Html
 
     public static function select_buscador(string $nombreTabla, string $label, string $name, int $col, array $registros = array(),
                                     string $elementos = '', string $value = '-1', string $required = 'required',
-                                    string $chart = ' ', bool $ln = false, int $select2id = 1){
+                                    string $chart = ' ', bool $saltarLinea = false, int $select2id = 1){
         $array_elementos = explode(',',$elementos);
         $select_html = '';
         $select_html .= "<div class=col-md-$col>";
         $select_html .= "<div class='form-group'>";
         $select_html .= "<label>$label</label>";
-        $select_html .= "<select $required name='$name' class='form-control select2'  data-placeholder='$label'  data-select2-id='$select2id' tabindex='-1' >";
+        $select_html .= "<select $required name='$name' class='form-control form-control-sm select2'  data-placeholder='$label'  data-select2-id='$select2id' tabindex='-1' >";
 
         foreach ($registros as $registro){
             $text = '';
@@ -100,7 +100,7 @@ class Html
         $select_html .= "</select>";
         $select_html .= "</div>";
         $select_html .= "</div>";
-        if ($ln) {
+        if ($saltarLinea) {
             $select_html .= "<div class='col-md-12'></div>";
         }
         return $select_html;
@@ -109,7 +109,7 @@ class Html
 
     public static function select_multiple(string $label, string $name, int $col, array $registros = array(),
                                     string $elementos = '', array $value = array(), string $required = 'required',
-                                    string $chart = ' ', bool $ln = false, int $select2id = 1){
+                                    string $chart = ' ', bool $saltarLinea = false, int $select2id = 1){
         $array_elementos = explode(',',$elementos);
         $select_html = '';
         $select_html .= "<div class=col-md-$col>";
@@ -134,7 +134,7 @@ class Html
         $select_html .= "</select>";
         $select_html .= "</div>";
         $select_html .= "</div>";
-        if ($ln) {
+        if ($saltarLinea) {
             $select_html .= "<div class='col-md-12'></div>";
         }
         return $select_html;
@@ -142,19 +142,19 @@ class Html
     }
 
     public static function select_status(string $label, string $name, int $col, string $value = '-1',
-                                  string $required = 'required',string $chart = ' ', bool $ln = false){
+                                  string $required = 'required',string $chart = ' ', bool $saltarLinea = false){
         $registros = array(
             array('id' => 'activo','value'=>'activo'),
             array('id' => 'inactivo','value'=>'inactivo')
         );
-        return Html::select($label,$name,$col,$registros,'value',$value,$required,$chart,$ln);
+        return Html::select($label,$name,$col,$registros,'value',$value,$required,$chart,$saltarLinea);
 
     }
 
-    public static function submit(string $label, string $name, int $col, bool $ln = true)
+    public static function submit(string $label, string $name, int $col, bool $saltarLinea = true)
     {
         $submit_html = '';
-        if ($ln) {
+        if ($saltarLinea) {
             $submit_html = "<div class='col-md-12'></div>";
         }
         $submit_html .= "<div class=col-md-$col>";
@@ -206,9 +206,9 @@ class Html
         return $paginador_html;
     }
 
-    public static function link_boton(string $url_destino, string $label, int $col, bool $ln = false){
+    public static function link_boton(string $url_destino, string $label, int $col, bool $saltarLinea = false){
         $link_boton_html = '';
-        if ($ln) {
+        if ($saltarLinea) {
             $link_boton_html .= "<div class='col-md-12'></div>";
         }
         $link_boton_html .= "<div class=col-md-$col>";
