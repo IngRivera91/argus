@@ -10,21 +10,21 @@ use Ayuda\Redireccion;
 
 class Controlador
 {
-    public string $llaveFormulario; // llava que se ocupa que los $_POST son de un formulario valido
-    public Modelo $modelo; // Modelo del menu con el que se esta trabajando
-    public int $registrosPorPagina = 10; // numero de registros por pagina en la lista
-    public string $nombreMenu; // Define el menu al cual se deben hacer la redirecciones
-    public array $camposLista; // Define los campo que se van a mostrar en la lista
-    public array $filtrosLista = []; // Define los filtros que se deben aplicar para obtener los registros de las listas
-    public array $camposFiltrosLista = []; //Define los campos de los filtros
-    public int $sizeColumnasInputsFiltros = 3; // define el tamaño de los elementos en el filtro de la lista
-    public bool $usarFiltros = true; // Variable que determina si se usan o no los filtros en la lista
-    public bool $breadcrumb = true; // define si se muestran o no los breadcrumb
-    public string $htmlPaginador = ''; // codigo html del paginador
-    public array $htmlInputFiltros = []; // codigo html de los inputs del filtro para la lista
-    public array $htmlInputFormulario = []; // codigo html de los inputs del del formulario de registro y modificacion
-    public array $registro; // almacena el registros para poder editarlo
-    public array $registros; // almacena los resgistros para poder mostrarlos en la lista
+    public int    $sizeColumnasInputsFiltros = 3; // Define el tamaño de los elementos en el filtro de la lista
+    public int    $registrosPorPagina = 10;       // Numero de registros por pagina en la lista
+    public bool   $breadcrumb = true;             // Define si se muestran o no los breadcrumb
+    public bool   $usarFiltros = true;            // Variable que determina si se usan o no los filtros en la lista
+    public array  $camposFiltrosLista = [];       // Define los campos de los filtros
+    public array  $camposLista;                   // Define los campo que se van a mostrar en la lista
+    public array  $filtrosLista = [];             // Define los filtros que se deben aplicar para obtener los registros de las listas
+    public array  $htmlInputFiltros = [];         // Codigo html de los inputs del filtro para la lista
+    public array  $htmlInputFormulario = [];      // Codigo html de los inputs del del formulario de registro y modificacion
+    public array  $registro;                      // Almacena el registros para poder editarlo
+    public array  $registros;                     // Almacena los resgistros para poder mostrarlos en la lista
+    public string $htmlPaginador = '';            // Codigo html del paginador
+    public string $llaveFormulario;               // Llave que se ocupa que los $_POST son de un formulario valido
+    public string $nombreMenu;                    // Define el menu al cual se deben hacer la redirecciones
+    public Modelo $modelo;                        // Modelo del menu con el que se esta trabajando
 
     public function __construct(Modelo $modelo, string $nombreMenu, array $camposLista, array $camposFiltrosLista)
     {
