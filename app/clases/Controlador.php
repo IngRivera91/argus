@@ -265,7 +265,7 @@ class Controlador
         return $limit;
     }
 
-    private function obteneNumeroPagina(){
+    public function obteneNumeroPagina(){
         $num_pagina = 1;
         if (isset($_GET['pag'])){
             $num_pagina = (int) $_GET['pag'];
