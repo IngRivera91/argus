@@ -109,7 +109,6 @@ class Html
         string $chart       = ' ', 
         bool   $saltarLinea = false
     ) :string {
-        $elementosArray = explode(',',$elementos);
         $selectHtml = '';
         $selectHtml .= "<div class=col-md-$col>";
         $selectHtml .= "<div class='form-group'>";
@@ -143,7 +142,6 @@ class Html
         string $chart       = ' ',
         bool   $saltarLinea = false
     ) :string {
-        $elementosArray = explode(',',$elementos);
         $selectHtml = '';
         $selectHtml .= "<div class=col-md-$col>";
         $selectHtml .= "<div class='form-group'>";
