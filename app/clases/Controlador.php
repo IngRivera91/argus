@@ -114,7 +114,7 @@ class Controlador
             exit;
         }
 
-        $url = Redireccion::obtener($this->nombreMenu,'lista',SESSION_ID)."&pag={$this->obteneNumeroPagina()}";
+        $url = Redireccion::obtener($this->nombreMenu,'lista',SESSION_ID)."&pag={$this->obtenerNumeroPagina()}";
         header("Location: {$url}");
         exit;   
     }
@@ -145,7 +145,7 @@ class Controlador
             exit;
         }
 
-        $url = Redireccion::obtener($this->nombreMenu,'lista',SESSION_ID)."&pag={$this->obteneNumeroPagina()}";
+        $url = Redireccion::obtener($this->nombreMenu,'lista',SESSION_ID)."&pag={$this->obtenerNumeroPagina()}";
         header("Location: {$url}");
         exit;
         
@@ -173,7 +173,7 @@ class Controlador
             $codigoError = $e->getCode();
             if ($codigoError == 23000) {
                 $mensaje = 'No se puede eliminar un registro que esta relacionado';
-                $url = Redireccion::obtener($this->nombreMenu,'lista',SESSION_ID,$mensaje)."&pag={$this->obteneNumeroPagina()}";
+                $url = Redireccion::obtener($this->nombreMenu,'lista',SESSION_ID,$mensaje)."&pag={$this->obtenerNumeroPagina()}";
                 header("Location: {$url}");
                 exit;
             }
@@ -182,7 +182,7 @@ class Controlador
             exit;
         }
 
-        $url = Redireccion::obtener($this->nombreMenu,'lista',SESSION_ID)."&pag={$this->obteneNumeroPagina()}";
+        $url = Redireccion::obtener($this->nombreMenu,'lista',SESSION_ID)."&pag={$this->obtenerNumeroPagina()}";
         header("Location: {$url}");
         exit;
     }
@@ -249,7 +249,7 @@ class Controlador
         $numeroRegistros = $this->modelo->obtenerNumeroRegistros($this->filtrosLista);
         $numeroPaginas = (int) (($numeroRegistros-1) / (int)$this->registrosPorPagina );
         $numeroPaginas++;
-        $numeroPagina = (int)$this->obteneNumeroPagina();
+        $numeroPagina = (int)$this->obtenerNumeroPagina();
 
         if ($numeroPagina > $numeroPaginas){
             Redireccion::enviar($this->nombreMenu,'lista',SESSION_ID,'');
@@ -265,7 +265,7 @@ class Controlador
         return $limit;
     }
 
-    public function obteneNumeroPagina(){
+    public function obtenerNumeroPagina(){
         $num_pagina = 1;
         if (isset($_GET['pag'])){
             $num_pagina = (int) $_GET['pag'];
