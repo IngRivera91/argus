@@ -65,7 +65,7 @@ class Html
 
     }
 
-    public static function select_buscador(string $label, string $name, int $col, array $registros = array(),
+    public static function select_buscador(string $nombreTabla, string $label, string $name, int $col, array $registros = array(),
                                     string $elementos = '', string $value = '-1', string $required = 'required',
                                     string $chart = ' ', bool $ln = false, int $select2id = 1){
         $array_elementos = explode(',',$elementos);
@@ -81,10 +81,10 @@ class Html
                 $text .= $registro[$elemento].$chart;
             }
             $text = trim($text,$chart);
-            if ($value == $registro['id']){
-                $select_html .= "<option selected='true' value='".$registro['id']."'>$text</option>";
+            if ($value == $registro["{$nombreTabla}_id"]){
+                $select_html .= "<option selected='true' value='".$registro["{$nombreTabla}_id"]."'>$text</option>";
             }else{
-                $select_html .= "<option value='".$registro['id']."'>$text</option>";
+                $select_html .= "<option value='".$registro["{$nombreTabla}_id"]."'>$text</option>";
             }
 
         }
