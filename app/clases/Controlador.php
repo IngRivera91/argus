@@ -38,6 +38,34 @@ class Controlador
         }
     }
 
+    public function modificar()
+    {
+        if (!isset($_GET['registro_id'])) {
+            $error = new ErrorEsperado('no se puede modificar un registro sin su id', $this->nombreMenu, 'lista');
+            $error->muestraError();
+            exit;
+        }
+
+        $registroId = (int) $_GET['registro_id'];
+
+        if (!$this->modelo->existeRegistroId($registroId)) {
+            $error = new ErrorEsperado('no se puede modificar un registro que no existe', $this->nombreMenu, 'lista');
+            $error->muestraError();
+            exit;
+        }
+
+        try {
+            $resultado = $this->modelo->buscarPorId($registroId);
+        } catch (ErrorBase $e) {
+            $error = new ErrorBase('Error al obtener datos de el registro a modificar',$e);
+            $error->muestraError();
+            exit;
+        }
+
+        $this->registro = $resultado['registros'][0];
+
+    }
+
     public function registrar_bd()
     {
         $datos = $_POST;
