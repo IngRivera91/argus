@@ -150,14 +150,25 @@ class Html
         return $selectHtml;
     }
 
-    public static function select_status(string $label, string $name, int $col, string $value = '-1',
-                                  string $required = 'required',string $chart = ' ', bool $saltarLinea = false){
-        $registros = array(
-            array('id' => 'activo','value'=>'activo'),
-            array('id' => 'inactivo','value'=>'inactivo')
-        );
-        return self::select($label,$name,$col,$registros,'value',$value,$required,$chart,$saltarLinea);
+    public static function selectActivo(
+        string $label,
+        string $name,
+        int    $col,
+        string $value       = '-1',
+        int    $select2Id   = 1,
+        string $required    = 'required',
+        string $chart       = ' ',
+        bool   $saltarLinea = false
+    ) :string {
 
+        $nombreTabla = "estados";
+
+        $registros = [
+            ["{$nombreTabla}_id" => 1, 'texto' => TEXTO_REGISTRO_ACTIVO],
+            ["{$nombreTabla}_id" => 0, 'texto' => TEXTO_REGISTRO_INACTIVO]
+        ];
+
+        return self::selectConBuscador($nombreTabla, $label, $name, $col, $registros, 'texto', $value, $select2Id, $required, $chart, $saltarLinea);
     }
 
     public static function submit(string $label, string $name, int $col, bool $saltarLinea = true):string
