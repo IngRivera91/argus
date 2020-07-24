@@ -14,6 +14,10 @@ class Menu
         int $grupoId
     ): array {
         
+        if (isset($_SESSION[SESSION_ID]['menuDefinido'])) {
+            return $_SESSION[SESSION_ID]['menuDefinido'];
+        }
+
         $modeloMetodosGrupos = new MetodosGrupos($coneccion,$generaConsultas);
         
         $filtros = [
@@ -51,7 +55,7 @@ class Menu
             ));
 
         }
-        
+        $_SESSION[SESSION_ID]['menuDefinido'] = $menuDefinido; 
         return $menuDefinido;
     }
 }
