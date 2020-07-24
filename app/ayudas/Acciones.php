@@ -15,6 +15,10 @@ class Acciones
         string $controladorActual
     ): array {
 
+        if (isset($_SESSION[SESSION_ID]['acciones'])) {
+            return $_SESSION[SESSION_ID]['acciones'];
+        }
+
         $modeloMetodosGrupos = new MetodosGrupos($coneccion,$generaConsultas);
         
         $filtros = [
@@ -45,7 +49,7 @@ class Acciones
         foreach ($resultado['registros'] as $accion){
             $acciones[$accion['metodos_nombre']] = $accion;
         }
-
+        $_SESSION[SESSION_ID]['acciones'] = $acciones; 
         return $acciones;
     }
 }
