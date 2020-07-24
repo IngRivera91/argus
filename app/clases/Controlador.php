@@ -273,7 +273,7 @@ class Controlador
                 $value = $datosValue[$_name];
                 $this->filtrosLista[] = ['campo' =>$name, 'valor'=>"%{$value}%", 'signoComparacion'=>'LIKE', 'conectivaLogica'=>'AND'];
             }
-            $this->htmlInputFiltros[] = Html::input($label,$_name,$cols,$label,$value,$type,$require);
+            $this->htmlInputFiltros[] = Html::input($label, $_name, $cols, '', $value, $type, $require);
         }
     }
 
