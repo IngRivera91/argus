@@ -25,7 +25,7 @@ class Html
         $inputHtml .= "<div class=col-md-$col>";
         $inputHtml .=   "<div class='form-group'>";
 
-        $inputHtml .=       "<p style='margin-bottom:-.2em'><b>$label</b></p>";
+        $inputHtml .=       "<label><b>$label</b></label>";
 
         $inputHtml .=       "<input $required $atributos value='$value' name='$name' type='$type'";
         $inputHtml .=       "placeholder='$placeholder' class='form-control  form-control-sm'>";
@@ -76,28 +76,6 @@ class Html
             $finalSelectGenerado .= "<div class='col-md-12'></div>";
         }
         return $finalSelectGenerado;
-    }
-
-    public static function select(
-        string $nombreTabla,
-        string $label,
-        string $name,
-        int    $col,
-        array  $registros   = array(),
-        string $elementos   = '',
-        string $value       = '-1',
-        string $required    = 'required',
-        string $chart       = ' ',
-        bool   $saltarLinea = false
-    ) :string {
-        $selectHtml = '';
-        $selectHtml .= "<div class=col-md-$col>";
-        $selectHtml .= "<div class='form-group'>";
-        $selectHtml .= "<label>$label</label>";
-        $selectHtml .= "<select data-placeholder='$label' $required name='$name' class='form-control form-control-sm' >";
-        $selectHtml .= self::generaSelectOptions($nombreTabla, $registros, $elementos, $value, $chart);
-        $selectHtml .= self::generaFinalSelects($saltarLinea);
-        return $selectHtml;
     }
 
     public static function selectConBuscador(
