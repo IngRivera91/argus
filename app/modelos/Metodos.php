@@ -16,7 +16,7 @@ class Metodos extends Modelo
 
         ]; 
         $columnas = [
-            'unicas' => ['metodo' => 'nombre'],
+            'unicas' => [],
             'obligatorias' => ['nombre','menu_id'],
             'protegidas' => []
         ];
