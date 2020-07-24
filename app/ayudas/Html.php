@@ -56,7 +56,7 @@ class Html
             }
             $textValueOption = trim($textValueOption,$chart);
 
-            $selected = "";
+            $selected = '';
             if ($value == $valorRegistroId){
                 $selected = "selected='true'";
             }
@@ -64,6 +64,18 @@ class Html
             $optionsGenerados .= "<option $selected value='$valorRegistroId'>$textValueOption</option>";
         }
         return $optionsGenerados;
+    }
+
+    private static function generaFinalSelects(bool $saltarLinea):string
+    {
+        $finalSelectGenerado = '';
+        $finalSelectGenerado .= "</select>";
+        $finalSelectGenerado .= "</div>";
+        $finalSelectGenerado .= "</div>";
+        if ($saltarLinea) {
+            $finalSelectGenerado .= "<div class='col-md-12'></div>";
+        }
+        return $finalSelectGenerado;
     }
 
     public static function select(
@@ -83,17 +95,9 @@ class Html
         $selectHtml .= "<div class='form-group'>";
         $selectHtml .= "<label>$label</label>";
         $selectHtml .= "<select data-placeholder='$label' $required name='$name' class='form-control form-control-sm' >";
-
         $selectHtml .= self::generaSelectOptions($nombreTabla, $registros, $elementos, $value, $chart);
-
-        $selectHtml .= "</select>";
-        $selectHtml .= "</div>";
-        $selectHtml .= "</div>";
-        if ($saltarLinea) {
-            $selectHtml .= "<div class='col-md-12'></div>";
-        }
+        $selectHtml .= self::generaFinalSelects($saltarLinea);
         return $selectHtml;
-
     }
 
     public static function selectConBuscador(
@@ -118,15 +122,8 @@ class Html
         $selectHtml .= " data-placeholder='$label'  data-select2-id='$select2Id' tabindex='-1' >";
 
         $selectHtml .= self::generaSelectOptions($nombreTabla, $registros, $elementos, $value, $chart);
-
-        $selectHtml .= "</select>";
-        $selectHtml .= "</div>";
-        $selectHtml .= "</div>";
-        if ($saltarLinea) {
-            $selectHtml .= "<div class='col-md-12'></div>";
-        }
+        $selectHtml .= self::generaFinalSelects($saltarLinea);
         return $selectHtml;
-
     }
 
     public static function selectMultiple(
@@ -149,15 +146,8 @@ class Html
         $selectHtml .= "<select $required name='$name' class='form-control select2 select2-hidden-accessible' multiple='' data-placeholder='$label' style='width: 100%;' data-select2-id='$select2Id' tabindex='-1' aria-hidden='true'>";
 
         $selectHtml .= self::generaSelectOptions($nombreTabla, $registros, $elementos, $value, $chart);
-
-        $selectHtml .= "</select>";
-        $selectHtml .= "</div>";
-        $selectHtml .= "</div>";
-        if ($saltarLinea) {
-            $selectHtml .= "<div class='col-md-12'></div>";
-        }
+        $selectHtml .= self::generaFinalSelects($saltarLinea);
         return $selectHtml;
-
     }
 
     public static function select_status(string $label, string $name, int $col, string $value = '-1',
@@ -188,41 +178,46 @@ class Html
     public static function paginador(int $numeroDePaginas, int $pagina, string $tabla):string
     {
         $urlBase = Redireccion::obtener($tabla,'lista',SESSION_ID).'&pag=';
+
+        $liClass = 'page-item';
+        $liStyle = "style='color: red'";
+        $aClas = 'page-link';
+        $aStyle = '';
+
         $paginadorHtml = '';
-        $paginadorHtml .= "<br><nav aria-label='navigation'>";
-        $paginadorHtml .= "    <ul class='pagination'>";
+        $paginadorHtml .= "<br><nav aria-label='navigation'>"; // inicia <nav>
+        $paginadorHtml .= "<ul class='pagination'>"; // inicia <ul>
 
-        $paginadorHtml .= "        <li class='page-item'>";
-        if ($pagina > 1){
-            $paginadorHtml .= "            <a class='page-link' href='".$urlBase.($pagina-1)."' aria-label='Anterior'>";
-        }else{
-            $paginadorHtml .= "            <a class='page-link' aria-label='Anterior'>";
+        // inicia el <li> de el boton pagina anterior
+        $paginadorHtml .= "<li class='$liClass' $liStyle>";
+        $paginaAnterior = (int)$pagina-1;
+        $href = '';
+        if ($pagina > 1) { $href = "href='{$urlBase}{$paginaAnterior}'"; }
+        $paginadorHtml .= "<a class='$aClas' $href aria-label='Anterior'>";
+        $paginadorHtml .= "<span aria-hidden='true'>&laquo;</span>";
+        $paginadorHtml .= "</a>";
+        $paginadorHtml .= "</li>";
+        // termina el <li> de el boton pagina anterior
+
+        for ($i = 1 ; $i <= $numeroDePaginas ; $i++) {
+            $active = '';
+            if ($i == $pagina){ $active = 'active'; }
+            $paginadorHtml .= "<li class='$active $liClass' $liStyle><a class='$aClas' href='".$urlBase.$i."'>$i</a></li>";
         }
-        $paginadorHtml .= "                <span aria-hidden='true'>&laquo;</span>";
-        $paginadorHtml .= "            </a>";
-        $paginadorHtml .= "        </li>";
 
-        for ($i = 1 ; $i <= $numeroDePaginas ; $i++){
+        // inicia el <li> de el boton pagina siguiente
+        $paginadorHtml .= "<li class='$liClass' $liStyle>";
+        $paginaSiguiente = (int)$pagina+1;
+        $href = '';
+        if ($pagina < $numeroDePaginas) { $href = "href='{$urlBase}{$paginaSiguiente}'"; }
+        $paginadorHtml .= "<a class='$aClas' $href aria-label='Anterior'>";
+        $paginadorHtml .= "<span aria-hidden='true'>&raquo;</span>";
+        $paginadorHtml .= "</a>";
+        $paginadorHtml .= "</li>";
+        // termina el <li> de el boton pagina siguiente
 
-            if ($i == $pagina){
-                $paginadorHtml .= "        <li class='page-item active'><a class='page-link' href='".$urlBase.$i."'>$i</a></li>";
-            }else{
-                $paginadorHtml .= "        <li class='page-item'><a class='page-link' href='".$urlBase.$i."'>$i</a></li>";
-            }
-
-        }
-        $paginadorHtml .= "        <li class='page-item'>";
-        if ($pagina < $numeroDePaginas){
-            $paginadorHtml .= "            <a class='page-link' href='".$urlBase.($pagina+1)."' aria-label='Siguiente'>";
-        }else{
-            $paginadorHtml .= "            <a class='page-link' aria-label='Siguiente'>";
-        }
-        $paginadorHtml .= "                <span aria-hidden='true'>&raquo;</span>";
-        $paginadorHtml .= "            </a>";
-        $paginadorHtml .= "        </li>";
-        $paginadorHtml .= "    </ul>";
-        $paginadorHtml .= "</nav>";
-
+        $paginadorHtml .= "</ul>"; // termina <ul>
+        $paginadorHtml .= "</nav>"; // termina <nav>
         return $paginadorHtml;
     }
 
