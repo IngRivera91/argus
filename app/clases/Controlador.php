@@ -239,7 +239,7 @@ class Controlador
     private function analizaInputsFiltros()
     {
         $cols = $this->sizeColumnasInputsFiltros;
-        $nameSubmit = $this->nombreMenu.'_lista';
+        $nameSubmit = "{$this->nombreMenu}ListaFiltro";
         if  (isset($_GET['limpiaFiltro'])) {    
             unset($_SESSION[SESSION_ID][$nameSubmit]);
         }
@@ -257,8 +257,8 @@ class Controlador
             $this->generaHtmlInputFiltros($cols);
         }
         $this->htmlInputFiltros[] = Html::submit('Filtrar', $nameSubmit, $cols);
-        $url_destino = Redireccion::obtener($this->nombreMenu,'lista',SESSION_ID).'&limpiaFiltro';
-        $this->htmlInputFiltros[] = Html::linkBoton($url_destino, 'Limpiar', $cols);
+        $urlDestino = Redireccion::obtener($this->nombreMenu,'lista',SESSION_ID).'&limpiaFiltro';
+        $this->htmlInputFiltros[] = Html::linkBoton($urlDestino, 'Limpiar', $cols);
     }
 
     private function generaHtmlInputFiltros(string $cols, array $datosValue = []): void
