@@ -54,14 +54,42 @@ class metodos extends Controlador
         $this->breadcrumb = true;
         
         $this->htmlInputFormulario[] = Html::input('Metodo','nombre',4);
-        $this->htmlInputFormulario[] = Html::input('Etiqueta','etiqueta',4);
-        $this->htmlInputFormulario[] = Html::input('Icon','icono',4);
+        $this->htmlInputFormulario[] = Html::input('Etiqueta','etiqueta',4,'-1','','text','');
+        $this->htmlInputFormulario[] = Html::input('Icon','icono',4,'-1','','text','');
         $this->htmlInputFormulario[] = Html::selectConBuscador('menus','Menu', 'menu_id', 3,$this->menuRegistros,'menus_nombre','-1',1);
         $this->htmlInputFormulario[] = Html::selectActivo('Activo','activo',3,'-1',2);
         $this->htmlInputFormulario[] = Html::selectActivo('Activo Accion','activo_accion',3,'-1',3);
         $this->htmlInputFormulario[] = Html::selectActivo('Activo Menu','activo_menu',3,'-1',4);
 
         $this->htmlInputFormulario[] = Html::submit('Registrar',$this->llaveFormulario,4);
+    }
+
+    public function modificar()
+    {
+        parent::modificar();
+        $this->breadcrumb = true;
+
+        $nombreMenu = $this->nombreMenu;
+        $registro = $this->registro;
+
+        $this->htmlInputFormulario[] = Html::input('Metodo','nombre',4,$registro["{$nombreMenu}_nombre"]);
+        $this->htmlInputFormulario[] = Html::input('Etiqueta','etiqueta',4,$registro["{$nombreMenu}_etiqueta"],'','text','');
+        $this->htmlInputFormulario[] = Html::input('Icon','icono',4,$registro["{$nombreMenu}_icono"],'','text','');
+        $this->htmlInputFormulario[] = Html::selectConBuscador(
+            'menus',
+            'Menu', 
+            'menu_id', 
+            3,
+            $this->menuRegistros,
+            'menus_nombre',
+            $registro["{$nombreMenu}_menu_id"],
+            1
+        );
+        $this->htmlInputFormulario[] = Html::selectActivo('Activo','activo',3,$registro["{$nombreMenu}_activo"],2);
+        $this->htmlInputFormulario[] = Html::selectActivo('Activo Accion','activo_accion',3,$registro["{$nombreMenu}_activo_accion"],3);
+        $this->htmlInputFormulario[] = Html::selectActivo('Activo Menu','activo_menu',3,$registro["{$nombreMenu}_activo_menu"],4);
+
+        $this->htmlInputFormulario[] = Html::submit('Modificar',$this->llaveFormulario,4);
     }
 
 }
