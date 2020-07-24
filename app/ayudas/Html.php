@@ -180,20 +180,18 @@ class Html
         $urlBase = Redireccion::obtener($tabla,'lista',SESSION_ID).'&pag=';
 
         $liClass = 'page-item';
-        $liStyle = "style='color: red'";
         $aClas = 'page-link';
-        $aStyle = '';
-
+        
         $paginadorHtml = '';
         $paginadorHtml .= "<br><nav aria-label='navigation'>"; // inicia <nav>
         $paginadorHtml .= "<ul class='pagination'>"; // inicia <ul>
 
         // inicia el <li> de el boton pagina anterior
-        $paginadorHtml .= "<li class='$liClass' $liStyle>";
+        $paginadorHtml .= "<li class='$liClass' >";
         $paginaAnterior = (int)$pagina-1;
         $href = '';
         if ($pagina > 1) { $href = "href='{$urlBase}{$paginaAnterior}'"; }
-        $paginadorHtml .= "<a class='$aClas' $href aria-label='Anterior'>";
+        $paginadorHtml .= "<a class='$aClas'  $href aria-label='Anterior'>";
         $paginadorHtml .= "<span aria-hidden='true'>&laquo;</span>";
         $paginadorHtml .= "</a>";
         $paginadorHtml .= "</li>";
@@ -202,15 +200,15 @@ class Html
         for ($i = 1 ; $i <= $numeroDePaginas ; $i++) {
             $active = '';
             if ($i == $pagina){ $active = 'active'; }
-            $paginadorHtml .= "<li class='$active $liClass' $liStyle><a class='$aClas' href='".$urlBase.$i."'>$i</a></li>";
+            $paginadorHtml .= "<li class='$active $liClass' ><a class='$aClas'  href='".$urlBase.$i."'>$i</a></li>";
         }
 
         // inicia el <li> de el boton pagina siguiente
-        $paginadorHtml .= "<li class='$liClass' $liStyle>";
+        $paginadorHtml .= "<li class='$liClass' >";
         $paginaSiguiente = (int)$pagina+1;
         $href = '';
         if ($pagina < $numeroDePaginas) { $href = "href='{$urlBase}{$paginaSiguiente}'"; }
-        $paginadorHtml .= "<a class='$aClas' $href aria-label='Anterior'>";
+        $paginadorHtml .= "<a class='$aClas'  $href aria-label='Anterior'>";
         $paginadorHtml .= "<span aria-hidden='true'>&raquo;</span>";
         $paginadorHtml .= "</a>";
         $paginadorHtml .= "</li>";
