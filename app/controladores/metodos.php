@@ -56,7 +56,10 @@ class metodos extends Controlador
         $this->htmlInputFormulario[] = Html::input('Metodo','nombre',4);
         $this->htmlInputFormulario[] = Html::input('Etiqueta','etiqueta',4);
         $this->htmlInputFormulario[] = Html::input('Icon','icono',4);
-        $this->htmlInputFormulario[] = Html::selectConBuscador('menus','Menu', 'menu_id', 4,$this->menuRegistros,'menus_nombre');
+        $this->htmlInputFormulario[] = Html::selectConBuscador('menus','Menu', 'menu_id', 3,$this->menuRegistros,'menus_nombre','-1',1);
+        $this->htmlInputFormulario[] = Html::selectActivo('Activo','activo',3,'-1',2);
+        $this->htmlInputFormulario[] = Html::selectActivo('Activo Accion','activo_accion',3,'-1',3);
+        $this->htmlInputFormulario[] = Html::selectActivo('Activo Menu','activo_menu',3,'-1',4);
 
         $this->htmlInputFormulario[] = Html::submit('Registrar',$this->llaveFormulario,4);
     }
