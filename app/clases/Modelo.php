@@ -98,24 +98,14 @@ class Modelo
         bool $noUsarRelaciones = false,
         array $nuevasRelaciones = []
     ): array {
-        $this->analizaRelaciones($noUsarRelaciones, $nuevasRelaciones);
         $filtros = [
             ['campo'=>$this->tabla.'.id', 'valor'=>$id, 'signoComparacion'=>'=', 'conectivaLogica' => '']
         ];
         try {
-            $consulta = $this->generaConsulta->select(
-                $this->tabla,
-                $columnas,
-                $filtros,
-                $limit,
-                $orderBy,
-                $this->relaciones
-            );
-            $resultado = $this->coneccion->ejecutaConsultaSelect($consulta, $filtros);
+            $resultado = $this->buscarConFiltros($filtros, $columnas, $orderBy, $limit, $noUsarRelaciones, $nuevasRelaciones);
         } catch(ErrorBase $e) {
             throw new ErrorBase($e->getMessage(),$e);
         }
-        $resultado = $this->eliminaColumnasProtegidas($resultado);
         return $resultado;
     }
 
@@ -152,21 +142,11 @@ class Modelo
         bool $noUsarRelaciones = false, 
         array $nuevasRelaciones = []
     ): array {
-        $this->analizaRelaciones($noUsarRelaciones, $nuevasRelaciones);
         try {
-            $consulta = $this->generaConsulta->select(
-                $this->tabla,
-                $columnas, 
-                [], 
-                $limit, 
-                $orderBy, 
-                $this->relaciones
-            );
-            $resultado = $this->coneccion->ejecutaConsultaSelect($consulta);
+            $resultado = $this->buscarConFiltros([], $columnas, $orderBy, $limit, $noUsarRelaciones, $nuevasRelaciones);
         } catch(ErrorBase $e) {
             throw new ErrorBase($e->getMessage(),$e);
         }
-        $resultado = $this->eliminaColumnasProtegidas($resultado);
         return $resultado;
     }
 
