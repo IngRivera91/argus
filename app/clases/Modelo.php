@@ -77,7 +77,7 @@ class Modelo
             $consulta = $this->generaConsulta->delete($this->tabla, $filtros);
             $resultado = $this->coneccion->ejecutaConsultaDelete($consulta, $filtros);
         } catch(ErrorBase $e) {
-            throw new ErrorBase($e->getMessage(),$e);
+            throw new ErrorBase('Error al elimnar registro con filtros',$e);
         }
         return $resultado;
     }
