@@ -14,6 +14,7 @@ class Controlador
     public int    $registrosPorPagina = 10;       // Numero de registros por pagina en la lista
     public bool   $breadcrumb = true;             // Define si se muestran o no los breadcrumb
     public bool   $usarFiltros = true;            // Variable que determina si se usan o no los filtros en la lista
+    public bool   $redireccionar = true;         // Variable para saber si redirecciona o no 
     public array  $camposFiltrosLista = [];       // Define los campos de los filtros
     public array  $camposLista;                   // Define los campo que se van a mostrar en la lista
     public array  $filtrosLista = [];             // Define los filtros que se deben aplicar para obtener los registros de las listas
@@ -40,42 +41,26 @@ class Controlador
 
     public function modificar()
     {
-        $registroId = $this->validaRegistoIdModificar();
+        $registroId = $this->validaRegistoId();
 
         try {
             $resultado = $this->modelo->buscarPorId($registroId);
         } catch (ErrorBase $e) {
             $error = new ErrorBase('Error al obtener datos de el registro a modificar',$e);
-            $error->muestraError();
-            exit;
+            if ($this->redireccionar) {
+                $error->muestraError();
+                exit;
+            }
+            throw $error;
         }
 
         $this->registro = $resultado['registros'][0];
 
     }
 
-    private function validaRegistoIdModificar():int
-    {
-        if (!isset($_GET['registro_id'])) {
-            $error = new ErrorEsperado('no se puede modificar un registro sin su id', $this->nombreMenu, 'lista');
-            $error->muestraError();
-            exit;
-        }
-
-        $registroId = (int) $_GET['registro_id'];
-
-        if (!$this->modelo->existeRegistroId($registroId)) {
-            $error = new ErrorEsperado('no se puede modificar un registro que no existe', $this->nombreMenu, 'lista');
-            $error->muestraError();
-            exit;
-        }
-
-        return $registroId;
-    }
-
     public function modificar_bd()
     {
-        $registroId = $this->validaRegistoIdModificar();
+        $registroId = $this->validaRegistoId();
 
         $datos = $_POST;
         $nombreLlaveFormulario = $this->llaveFormulario;
@@ -89,8 +74,11 @@ class Controlador
             $resultado = $this->modelo->actualizarPorId($registroId, $datos);
         } catch (ErrorBase $e) {
             $error = new ErrorBase('Error al modificar datos',$e);
-            $error->muestraError();
-            exit;
+            if ($this->redireccionar) {
+                $error->muestraError();
+                exit;
+            }
+            throw $error;
         }
 
         $url = Redireccion::obtener($this->nombreMenu,'lista',SESSION_ID,'registro modificado')."&pag={$this->obtenerNumeroPagina()}";
@@ -112,8 +100,11 @@ class Controlador
             $resultado = $this->modelo->registrar($datos);
         } catch (ErrorBase $e) {
             $error = new ErrorBase('Error al registrar datos',$e);
-            $error->muestraError();
-            exit;
+            if ($this->redireccionar) {
+                $error->muestraError();
+                exit;
+            }
+            throw $error;
         }
 
         Redireccion::enviar($this->nombreMenu,'lista',SESSION_ID,'registro exitoso');
@@ -121,20 +112,7 @@ class Controlador
 
     public function activar_bd(){
 
-        if (!isset($_GET['registro_id'])) {
-            $error = new ErrorEsperado('no se puede activar un registro sin su id', $this->nombreMenu, 'lista');
-            $error->muestraError();
-            exit;
-        }
-
-        $registroId = (int) $_GET['registro_id'];
-
-        if (!$this->modelo->existeRegistroId($registroId)) {
-            $error = new ErrorEsperado('no se puede activar un registro que no existe', $this->nombreMenu, 'lista');
-            $error->muestraError();
-            exit;
-        }
-
+        $registroId = $this->validaRegistoId();
 
         $datos["activo"] = 1;
 
@@ -142,8 +120,11 @@ class Controlador
             $resultado = $this->modelo->actualizarPorId($registroId, $datos);
         } catch (ErrorBase $e) {
             $error = new ErrorBase('Error al activar registro',$e);
-            $error->muestraError();
-            exit;
+            if ($this->redireccionar) {
+                $error->muestraError();
+                exit;
+            }
+            throw $error;
         }
 
         $url = Redireccion::obtener($this->nombreMenu,'lista',SESSION_ID)."&pag={$this->obtenerNumeroPagina()}";
@@ -153,19 +134,7 @@ class Controlador
 
     public function desactivar_bd(){
 
-        if (!isset($_GET['registro_id'])) {
-            $error = new ErrorEsperado('no se puede desactivar un registro sin su id', $this->nombreMenu, 'lista');
-            $error->muestraError();
-            exit;
-        }
-
-        $registroId = (int) $_GET['registro_id'];
-
-        if (!$this->modelo->existeRegistroId($registroId)) {
-            $error = new ErrorEsperado('no se puede desactivar un registro que no existe', $this->nombreMenu, 'lista');
-            $error->muestraError();
-            exit;
-        }
+        $registroId = $this->validaRegistoId();
 
         $datos["activo"] = 0;
 
@@ -173,8 +142,11 @@ class Controlador
             $resultado = $this->modelo->actualizarPorId($registroId, $datos);
         } catch (ErrorBase $e) {
             $error = new ErrorBase('Error al desactivar registro',$e);
-            $error->muestraError();
-            exit;
+            if ($this->redireccionar) {
+                $error->muestraError();
+                exit;
+            }
+            throw $error;
         }
 
         $url = Redireccion::obtener($this->nombreMenu,'lista',SESSION_ID)."&pag={$this->obtenerNumeroPagina()}";
@@ -185,19 +157,7 @@ class Controlador
 
     public function eliminar_bd()
     {
-        if (!isset($_GET['registro_id'])) {
-            $error = new ErrorEsperado('no se puede eliminar un registro sin su id', $this->nombreMenu, 'lista');
-            $error->muestraError();
-            exit;
-        }
-
-        $registroId = (int) $_GET['registro_id'];
-
-        if (!$this->modelo->existeRegistroId($registroId)) {
-            $error = new ErrorEsperado('no se puede eliminar un registro que no existe', $this->nombreMenu, 'lista');
-            $error->muestraError();
-            exit;
-        }
+        $registroId = $this->validaRegistoId();
 
         try {
             $resultado = $this->modelo->eliminarPorId($registroId);
@@ -210,8 +170,11 @@ class Controlador
                 exit;
             }
             $error = new ErrorBase('Error al eliminar registro',$e);
-            $error->muestraError();
-            exit;
+            if ($this->redireccionar) {
+                $error->muestraError();
+                exit;
+            }
+            throw $error;
         }
 
         $url = Redireccion::obtener($this->nombreMenu,'lista',SESSION_ID,'registro eliminado')."&pag={$this->obtenerNumeroPagina()}";
@@ -234,6 +197,31 @@ class Controlador
         }
         $resultado = $this->modelo->buscarConFiltros($this->filtrosLista, $columnas, $orderBy, $limit);
         $this->registros = $resultado['registros'];
+    }
+
+    private function validaRegistoId():int
+    {
+        if (!isset($_GET['registro_id'])) {
+            $error = new ErrorEsperado('no se puede realizar la accion sin un registro id', $this->nombreMenu, 'lista');
+            if ($this->redireccionar) {
+                $error->muestraError();
+                exit;
+            }
+            throw $error;
+        }
+
+        $registroId = (int) $_GET['registro_id'];
+
+        if (!$this->modelo->existeRegistroId($registroId)) {
+            $error = new ErrorEsperado('no se puede realizar la accion si el registro no existe', $this->nombreMenu, 'lista');
+            if ($this->redireccionar) {
+                $error->muestraError();
+                exit;
+            }
+            throw $error;
+        }
+
+        return $registroId;
     }
 
     private function analizaInputsFiltros()
