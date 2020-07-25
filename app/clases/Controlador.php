@@ -214,7 +214,7 @@ class Controlador
             exit;
         }
 
-        $url = Redireccion::obtener($this->nombreMenu,'lista',SESSION_ID)."&pag={$this->obtenerNumeroPagina()}";
+        $url = Redireccion::obtener($this->nombreMenu,'lista',SESSION_ID,'registro eliminado')."&pag={$this->obtenerNumeroPagina()}";
         header("Location: {$url}");
         exit;
     }
