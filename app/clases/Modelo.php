@@ -10,7 +10,6 @@ use Error\Esperado AS ErrorEsperado;
 
 class Modelo 
 {
-    private Validaciones $valida;
     private GeneraConsultas $generaConsulta;
     private string $tabla;
     private Database $coneccion;
