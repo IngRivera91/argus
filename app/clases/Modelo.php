@@ -83,10 +83,9 @@ class Modelo
     public function eliminarTodo():array
     {
         try {
-            $consulta = $this->generaConsulta->delete($this->tabla);
-            $resultado = $this->coneccion->ejecutaConsultaDelete($consulta);
+            $resultado = $this->eliminarConFiltros([]);
         } catch(ErrorBase $e) {
-            throw new ErrorBase($e->getMessage(),$e);
+            throw new ErrorBase('Error al elimnar todos los registros',$e);
         }
         return $resultado;
     }
