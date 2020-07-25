@@ -63,10 +63,9 @@ class Modelo
             ['campo'=>$this->tabla.'.id', 'valor'=>$id, 'signoComparacion'=>'=', 'conectivaLogica' => '']
         ];
         try {
-            $consulta = $this->generaConsulta->delete($this->tabla, $filtros);
-            $resultado = $this->coneccion->ejecutaConsultaDelete($consulta, $filtros);
+            $resultado = $this->eliminarConFiltros($filtros);
         } catch(ErrorBase $e) {
-            throw new ErrorBase($e->getMessage(),$e);
+            throw new ErrorBase('Error al eliminar registro con id',$e);
         }
         return $resultado;
     }
