@@ -196,6 +196,22 @@ class Modelo
         return $resultado;
     }
 
+    public function obtenerDatosConRegistroId(//sin prueba unitaria
+        int $id,
+        array $columnas = [],
+        array $orderBy = [],
+        string $limit = '',
+        bool $noUsarRelaciones = false,
+        array $nuevasRelaciones = []
+    ): array {
+        try {
+            $resultado = $this->buscarPorId($id, $columnas, $orderBy, $limit, $noUsarRelaciones, $nuevasRelaciones);
+        } catch(ErrorBase $e) {
+            throw new ErrorBase('Error al obtener datos con registro id',$e);
+        }
+        return $resultado['registros'][0];
+    }
+
     public function obtenerNumeroRegistros(array $filtros =[]):int
     {
         try {
