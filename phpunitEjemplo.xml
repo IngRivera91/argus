@@ -9,9 +9,10 @@
     <php>
         <includePath>.</includePath>
         <const name="DB_HOST" value="localhost"/>
-        <const name="DB_USER" value=""/>
+        <const name="DB_USER" value="root"/>
         <const name="DB_PASSWORD" value=""/>
         <const name="DB_NAME" value=""/>
-        <const name="DB_TIPO" value=""/>
+        <const name="DB_TIPO" value="MySQL"/>
+        <const name="SESSION_ID" value="1"/>
     </php>
 </phpunit>
