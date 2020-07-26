@@ -10,7 +10,6 @@ class Menu
 {
     public static function crear(
         Database $coneccion, 
-        GeneraConsultas $generaConsultas, 
         int $grupoId
     ): array {
         
@@ -18,7 +17,7 @@ class Menu
             return $_SESSION[SESSION_ID]['menuDefinido'];
         }
 
-        $modeloMetodosGrupos = new MetodosGrupos($coneccion,$generaConsultas);
+        $modeloMetodosGrupos = new MetodosGrupos($coneccion);
         
         $filtros = [
             ['campo' => "metodo_grupo.grupo_id", 'valor'=>$grupoId, 'signoComparacion'=>'=', 'conectivaLogica'=>''],

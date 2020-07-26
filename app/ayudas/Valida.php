@@ -76,12 +76,11 @@ class Valida
 
     public static function permiso(
         Database $coneccion, 
-        GeneraConsultas $generaConsultas,
         int $grupoId,
         string $controladorActual,
         string $metodoActual
     ): bool {
-        $modeloMetodosGrupos = new MetodosGrupos($coneccion,$generaConsultas);
+        $modeloMetodosGrupos = new MetodosGrupos($coneccion);
 
         $filtros = [
             ['campo' => "metodo_grupo.grupo_id",'valor'=>$grupoId,          'signoComparacion'=>'=', 'conectivaLogica'=>''],

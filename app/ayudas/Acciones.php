@@ -10,7 +10,6 @@ class Acciones
 {
     public static function crear(
         Database $coneccion, 
-        GeneraConsultas $generaConsultas, 
         int $grupoId,
         string $controladorActual
     ): array {
@@ -19,7 +18,7 @@ class Acciones
             return $_SESSION[SESSION_ID]["{$controladorActual}Acciones"];
         }
 
-        $modeloMetodosGrupos = new MetodosGrupos($coneccion,$generaConsultas);
+        $modeloMetodosGrupos = new MetodosGrupos($coneccion);
         
         $filtros = [
             ['campo' => "metodo_grupo.grupo_id", 'valor'=>$grupoId, 'signoComparacion'=>'=', 'conectivaLogica'=>''],
