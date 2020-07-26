@@ -13,10 +13,10 @@ class Autentificacion
 {
     private Modelo $usuarios;
     private Modelo $sessiones;
-    public function __construct(Database $coneccion, GeneraConsultas $generaConsulta)
+    public function __construct(Database $coneccion)
     {
-        $this->sessiones = new Sessiones($coneccion, $generaConsulta);
-        $this->usuarios = new Usuarios($coneccion, $generaConsulta);
+        $this->sessiones = new Sessiones($coneccion);
+        $this->usuarios = new Usuarios($coneccion);
     }
     
     public function defineConstantes(array $datos, string $sessionId):void
