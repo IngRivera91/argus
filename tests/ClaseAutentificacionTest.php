@@ -1,9 +1,13 @@
 <?php
 
+use Modelo\Grupos;
+use Modelo\Usuarios;
+use Modelo\Sessiones;
+use Modelo\MetodosGrupos;
 use Clase\Autentificacion;
 use Error\Base AS ErrorBase;
-use Error\Autentificacion AS ErrorAutentificacion;
 use PHPUnit\Framework\TestCase;
+use Error\Autentificacion AS ErrorAutentificacion;
 
 class ClaseAutentificacionTest extends TestCase
 {
@@ -29,13 +33,28 @@ class ClaseAutentificacionTest extends TestCase
     {
         $this->assertSame(1,1);
 
-        $password = md5('admin');
-        $coneccion->ejecutaConsultaDelete('DELETE FROM sessiones');
-        $coneccion->ejecutaConsultaDelete('DELETE FROM usuarios');
-        $coneccion->ejecutaConsultaDelete('DELETE FROM grupos');
-        $coneccion->ejecutaConsultaInsert("INSERT INTO grupos (id,nombre) VALUES (1,'programador')");
-        $coneccion->ejecutaConsultaInsert("INSERT INTO usuarios (id,usuario,password,grupo_id,activo) VALUES (1,'admin','$password',1,true)");
-        $coneccion->ejecutaConsultaInsert("INSERT INTO usuarios (id,usuario,password,grupo_id,activo) VALUES (2,'admin2','$password',1,false)");
+        $Sessiones =  new Sessiones($coneccion);
+        $Usuarios = new Usuarios($coneccion);
+        $MetodosGrupos = new MetodosGrupos($coneccion);
+        $Grupos = new Grupos($coneccion);
+
+        $Sessiones->eliminarTodo();
+        $Usuarios->eliminarTodo();
+        $MetodosGrupos->eliminarTodo();
+        $Grupos->eliminarTodo();
+        
+        $grupo = ['id' => GRUPO_ID, 'nombre' => 'programador'];
+        $Grupos->registrar($grupo);
+
+        $usuarios = [
+            ['id' => 1, 'usuario' => 'admin','correo_electronico' => 'admin@mail.com', 'password' => 'admin', 'grupo_id' => GRUPO_ID, 'activo' => 1],
+            ['id' => 2, 'usuario' => 'admin2','correo_electronico' => 'admin2@mail.com', 'password' => 'admin', 'grupo_id' => GRUPO_ID, 'activo' => 0]
+        ];
+
+        foreach ($usuarios as $usuario) {
+            $Usuarios->registrar($usuario);
+        }
+
         $autentificacion = new Autentificacion($coneccion);
         return $autentificacion;
     }
@@ -123,7 +142,7 @@ class ClaseAutentificacionTest extends TestCase
     {
         $resultado = $autentificacion->validaSessionId($sessionId);
         $this->assertIsArray($resultado);
-        $this->assertCount(22,$resultado);
+        $this->assertCount(25,$resultado);
         $this->assertArrayHasKey('usuarios_id',$resultado);
         $this->assertArrayHasKey('grupos_id',$resultado);
         $this->assertArrayHasKey('grupos_nombre',$resultado);
@@ -131,17 +150,5 @@ class ClaseAutentificacionTest extends TestCase
         $this->assertArrayHasKey('usuarios_sexo',$resultado);
         return $sessionId;
     }
-
-    /**
-     * @test
-     * @depends creaAutentificacion
-     * @depends validaSessionId
-     * @depends creaConeccion
-     */
-    public function logout($autentificacion, $sessionId, $coneccion)
-    {
-        $autentificacion->logout($sessionId);
-        $resultado = $coneccion->ejecutaConsultaSelect('SELECT id FROM sessiones');
-        $this->assertSame(0,$resultado['n_registros']);
-    }
+    
 }
