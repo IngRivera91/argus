@@ -1,18 +1,15 @@
 <?php
 
 use Ayuda\Menu; 
+use Modelo\Menus;
+use Modelo\Grupos;
+use Modelo\Metodos;
+use Modelo\MetodosGrupos;
 use PHPUnit\Framework\TestCase;
 
 class AyudaMenuTest extends TestCase
 {
-    public function eliminarDatos($coneccion)
-    {
-        $coneccion->ejecutaConsultaDelete('DELETE FROM metodo_grupo');
-        $coneccion->ejecutaConsultaDelete('DELETE FROM usuarios');
-        $coneccion->ejecutaConsultaDelete('DELETE FROM grupos');
-        $coneccion->ejecutaConsultaDelete('DELETE FROM metodos');
-        $coneccion->ejecutaConsultaDelete('DELETE FROM menus');
-    }
+    
     /**
      * @test
      */
@@ -20,44 +17,66 @@ class AyudaMenuTest extends TestCase
     {
         $claseDatabase = 'Clase\\'.DB_TIPO.'\\Database';
         $coneccion = new $claseDatabase();
-        
-        $grupoId = 1;
-        
-        $this->eliminarDatos($coneccion);
-        
-        $insertMenus = "INSERT INTO menus (id,nombre,etiqueta,icono,activo) VALUES";
-        $coneccion->ejecutaConsultaInsert("$insertMenus (1,'usuarios','USUARIOS','icono-usuarios',true) ");
-        $coneccion->ejecutaConsultaInsert("$insertMenus (2,'metodos','METODOS','icono-metodos',true) ");
-        
-        $insertMetodos = "INSERT INTO metodos (id,nombre,etiqueta,accion,icono,menu_id,activo_menu,activo_accion,activo) VALUES";
-        $coneccion->ejecutaConsultaInsert("$insertMetodos (1,'registrar','registrar','accion','icono',1,true,false,true)");
-        $coneccion->ejecutaConsultaInsert("$insertMetodos (2,'lista','lista','accion','icono',1,true,false,true)");
-        $coneccion->ejecutaConsultaInsert("$insertMetodos (3,'lista2','lista2','accion','icono',1,false,false,true)");
-        $coneccion->ejecutaConsultaInsert("$insertMetodos (4,'lista3','lista3','accion','icono',1,true,false,false)");
 
-        $coneccion->ejecutaConsultaInsert("$insertMetodos (5,'registrar','registrar','accion','icono',2,true,false,true)");
-        $coneccion->ejecutaConsultaInsert("$insertMetodos (6,'lista','lista','accion','icono',2,true,false,true)");
-        $coneccion->ejecutaConsultaInsert("$insertMetodos (7,'lista2','lista2','accion','icono',2,false,false,true)");
-        $coneccion->ejecutaConsultaInsert("$insertMetodos (8,'lista3','lista3','accion','icono',2,true,false,false)");
+        $Grupos = new Grupos($coneccion);
+        $Menus = new Menus($coneccion);
+        $Metodos = new Metodos($coneccion);
+        $MetodosGrupos = new MetodosGrupos($coneccion);
 
-        $coneccion->ejecutaConsultaInsert("INSERT INTO grupos (id,nombre,activo) VALUES (1,'administrador',true)");
+        $MetodosGrupos->eliminarTodo();
+        $Grupos->eliminarTodo();
+        $Metodos->eliminarTodo();
+        $Menus->eliminarTodo();
 
-        $insertMetodosGrupos = "INSERT INTO metodo_grupo (id,metodo_id,grupo_id,activo) VALUES";
-        $coneccion->ejecutaConsultaInsert("$insertMetodosGrupos (1,1,$grupoId,true)");
-        $coneccion->ejecutaConsultaInsert("$insertMetodosGrupos (2,2,$grupoId,true)");
-        $coneccion->ejecutaConsultaInsert("$insertMetodosGrupos (3,3,$grupoId,true)");
-        $coneccion->ejecutaConsultaInsert("$insertMetodosGrupos (4,4,$grupoId,true)");
-        $coneccion->ejecutaConsultaInsert("$insertMetodosGrupos (5,5,$grupoId,true)");
-        $coneccion->ejecutaConsultaInsert("$insertMetodosGrupos (6,6,$grupoId,true)");
-        $coneccion->ejecutaConsultaInsert("$insertMetodosGrupos (7,7,$grupoId,true)");
-        $coneccion->ejecutaConsultaInsert("$insertMetodosGrupos (8,8,$grupoId,true)");
+        // define menus
+        $menus = [
+            ['id'=> 1,'nombre'=>'usuarios','etiqueta'=>'USUARIOS','icono'=>'i-usuarios','activo'=>1],
+            ['id'=> 2,'nombre'=>'metodos','etiqueta'=>'METODOS','icono'=>'i-metodos','activo'=>1]
+        ];
+        // inserta menus
+        foreach ($menus as $menu) {
+            $Menus->registrar($menu);
+        }
 
-        $menu = Menu::crear($coneccion, $grupoId);
+        // defines metodos
+        $metodos = [
+            ['id'=>1, 'nombre'=>'registrar', 'etiqueta'=>'registrar', 'menu_id'=>1, 'activo_menu'=>1, 'activo_accion'=>0, 'activo'=>1],
+            ['id'=>2, 'nombre'=>'lista',     'etiqueta'=>'lista',     'menu_id'=>1, 'activo_menu'=>1, 'activo_accion'=>0, 'activo'=>1],
+            ['id'=>3, 'nombre'=>'lista2',    'etiqueta'=>'lista2',    'menu_id'=>1, 'activo_menu'=>0, 'activo_accion'=>0, 'activo'=>1],
+            ['id'=>4, 'nombre'=>'lista3',    'etiqueta'=>'lista3',    'menu_id'=>1, 'activo_menu'=>1, 'activo_accion'=>0, 'activo'=>0],
+            
+            ['id'=>5, 'nombre'=>'registrar', 'etiqueta'=>'registrar', 'menu_id'=>2, 'activo_menu'=>1, 'activo_accion'=>0, 'activo'=>1],
+            ['id'=>6, 'nombre'=>'lista',     'etiqueta'=>'lista',     'menu_id'=>2, 'activo_menu'=>1, 'activo_accion'=>0, 'activo'=>1],
+            ['id'=>7, 'nombre'=>'lista2',    'etiqueta'=>'lista2',    'menu_id'=>2, 'activo_menu'=>0, 'activo_accion'=>0, 'activo'=>1],
+            ['id'=>8, 'nombre'=>'lista3',    'etiqueta'=>'lista3',    'menu_id'=>2, 'activo_menu'=>1, 'activo_accion'=>0, 'activo'=>0]
+        ];
+        // inserta metodos
+        foreach ($metodos as $metodo) {
+            $Metodos->registrar($metodo);
+        }
+
+        //define grupos 
+        $grupos = [
+            ['id'=>GRUPO_ID, 'nombre' => 'adminstrador', 'activo' => 1]
+        ];
+
+        // inserta metodos
+        foreach ($grupos as $grupo) {
+            $Grupos->registrar($grupo);
+        }
+
+        // define e inserta MetodosGrupos 
+        for ($i = 1 ; $i < 9 ; $i++) {
+            $metodogrupo = ['id' => $i,'metodo_id'=> $i,'grupo_id' => GRUPO_ID, 'activo' => 1];
+
+            $MetodosGrupos->registrar($metodogrupo);
+        }
+
+        $menu = Menu::crear($coneccion, GRUPO_ID);
         $this->assertIsArray($menu);
         $this->assertCount(2,$menu);
         $this->assertSame('METODOS',$menu['METODOS'][2]);
         $this->assertSame('USUARIOS',$menu['USUARIOS'][2]);
 
-        $this->eliminarDatos($coneccion);
     }
 }
