@@ -304,7 +304,7 @@ class Controlador
 
         if ($numeroPagina > $numeroPaginas){
             if (!$this->redireccionar) {
-                throw new ErrorBase('la pagina solicitado no existe');
+                throw new ErrorBase('la pagina solicitada no existe');
             }
             Redireccion::enviar($this->nombreMenu,'lista',SESSION_ID,'');
             exit;
