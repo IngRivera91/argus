@@ -8,7 +8,7 @@ use Interfas\GeneraConsultas;
 
 class Menus extends Modelo
 {
-    public function __construct(Database $coneccion, GeneraConsultas $generaConsulta)
+    public function __construct(Database $coneccion)
     {
         $tabla = 'menus';
         $relaciones = []; 
@@ -17,6 +17,6 @@ class Menus extends Modelo
             'obligatorias' => ['nombre'],
             'protegidas' => []
         ];
-        parent::__construct($coneccion, $generaConsulta, $tabla, $relaciones, $columnas );
+        parent::__construct($coneccion, $tabla, $relaciones, $columnas);
     }
 }

@@ -8,7 +8,7 @@ use Interfas\GeneraConsultas;
 
 class MetodosGrupos extends Modelo
 {
-    public function __construct(Database $coneccion, GeneraConsultas $generaConsulta)
+    public function __construct(Database $coneccion)
     {
         $tabla = 'metodo_grupo';
         $relaciones = [
@@ -21,6 +21,6 @@ class MetodosGrupos extends Modelo
             'obligatorias' => ['grupo_id','metodo_id'],
             'protegidas' => []
         ];
-        parent::__construct($coneccion, $generaConsulta, $tabla, $relaciones, $columnas );
+        parent::__construct($coneccion, $tabla, $relaciones, $columnas);
     }
 }

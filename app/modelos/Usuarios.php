@@ -9,7 +9,7 @@ use Error\Autentificacion AS ErrorAutentificacion;
 
 class Usuarios extends Modelo
 {
-    public function __construct(Database $coneccion, GeneraConsultas $generaConsulta)
+    public function __construct(Database $coneccion)
     {
         $tabla = 'usuarios';
         $relaciones = [
@@ -20,7 +20,7 @@ class Usuarios extends Modelo
             'obligatorias' => ['usuario','password','correo_electronico','grupo_id'],
             'protegidas' => ['password']
         ];
-        parent::__construct($coneccion, $generaConsulta, $tabla, $relaciones, $columnas );
+        parent::__construct($coneccion, $tabla, $relaciones, $columnas);
     }
 
     public function registrar($datos):array
