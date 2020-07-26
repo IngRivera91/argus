@@ -73,7 +73,6 @@ if ($controladorActual != 'inicio'){
 
 }
 
-
 if (!file_exists('../app/controladores/'.$controladorActual.'.php')){
     Redireccion::enviar('inicio','index',SESSION_ID,"No existe el controlador:{$controladorActual}");
     exit;
