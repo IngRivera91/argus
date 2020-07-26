@@ -20,9 +20,6 @@ class AyudaMenuTest extends TestCase
     {
         $claseDatabase = 'Clase\\'.DB_TIPO.'\\Database';
         $coneccion = new $claseDatabase();
-
-        $claseGeneraConsultas = 'Clase\\'.DB_TIPO.'\\GeneraConsultas';
-        $generaConsultas = new $claseGeneraConsultas($coneccion);
         
         $grupoId = 1;
         
@@ -55,7 +52,7 @@ class AyudaMenuTest extends TestCase
         $coneccion->ejecutaConsultaInsert("$insertMetodosGrupos (7,7,$grupoId,true)");
         $coneccion->ejecutaConsultaInsert("$insertMetodosGrupos (8,8,$grupoId,true)");
 
-        $menu = Menu::crear($coneccion, $generaConsultas, $grupoId);
+        $menu = Menu::crear($coneccion, $grupoId);
         $this->assertIsArray($menu);
         $this->assertCount(2,$menu);
         $this->assertSame('METODOS',$menu['METODOS'][2]);

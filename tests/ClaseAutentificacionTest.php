@@ -29,9 +29,6 @@ class ClaseAutentificacionTest extends TestCase
     {
         $this->assertSame(1,1);
 
-        $claseGeneraConsultas = 'Clase\\'.DB_TIPO.'\\GeneraConsultas';
-        $generaConsultas = new $claseGeneraConsultas($coneccion);
-
         $password = md5('admin');
         $coneccion->ejecutaConsultaDelete('DELETE FROM sessiones');
         $coneccion->ejecutaConsultaDelete('DELETE FROM usuarios');
@@ -39,7 +36,7 @@ class ClaseAutentificacionTest extends TestCase
         $coneccion->ejecutaConsultaInsert("INSERT INTO grupos (id,nombre) VALUES (1,'programador')");
         $coneccion->ejecutaConsultaInsert("INSERT INTO usuarios (id,usuario,password,grupo_id,activo) VALUES (1,'admin','$password',1,true)");
         $coneccion->ejecutaConsultaInsert("INSERT INTO usuarios (id,usuario,password,grupo_id,activo) VALUES (2,'admin2','$password',1,false)");
-        $autentificacion = new Autentificacion($coneccion, $generaConsultas);
+        $autentificacion = new Autentificacion($coneccion);
         return $autentificacion;
     }
 
