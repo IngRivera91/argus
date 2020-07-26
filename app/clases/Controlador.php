@@ -14,7 +14,7 @@ class Controlador
     public int    $registrosPorPagina = 10;       // Numero de registros por pagina en la lista
     public bool   $breadcrumb = true;             // Define si se muestran o no los breadcrumb
     public bool   $usarFiltros = true;            // Variable que determina si se usan o no los filtros en la lista
-    public bool   $redireccionar = true;         // Variable para saber si redirecciona o no 
+    public bool   $redireccionar = true;          // Variable para saber si redirecciona o no 
     public array  $camposFiltrosLista = [];       // Define los campos de los filtros
     public array  $camposLista;                   // Define los campo que se van a mostrar en la lista
     public array  $filtrosLista = [];             // Define los filtros que se deben aplicar para obtener los registros de las listas
