@@ -18,20 +18,15 @@ $controladorActual = $_GET['controlador'];
 $metodoActual = $_GET['metodo'];
 
 try {
-
     $claseDatabase = 'Clase\\'.DB_TIPO.'\\Database';
     $coneccion = new $claseDatabase();
-
-    $claseGeneraConsultas = 'Clase\\'.DB_TIPO.'\\GeneraConsultas';
-    $generaConsultas = new $claseGeneraConsultas($coneccion);
-
 }catch (ErrorBase $e) {
     $error = new ErrorBase('Error al conectarce a la base de datos',$e);
     $error->muestraError();
     exit;
 }
 
-$autentificacion = new Autentificacion($coneccion,$generaConsultas);
+$autentificacion = new Autentificacion($coneccion);
 
 if ($controladorActual === 'session' && $metodoActual === 'login'){
     try{
@@ -71,7 +66,7 @@ $autentificacion->defineConstantes($datos,$sessionId);
 
 if ($controladorActual != 'inicio'){
 
-    if (!Valida::permiso($coneccion, $generaConsultas, GRUPO_ID, $controladorActual, $metodoActual)) {
+    if (!Valida::permiso($coneccion, GRUPO_ID, $controladorActual, $metodoActual)) {
         Redireccion::enviar('inicio','index',SESSION_ID,"No tienes permisos para acceder al metodo:{$metodoActual} del controlador:{$controladorActual}");
         exit;
     }
@@ -85,7 +80,7 @@ if (!file_exists('../app/controladores/'.$controladorActual.'.php')){
 }
 
 $controladorNombre = 'Controlador\\'.$controladorActual;
-$controlador = new $controladorNombre($coneccion, $generaConsultas);
+$controlador = new $controladorNombre($coneccion);
 
 if (!method_exists($controlador,$metodoActual)){
     Redireccion::enviar('inicio','index',SESSION_ID,"No existe el metodo:{$metodoActual} del controlador:{$controladorActual}");
@@ -123,7 +118,7 @@ if ($rutaVista == '') {
 }
 
 # El menu se carga hasta el final
-$menu_navegacion = Ayuda\Menu::crear($coneccion,$generaConsultas,GRUPO_ID);
+$menu_navegacion = Ayuda\Menu::crear($coneccion,GRUPO_ID);
 
 ?>
 <?php require_once __DIR__.'/../recursos/html/head.php'; ?>
