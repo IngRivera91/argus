@@ -14,5 +14,6 @@
         <const name="DB_NAME" value=""/>
         <const name="DB_TIPO" value="MySQL"/>
         <const name="SESSION_ID" value="1"/>
+        <const name="GRUPO_ID" value="1"/>
     </php>
 </phpunit>
