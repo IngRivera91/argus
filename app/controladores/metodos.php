@@ -14,10 +14,10 @@ class metodos extends Controlador
 {
     private array $menuRegistros;
 
-    public function __construct(Database $coneccion, GeneraConsultas $generaConsulta)
+    public function __construct(Database $coneccion)
     {
-        $modelo = new ModeloMetodos($coneccion,$generaConsulta);
-        $modeloMenus = new ModeloMenus($coneccion,$generaConsulta);
+        $modelo = new ModeloMetodos($coneccion);
+        $modeloMenus = new ModeloMenus($coneccion);
 
         try {
             $columas = ['menus_id','menus_nombre'];

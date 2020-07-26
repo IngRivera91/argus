@@ -10,9 +10,9 @@ use Modelo\Menus AS ModeloMenus;
 
 class menus extends Controlador
 {
-    public function __construct(Database $coneccion, GeneraConsultas $generaConsulta)
+    public function __construct(Database $coneccion)
     {
-        $modelo = new ModeloMenus($coneccion,$generaConsulta);
+        $modelo = new ModeloMenus($coneccion);
         $nombreMenu = 'menus';
         $this->breadcrumb = false;
 
