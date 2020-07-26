@@ -65,7 +65,11 @@ class Controlador
         $datos = $_POST;
         $nombreLlaveFormulario = $this->llaveFormulario;
         if (!isset($datos[$nombreLlaveFormulario])) {
-            Redireccion::enviar($this->nombreMenu,'lista',SESSION_ID);
+            $mensaje = 'llave no valida';
+            if (!$this->redireccionar) {
+                return $mensaje;
+            }
+            Redireccion::enviar($this->nombreMenu,'lista',SESSION_ID,$mensaje);
         }
 
         unset($datos[$nombreLlaveFormulario]);
@@ -81,6 +85,10 @@ class Controlador
             throw $error;
         }
 
+        $mensaje = 'registro modificado';
+        if (!$this->redireccionar) {
+            return $mensaje;
+        }
         $url = Redireccion::obtener($this->nombreMenu,'lista',SESSION_ID,'registro modificado')."&pag={$this->obtenerNumeroPagina()}";
         header("Location: {$url}");
         exit;   
@@ -91,6 +99,10 @@ class Controlador
         $datos = $_POST;
         $nombreLlaveFormulario = $this->llaveFormulario;
         if (!isset($datos[$nombreLlaveFormulario])) {
+            $mensaje = 'llave no valida';
+            if (!$this->redireccionar) {
+                return $mensaje;
+            }
             Redireccion::enviar($this->nombreMenu,'registrar',SESSION_ID);
         }
         
@@ -106,8 +118,12 @@ class Controlador
             }
             throw $error;
         }
-
-        Redireccion::enviar($this->nombreMenu,'lista',SESSION_ID,'registro exitoso');
+        
+        $mensaje = 'datos registrados';
+        if (!$this->redireccionar) {
+            return $mensaje;
+        }
+        Redireccion::enviar($this->nombreMenu,'lista',SESSION_ID,$mensaje);
     }
 
     public function activar_bd(){
@@ -127,7 +143,11 @@ class Controlador
             throw $error;
         }
 
-        $url = Redireccion::obtener($this->nombreMenu,'lista',SESSION_ID)."&pag={$this->obtenerNumeroPagina()}";
+        $mensaje = 'registro activado';
+        if (!$this->redireccionar) {
+            return $mensaje;
+        }
+        $url = Redireccion::obtener($this->nombreMenu,'lista',SESSION_ID,$mensaje)."&pag={$this->obtenerNumeroPagina()}";
         header("Location: {$url}");
         exit;   
     }
@@ -149,7 +169,11 @@ class Controlador
             throw $error;
         }
 
-        $url = Redireccion::obtener($this->nombreMenu,'lista',SESSION_ID)."&pag={$this->obtenerNumeroPagina()}";
+        $mensaje = 'registro desactivado';
+        if (!$this->redireccionar) {
+            return $mensaje;
+        }
+        $url = Redireccion::obtener($this->nombreMenu,'lista',SESSION_ID,$mensaje)."&pag={$this->obtenerNumeroPagina()}";
         header("Location: {$url}");
         exit;
         
@@ -165,6 +189,9 @@ class Controlador
             $codigoError = $e->getCode();
             if ($codigoError == 23000) {
                 $mensaje = 'No se puede eliminar un registro que esta relacionado';
+                if (!$this->redireccionar) {
+                    return $mensaje;
+                }
                 $url = Redireccion::obtener($this->nombreMenu,'lista',SESSION_ID,$mensaje)."&pag={$this->obtenerNumeroPagina()}";
                 header("Location: {$url}");
                 exit;
@@ -177,7 +204,11 @@ class Controlador
             throw $error;
         }
 
-        $url = Redireccion::obtener($this->nombreMenu,'lista',SESSION_ID,'registro eliminado')."&pag={$this->obtenerNumeroPagina()}";
+        $mensaje = 'registro eliminado';
+        if (!$this->redireccionar) {
+            return $mensaje;
+        }
+        $url = Redireccion::obtener($this->nombreMenu,'lista',SESSION_ID,$mensaje)."&pag={$this->obtenerNumeroPagina()}";
         header("Location: {$url}");
         exit;
     }
@@ -272,6 +303,9 @@ class Controlador
         $numeroPagina = (int)$this->obtenerNumeroPagina();
 
         if ($numeroPagina > $numeroPaginas){
+            if (!$this->redireccionar) {
+                throw new ErrorBase('la pagina solicitado no existe');
+            }
             Redireccion::enviar($this->nombreMenu,'lista',SESSION_ID,'');
             exit;
         }
