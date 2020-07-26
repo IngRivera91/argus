@@ -8,14 +8,12 @@ use Interfas\GeneraConsultas;
 class inicio
 {
     private Database $coneccion;
-    private GeneraConsultas $generaConsulta;
 
     public bool $breadcrumb = false;
         
-    public function __construct(Database $coneccion, GeneraConsultas $generaConsulta)
+    public function __construct(Database $coneccion)
     {
         $this->coneccion = $coneccion;
-        $this->generaConsulta = $generaConsulta;
     }
 
     public function index()
