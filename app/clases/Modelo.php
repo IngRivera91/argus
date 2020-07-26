@@ -21,7 +21,8 @@ class Modelo
 
     public function __construct(Database $coneccion, GeneraConsultas $generaConsulta, string $tabla, array $relaciones, array $columnas)
     {
-        $this->generaConsulta = $generaConsulta;
+        $claseGeneraConsultas = '\\Clase\\'.DB_TIPO.'\\GeneraConsultas';
+        $this->generaConsulta = new $claseGeneraConsultas($coneccion);
         $this->coneccion = $coneccion;
         $this->tabla = $tabla;
         $this->relaciones = $relaciones;
