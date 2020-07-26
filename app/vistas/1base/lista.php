@@ -7,7 +7,7 @@ use Ayuda\Redireccion;
 $registros = $controlador->registros;
 $inputs = $controlador->htmlInputFiltros;
 $nombreMenu = $controlador->nombreMenu;
-$acciones = Acciones::crear($coneccion, $generaConsultas, GRUPO_ID, $controladorActual);
+$acciones = Acciones::crear($coneccion, GRUPO_ID, $controladorActual);
 
 ?>
 <br>
