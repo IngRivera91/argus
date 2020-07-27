@@ -5,7 +5,7 @@
     <img src="img/AdminLTELogo.png"
         class="brand-image img-circle elevation-3"
         style="opacity: .8">
-    <span class="brand-text font-weight-light" <?php echo COLORBASE; ?>><b><?= NOMBRE_PROYECTO ?></b></span>
+    <span class="brand-text font-weight-light" ><b><?= NOMBRE_PROYECTO ?></b></span>
   </a>
 
   
@@ -22,7 +22,7 @@
         <img src="img/avatar<?=$numero?>.png" class="img-circle elevation-2" alt="User Image">
       </div>
       <div class="info">
-        <a class="d-block" <?php echo COLORBASE; ?>><?= NOMBRE_USUARIO ?></a>
+        <a class="d-block" ><?= NOMBRE_USUARIO ?></a>
       </div>
     </div>
 
@@ -43,7 +43,7 @@
           echo $imprime;
         ?>
           <a href="#" class="nav-link">
-            <i class="nav-icon <?php echo $menuIcono; ?>" <?php echo COLORBASE; ?>></i>
+            <i class="nav-icon <?php echo $menuIcono; ?>" ></i>
             <p>
               <?php echo $menuEtiqueta; ?>
               <i class="right fas fa-angle-left"></i>
@@ -65,7 +65,7 @@
                 ?>
                 <li class="nav-item">
                   <a href="<?php echo Redireccion::obtener($menuControlador,$metodoMenu,SESSION_ID);?>" class="nav-link">
-                    <i class="fa<?php echo $letra ?> fa-circle nav-icon" <?php echo COLORBASE; ?>></i>
+                    <i class="fa<?php echo $letra ?> fa-circle nav-icon" ></i>
                     <p><?php echo $metodoEtiqueta; ?></p>
                   </a>
                 </li>
