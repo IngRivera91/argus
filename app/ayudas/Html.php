@@ -157,7 +157,7 @@ class Html
         }
         $submitHtml .= "<div class=col-md-$col>";
         $submitHtml .= "<div class='form-group'>";
-        $submitHtml .= "<button type='submit' name='$name' class='btn btn-block btn-" . COLORBASE_BOOTSTRAP . " btn-flat btn-sm'>$label</button>";
+        $submitHtml .= "<button type='submit' name='$name' class='btn btn-default btn-argus btn-block  btn-flat btn-sm'>$label</button>";
         $submitHtml .= "</div>";
         $submitHtml .= "</div>";
 
@@ -216,7 +216,7 @@ class Html
         }
         $linkBotonHtml .= "<div class=col-md-$col>";
         $linkBotonHtml .= "<div class='form-group'>";
-        $linkBotonHtml .= "<a class='btn  btn-block btn-" . COLORBASE_BOOTSTRAP . " btn-flat btn-sm' href='$urlDestino'>$label</a>";
+        $linkBotonHtml .= "<a class='btn btn-default btn-argus btn-block  btn-flat btn-sm' href='$urlDestino'>$label</a>";
         $linkBotonHtml .= "</div>";
         $linkBotonHtml .= "</div>";
 
