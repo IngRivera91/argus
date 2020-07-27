@@ -10,20 +10,28 @@ class Base extends Exception
 
     private string $consultaSQL;
     private array $errorInformacion;
+    private string $codigo;
 
-    public function __construct(string $mensaje = '' , Base $errorAnterior = null , int $code = 0 , string $consultaSQL = '' ) 
+    public function __construct(string $mensaje = '' , Base $errorAnterior = null , string $codigo = '' , string $consultaSQL = '' ) 
     {
+
         if (!is_null($errorAnterior)) {
-            $code = $errorAnterior->getCode();
+            $codigo = $errorAnterior->obtenCodigo();
             $consultaSQL = $errorAnterior->obtenConsultaSQL();
         }
+        $this->codigo = $codigo;
         $this->consultaSQL = $consultaSQL;
-        parent::__construct($mensaje, $code ,$errorAnterior);
+        parent::__construct($mensaje, 0 ,$errorAnterior);
     }
 
     public function obtenConsultaSQL()
     {
         return $this->consultaSQL;
+    }
+
+    public function obtenCodigo()
+    {
+        return $this->codigo;
     }
 
     public function muestraError(bool $esRecursivo = false)
