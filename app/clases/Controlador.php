@@ -186,7 +186,7 @@ class Controlador
         try {
             $resultado = $this->modelo->eliminarPorId($registroId);
         } catch (ErrorBase $e) {
-            $codigoError = $e->getCode();
+            $codigoError = $e->obtenCodigo();
             if ($codigoError == REGISTRO_RELACIONADO) {
                 $mensaje = 'No se puede eliminar un registro que esta relacionado';
                 if (!$this->redireccionar) {
