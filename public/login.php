@@ -13,7 +13,7 @@
     <br>
     <div class="row">
       <div class="col-md-12">
-          <div class="alert alert-info alert-dismissible fade show" role="alert">
+          <div class="alert alert-default alert-argus alert-dismissible fade show" role="alert">
               <strong><?php echo $_GET['mensaje']; ?></strong>.
               <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
