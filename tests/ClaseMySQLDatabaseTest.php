@@ -50,7 +50,7 @@ class ClaseMySQLDatabaseTest extends TestCase
             $error = $e;
         }
         $this->assertInstanceOf(ErrorBase::class, $error);
-        $this->assertEquals($error->getCode(),42000);
+        $this->assertEquals($error->obtenCodigo(),42000);
 
         $resultado = $coneccion->ejecutaConsultaDelete("DELETE FROM $tabla");
         $this->assertCount(1,$resultado);
@@ -72,7 +72,7 @@ class ClaseMySQLDatabaseTest extends TestCase
             $error = $e;
         }
         $this->assertInstanceOf(ErrorBase::class, $error);
-        $this->assertEquals($error->getCode(),42000);
+        $this->assertEquals($error->obtenCodigo(),42000);
         
         $resultado = $coneccion->ejecutaConsultaInsert("$consulta_base ",$datos);
         $this->assertCount(2,$resultado);
@@ -86,7 +86,7 @@ class ClaseMySQLDatabaseTest extends TestCase
             $error = $e;
         }
         $this->assertInstanceOf(ErrorBase::class, $error);
-        $this->assertEquals($error->getCode(),23000);
+        $this->assertEquals($error->obtenCodigo(),23000);
 
         return $datos;
         
@@ -113,7 +113,7 @@ class ClaseMySQLDatabaseTest extends TestCase
             $error = $e;
         }
         $this->assertInstanceOf(ErrorBase::class, $error);
-        $this->assertEquals($error->getCode(),42000);
+        $this->assertEquals($error->obtenCodigo(),42000);
 
         $datos['password'] = 'asd123';
 
@@ -145,7 +145,7 @@ class ClaseMySQLDatabaseTest extends TestCase
             $error = $e;
         }
         $this->assertInstanceOf(ErrorBase::class, $error);
-        $this->assertEquals($error->getCode(),42000);
+        $this->assertEquals($error->obtenCodigo(),42000);
 
         $resultado = $coneccion->ejecutaConsultaSelect("$consulta_base",$filtros);
         $this->assertCount(2,$resultado);
