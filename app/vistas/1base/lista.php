@@ -44,10 +44,10 @@ $acciones = Acciones::crear($coneccion, GRUPO_ID, $controladorActual);
                 <?php 
                     $id = $registro["{$nombreMenu}_id"]; 
                     $registroActivo = $registro["{$nombreMenu}_activo"];
-                    $styleRegistros = '';
+                    $claseRegistroInactivo = '';
 
                     if (!$registroActivo) {
-                        $styleRegistros = STYLE_REGISTRO_INACTIVO; 
+                        $claseRegistroInactivo = 'registro-inactivo'; 
                     }
 
                     $respaldoAcciones = $acciones;
@@ -60,7 +60,7 @@ $acciones = Acciones::crear($coneccion, GRUPO_ID, $controladorActual);
                         unset($acciones['desactivar_bd']);
                     } 
                 ?>
-                <tr <?= $styleRegistros; ?> >
+                <tr class='<?= $claseRegistroInactivo; ?>' >
 
                     <?php foreach ($controlador->camposLista as $label => $campo): ?>
                         <?php
