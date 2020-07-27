@@ -34,7 +34,7 @@
           <input name="usuario" type="text" class="form-control" placeholder="Usuario" require>
           <div class="input-group-append">
             <div class="input-group-text">
-              <span class="fas fa-user"></span>
+              <span class="fas fa-user icono"></span>
             </div>
           </div>
         </div>
@@ -42,7 +42,7 @@
           <input name="password" type="password" class="form-control" placeholder="Contraseña" require>
           <div class="input-group-append">
             <div class="input-group-text">
-              <span class="fas fa-lock"></span>
+              <span class="fas fa-lock icono"></span>
             </div>
           </div>
         </div>
@@ -52,7 +52,7 @@
           </div>
           <!-- /.col -->
           <div class="col-4">
-            <button type="submit" class="btn btn-default btn-block">Entrar</button>
+            <button type="submit" class="btn btn-default btn-argus btn-block">Entrar</button>
           </div>
           <!-- /.col -->
         </div>
