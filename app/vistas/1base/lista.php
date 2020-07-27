@@ -88,7 +88,7 @@ $acciones = Acciones::crear($coneccion, GRUPO_ID, $controladorActual);
                                     $accionString =  $accion['metodos_accion'];
                                     $icono =  $accion['metodos_icono'];
                                 ?>
-                                <a <?= COLORBASE; ?> title="<?= $accionString ?>" href="<?= $url; ?>">
+                                <a title="<?= $accionString ?>" href="<?= $url; ?>">
                                     <i class="<?= $icono ?>"></i>
                                 </a>
                         <?php endforeach; ?>
