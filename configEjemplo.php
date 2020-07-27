@@ -31,3 +31,6 @@
 	define('PROGRAMADOR_NOMBRE','Ricardo');
 	define('PROGRAMADOR_EMAIL','mail@mail.com');
 	define('PROGRAMADOR_SEXO','m');
+
+	// codigos de error SQL
+	define('REGISTRO_RELACIONADO', '23000');
