@@ -7,7 +7,7 @@
         <!-- Left navbar links -->
         <ul class="navbar-nav">
         <li class="nav-item">
-            <a <?php echo COLORBASE; ?> class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         </ul>
 
@@ -15,7 +15,7 @@
         <ul class="navbar-nav ml-auto">
         <!-- Messages Dropdown Menu -->
         <li class="nav-item" >
-            <a <?php echo COLORBASE; ?> href="<?php echo Redireccion::obtener('session','logout',SESSION_ID); ?>" >Salir <i class="fas fa-power-off"></i></a>
+            <a href="<?php echo Redireccion::obtener('session','logout',SESSION_ID); ?>" >Salir <i class="fas fa-power-off"></i></a>
         </li>
         </ul>
     </nav>
