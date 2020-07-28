@@ -184,7 +184,9 @@ class Modelo
         if (isset(get_defined_constants(true)['user']['USUARIO_ID'])) {
             $datos['usuario_registro_id'] = USUARIO_ID;
             $datos['usuario_actualizacion_id'] = USUARIO_ID;
-            $datos['activo'] = true;
+            if (!isset($datos['activo'])) {
+                $datos['activo'] = true;
+            }
         }
               
         try {
