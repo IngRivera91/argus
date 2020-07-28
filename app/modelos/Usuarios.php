@@ -39,7 +39,7 @@ class Usuarios extends Modelo
 
         $resultado = parent::buscarConFiltros($filtros); 
 
-        if ( $resultado['n_registros'] !== 1){
+        if ( $resultado['numeroRegistros'] !== 1){
             throw new ErrorAutentificacion('usuario o contraseña incorrecto');
         }
         
