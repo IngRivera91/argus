@@ -121,7 +121,7 @@ class Html
         $selectHtml .= "<div class=col-md-$col>";
         $selectHtml .= "<div class='form-group'>";
         $selectHtml .= "<label>$label</label>";
-        $selectHtml .= "<select $required name='$name' class='form-control select2 select2-hidden-accessible' multiple='' data-placeholder='$label' style='width: 100%;' data-select2-id='$select2Id' tabindex='-1' aria-hidden='true'>";
+        $selectHtml .= "<select $required name='$name' class='form-control select2 select2-hidden-accessible' multiple='' data-placeholder='$label'  data-select2-id='$select2Id' tabindex='-1' aria-hidden='true'>";
 
         $selectHtml .= self::generaSelectOptions($nombreTabla, $registros, $elementos, $value, $chart);
         $selectHtml .= self::generaFinalSelects($saltarLinea);
@@ -223,7 +223,4 @@ class Html
         return $linkBotonHtml;
     }
 
-    public static function hr(){
-        return '<hr style="border: 0;border-top: 1px solid #999;height:0;">';
-    }
 }
