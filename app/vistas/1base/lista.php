@@ -51,11 +51,11 @@ $acciones = Acciones::crear($coneccion, GRUPO_ID, $controladorActual);
                     $respaldoAcciones = $acciones;
 
                     if ($registroActivo) {
-                        unset($acciones['activar_bd']);
+                        unset($acciones['activarBd']);
                     }
 
                     if (!$registroActivo) {
-                        unset($acciones['desactivar_bd']);
+                        unset($acciones['desactivarBd']);
                     } 
                 ?>
                 <tr class='<?= $claseRegistroInactivo; ?>' >

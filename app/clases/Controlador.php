@@ -58,7 +58,7 @@ class Controlador
 
     }
 
-    public function modificar_bd()
+    public function modificarBd()
     {
         $registroId = $this->validaRegistoId();
 
@@ -94,7 +94,7 @@ class Controlador
         exit;   
     }
 
-    public function registrar_bd()
+    public function registrarBd()
     {
         $datos = $_POST;
         $nombreLlaveFormulario = $this->llaveFormulario;
@@ -126,7 +126,7 @@ class Controlador
         Redireccion::enviar($this->nombreMenu,'lista',SESSION_ID,$mensaje);
     }
 
-    public function activar_bd(){
+    public function activarBd(){
 
         $registroId = $this->validaRegistoId();
 
@@ -152,7 +152,7 @@ class Controlador
         exit;   
     }
 
-    public function desactivar_bd(){
+    public function desactivarBd(){
 
         $registroId = $this->validaRegistoId();
 
@@ -179,7 +179,7 @@ class Controlador
         
     }
 
-    public function eliminar_bd()
+    public function eliminarBd()
     {
         $registroId = $this->validaRegistoId();
 
