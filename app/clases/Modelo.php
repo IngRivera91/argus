@@ -160,7 +160,7 @@ class Modelo
 
         $resultado = $this->buscarPorId($id, $columnas, $orderBy, $limit, $noUsarRelaciones);
         
-        if ($resultado['n_registros'] === 1) {
+        if ($resultado['numeroRegistros'] === 1) {
             return true;
         }
 
@@ -227,7 +227,7 @@ class Modelo
         } catch(ErrorBase $e) {
             throw new ErrorBase($e->getMessage(),$e);
         }
-        return ( int ) $resultado['n_registros'];
+        return ( int ) $resultado['numeroRegistros'];
     }
 
     private function eliminaColumnasProtegidas(array $resultado):array
@@ -259,7 +259,7 @@ class Modelo
                 } catch(ErrorBase $e) {
                     throw new ErrorBase($e->getMessage(),$e);
                 } 
-                if ($resultado['n_registros'] != 0) {
+                if ($resultado['numeroRegistros'] != 0) {
                     throw new ErrorEsperado($nombreColumnaunica.':'.$datos[$columnaUnica].' ya registrad@');
                 }
             }  
