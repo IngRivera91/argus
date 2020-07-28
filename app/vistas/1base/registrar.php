@@ -17,4 +17,3 @@ $inputs = $controlador->htmlInputFormulario;
         ?>
     </div>
 </form>
-<?php echo Html::hr(); ?>

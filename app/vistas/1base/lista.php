@@ -21,8 +21,6 @@ $acciones = Acciones::crear($coneccion, GRUPO_ID, $controladorActual);
     </div>
 </form>
 
-<?php if ($controlador->usarFiltros) { echo Html::hr(); } ?>
-
 <div class="table-responsive argus-lista">
     <table class="table table-hover">
 

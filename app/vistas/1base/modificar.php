@@ -18,4 +18,3 @@ $pagina = "&pag={$controlador->obtenerNumeroPagina()}";
         ?>
     </div>
 </form>
-<?php echo Html::hr(); ?>
