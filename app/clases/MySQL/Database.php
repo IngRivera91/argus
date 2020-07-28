@@ -110,7 +110,7 @@ class Database implements DatabaseInterface
             $this->stmt->execute();
             $n_registros = $this->stmt->rowCount();
             $resultado = $this->stmt->fetchAll(PDO::FETCH_ASSOC);
-            return [ 'registros' => $resultado , 'NumeroRegistros' => (int) $n_registros ];
+            return [ 'registros' => $resultado , 'numeroRegistros' => (int) $n_registros ];
         } 
         catch (PDOException $e)
         {
