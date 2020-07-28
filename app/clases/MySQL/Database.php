@@ -91,8 +91,8 @@ class Database implements DatabaseInterface
         try 
         {
             $this->stmt->execute();
-            $registro_id = (int) $this->dbh->lastInsertId();
-            return ['mensaje' => 'datos registrados','registroId' =>$registro_id];
+            $registroId = (int) $this->dbh->lastInsertId();
+            return ['mensaje' => 'datos registrados','registroId' =>$registroId];
         } 
         catch (PDOException $e)
         {
@@ -108,9 +108,9 @@ class Database implements DatabaseInterface
         try 
         {
             $this->stmt->execute();
-            $n_registros = $this->stmt->rowCount();
+            $numeroRegistros = $this->stmt->rowCount();
             $resultado = $this->stmt->fetchAll(PDO::FETCH_ASSOC);
-            return [ 'registros' => $resultado , 'numeroRegistros' => (int) $n_registros ];
+            return [ 'registros' => $resultado , 'numeroRegistros' => (int) $numeroRegistros ];
         } 
         catch (PDOException $e)
         {

@@ -232,7 +232,7 @@ class Controlador
 
     private function validaRegistoId():int
     {
-        if (!isset($_GET['registro_id'])) {
+        if (!isset($_GET['registroId'])) {
             $error = new ErrorEsperado('no se puede realizar la accion sin un registro id', $this->nombreMenu, 'lista');
             if ($this->redireccionar) {
                 $error->muestraError();
@@ -241,7 +241,7 @@ class Controlador
             throw $error;
         }
 
-        $registroId = (int) $_GET['registro_id'];
+        $registroId = (int) $_GET['registroId'];
 
         if (!$this->modelo->existeRegistroId($registroId)) {
             $error = new ErrorEsperado('no se puede realizar la accion si el registro no existe', $this->nombreMenu, 'lista');

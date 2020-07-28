@@ -39,7 +39,7 @@ class Acciones
 
         $resultado = $modeloMetodosGrupos->buscarConFiltros($filtros, $columnas, $orderBy);
 
-        if ($resultado['n_registros'] === 0){
+        if ($resultado['numeroRegistros'] === 0){
             return [];
         }
 

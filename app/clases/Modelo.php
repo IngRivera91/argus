@@ -244,14 +244,14 @@ class Modelo
         return $resultado;
     }
 
-    private function validaColunmasUnicas(array $datos , int $registro_id = 0):void
+    private function validaColunmasUnicas(array $datos , int $registroId = 0):void
     {
         $columnas = [$this->tabla.'_id'];
         foreach ($this->columnasUnicas as $nombreColumnaunica => $columnaUnica) {
             if (isset($datos[$columnaUnica])) {
                 $filtros = [
                     ['campo'=>$columnaUnica, 'valor'=>$datos[$columnaUnica], 'signoComparacion'=>'=','conectivaLogica'=>''],
-                    ['campo'=>"{$this->tabla}.id", 'valor'=>$registro_id, 'signoComparacion'=>'<>', 'conectivaLogica'=>'AND']
+                    ['campo'=>"{$this->tabla}.id", 'valor'=>$registroId, 'signoComparacion'=>'<>', 'conectivaLogica'=>'AND']
                 ];
                 try {
                     $consulta = $this->generaConsulta->select($this->tabla,$columnas,$filtros);

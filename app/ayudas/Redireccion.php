@@ -9,7 +9,7 @@ class Redireccion
         header('Location: '.RUTA_PROYECTO."login.php?mensaje=$mensaje");
     }
 
-    public static function enviar(string $controlador='',string $metodo='',string $session_id='',string $mensaje='',string $registro_id = '',string $pagina = 'index')
+    public static function enviar(string $controlador='',string $metodo='',string $session_id='',string $mensaje='',string $registroId = '',string $pagina = 'index')
     {
         $parametros = "?";
 
@@ -29,8 +29,8 @@ class Redireccion
             $parametros .= "mensaje=$mensaje&";
         }
 
-        if ($registro_id !== ''){
-            $parametros .= "registro_id=$registro_id&";
+        if ($registroId !== ''){
+            $parametros .= "registroId=$registroId&";
         }
 
         if ($parametros === '?'){
@@ -42,7 +42,7 @@ class Redireccion
         header('Location: '.RUTA_PROYECTO.$pagina.'.php'.$parametros);
     }
 
-    public static function obtener(string $controlador='',string $metodo='',string $session_id='',string $mensaje='',string $registro_id = '',string $pagina = 'index')
+    public static function obtener(string $controlador='',string $metodo='',string $session_id='',string $mensaje='',string $registroId = '',string $pagina = 'index')
     {
 
         $parametros = "?";
@@ -62,8 +62,8 @@ class Redireccion
             $parametros .= "mensaje=$mensaje&";
         }
 
-        if ($registro_id !== ''){
-            $parametros .= "registro_id=$registro_id&";
+        if ($registroId !== ''){
+            $parametros .= "registroId=$registroId&";
         }
 
         if ($parametros === '?'){

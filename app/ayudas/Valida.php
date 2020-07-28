@@ -96,7 +96,7 @@ class Valida
 
         $resultado = $modeloMetodosGrupos->buscarConFiltros($filtros, $columnas);
         
-        if ($resultado['n_registros'] == 1) {
+        if ($resultado['numeroRegistros'] == 1) {
             return true;
         }
 
