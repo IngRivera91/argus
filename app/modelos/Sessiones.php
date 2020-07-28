@@ -32,7 +32,7 @@ class Sessiones extends Modelo
 
         $resultado = parent::buscarConFiltros($filtros);
 
-        if ( $resultado['n_registros'] !== 1){
+        if ( $resultado['numeroRegistros'] !== 1){
             throw new ErrorAutentificacion('sessionId no valido');
         }
         unset($resultado['registros'][0]['usuarios_password']);
