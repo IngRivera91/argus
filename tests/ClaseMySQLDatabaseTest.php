@@ -76,8 +76,8 @@ class ClaseMySQLDatabaseTest extends TestCase
         
         $resultado = $coneccion->ejecutaConsultaInsert("$consulta_base ",$datos);
         $this->assertCount(2,$resultado);
-        $this->assertSame('registro insertado',$resultado['mensaje']);
-        $this->assertSame($datos['id'],$resultado['registro_id']);
+        $this->assertSame('datos registrados',$resultado['mensaje']);
+        $this->assertSame($datos['id'],$resultado['registroId']);
 
         $error = null;
         try{
@@ -149,7 +149,7 @@ class ClaseMySQLDatabaseTest extends TestCase
 
         $resultado = $coneccion->ejecutaConsultaSelect("$consulta_base",$filtros);
         $this->assertCount(2,$resultado);
-        $this->assertSame(1,$resultado['n_registros']);
+        $this->assertSame(1,$resultado['numeroRegistros']);
         $this->assertCount(12,$resultado['registros'][0]);
         $this->assertEquals($datos['id'],$resultado['registros'][0]['id']);
         $this->assertSame($datos['usuario'],$resultado['registros'][0]['usuario']);
