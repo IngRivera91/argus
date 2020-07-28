@@ -59,7 +59,7 @@ class Base extends Exception
         $errorAnterrior = $this->obtenErrorAnterior();
         $this->errorInformacion = 
         [
-            'mensaje'=> '<div><b style="color: brown">'.$this->message.'</b></div>',
+            'mensaje'=> '<div class="error-base-msj"><b>'.$this->message.'</b></div>',
             'file'=> '<div><b>'.$this->file.'</b></div>',
             'line'=> '<div><b>'.$this->line.'</b></div><hr>',
             'datos'=>$errorAnterrior
