@@ -23,7 +23,7 @@ $acciones = Acciones::crear($coneccion, GRUPO_ID, $controladorActual);
 
 <?php if ($controlador->usarFiltros) { echo Html::hr(); } ?>
 
-<div style="background-color: white;" class="table-responsive">
+<div class="table-responsive argus-lista">
     <table class="table table-hover">
 
         <?php if (count($registros) > 0) { ?>
