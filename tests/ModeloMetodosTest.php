@@ -164,6 +164,20 @@ class ModeloMetodosTest extends TestCase
             $this->assertSame($mensajeEsperado,$resultado['mensaje']);
         }
 
+        for ($i = 1 ; $i < 4 ; $i++) {
+            $registro = $registros[$i]; 
+            $registro[$campoTabla] = $registros[0][$campoTabla];
+
+            $error = null;
+            try {
+                $resultado = $modelo->modificarPorId($registro['id'],$registro);
+            } catch (ErrorBase $e) {
+                $error = $e;
+            }
+            $codigoError = $error->obtenCodigo();
+            $this->assertSame('23000',$codigoError);
+        }
+
         return $registros;
     }
 
