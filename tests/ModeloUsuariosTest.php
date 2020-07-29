@@ -31,8 +31,8 @@ class ModeloUsuariosTest extends TestCase
         $Usuarios = new Usuarios($coneccion);
 
         $MetodosGrupos->eliminarTodo();
-        $Grupos->eliminarTodo();
         $Usuarios->eliminarTodo();
+        $Grupos->eliminarTodo();
 
         $grupo = ['id' => 1,'nombre' => 'nombre1' , 'activo' => 1];
         $Grupos->registrar($grupo);
