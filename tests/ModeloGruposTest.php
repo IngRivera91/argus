@@ -83,6 +83,15 @@ class ModeloGruposTest extends TestCase
             $resultado = $modelo->obtenerDatosConRegistroId($registro['id']);
             $this->assertIsArray($resultado);
             $this->assertCount(7,$resultado);
+
+            $columnas = [];
+            $orderBy = [];
+            $limit = '';
+            $noUsarRelaciones = true;
+
+            $resultado = $modelo->obtenerDatosConRegistroId($registro['id'], $columnas, $orderBy, $limit, $noUsarRelaciones);
+            $this->assertIsArray($resultado);
+            $this->assertCount(7,$resultado);
         }
         return $registros;
     }
