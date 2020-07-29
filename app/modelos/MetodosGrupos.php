@@ -10,7 +10,7 @@ class MetodosGrupos extends Modelo
 {
     public function __construct(Database $coneccion)
     {
-        $tabla = 'metodo_grupo';
+        $tabla = 'metodos_grupos';
         $relaciones = [
             'metodos' => "{$tabla}.metodo_id",
             'grupos' => "{$tabla}.grupo_id",
