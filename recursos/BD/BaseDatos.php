@@ -35,8 +35,8 @@ class BaseDatos
             PRIMARY KEY (`id`) USING BTREE
             ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
     
-            DROP TABLE IF EXISTS `metodo_grupo`;
-            CREATE TABLE `metodo_grupo`  (
+            DROP TABLE IF EXISTS `metodos_grupos`;
+            CREATE TABLE `metodos_grupos`  (
             `id` int(11) NOT NULL AUTO_INCREMENT,
             `metodo_id` int(11) NULL DEFAULT NULL,
             `grupo_id` int(11) NULL DEFAULT NULL,
@@ -69,6 +69,7 @@ class BaseDatos
             `fecha_actualizacion` timestamp(0) NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0),
             PRIMARY KEY (`id`) USING BTREE,
             INDEX `menu_id`(`menu_id`) USING BTREE,
+            UNIQUE INDEX `nombre`(`nombre`, `menu_id`) USING BTREE,
             CONSTRAINT `metodos_ibfk_1` FOREIGN KEY (`menu_id`) REFERENCES `menus` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
             ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
     
@@ -181,9 +182,9 @@ class BaseDatos
             (31,'eliminarBd','','Eliminar','fas fa-trash',4,FALSE,TRUE,TRUE,-1,-1),
             (32,'modificarBd','','','',4,FALSE,FALSE,TRUE,-1,-1);
 
-            DELETE FROM metodo_grupo;
+            DELETE FROM metodos_grupos;
             SET @grupo_id = 1;
-            INSERT INTO metodo_grupo (metodo_grupo.id,metodo_grupo.metodo_id,metodo_grupo.grupo_id,metodo_grupo.activo)
+            INSERT INTO metodos_grupos (metodos_grupos.id,metodos_grupos.metodo_id,metodos_grupos.grupo_id,metodos_grupos.activo)
             VALUES 
             (1,1,@grupo_id,TRUE),
             (2,2,@grupo_id,TRUE),
