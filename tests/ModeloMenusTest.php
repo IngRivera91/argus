@@ -86,6 +86,15 @@ class ModeloMenusTest extends TestCase
             $resultado = $modelo->obtenerDatosConRegistroId($registro['id']);
             $this->assertIsArray($resultado);
             $this->assertCount(9,$resultado);
+
+            $columnas = [];
+            $orderBy = [];
+            $limit = '';
+            $noUsarRelaciones = true;
+
+            $resultado = $modelo->obtenerDatosConRegistroId($registro['id'], $columnas, $orderBy, $limit, $noUsarRelaciones);
+            $this->assertIsArray($resultado);
+            $this->assertCount(9,$resultado);
         }
         return $registros;
     }
