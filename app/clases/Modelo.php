@@ -32,7 +32,7 @@ class Modelo
         $this->columnasProtegidas = $columnas['protegidas'];
     }
 
-    public function actualizarPorId(int $id, array $datos):array
+    public function modificarPorId(int $id, array $datos):array
     {
         try{
             $this->validaColunmasUnicas($datos,$id);
