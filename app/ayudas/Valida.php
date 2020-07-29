@@ -83,7 +83,7 @@ class Valida
         $modeloMetodosGrupos = new MetodosGrupos($coneccion);
 
         $filtros = [
-            ['campo' => "metodo_grupo.grupo_id",'valor'=>$grupoId,          'signoComparacion'=>'=', 'conectivaLogica'=>''],
+            ['campo' => "metodos_grupos.grupo_id",'valor'=>$grupoId,          'signoComparacion'=>'=', 'conectivaLogica'=>''],
             ['campo' => "metodos.nombre",       'valor'=>$metodoActual,     'signoComparacion'=>'=', 'conectivaLogica'=>'AND'],
             ['campo' => "menus.nombre",         'valor'=>$controladorActual,'signoComparacion'=>'=', 'conectivaLogica'=>'AND']
         ];
