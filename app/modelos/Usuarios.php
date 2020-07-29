@@ -5,6 +5,7 @@ namespace Modelo;
 use Clase\Modelo;
 use Interfas\Database;
 use Interfas\GeneraConsultas;
+use Error\Base AS ErrorBase;
 use Error\Autentificacion AS ErrorAutentificacion;
 
 class Usuarios extends Modelo
@@ -25,6 +26,10 @@ class Usuarios extends Modelo
 
     public function registrar($datos):array
     {
+        if (!isset($datos['password'])) {
+            throw new ErrorBase('El campo password debe existir en el array de datos');
+        }
+
         $datos['password'] = md5($datos['password']);
         $resultado = parent::registrar($datos);
         return $resultado;
