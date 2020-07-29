@@ -75,7 +75,7 @@ class Controlador
         unset($datos[$nombreLlaveFormulario]);
 
         try {
-            $resultado = $this->modelo->actualizarPorId($registroId, $datos);
+            $resultado = $this->modelo->modificarPorId($registroId, $datos);
         } catch (ErrorBase $e) {
             $error = new ErrorBase('Error al modificar datos',$e);
             if ($this->redireccionar) {
@@ -133,7 +133,7 @@ class Controlador
         $datos["activo"] = 1;
 
         try {
-            $resultado = $this->modelo->actualizarPorId($registroId, $datos);
+            $resultado = $this->modelo->modificarPorId($registroId, $datos);
         } catch (ErrorBase $e) {
             $error = new ErrorBase('Error al activar registro',$e);
             if ($this->redireccionar) {
@@ -159,7 +159,7 @@ class Controlador
         $datos["activo"] = 0;
 
         try {
-            $resultado = $this->modelo->actualizarPorId($registroId, $datos);
+            $resultado = $this->modelo->modificarPorId($registroId, $datos);
         } catch (ErrorBase $e) {
             $error = new ErrorBase('Error al desactivar registro',$e);
             if ($this->redireccionar) {
