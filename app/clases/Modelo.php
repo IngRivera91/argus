@@ -199,7 +199,7 @@ class Modelo
         return $resultado;
     }
 
-    public function obtenerDatosConRegistroId(//sin prueba unitaria
+    public function obtenerDatosConRegistroId(
         int $id,
         array $columnas = [],
         array $orderBy = [],
