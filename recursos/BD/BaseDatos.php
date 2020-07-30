@@ -166,7 +166,7 @@ class BaseDatos
         
         $query .= "
 
-            ('asignaPermisos','','Asigna Permisos','fas fa-plus-square',3,FALSE,TRUE,TRUE,-1,-1),
+            ('permisos','','Asigna Permisos','fas fa-plus-square',3,FALSE,TRUE,TRUE,-1,-1),
             ('bajaPermiso','','','',3,FALSE,FALSE,TRUE,-1,-1),
             ('altaPermiso','','','',3,FALSE,FALSE,TRUE,-1,-1);
 
