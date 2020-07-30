@@ -44,7 +44,7 @@ class Grupos extends Modelo
     public function obtenerMetodosAgrupadosPorMenu(int $grupoId):array
     {
         $columnas = ['id','nombre','menus_nombre'];
-        $orderBy = ['menus.nombre' => 'ASC'];
+        $orderBy = ['menus.nombre' => 'ASC','metodos_nombre' => 'ASC'];
 
         try {
             $resultado = $this->Metodos->buscarTodo($columnas, $orderBy);
