@@ -147,48 +147,31 @@ class BaseDatos
             INSERT INTO `metodos` 
             (nombre,etiqueta,accion,icono,menu_id,activo_menu,activo_accion,activo,usuario_registro_id,usuario_actualizacion_id)
             VALUES
-            ('registrar','Registrar','','',1,TRUE,FALSE,TRUE,-1,-1),
-            ('lista','Lista','','',1,TRUE,FALSE,TRUE,-1,-1),
-            ('registrarBd','','','',1,FALSE,FALSE,TRUE,-1,-1),
-            ('activarBd','','Activar','fas fa-play',1,FALSE,TRUE,TRUE,-1,-1),
-            ('desactivarBd','','Desactivar','fas fa-pause',1,FALSE,TRUE,TRUE,-1,-1),
-            ('modificar','','Modificar','fas fa-pencil-alt',1,FALSE,TRUE,TRUE,-1,-1),
-            ('eliminarBd','','Eliminar','fas fa-trash',1,FALSE,TRUE,TRUE,-1,-1),
-            ('modificarBd','','','',1,FALSE,FALSE,TRUE,-1,-1),
 
-            ('registrar','Registrar','','',2,TRUE,FALSE,TRUE,-1,-1),
-            ('lista','Lista','','',2,TRUE,FALSE,TRUE,-1,-1),
-            ('registrarBd','','','',2,FALSE,FALSE,TRUE,-1,-1),
-            ('activarBd','','Activar','fas fa-play',2,FALSE,TRUE,TRUE,-1,-1),
-            ('desactivarBd','','Desactivar','fas fa-pause',2,FALSE,TRUE,TRUE,-1,-1),
-            ('modificar','','Modificar','fas fa-pencil-alt',2,FALSE,TRUE,TRUE,-1,-1),
-            ('eliminarBd','','Eliminar','fas fa-trash',2,FALSE,TRUE,TRUE,-1,-1),
-            ('modificarBd','','','',2,FALSE,FALSE,TRUE,-1,-1),
+        ";
 
-            ('registrar','Registrar','','',3,TRUE,FALSE,TRUE,-1,-1),
-            ('lista','Lista','','',3,TRUE,FALSE,TRUE,-1,-1),
-            ('registrarBd','','','',3,FALSE,FALSE,TRUE,-1,-1),
-            ('activarBd','','Activar','fas fa-play',3,FALSE,TRUE,TRUE,-1,-1),
-            ('desactivarBd','','Desactivar','fas fa-pause',3,FALSE,TRUE,TRUE,-1,-1),
-            ('modificar','','Modificar','fas fa-pencil-alt',3,FALSE,TRUE,TRUE,-1,-1),
-            ('eliminarBd','','Eliminar','fas fa-trash',3,FALSE,TRUE,TRUE,-1,-1),
-            ('modificarBd','','','',3,FALSE,FALSE,TRUE,-1,-1),
+        $numeroMenus = 4;
+        for ($i = 1 ; $i <= $numeroMenus ; $i++) {
+            $query .= "
+                ('registrar','Registrar','','',$i,TRUE,FALSE,TRUE,-1,-1),
+                ('lista','Lista','','',$i,TRUE,FALSE,TRUE,-1,-1),
+                ('registrarBd','','','',$i,FALSE,FALSE,TRUE,-1,-1),
+                ('activarBd','','Activar','fas fa-play',$i,FALSE,TRUE,TRUE,-1,-1),
+                ('desactivarBd','','Desactivar','fas fa-pause',$i,FALSE,TRUE,TRUE,-1,-1),
+                ('modificar','','Modificar','fas fa-pencil-alt',$i,FALSE,TRUE,TRUE,-1,-1),
+                ('eliminarBd','','Eliminar','fas fa-trash',$i,FALSE,TRUE,TRUE,-1,-1),
+                ('modificarBd','','','',$i,FALSE,FALSE,TRUE,-1,-1),
+            ";
+        }
+        
+        $query .= "
+
             ('asignaPermisos','','Asigna Permisos','fas fa-plus-square',3,FALSE,TRUE,TRUE,-1,-1),
             ('bajaPermiso','','','',3,FALSE,FALSE,TRUE,-1,-1),
-            ('altaPermiso','','','',3,FALSE,FALSE,TRUE,-1,-1),
-
-            ('registrar','Registrar','','',4,TRUE,FALSE,TRUE,-1,-1),
-            ('lista','Lista','','',4,TRUE,FALSE,TRUE,-1,-1),
-            ('registrarBd','','','',4,FALSE,FALSE,TRUE,-1,-1),
-            ('activarBd','','Activar','fas fa-play',4,FALSE,TRUE,TRUE,-1,-1),
-            ('desactivarBd','','Desactivar','fas fa-pause',4,FALSE,TRUE,TRUE,-1,-1),
-            ('modificar','','Modificar','fas fa-pencil-alt',4,FALSE,TRUE,TRUE,-1,-1),
-            ('eliminarBd','','Eliminar','fas fa-trash',4,FALSE,TRUE,TRUE,-1,-1),
-            ('modificarBd','','','',4,FALSE,FALSE,TRUE,-1,-1);
+            ('altaPermiso','','','',3,FALSE,FALSE,TRUE,-1,-1);
 
             INSERT INTO metodosgrupos (id,metodo_id,grupo_id,activo)
             VALUES 
-            
         
         ";
 
