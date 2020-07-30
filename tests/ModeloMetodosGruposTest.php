@@ -39,8 +39,13 @@ class ModeloMetodosGruposTest extends TestCase
 
         $grupo = ['id' => 1,'nombre' => 'nombre1' , 'activo' => 1];
         $Grupos->registrar($grupo);
+        $grupo = ['id' => 2,'nombre' => 'nombre2' , 'activo' => 1];
+        $Grupos->registrar($grupo);
 
         $menu = ['id' => 1,'nombre' => 'nombre1' , 'activo' => 1];
+        $Menus->registrar($menu);
+
+        $menu = ['id' => 2,'nombre' => 'nombre2' , 'activo' => 1];
         $Menus->registrar($menu);
 
         $metodos = [
@@ -49,6 +54,10 @@ class ModeloMetodosGruposTest extends TestCase
             ['id'=>3, 'nombre'=>'accion3', 'accion'=> 'accion3', 'icono' => 'icono-accion3', 'menu_id'=>1, 'activo_menu'=>0, 'activo_accion'=>1],
             ['id'=>4, 'nombre'=>'accion4', 'accion'=> 'accion4', 'icono' => 'icono-accion4', 'menu_id'=>1, 'activo_menu'=>0, 'activo_accion'=>1],
 
+            ['id'=>5, 'nombre'=>'accion1', 'accion'=> 'accion1', 'icono' => 'icono-accion1', 'menu_id'=>2, 'activo_menu'=>0, 'activo_accion'=>1],
+            ['id'=>6, 'nombre'=>'accion2', 'accion'=> 'accion2', 'icono' => 'icono-accion2', 'menu_id'=>2, 'activo_menu'=>0, 'activo_accion'=>1],
+            ['id'=>7, 'nombre'=>'accion3', 'accion'=> 'accion3', 'icono' => 'icono-accion3', 'menu_id'=>2, 'activo_menu'=>0, 'activo_accion'=>1],
+            ['id'=>8, 'nombre'=>'accion4', 'accion'=> 'accion4', 'icono' => 'icono-accion4', 'menu_id'=>2, 'activo_menu'=>0, 'activo_accion'=>1]
         ];
         
         foreach ($metodos as $metodo) {
@@ -69,6 +78,11 @@ class ModeloMetodosGruposTest extends TestCase
             ['id' => 2,'grupo_id' => 1 , 'metodo_id' => 2, 'activo' => 1],
             ['id' => 3,'grupo_id' => 1 , 'metodo_id' => 3, 'activo' => 1],
             ['id' => 4,'grupo_id' => 1 , 'metodo_id' => 4, 'activo' => 1],
+
+            ['id' => 5,'grupo_id' => 2 , 'metodo_id' => 1, 'activo' => 1],
+            ['id' => 6,'grupo_id' => 2 , 'metodo_id' => 2, 'activo' => 1],
+            ['id' => 7,'grupo_id' => 2 , 'metodo_id' => 3, 'activo' => 1],
+            ['id' => 8,'grupo_id' => 2 , 'metodo_id' => 4, 'activo' => 1]
         ];
 
         foreach ($registros as $key => $registro) {
