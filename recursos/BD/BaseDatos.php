@@ -48,6 +48,7 @@ class BaseDatos
             PRIMARY KEY (`id`) USING BTREE,
             INDEX `metodo_id`(`metodo_id`) USING BTREE,
             INDEX `grupo_id`(`grupo_id`) USING BTREE,
+            UNIQUE INDEX `permiso`(`grupo_id`, `metodo_id`) USING BTREE,
             CONSTRAINT `metodo_grupo_ibfk_1` FOREIGN KEY (`metodo_id`) REFERENCES `metodos` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
             CONSTRAINT `metodo_grupo_ibfk_2` FOREIGN KEY (`grupo_id`) REFERENCES `grupos` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
             ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
