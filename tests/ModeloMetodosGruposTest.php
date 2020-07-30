@@ -37,16 +37,21 @@ class ModeloMetodosGruposTest extends TestCase
         $Metodos->eliminarTodo();
         $Menus->eliminarTodo();
 
-        $grupo = ['id' => 1,'nombre' => 'nombre1' , 'activo' => 1];
-        $Grupos->registrar($grupo);
-        $grupo = ['id' => 2,'nombre' => 'nombre2' , 'activo' => 1];
-        $Grupos->registrar($grupo);
+        $grupos = [
+            ['id' => 1,'nombre' => 'nombre5' , 'activo' => 1],
+            ['id' => 2,'nombre' => 'nombre6' , 'activo' => 1]
+        ];
+        foreach ($grupos as $grupo) {
+            $Grupos->registrar($grupo);
+        }
 
-        $menu = ['id' => 1,'nombre' => 'nombre1' , 'activo' => 1];
-        $Menus->registrar($menu);
-
-        $menu = ['id' => 2,'nombre' => 'nombre2' , 'activo' => 1];
-        $Menus->registrar($menu);
+        $menus = [
+            ['id' => 1,'nombre' => 'nombre1' , 'activo' => 1],
+            ['id' => 2,'nombre' => 'nombre2' , 'activo' => 1]
+        ];
+        foreach ($menus as $menu) {
+            $Menus->registrar($menu);
+        }
 
         $metodos = [
             ['id'=>1, 'nombre'=>'accion1', 'accion'=> 'accion1', 'icono' => 'icono-accion1', 'menu_id'=>1, 'activo_menu'=>0, 'activo_accion'=>1],
@@ -59,7 +64,6 @@ class ModeloMetodosGruposTest extends TestCase
             ['id'=>7, 'nombre'=>'accion3', 'accion'=> 'accion3', 'icono' => 'icono-accion3', 'menu_id'=>2, 'activo_menu'=>0, 'activo_accion'=>1],
             ['id'=>8, 'nombre'=>'accion4', 'accion'=> 'accion4', 'icono' => 'icono-accion4', 'menu_id'=>2, 'activo_menu'=>0, 'activo_accion'=>1]
         ];
-        
         foreach ($metodos as $metodo) {
             $Metodos->registrar($metodo);
         }
