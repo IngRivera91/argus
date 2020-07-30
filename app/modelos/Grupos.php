@@ -13,11 +13,14 @@ class Grupos extends Modelo
     public Modelo $MetodosGrupos;
     public Modelo $Metodos;
 
+    private string $tabla;
+
     public function __construct(Database $coneccion)
     {
         $this->MetodosGrupos = new MetodosGrupos($coneccion);
         $this->Metodos = new Metodos($coneccion);
         $tabla = 'grupos';
+        $this->tabla = $tabla;
         $relaciones = []; 
         $columnas = [
             'unicas' => ['grupo' => 'nombre'],
@@ -25,6 +28,17 @@ class Grupos extends Modelo
             'protegidas' => []
         ];
         parent::__construct($coneccion, $tabla, $relaciones, $columnas);
+    }
+
+    public function obtenerNombreGrupo(int $grupoId):string
+    {
+        $columnas = ['nombre'];
+        $orderBy = [];
+        $limit = '';
+        $noUsarRelaciones = true;
+        $resultado = $this->buscarPorId($grupoId, $columnas, $orderBy, $limit, $noUsarRelaciones);
+
+        return $resultado['registros'][0]["{$this->tabla}_nombre"];
     }
 
     public function obtenerMetodosAgrupadosPorMenu(int $grupoId):array
