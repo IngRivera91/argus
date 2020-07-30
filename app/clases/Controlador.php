@@ -230,7 +230,7 @@ class Controlador
         $this->registros = $resultado['registros'];
     }
 
-    private function validaRegistoId():int
+    public function validaRegistoId():int
     {
         if (!isset($_GET['registroId'])) {
             $error = new ErrorEsperado('no se puede realizar la accion sin un registro id', $this->nombreMenu, 'lista');
@@ -255,7 +255,7 @@ class Controlador
         return $registroId;
     }
 
-    private function analizaInputsFiltros()
+    public function analizaInputsFiltros()
     {
         $cols = $this->sizeColumnasInputsFiltros;
         $nameSubmit = "{$this->nombreMenu}ListaFiltro";
@@ -280,7 +280,7 @@ class Controlador
         $this->htmlInputFiltros[] = Html::linkBoton($urlDestino, 'Limpiar', $cols);
     }
 
-    private function generaHtmlInputFiltros(string $cols, array $datosValue = []): void
+    public function generaHtmlInputFiltros(string $cols, array $datosValue = []): void
     {
         $this->filtrosLista[] = ['campo' =>'1', 'valor'=>'1', 'signoComparacion'=>'=', 'conectivaLogica'=>''];
         $type = 'text';
@@ -296,7 +296,7 @@ class Controlador
         }
     }
 
-    private function obteneLimitPaginador(){
+    public function obteneLimitPaginador(){
         $numeroRegistros = $this->modelo->obtenerNumeroRegistros($this->filtrosLista);
         $numeroPaginas = (int) (($numeroRegistros-1) / (int)$this->registrosPorPagina );
         $numeroPaginas++;
