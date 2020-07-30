@@ -145,80 +145,59 @@ class BaseDatos
             (4, 'usuarios', 'USUARIOS', 'fas fa-users', '1', '-1', '-1');
 
             INSERT INTO `metodos` 
-            (id,nombre,etiqueta,accion,icono,menu_id,activo_menu,activo_accion,activo,usuario_registro_id,usuario_actualizacion_id)
+            (nombre,etiqueta,accion,icono,menu_id,activo_menu,activo_accion,activo,usuario_registro_id,usuario_actualizacion_id)
             VALUES
-            (1,'registrar','Registrar','','',1,TRUE,FALSE,TRUE,-1,-1),
-            (2,'lista','Lista','','',1,TRUE,FALSE,TRUE,-1,-1),
-            (3,'registrarBd','','','',1,FALSE,FALSE,TRUE,-1,-1),
-            (4,'activarBd','','Activar','fas fa-play',1,FALSE,TRUE,TRUE,-1,-1),
-            (5,'desactivarBd','','Desactivar','fas fa-pause',1,FALSE,TRUE,TRUE,-1,-1),
-            (6,'modificar','','Modificar','fas fa-pencil-alt',1,FALSE,TRUE,TRUE,-1,-1),
-            (7,'eliminarBd','','Eliminar','fas fa-trash',1,FALSE,TRUE,TRUE,-1,-1),
-            (8,'modificarBd','','','',1,FALSE,FALSE,TRUE,-1,-1),
+            ('registrar','Registrar','','',1,TRUE,FALSE,TRUE,-1,-1),
+            ('lista','Lista','','',1,TRUE,FALSE,TRUE,-1,-1),
+            ('registrarBd','','','',1,FALSE,FALSE,TRUE,-1,-1),
+            ('activarBd','','Activar','fas fa-play',1,FALSE,TRUE,TRUE,-1,-1),
+            ('desactivarBd','','Desactivar','fas fa-pause',1,FALSE,TRUE,TRUE,-1,-1),
+            ('modificar','','Modificar','fas fa-pencil-alt',1,FALSE,TRUE,TRUE,-1,-1),
+            ('eliminarBd','','Eliminar','fas fa-trash',1,FALSE,TRUE,TRUE,-1,-1),
+            ('modificarBd','','','',1,FALSE,FALSE,TRUE,-1,-1),
 
-            (9,'registrar','Registrar','','',2,TRUE,FALSE,TRUE,-1,-1),
-            (10,'lista','Lista','','',2,TRUE,FALSE,TRUE,-1,-1),
-            (11,'registrarBd','','','',2,FALSE,FALSE,TRUE,-1,-1),
-            (12,'activarBd','','Activar','fas fa-play',2,FALSE,TRUE,TRUE,-1,-1),
-            (13,'desactivarBd','','Desactivar','fas fa-pause',2,FALSE,TRUE,TRUE,-1,-1),
-            (14,'modificar','','Modificar','fas fa-pencil-alt',2,FALSE,TRUE,TRUE,-1,-1),
-            (15,'eliminarBd','','Eliminar','fas fa-trash',2,FALSE,TRUE,TRUE,-1,-1),
-            (16,'modificarBd','','','',2,FALSE,FALSE,TRUE,-1,-1),
+            ('registrar','Registrar','','',2,TRUE,FALSE,TRUE,-1,-1),
+            ('lista','Lista','','',2,TRUE,FALSE,TRUE,-1,-1),
+            ('registrarBd','','','',2,FALSE,FALSE,TRUE,-1,-1),
+            ('activarBd','','Activar','fas fa-play',2,FALSE,TRUE,TRUE,-1,-1),
+            ('desactivarBd','','Desactivar','fas fa-pause',2,FALSE,TRUE,TRUE,-1,-1),
+            ('modificar','','Modificar','fas fa-pencil-alt',2,FALSE,TRUE,TRUE,-1,-1),
+            ('eliminarBd','','Eliminar','fas fa-trash',2,FALSE,TRUE,TRUE,-1,-1),
+            ('modificarBd','','','',2,FALSE,FALSE,TRUE,-1,-1),
 
-            (17,'registrar','Registrar','','',3,TRUE,FALSE,TRUE,-1,-1),
-            (18,'lista','Lista','','',3,TRUE,FALSE,TRUE,-1,-1),
-            (19,'registrarBd','','','',3,FALSE,FALSE,TRUE,-1,-1),
-            (20,'activarBd','','Activar','fas fa-play',3,FALSE,TRUE,TRUE,-1,-1),
-            (21,'desactivarBd','','Desactivar','fas fa-pause',3,FALSE,TRUE,TRUE,-1,-1),
-            (22,'modificar','','Modificar','fas fa-pencil-alt',3,FALSE,TRUE,TRUE,-1,-1),
-            (23,'eliminarBd','','Eliminar','fas fa-trash',3,FALSE,TRUE,TRUE,-1,-1),
-            (24,'modificarBd','','','',3,FALSE,FALSE,TRUE,-1,-1),
+            ('registrar','Registrar','','',3,TRUE,FALSE,TRUE,-1,-1),
+            ('lista','Lista','','',3,TRUE,FALSE,TRUE,-1,-1),
+            ('registrarBd','','','',3,FALSE,FALSE,TRUE,-1,-1),
+            ('activarBd','','Activar','fas fa-play',3,FALSE,TRUE,TRUE,-1,-1),
+            ('desactivarBd','','Desactivar','fas fa-pause',3,FALSE,TRUE,TRUE,-1,-1),
+            ('modificar','','Modificar','fas fa-pencil-alt',3,FALSE,TRUE,TRUE,-1,-1),
+            ('eliminarBd','','Eliminar','fas fa-trash',3,FALSE,TRUE,TRUE,-1,-1),
+            ('modificarBd','','','',3,FALSE,FALSE,TRUE,-1,-1),
+            ('asignaPermisos','','Asigna Permisos','fas fa-plus-square',3,FALSE,TRUE,TRUE,-1,-1),
+            ('bajaPermiso','','','',3,FALSE,FALSE,TRUE,-1,-1),
+            ('altaPermiso','','','',3,FALSE,FALSE,TRUE,-1,-1),
 
-            (25,'registrar','Registrar','','',4,TRUE,FALSE,TRUE,-1,-1),
-            (26,'lista','Lista','','',4,TRUE,FALSE,TRUE,-1,-1),
-            (27,'registrarBd','','','',4,FALSE,FALSE,TRUE,-1,-1),
-            (28,'activarBd','','Activar','fas fa-play',4,FALSE,TRUE,TRUE,-1,-1),
-            (29,'desactivarBd','','Desactivar','fas fa-pause',4,FALSE,TRUE,TRUE,-1,-1),
-            (30,'modificar','','Modificar','fas fa-pencil-alt',4,FALSE,TRUE,TRUE,-1,-1),
-            (31,'eliminarBd','','Eliminar','fas fa-trash',4,FALSE,TRUE,TRUE,-1,-1),
-            (32,'modificarBd','','','',4,FALSE,FALSE,TRUE,-1,-1);
+            ('registrar','Registrar','','',4,TRUE,FALSE,TRUE,-1,-1),
+            ('lista','Lista','','',4,TRUE,FALSE,TRUE,-1,-1),
+            ('registrarBd','','','',4,FALSE,FALSE,TRUE,-1,-1),
+            ('activarBd','','Activar','fas fa-play',4,FALSE,TRUE,TRUE,-1,-1),
+            ('desactivarBd','','Desactivar','fas fa-pause',4,FALSE,TRUE,TRUE,-1,-1),
+            ('modificar','','Modificar','fas fa-pencil-alt',4,FALSE,TRUE,TRUE,-1,-1),
+            ('eliminarBd','','Eliminar','fas fa-trash',4,FALSE,TRUE,TRUE,-1,-1),
+            ('modificarBd','','','',4,FALSE,FALSE,TRUE,-1,-1);
 
-            SET @grupo_id = 1;
             INSERT INTO metodosgrupos (id,metodo_id,grupo_id,activo)
             VALUES 
-            (1,1,@grupo_id,TRUE),
-            (2,2,@grupo_id,TRUE),
-            (3,3,@grupo_id,TRUE),
-            (4,4,@grupo_id,TRUE),
-            (5,5,@grupo_id,TRUE),
-            (6,6,@grupo_id,TRUE),
-            (7,7,@grupo_id,TRUE),
-            (8,8,@grupo_id,TRUE),
-            (9,9,@grupo_id,TRUE),
-            (10,10,@grupo_id,TRUE),
-            (11,11,@grupo_id,TRUE),
-            (12,12,@grupo_id,TRUE),
-            (13,13,@grupo_id,TRUE),
-            (14,14,@grupo_id,TRUE),
-            (15,15,@grupo_id,TRUE),
-            (16,16,@grupo_id,TRUE),
-            (17,17,@grupo_id,TRUE),
-            (18,18,@grupo_id,TRUE),
-            (19,19,@grupo_id,TRUE),
-            (20,20,@grupo_id,TRUE),
-            (21,21,@grupo_id,TRUE),
-            (22,22,@grupo_id,TRUE),
-            (23,23,@grupo_id,TRUE),
-            (24,24,@grupo_id,TRUE),
-            (25,25,@grupo_id,TRUE),
-            (26,26,@grupo_id,TRUE),
-            (27,27,@grupo_id,TRUE),
-            (28,28,@grupo_id,TRUE),
-            (29,29,@grupo_id,TRUE),
-            (30,30,@grupo_id,TRUE),
-            (31,31,@grupo_id,TRUE),
-            (32,32,@grupo_id,TRUE);
+            
+        
         ";
+
+        $numeroMetodos = 35;
+        $grupoId = 1;
+        for ($i = 1 ; $i < $numeroMetodos ; $i++) {
+            $query .= "($i,$i,$grupoId,TRUE),";
+        }
+        $query .= "($numeroMetodos,$numeroMetodos,$grupoId,TRUE);";
 
         $resultado = $coneccion->ejecutaQuery($query);
         print_r('insertar:');
