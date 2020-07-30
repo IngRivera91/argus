@@ -215,6 +215,11 @@ class Modelo
         return $resultado['registros'][0];
     }
 
+    public function obtenerTabla():string
+    {
+        return $this->tabla;
+    }
+
     public function obtenerNumeroRegistros(array $filtros =[]):int
     {
         try {
