@@ -116,6 +116,43 @@ class ModeloGruposTest extends TestCase
      * @test
      * @depends crearModelo
      */
+    public function obtenerNombreGrupo($modelo)
+    {
+        $resultado = $modelo->obtenerNombreGrupo(5);
+        $this->assertSame('nombre5',$resultado);
+
+        $resultado = $modelo->obtenerNombreGrupo(6);
+        $this->assertSame('nombre6',$resultado);
+    }
+
+    /**
+     * @test
+     * @depends crearModelo
+     */
+    public function obtenerMetodosAgrupadosPorMenu($modelo)
+    {
+        $resultado = $modelo->obtenerMetodosAgrupadosPorMenu(5);
+        $this->assertIsArray($resultado);
+        $this->assertCount(2,$resultado);
+
+        $this->assertIsArray($resultado['nombre1']);
+        $this->assertCount(4,$resultado['nombre1']);
+        $this->assertArrayHasKey('id', $resultado['nombre1'][0]);
+        $this->assertArrayHasKey('metodo', $resultado['nombre1'][0]);
+        $this->assertArrayHasKey('activo', $resultado['nombre1'][0]);
+
+        $this->assertIsArray($resultado['nombre2']);
+        $this->assertCount(4,$resultado['nombre2']);
+        $this->assertArrayHasKey('id', $resultado['nombre2'][0]);
+        $this->assertArrayHasKey('metodo', $resultado['nombre2'][0]);
+        $this->assertArrayHasKey('activo', $resultado['nombre2'][0]);
+
+    }
+
+    /**
+     * @test
+     * @depends crearModelo
+     */
     public function registrar($modelo)
     {
         $registros = [
