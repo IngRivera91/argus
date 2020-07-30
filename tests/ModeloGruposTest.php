@@ -105,6 +105,17 @@ class ModeloGruposTest extends TestCase
      * @test
      * @depends crearModelo
      */
+    public function obtenerIdsMetodosGrupos($modelo)
+    {
+        $resultado = $modelo->obtenerIdsMetodosGrupos(5);
+        $this->assertIsArray($resultado);
+        $this->assertCount(6,$resultado);
+    }
+
+    /**
+     * @test
+     * @depends crearModelo
+     */
     public function registrar($modelo)
     {
         $registros = [
