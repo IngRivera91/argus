@@ -127,7 +127,7 @@ class BaseDatos
     {
         $password = md5($password);
         $query = "
-            INSERT INTO grupos (grupos.nombre , grupos.activo , grupos.usuario_registro_id ,grupos.usuario_actualizacion_id)
+            INSERT INTO grupos (nombre , activo , usuario_registro_id ,usuario_actualizacion_id)
             VALUES
             ('programador',TRUE,-1,-1);
 
@@ -145,7 +145,7 @@ class BaseDatos
             (4, 'usuarios', 'USUARIOS', 'fas fa-users', '1', '-1', '-1');
 
             INSERT INTO `metodos` 
-            (metodos.id,metodos.nombre, metodos.etiqueta,metodos.accion,metodos.icono,metodos.menu_id,metodos.activo_menu,metodos.activo_accion,metodos.activo, usuario_registro_id, usuario_actualizacion_id)
+            (id,nombre,etiqueta,accion,icono,menu_id,activo_menu,activo_accion,activo,usuario_registro_id,usuario_actualizacion_id)
             VALUES
             (1,'registrar','Registrar','','',1,TRUE,FALSE,TRUE,-1,-1),
             (2,'lista','Lista','','',1,TRUE,FALSE,TRUE,-1,-1),
