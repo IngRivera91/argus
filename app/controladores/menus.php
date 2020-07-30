@@ -5,7 +5,6 @@ namespace Controlador;
 use Ayuda\Html;
 use Clase\Controlador;
 use Interfas\Database;
-use Interfas\GeneraConsultas;
 use Modelo\Menus AS ModeloMenus;
 
 class menus extends Controlador

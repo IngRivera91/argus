@@ -5,7 +5,6 @@ namespace Controlador;
 use Ayuda\Html;
 use Clase\Controlador;
 use Interfas\Database;
-use Interfas\GeneraConsultas;
 use Error\Base AS ErrorBase;
 use Modelo\Metodos AS ModeloMetodos;
 use Modelo\Menus AS ModeloMenus;
