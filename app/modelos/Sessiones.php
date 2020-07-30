@@ -4,7 +4,6 @@ namespace Modelo;
 
 use Clase\Modelo;
 use Interfas\Database;
-use Interfas\GeneraConsultas;
 use Error\Autentificacion AS ErrorAutentificacion;
 
 class Sessiones extends Modelo

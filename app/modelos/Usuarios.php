@@ -4,7 +4,6 @@ namespace Modelo;
 
 use Clase\Modelo;
 use Interfas\Database;
-use Interfas\GeneraConsultas;
 use Error\Base AS ErrorBase;
 use Error\Autentificacion AS ErrorAutentificacion;
 

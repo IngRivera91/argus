@@ -4,7 +4,6 @@ namespace Modelo;
 
 use Clase\Modelo;
 use Interfas\Database;
-use Interfas\GeneraConsultas;
 
 class Grupos extends Modelo
 {
