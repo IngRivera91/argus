@@ -1,12 +1,15 @@
 <?php
 
+use Modelo\Menus;
 use Modelo\Grupos;
+use Modelo\Metodos;
 use Modelo\MetodosGrupos;
 use Error\Base AS ErrorBase;
 use PHPUnit\Framework\TestCase;
 
 class ModeloGruposTest extends TestCase
 {
+    public int $registrosExtras = 2;
     /**
      * @test
      */
@@ -27,9 +30,23 @@ class ModeloGruposTest extends TestCase
         $this->assertSame(1,1);
         $MetodosGrupos = new MetodosGrupos($coneccion);
         $Grupos = new Grupos($coneccion);
+        $Metodos = new Metodos($coneccion);
+        $Menus = new Menus($coneccion);
 
         $MetodosGrupos->eliminarTodo();
         $Grupos->eliminarTodo();
+        $Metodos->eliminarTodo();
+        $Menus->eliminarTodo();
+
+        $grupo = ['id' => 5,'nombre' => 'nombre5' , 'activo' => 1];
+        $Grupos->registrar($grupo);
+        $grupo = ['id' => 6,'nombre' => 'nombre6' , 'activo' => 1];
+        $Grupos->registrar($grupo);
+
+        $menu = ['id' => 1,'nombre' => 'nombre1' , 'activo' => 1];
+        $Menus->registrar($menu);
+        $menu = ['id' => 2,'nombre' => 'nombre2' , 'activo' => 1];
+        $Menus->registrar($menu);
 
         return $Grupos;
     }
@@ -104,7 +121,7 @@ class ModeloGruposTest extends TestCase
     public function obtenerNumeroRegistros($modelo,$registros)
     {
         $resultado = $modelo->obtenerNumeroRegistros();
-        $this->assertSame(count($registros),$resultado);
+        $this->assertSame((count($registros)+$this->registrosExtras),$resultado);
         return $registros;
     }
 
@@ -202,7 +219,7 @@ class ModeloGruposTest extends TestCase
         }
 
         $resultado = $modelo->obtenerNumeroRegistros();
-        $this->assertSame(count($registros),$resultado);
+        $this->assertSame((count($registros)+$this->registrosExtras),$resultado);
 
         return $registros;
     }
