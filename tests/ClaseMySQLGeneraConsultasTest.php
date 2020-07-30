@@ -63,13 +63,13 @@ class ClaseMySQLGeneraConsultasTest extends TestCase
     public function generaConsultaSelect($generaConsulta)
     {
         $tabla = 'usuarios';
-        $colunmas = ['usuarios.grupo_id'];
+        $colunmas = ['usuarios_grupo_id'];
 
         $consultaEsperada = 'SELECT usuarios.grupo_id AS usuarios_grupo_id FROM usuarios';
         $consulta = $generaConsulta->select($tabla,$colunmas);
         $this->assertSame($consulta,$consultaEsperada);
 
-        $colunmas = ['usuarios.usuario_registro_id'];
+        $colunmas = ['usuarios_usuario_registro_id'];
         
         $consultaEsperada = 'SELECT usuarios.usuario_registro_id AS usuarios_usuario_registro_id FROM usuarios';
         $consulta = $generaConsulta->select($tabla,$colunmas);
@@ -85,13 +85,13 @@ class ClaseMySQLGeneraConsultasTest extends TestCase
         $consulta = $generaConsulta->select($tabla,$colunmas);
         $this->assertSame($consulta,$consultaEsperada);
 
-        $colunmas = ['usuarios.id'];
+        $colunmas = ['usuarios_id'];
 
         $consultaEsperada = 'SELECT usuarios.id AS usuarios_id FROM usuarios';
         $consulta = $generaConsulta->select($tabla,$colunmas);
         $this->assertSame($consulta,$consultaEsperada);
 
-        $colunmas = ['grupos.id'];
+        $colunmas = ['grupos_id'];
 
         $consultaEsperada = 'SELECT grupos.id AS grupos_id FROM usuarios';
         $consulta = $generaConsulta->select($tabla,$colunmas);
@@ -101,7 +101,7 @@ class ClaseMySQLGeneraConsultasTest extends TestCase
         $consulta = $generaConsulta->select($tabla,$colunmas,$filtros);
         $this->assertSame($consulta,$consultaEsperada);
 
-        $colunmas = ['usuarios.id','grupos.id'];
+        $colunmas = ['usuarios_id','grupos_id'];
         $relaciones = ['grupos' => 'usuarios.grupo_id'];
         $limit = '';
         $orderBy = [];

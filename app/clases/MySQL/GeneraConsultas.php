@@ -48,7 +48,7 @@ class GeneraConsultas implements GeneraConsultasInterface
         $colunmasGeneradas = '';
         foreach ($columnas as $columna)
         {
-            $explodeColumna = explode('.',$columna);
+            $explodeColumna = explode('_',$columna);
             if ( count($explodeColumna) > 1 ){
                 $explodeColumnasFinal = '';
                 for($i = 1 ; $i < count($explodeColumna) ; $i ++)
