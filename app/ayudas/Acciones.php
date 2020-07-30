@@ -21,7 +21,7 @@ class Acciones
         $modeloMetodosGrupos = new MetodosGrupos($coneccion);
         
         $filtros = [
-            ['campo' => "metodosgrupos.grupo_id", 'valor'=>$grupoId, 'signoComparacion'=>'=', 'conectivaLogica'=>''],
+            ['campo' => "{$modeloMetodosGrupos->obtenerTabla()}.grupo_id", 'valor'=>$grupoId, 'signoComparacion'=>'=', 'conectivaLogica'=>''],
             ['campo' => "metodos.activo_accion", 'valor'=>1, 'signoComparacion'=>'=', 'conectivaLogica'=>'AND'],
             ['campo' => "menus.nombre", 'valor'=>$controladorActual, 'signoComparacion'=>'=', 'conectivaLogica'=>'AND']
         ];
