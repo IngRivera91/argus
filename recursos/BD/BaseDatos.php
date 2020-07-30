@@ -35,8 +35,8 @@ class BaseDatos
             PRIMARY KEY (`id`) USING BTREE
             ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
     
-            DROP TABLE IF EXISTS `metodos_grupos`;
-            CREATE TABLE `metodos_grupos`  (
+            DROP TABLE IF EXISTS `metodosgrupos`;
+            CREATE TABLE `metodosgrupos`  (
             `id` int(11) NOT NULL AUTO_INCREMENT,
             `metodo_id` int(11) NULL DEFAULT NULL,
             `grupo_id` int(11) NULL DEFAULT NULL,
@@ -183,9 +183,8 @@ class BaseDatos
             (31,'eliminarBd','','Eliminar','fas fa-trash',4,FALSE,TRUE,TRUE,-1,-1),
             (32,'modificarBd','','','',4,FALSE,FALSE,TRUE,-1,-1);
 
-            DELETE FROM metodos_grupos;
             SET @grupo_id = 1;
-            INSERT INTO metodos_grupos (metodos_grupos.id,metodos_grupos.metodo_id,metodos_grupos.grupo_id,metodos_grupos.activo)
+            INSERT INTO metodosgrupos (id,metodo_id,grupo_id,activo)
             VALUES 
             (1,1,@grupo_id,TRUE),
             (2,2,@grupo_id,TRUE),

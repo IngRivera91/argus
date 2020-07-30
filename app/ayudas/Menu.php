@@ -20,7 +20,7 @@ class Menu
         $modeloMetodosGrupos = new MetodosGrupos($coneccion);
         
         $filtros = [
-            ['campo' => "metodos_grupos.grupo_id", 'valor'=>$grupoId, 'signoComparacion'=>'=', 'conectivaLogica'=>''],
+            ['campo' => "metodosgrupos.grupo_id", 'valor'=>$grupoId, 'signoComparacion'=>'=', 'conectivaLogica'=>''],
             ['campo' => "metodos.activo", 'valor'=>true, 'signoComparacion'=>'=', 'conectivaLogica'=>'AND'],
             ['campo' => "metodos.activo_menu", 'valor'=>true, 'signoComparacion'=>'=', 'conectivaLogica'=>'AND'],
             ['campo' => "menus.activo", 'valor'=>true, 'signoComparacion'=>'=', 'conectivaLogica'=>'AND']
