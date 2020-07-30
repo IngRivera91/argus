@@ -19,16 +19,29 @@ class ModeloGruposTest extends TestCase
         $claseDatabase = 'Clase\\'.DB_TIPO.'\\Database';
         $coneccion = new $claseDatabase();
         return $coneccion;
+    
     }
 
     /**
      * @test
      * @depends crearConeccion
      */
-    public function crearModelo($coneccion)
+    public function crearModeloMetodosGrupos($coneccion)
     {
         $this->assertSame(1,1);
         $MetodosGrupos = new MetodosGrupos($coneccion);
+
+        return $MetodosGrupos;
+    }
+
+    /**
+     * @test
+     * @depends crearConeccion
+     * @depends crearModeloMetodosGrupos
+     */
+    public function crearModelo($coneccion,$MetodosGrupos)
+    {
+        $this->assertSame(1,1);
         $Grupos = new Grupos($coneccion);
         $Metodos = new Metodos($coneccion);
         $Menus = new Menus($coneccion);
@@ -67,6 +80,22 @@ class ModeloGruposTest extends TestCase
         ];
         foreach ($metodos as $metodo) {
             $Metodos->registrar($metodo);
+        }
+
+        $metodosgrupos = [
+            ['id' => 1,'grupo_id' => 5 , 'metodo_id' => 1, 'activo' => 1],
+            ['id' => 2,'grupo_id' => 5 , 'metodo_id' => 2, 'activo' => 1],
+            ['id' => 3,'grupo_id' => 5 , 'metodo_id' => 3, 'activo' => 1],
+            ['id' => 4,'grupo_id' => 5 , 'metodo_id' => 4, 'activo' => 1],
+
+            ['id' => 5,'grupo_id' => 5 , 'metodo_id' => 5, 'activo' => 1],
+            ['id' => 6,'grupo_id' => 5 , 'metodo_id' => 6, 'activo' => 1],
+            ['id' => 7,'grupo_id' => 6 , 'metodo_id' => 1, 'activo' => 1],
+            ['id' => 8,'grupo_id' => 6 , 'metodo_id' => 2, 'activo' => 1]
+        ];
+
+        foreach ($metodosgrupos as $metodogrupo) {
+            $MetodosGrupos->registrar($metodogrupo);
         }
 
         return $Grupos;
@@ -249,9 +278,11 @@ class ModeloGruposTest extends TestCase
      * @test
      * @depends crearModelo
      * @depends eliminarPorId
+     * @depends crearModeloMetodosGrupos
      */
-    public function eliminarTodo($modelo,$registrosl)
+    public function eliminarTodo($modelo,$registrosl,$MetodosGrupos)
     {
+        $MetodosGrupos->eliminarTodo();
         $resultado = $modelo->eliminarTodo();
         $this->assertIsArray($resultado);
         $this->assertCount(1,$resultado);
