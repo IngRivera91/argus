@@ -101,7 +101,7 @@ $acciones = Acciones::crear($coneccion, GRUPO_ID, $controladorActual);
             <thead>
                 <tr>
                     <h3 class='text-center'>
-                        <span <?php echo COLORBASE; ?> class="fas fa-times"></span> no existen registros
+                        <span class="fas fa-times"></span> no existen registros
                     </h3>
                 </tr>
             </thead>
