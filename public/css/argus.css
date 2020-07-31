@@ -2,6 +2,7 @@
     --color-principal: #17a2b8;
     --color-principal-hover: #06788a;
     --color-secundario: white;
+    --color-list:#ffffff;
 }
 
 i , .icono {
@@ -68,7 +69,7 @@ div.card-body > a.sin-permiso-btn {
 }
 
 div.argus-lista{
-    background-color: white;
+    background-color: var(--color-list);
 }
 div.argus-lista > h3 {
     color: var(--color-principal);
