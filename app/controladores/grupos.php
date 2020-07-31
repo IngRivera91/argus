@@ -95,6 +95,33 @@ class grupos extends Controlador
 
     }
 
+    public function bajaPermiso()
+    {
+        try {
+            
+            $metodoId = $this->validaMedotoId();
+            $grupoId = $this->validaGrupoId();
+
+            $filtros = [
+                ['campo'=>"{$this->MetodosGrupos->obtenerTabla()}.grupo_id", 'valor'=>$grupoId, 'signoComparacion'=>'=', 'conectivaLogica' => ''],
+                ['campo'=>"{$this->MetodosGrupos->obtenerTabla()}.metodo_id", 'valor'=>$metodoId, 'signoComparacion'=>'=', 'conectivaLogica' => 'AND']
+            ];
+            $this->MetodosGrupos->eliminarConFiltros($filtros);
+
+        } catch (ErrorBase $e) {
+            header('Content-Type: application/json');
+            $json = json_encode(['respuesta' => false,'error' => $e->getMessage()]);
+            echo $json;
+            exit;
+        }
+
+        header('Content-Type: application/json');
+        $json = json_encode(['respuesta' => true,'error' => '']);
+        echo $json;
+        exit;
+
+    }
+
     public function validaMedotoId()
     {
         if (!isset($_GET['metodoId'])) {
