@@ -25,7 +25,7 @@ class Html
         $inputHtml .= "<div class=col-md-$col>";
         $inputHtml .=   "<div class='form-group'>";
 
-        $inputHtml .=       "<label><b>$label</b></label>";
+        $inputHtml .=       "<label>$label</label>";
 
         $inputHtml .=       "<input $required $atributos value='$value' name='$name' type='$type'";
         $inputHtml .=       "placeholder='$placeholder' class='form-control  form-control-sm'>";
