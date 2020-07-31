@@ -21,12 +21,13 @@ function permisos(metodoId,grupoId) {
         type: "POST",
         data: {},
         success: function (data) {
+            console.log(data);
             var respuesta = data['respuesta'];
             if(respuesta == true){
                 $('#'+metodoId).removeClass(quitarClase).addClass(ponerClase);
                 return false;
             }
-            alert('algo salio mal')
+            alert(data['error'])
             return false;
         },
         error: function (xhr, status) {
