@@ -7,6 +7,7 @@ use Clase\Modelo;
 use Modelo\Metodos;
 use Clase\Controlador;
 use Interfas\Database;
+use Modelo\MetodosGrupos;
 use Error\Base AS ErrorBase;
 use Modelo\Grupos AS ModeloGrupos;
 
@@ -16,11 +17,13 @@ class grupos extends Controlador
     public string $nombreGrupo;
     public int $grupoId;
     public Modelo $Metodos;
+    public Modelo $MetodosGrupos;
 
     public function __construct(Database $coneccion)
     {
         $modelo = new ModeloGrupos($coneccion);
         $this->Metodos = new Metodos($coneccion);
+        $this->MetodosGrupos = new MetodosGrupos($coneccion);
         $nombreMenu = 'grupos';
         $this->breadcrumb = false;
 
@@ -68,6 +71,30 @@ class grupos extends Controlador
         
     }
 
+    public function altaPermiso()
+    {
+        try {
+            
+            $metodoId = $this->validaMedotoId();
+            $grupoId = $this->validaGrupoId();
+
+            $datos = ['grupo_id' => $grupoId, 'metodo_id' => $metodoId, 'activo' => 1];
+            $this->MetodosGrupos->registrar($datos);
+
+        } catch (ErrorBase $e) {
+            header('Content-Type: application/json');
+            $json = json_encode(['respuesta' => false,'error' => $e->getMessage()]);
+            echo $json;
+            exit;
+        }
+
+        header('Content-Type: application/json');
+        $json = json_encode(['respuesta' => true,'error' => '']);
+        echo $json;
+        exit;
+
+    }
+
     public function validaMedotoId()
     {
         if (!isset($_GET['metodoId'])) {
@@ -76,7 +103,7 @@ class grupos extends Controlador
 
         $metodoId = (int) $_GET['metodoId'];
 
-        if (!$this->Metodos->existeRegistroId($registroId)) {
+        if (!$this->Metodos->existeRegistroId($metodoId)) {
             throw new ErrorBase('el metodoId no existe'); 
         }
         
@@ -92,7 +119,7 @@ class grupos extends Controlador
 
         $grupoId = (int) $_GET['grupoId'];
 
-        if (!$this->modelo->existeRegistroId($registroId)) {
+        if (!$this->modelo->existeRegistroId($grupoId)) {
             throw new ErrorBase('el grupoId no existe');  
         }
         
