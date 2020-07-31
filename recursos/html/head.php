@@ -16,5 +16,14 @@
         <link rel="stylesheet" href="adminlte3/select2-bootstrap4-theme/select2-bootstrap4.min.css">
         <link rel="stylesheet" href="adminlte3/dist/css/adminlte.min.css">
         <link rel="stylesheet" href="css/argus.css">
-        <title><?php echo NOMBRE_PROYECTO ?></title>
+        <?php 
+            $rutaArchivoCss = '';
+            if (isset($controladorActual) && isset($metodoActual)) {
+                $rutaArchivoCss = "css/{$controladorActual}.{$metodoActual}.css";
+            }
+            if(file_exists($rutaArchivoCss)) {
+                echo "<link rel='stylesheet' href='{$rutaArchivoCss}'>";
+            }
+        ?>
+        <title><?= NOMBRE_PROYECTO ?></title>
     </head>

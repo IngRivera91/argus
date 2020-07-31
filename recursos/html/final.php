@@ -9,6 +9,7 @@
     <!-- AdminLTE App -->
     <script src="adminlte3/bootstrap/js/bootstrap.min.js"></script>
     <script src="adminlte3/dist/js/adminlte.min.js"></script>
+    <script src="js/argus.js"></script>
     <script>
         $(function () {
 
@@ -21,5 +22,14 @@
             });
         });
     </script>
+    <?php 
+        $rutaArchivoJs = '';
+        if (isset($controladorActual) && isset($metodoActual)) {
+            $rutaArchivoJs = "js/{$controladorActual}.{$metodoActual}.js";
+        }
+        if(file_exists($rutaArchivoJs)) {
+            echo "<script src='$rutaArchivoJs'></script>";
+        }
+    ?>
     </body>
 </html>
