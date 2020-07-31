@@ -87,7 +87,7 @@ class Grupos extends Modelo
             ['campo' => "{$this->MetodosGrupos->obtenerTabla()}.grupo_id", 'valor'=>$grupoId, 'signoComparacion'=>'=', 'conectivaLogica'=>'']
         ];
     
-        $columnas = ['id'];
+        $columnas = ["{$this->MetodosGrupos->obtenerTabla()}_metodo_id"];
         $orderBy = [];
         $limit = '';
         $noUsarRelaciones = true;
@@ -100,7 +100,7 @@ class Grupos extends Modelo
         $ids = [];
 
         foreach ($resultado['registros'] as $registro) {
-            $ids[] = $registro["{$this->MetodosGrupos->obtenerTabla()}_id"];
+            $ids[] = $registro["{$this->MetodosGrupos->obtenerTabla()}_metodo_id"];
         }
 
         return $ids;
