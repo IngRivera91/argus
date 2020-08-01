@@ -23,39 +23,32 @@ COMPOSER
 
 ### Instalación 🔧
 
-_Una serie de ejemplos paso a paso que te dice lo que debes ejecutar para tener un entorno de desarrollo ejecutandose_
-
-_Dí cómo será ese paso_
-
-```
-Da un ejemplo
-```
-
-_Y repite_
+_crear tu base de datos_
+_crear y configurar el archivo config.php basado en configEhemplo.php_
 
 ```
-hasta finalizar
+define('DB_TIPO', 'MySQL');
+define('DB_HOST', 'localhost');
+define('DB_USER', 'tu_usuario_mysql');
+define('DB_PASSWORD', 'contraseña_de_tu_usuario');
+define('DB_NAME', 'el_nombre_de_tu_bd');
 ```
 
-_Finaliza con un ejemplo de cómo obtener datos del sistema o como usarlos para una pequeña demo_
+_abrir una terminal dentro de la carpeta raiz y ejecutar el siguiente comando_
 
-## Construido con 🛠️
-
-* [Laragon](https://laragon.org/)
-* [VS Code](https://code.visualstudio.com/)
-
+```
+php .\scripts\CrearDatabaseMySQL.php
+```
 
 ## Autores ✒️
-
-_Menciona a todos aquellos que ayudaron a levantar el proyecto desde sus inicios_
 
 * **Ricardo Rivera Sanchez** - *Programador* - [ingrivera](https://github.com/IscRivera91)
  
 
 ## Licencia 📄
 
-Este proyecto es libre 
+Argus framework es open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 
 
 ---
-⌨️ con ❤️ por [Villanuevand](https://github.com/Villanuevand) 😊
+Plantilla MD. con ❤️ por [Villanuevand](https://github.com/Villanuevand) 😊
