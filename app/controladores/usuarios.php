@@ -12,6 +12,7 @@ use Modelo\Usuarios AS ModeloUsuarios;
 class usuarios extends Controlador
 {
     private array $gruposRegistros;
+    public int $usuarioId;
 
     public function __construct(Database $coneccion)
     {
@@ -95,13 +96,28 @@ class usuarios extends Controlador
 
     public function nuevaContra()
     {
+        $this->usuarioId = $this->validaRegistoId();
+        
+        try {
+            $resultado = $this->modelo->buscarPorId($this->usuarioId);
+        } catch (ErrorBase $e) {
+            $error = new ErrorBase('Error al obtener datos de el registro a cambiar contraseña',$e);
+            if ($this->redireccionar) {
+                $error->muestraError();
+                exit;
+            }
+            throw $error;
+        }
+
+        $this->registro = $resultado['registros'][0];
+
         $this->htmlInputFormulario['inputContraseña'] = Html::input('Contraseña','password',4);
         $this->htmlInputFormulario['submit'] = Html::submit('cambiar contraseña',$this->llaveFormulario,4);
     }
 
     public function nuevaContraBd()
     {
-        
+        print_r($_POST);exit;
     }
 
 }
