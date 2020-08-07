@@ -3,6 +3,7 @@
 namespace Controlador;
 
 use Ayuda\Html;
+use Ayuda\Redireccion;
 use Clase\Controlador;
 use Interfas\Database;
 use Error\Base AS ErrorBase;
@@ -117,7 +118,40 @@ class usuarios extends Controlador
 
     public function nuevaContraBd()
     {
-        print_r($_POST);exit;
+
+        $nombreLlaveFormulario = $this->llaveFormulario;
+        
+        if (!isset($_POST[$nombreLlaveFormulario])) {
+            $mensaje = 'llave no valida';
+            if (!$this->redireccionar) {
+                return $mensaje;
+            }
+            $url = Redireccion::obtener($this->nombreMenu,'lista',SESSION_ID,$mensaje)."&pag={$this->obtenerNumeroPagina()}";
+            header("Location: {$url}");
+            exit;
+        }
+
+        $usuarioId = $_POST['usuarioId'];
+        $datos = ['password' => md5($_POST['password']) ];
+        
+        try {
+            $resultado = $this->modelo->modificarPorId($usuarioId, $datos);
+        } catch (ErrorBase $e) {
+            $error = new ErrorBase('Error al cambiar contraseña',$e);
+            if ($this->redireccionar) {
+                $error->muestraError();
+                exit;
+            }
+            throw $error;
+        }
+
+        $mensaje = 'se cambio la contraseña';
+        if (!$this->redireccionar) {
+            return $mensaje;
+        }
+        $url = Redireccion::obtener($this->nombreMenu,'lista',SESSION_ID,$mensaje)."&pag={$this->obtenerNumeroPagina()}";
+        header("Location: {$url}");
+        exit; 
     }
 
 }
