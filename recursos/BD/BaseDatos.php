@@ -165,7 +165,8 @@ class BaseDatos
         }
         
         $query .= "
-
+            ('nuevaContra','','Cambiar contraseña','fas fa-key',4,FALSE,TRUE,TRUE,-1,-1),
+            ('nuevaContraBd','','','',4,FALSE,FALSE,TRUE,-1,-1),
             ('permisos','','Asigna Permisos','fas fa-plus-square',3,FALSE,TRUE,TRUE,-1,-1),
             ('bajaPermiso','','','',3,FALSE,FALSE,TRUE,-1,-1),
             ('altaPermiso','','','',3,FALSE,FALSE,TRUE,-1,-1);
@@ -175,7 +176,7 @@ class BaseDatos
         
         ";
 
-        $numeroMetodos = 35;
+        $numeroMetodos = 37;
         $grupoId = 1;
         for ($i = 1 ; $i < $numeroMetodos ; $i++) {
             $query .= "($i,$i,$grupoId,TRUE),";
