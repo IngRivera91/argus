@@ -18,11 +18,12 @@ class Controlador
     public array  $camposFiltrosLista = [];       // Define los campos de los filtros
     public array  $camposLista;                   // Define los campo que se van a mostrar en la lista
     public array  $filtrosLista = [];             // Define los filtros que se deben aplicar para obtener los registros de las listas
-    public array  $filtrosListaBase = [];             // Define los filtros que se deben aplicar para obtener los registros de las listas
+    public array  $filtrosListaBase = [];         // Define los filtros base que se deben aplicar para obtener los registros de las listas
     public array  $htmlInputFiltros = [];         // Codigo html de los inputs del filtro para la lista
     public array  $htmlInputFormulario = [];      // Codigo html de los inputs del del formulario de registro y modificacion
     public array  $registro;                      // Almacena el registros para poder editarlo
     public array  $registros;                     // Almacena los resgistros para poder mostrarlos en la lista
+    public array  $orderByCamposLista = [];       // Define el orden en que se debe mostrar la lista
     public string $htmlPaginador = '';            // Codigo html del paginador
     public string $llaveFormulario;               // Llave que se ocupa que los $_POST son de un formulario valido
     public string $nombreMenu;                    // Define el menu al cual se deben hacer la redirecciones
