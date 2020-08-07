@@ -93,4 +93,15 @@ class usuarios extends Controlador
         $this->htmlInputFormulario[] = Html::submit('Modificar',$this->llaveFormulario,4);
     }
 
+    public function nuevaContra()
+    {
+        $this->htmlInputFormulario['inputContraseña'] = Html::input('Contraseña','password',4);
+        $this->htmlInputFormulario['submit'] = Html::submit('cambiar contraseña',$this->llaveFormulario,4);
+    }
+
+    public function nuevaContraBd()
+    {
+        
+    }
+
 }
