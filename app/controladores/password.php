@@ -17,4 +17,9 @@ class password
     {
         $this->Usuarios = new Usuarios($coneccion);
     }
+
+    public function cambiarPassword()
+    {
+        
+    }
 }
