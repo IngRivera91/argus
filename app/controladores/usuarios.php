@@ -24,7 +24,7 @@ class usuarios extends Controlador
             $columas = ['grupos_id','grupos_nombre'];
             $this->gruposRegistros = $modeloGrupos->buscarTodo($columas,[],'',true)['registros'];
         } catch (ErrorBase $e) {
-            $error = new ErrorBase('Error al obtner los menus');
+            $error = new ErrorBase('Error al obtner los grupos');
             $error->muestraError();
         }
 
