@@ -285,6 +285,11 @@ class Controlador
     public function generaHtmlInputFiltros(string $cols, array $datosValue = []): void
     {
         $this->filtrosLista[] = ['campo' =>'1', 'valor'=>'1', 'signoComparacion'=>'=', 'conectivaLogica'=>''];
+
+        foreach ($this->filtrosListaBase as $filtro) {
+            $this->filtrosLista = $filtro;
+        }
+        
         $type = 'text';
         $require = '';
         $value= '';
@@ -293,9 +298,6 @@ class Controlador
             if (isset($datosValue[$_name])) {
                 $value = $datosValue[$_name];
                 $this->filtrosLista[] = ['campo' =>$name, 'valor'=>"%{$value}%", 'signoComparacion'=>'LIKE', 'conectivaLogica'=>'AND'];
-                foreach ($this->filtrosListaBase as $filtro) {
-                    $this->filtrosLista = $filtro;
-                }
             }
             $this->htmlInputFiltros[] = Html::input($label, $_name, $cols, $value,'', $type, $require);
         }
