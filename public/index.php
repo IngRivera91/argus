@@ -7,10 +7,10 @@ use Ayuda\Valida;
 use Ayuda\Redireccion;
 use Clase\Autentificacion;
 use Error\Base AS ErrorBase;
+$controladoresSinPermisos = ['inicio','password'];
+$parametrosGetRequeridos = array('controlador','metodo');
 
-$parametros_get_requeridos = array('controlador','metodo');
-
-foreach ($parametros_get_requeridos as $parametro){
+foreach ($parametrosGetRequeridos as $parametro){
     validaParametroGet($parametro);
 }
 
@@ -64,7 +64,7 @@ if ($controladorActual === 'session' && $metodoActual === 'logout'){
 
 $autentificacion->defineConstantes($datos,$sessionId);
 
-if ($controladorActual != 'inicio'){
+if (!in_array($controladorActual,$controladoresSinPermisos)){
 
     if (!Valida::permiso($coneccion, GRUPO_ID, $controladorActual, $metodoActual)) {
         Redireccion::enviar('inicio','index',SESSION_ID,"No tienes permisos para acceder al metodo:{$metodoActual} del controlador:{$controladorActual}");
