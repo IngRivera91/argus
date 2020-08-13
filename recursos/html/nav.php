@@ -13,10 +13,27 @@
 
         <!-- Right navbar links -->
         <ul class="navbar-nav ml-auto">
-        <!-- Messages Dropdown Menu -->
-        <li class="nav-item" >
-            <a href="<?php echo Redireccion::obtener('session','logout',SESSION_ID); ?>" >Salir <i class="fas fa-power-off"></i></a>
-        </li>
+
+            <li class="nav-item dropdown">
+
+                <a class="nav-link" role="button" data-toggle="dropdown" href="#">
+                <i class="fas fa-ellipsis-v"></i>
+                </a>
+
+                <div class="dropdown-menu dropdown-menu dropdown-menu">
+
+                    <a href="<?php echo Redireccion::obtener('password','cambiarPassword',SESSION_ID); ?>"class="dropdown-item text-center">
+                        Cambiar Contraseña
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a href="<?php echo Redireccion::obtener('session','logout',SESSION_ID); ?>"class="dropdown-item text-center">
+                        Salir
+                    </a>
+
+                </div>
+                
+            </li>
+
         </ul>
     </nav>
     <!-- /.navbar -->
