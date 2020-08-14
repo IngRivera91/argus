@@ -186,15 +186,13 @@ class Html
         bool   $saltarLinea = false
     ) :string {
         $selectHtml = '';
-        $selectHtml .= "<div class=col-md-$col>";
-        $selectHtml .= "<div class='form-group'>";
-        $selectHtml .= "<label>$label</label>";
-
-        $selectHtml .= "<select $required name='$name' class='form-control form-control-sm select2'";
+        $selectHtml .= self::generaPrincipioSelect($col,$label);
+        
+        $selectHtml .= "<select title='$label' $required name='$name' class='form-control form-control-sm select2'";
         $selectHtml .= " data-placeholder='$label'  data-select2-id='$select2Id' tabindex='-1' >";
 
         $selectHtml .= self::generaSelectOptions($nombreTabla, $registros, $elementos, $value, $chart);
-        $selectHtml .= self::generaFinalSelects($saltarLinea);
+        $selectHtml .= self::generaFinalSelect($saltarLinea);
         return $selectHtml;
     }
 
@@ -212,13 +210,16 @@ class Html
         bool   $saltarLinea = false
     ) :string {
         $selectHtml = '';
-        $selectHtml .= "<div class=col-md-$col>";
-        $selectHtml .= "<div class='form-group'>";
-        $selectHtml .= "<label>$label</label>";
-        $selectHtml .= "<select $required name='$name' class='form-control select2 select2-hidden-accessible' multiple='' data-placeholder='$label'  data-select2-id='$select2Id' tabindex='-1' aria-hidden='true'>";
+        $selectHtml .= self::generaPrincipioSelect($col,$label);
 
+        
+        $selectHtml .= "<div class='input-group-prepend'>";
+        $selectHtml .= "<label class='input-group-text'>Options</label>";
+        $selectHtml .= "</div>";
+        $selectHtml .= "<select $required name='$name' class='form-control select2 select2-hidden-accessible' multiple='' data-placeholder='$label'  data-select2-id='$select2Id' tabindex='-1' aria-hidden='true'>";
+        
         $selectHtml .= self::generaSelectOptions($nombreTabla, $registros, $elementos, $value, $chart);
-        $selectHtml .= self::generaFinalSelects($saltarLinea);
+        $selectHtml .= self::generaFinalSelect($saltarLinea);
         return $selectHtml;
     }
 
@@ -249,7 +250,18 @@ class Html
         return $optionsGenerados;
     }
 
-    private static function generaFinalSelects(bool $saltarLinea):string
+    private static function generaPrincipioSelect(int $col, string $label):string
+    {
+        $principioSelectGenerado = '';
+        $principioSelectGenerado .= "<div class=col-md-$col>";
+        $principioSelectGenerado .= "<div class='input-group input-group-sm mb-3'>";
+        $principioSelectGenerado .= "<div class='input-group-prepend'>";
+        $principioSelectGenerado .= "<label id='inputGroup-sizing-sm' class='input-group-text'>".strtolower($label)."</label>";
+        $principioSelectGenerado .= "</div>";
+        return $principioSelectGenerado;
+    }
+
+    private static function generaFinalSelect(bool $saltarLinea):string
     {
         $finalSelectGenerado = '';
         $finalSelectGenerado .= "</select>";
