@@ -35,12 +35,12 @@ class Html
         bool   $saltarLinea = false
     ) :string {
         
-        $inputTextHtml = '';
-        $inputTextHtml .= self::generaPrincipioInput($col,$label);
-        $inputTextHtml .= "<input id='$id' name='$name' placeholder='$placeholder' value='$value' required class='form-control  form-control-sm' type='text'>";
-        $inputTextHtml .= self::generaFinalInput($saltarLinea);
+        $inputTextRequiredHtml = '';
+        $inputTextRequiredHtml .= self::generaPrincipioInput($col,$label);
+        $inputTextRequiredHtml .= "<input id='$id' name='$name' placeholder='$placeholder' value='$value' required class='form-control  form-control-sm' type='text'>";
+        $inputTextRequiredHtml .= self::generaFinalInput($saltarLinea);
         
-        return $inputTextHtml;
+        return $inputTextRequiredHtml;
     }
 
     private static function generaPrincipioInput(int $col, string $label):string
