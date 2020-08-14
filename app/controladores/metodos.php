@@ -51,10 +51,10 @@ class metodos extends Controlador
     public function registrar()
     {
         $this->breadcrumb = true;
-        
-        $this->htmlInputFormulario[] = Html::input('Metodo','nombre',4);
-        $this->htmlInputFormulario[] = Html::input('Etiqueta','etiqueta',4,'','','text','');
-        $this->htmlInputFormulario[] = Html::input('Icon','icono',4,'','','text','');
+
+        $this->htmlInputFormulario[] = Html::inputTextRequired(4,'Metodo',1,'nombre');
+        $this->htmlInputFormulario[] = Html::inputText(4,'Etiqueta',1,'etiqueta');
+        $this->htmlInputFormulario[] = Html::inputText(4,'Icono',1,'icono');
         $this->htmlInputFormulario[] = Html::selectConBuscador('menus','Menu', 'menu_id', 3,$this->menuRegistros,'menus_nombre','-1',1);
         $this->htmlInputFormulario[] = Html::selectActivo('Activo','activo',3,'-1',2);
         $this->htmlInputFormulario[] = Html::selectActivo('Activo Accion','activo_accion',3,'-1',3);
@@ -71,9 +71,9 @@ class metodos extends Controlador
         $nombreMenu = $this->nombreMenu;
         $registro = $this->registro;
 
-        $this->htmlInputFormulario[] = Html::input('Metodo','nombre',4,$registro["{$nombreMenu}_nombre"]);
-        $this->htmlInputFormulario[] = Html::input('Etiqueta','etiqueta',4,$registro["{$nombreMenu}_etiqueta"],'','text','');
-        $this->htmlInputFormulario[] = Html::input('Icon','icono',4,$registro["{$nombreMenu}_icono"],'','text','');
+        $this->htmlInputFormulario[] = Html::inputTextRequired(4,'Metodo',1,'nombre','',$registro["{$nombreMenu}_nombre"]);
+        $this->htmlInputFormulario[] = Html::inputText(4,'Etiqueta',1,'etiqueta','',$registro["{$nombreMenu}_etiqueta"]);
+        $this->htmlInputFormulario[] = Html::inputText(4,'Icono',1,'icono','',$registro["{$nombreMenu}_icono"]);
         $this->htmlInputFormulario[] = Html::selectConBuscador(
             'menus',
             'Menu', 
