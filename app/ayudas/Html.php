@@ -6,6 +6,15 @@ use Ayuda\Redireccion;
 
 class Html
 {
+    public static function inputHidden(
+        string $name,
+        string $value
+    ) :string {
+        
+        $inputHiddenHtml = "<input  name='$name'  value='$value' type='hidden'>";
+        
+        return $inputHiddenHtml;
+    }
 
     public static function inputText(
         int    $col,
@@ -16,10 +25,10 @@ class Html
         string $value       = '',
         bool   $saltarLinea = false
     ) :string {
-        
+        $placeholder = self::obtenerPlaceholder($label,$placeholder);
         $inputTextHtml = '';
         $inputTextHtml .= self::generaPrincipioInput($col,$label);
-        $inputTextHtml .= "<input id='$id' name='$name' placeholder='$placeholder' value='$value' class='form-control  form-control-sm' type='text'>";
+        $inputTextHtml .= "<input title='$label' id='$id' name='$name' placeholder='$placeholder' value='$value' class='form-control  form-control-sm' type='text'>";
         $inputTextHtml .= self::generaFinalInput($saltarLinea);
         
         return $inputTextHtml;
@@ -34,21 +43,110 @@ class Html
         string $value       = '',
         bool   $saltarLinea = false
     ) :string {
-        
+        $placeholder = self::obtenerPlaceholder($label,$placeholder);
         $inputTextRequiredHtml = '';
         $inputTextRequiredHtml .= self::generaPrincipioInput($col,$label);
-        $inputTextRequiredHtml .= "<input id='$id' name='$name' placeholder='$placeholder' value='$value' required class='form-control  form-control-sm' type='text'>";
+        $inputTextRequiredHtml .= "<input title='$label' id='$id' name='$name' placeholder='$placeholder' value='$value' required class='form-control  form-control-sm' type='text'>";
         $inputTextRequiredHtml .= self::generaFinalInput($saltarLinea);
         
         return $inputTextRequiredHtml;
     }
 
-    private static function generaPrincipioInput(int $col, string $label):string
+    public static function inputDate(
+        int    $col,
+        string $label,
+        int    $id,
+        string $name,
+        string $placeholder = '',
+        string $value       = '',
+        bool   $saltarLinea = false
+    ) :string {
+        $placeholder = self::obtenerPlaceholder($label,$placeholder);
+        $inputDateHtml = '';
+        $inputDateHtml .= self::generaPrincipioInput($col,$label);
+        $inputDateHtml .= "<input title='$label' id='$id' name='$name' placeholder='$placeholder' value='$value' class='form-control  form-control-sm' type='date'>";
+        $inputDateHtml .= self::generaFinalInput($saltarLinea);
+        
+        return $inputDateHtml;
+    }
+
+    public static function inputDateRequired(
+        int    $col,
+        string $label,
+        int    $id,
+        string $name,
+        string $placeholder = '',
+        string $value       = '',
+        bool   $saltarLinea = false
+    ) :string {
+        $placeholder = self::obtenerPlaceholder($label,$placeholder);
+        $inputDateHtml = '';
+        $inputDateHtml .= self::generaPrincipioInput($col,$label);
+        $inputDateHtml .= "<input title='$label' id='$id' name='$name' placeholder='$placeholder' value='$value' required class='form-control  form-control-sm' type='date'>";
+        $inputDateHtml .= self::generaFinalInput($saltarLinea);
+        
+        return $inputDateHtml;
+    }
+
+    public static function inputNumber(
+        int    $col,
+        string $label,
+        int    $id,
+        string $name,
+        string $placeholder = '',
+        string $value       = '',
+        bool   $saltarLinea = false
+    ) :string {
+        $placeholder = self::obtenerPlaceholder($label,$placeholder);
+        $inputNumbertHtml = '';
+        $inputNumbertHtml .= self::generaPrincipioInput($col,$label);
+        $inputNumbertHtml .= "<input title='$label' id='$id' name='$name' placeholder='$placeholder' value='$value' class='form-control  form-control-sm' type='number'>";
+        $inputNumbertHtml .= self::generaFinalInput($saltarLinea);
+        
+        return $inputNumbertHtml;
+    }
+
+    public static function inputNumberRequired(
+        int    $col,
+        string $label,
+        int    $id,
+        string $name,
+        string $placeholder = '',
+        string $value       = '',
+        bool   $saltarLinea = false
+    ) :string {
+        $placeholder = self::obtenerPlaceholder($label,$placeholder);
+        $inputNumberRequiredHtml = '';
+        $inputNumberRequiredHtml .= self::generaPrincipioInput($col,$label);
+        $inputNumberRequiredHtml .= "<input title='$label' id='$id' name='$name' placeholder='$placeholder' value='$value' required class='form-control  form-control-sm' type='number'>";
+        $inputNumberRequiredHtml .= self::generaFinalInput($saltarLinea);
+        
+        return $inputNumberRequiredHtml;
+    }
+
+    public static function inputPassword(
+        int    $col,
+        string $label,
+        int    $id,
+        string $name,
+        string $placeholder = '',
+        string $value       = '',
+        bool   $saltarLinea = false
+    ) :string {
+        $placeholder = self::obtenerPlaceholder($label,$placeholder);
+        $inputPasswordHtml = '';
+        $inputPasswordHtml .= self::generaPrincipioInput($col,$label);
+        $inputPasswordHtml .= "<input title='$label' id='$id' name='$name' placeholder='$placeholder' value='$value' required class='form-control  form-control-sm' type='password'>";
+        $inputPasswordHtml .= self::generaFinalInput($saltarLinea);
+        
+        return $inputPasswordHtml;
+    }
+
+    private static function generaPrincipioInput(int $col):string
     {
         $principioInputHtml = '';
         $principioInputHtml .= "<div class=col-md-$col>";
-        $principioInputHtml .= "<div class='form-group'>";
-        $principioInputHtml .= "<label>$label</label>";
+        $principioInputHtml .= "<div class='input-group mb-3'>";
 
         return $principioInputHtml;
     }
@@ -66,7 +164,7 @@ class Html
         return $finalInputHtml;
     }
 
-    private static function obtenerPlaceholder(string $name, string $placeholder):string
+    private static function obtenerPlaceholder(string $label, string $placeholder):string
     {
         if ($placeholder == '') {
             $placeholder = $label;
