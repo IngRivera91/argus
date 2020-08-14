@@ -13,7 +13,7 @@ class Html
         int    $id,
         string $name,
         string $placeholder = '',
-        string $value = '',
+        string $value       = '',
         bool   $saltarLinea = false
     ) :string {
         
@@ -31,7 +31,7 @@ class Html
         int    $id,
         string $name,
         string $placeholder = '',
-        string $value = '',
+        string $value       = '',
         bool   $saltarLinea = false
     ) :string {
         
