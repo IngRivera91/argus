@@ -7,75 +7,71 @@ use Ayuda\Redireccion;
 class Html
 {
 
-    public static function input(
-        string $label,
-        string $name,
+    public static function inputText(
         int    $col,
-        string $value       = '',
-        string $placeholder = '',  
-        string $type        = 'text',
-        string $required    = 'required',
-        bool   $saltarLinea = false,
-        string $atributos   = ''
+        string $label,
+        int    $id,
+        string $name,
+        string $placeholder = '',
+        string $value = '',
+        bool   $saltarLinea = false
     ) :string {
+        
+        $inputTextHtml = '';
+        $inputTextHtml .= self::generaPrincipioInput($col,$label);
+        $inputTextHtml .= "<input id='$id' name='$name' placeholder='$placeholder' value='$value' class='form-control  form-control-sm' type='text'>";
+        $inputTextHtml .= self::generaFinalInput($saltarLinea);
+        
+        return $inputTextHtml;
+    }
+
+    public static function inputTextRequired(
+        int    $col,
+        string $label,
+        int    $id,
+        string $name,
+        string $placeholder = '',
+        string $value = '',
+        bool   $saltarLinea = false
+    ) :string {
+        
+        $inputTextHtml = '';
+        $inputTextHtml .= self::generaPrincipioInput($col,$label);
+        $inputTextHtml .= "<input id='$id' name='$name' placeholder='$placeholder' value='$value' required class='form-control  form-control-sm' type='text'>";
+        $inputTextHtml .= self::generaFinalInput($saltarLinea);
+        
+        return $inputTextHtml;
+    }
+
+    private static function generaPrincipioInput(int $col, string $label):string
+    {
+        $principioInputHtml = '';
+        $principioInputHtml .= "<div class=col-md-$col>";
+        $principioInputHtml .= "<div class='form-group'>";
+        $principioInputHtml .= "<label>$label</label>";
+
+        return $principioInputHtml;
+    }
+
+    private static function generaFinalInput(bool $saltarLinea):string
+    {
+        $finalInputHtml = '';
+        $finalInputHtml .= "</div>";
+        $finalInputHtml .= "</div>";
+        
+        if ($saltarLinea) {
+            $finalInputHtml .= "<div class='col-md-12'></div>";
+        }
+      
+        return $finalInputHtml;
+    }
+
+    private static function obtenerPlaceholder(string $name, string $placeholder):string
+    {
         if ($placeholder == '') {
             $placeholder = $label;
         }
-        $inputHtml = '';
-        $inputHtml .= "<div class=col-md-$col>";
-        $inputHtml .=   "<div class='form-group'>";
-
-        $inputHtml .=       "<label>$label</label>";
-
-        $inputHtml .=       "<input $required $atributos value='$value' name='$name' type='$type'";
-        $inputHtml .=       "placeholder='$placeholder' class='form-control  form-control-sm'>";
-
-        $inputHtml .=   "</div>";
-        $inputHtml .= "</div>";
-        
-        if ($saltarLinea) {
-            $inputHtml .= "<div class='col-md-12'></div>";
-        }
-        return $inputHtml;
-    }
-
-    private static function generaSelectOptions(string $nombreTabla, array $registros, string $elementos, string $value, string $chart):string
-    {
-        $elementosArray = explode(',',$elementos);
-
-        $optionsGenerados = "<option hidden ></option>";
-
-        foreach ($registros as $registro) {
-
-            $valorRegistroId = $registro["{$nombreTabla}_id"];
-
-            $textValueOption = '';
-
-            foreach ($elementosArray as $elemento){
-                $textValueOption .= $registro[$elemento].$chart;
-            }
-            $textValueOption = trim($textValueOption,$chart);
-
-            $selected = '';
-            if ($value == $valorRegistroId){
-                $selected = "selected='true'";
-            }
-                
-            $optionsGenerados .= "<option $selected value='$valorRegistroId'>$textValueOption</option>";
-        }
-        return $optionsGenerados;
-    }
-
-    private static function generaFinalSelects(bool $saltarLinea):string
-    {
-        $finalSelectGenerado = '';
-        $finalSelectGenerado .= "</select>";
-        $finalSelectGenerado .= "</div>";
-        $finalSelectGenerado .= "</div>";
-        if ($saltarLinea) {
-            $finalSelectGenerado .= "<div class='col-md-12'></div>";
-        }
-        return $finalSelectGenerado;
+        return $placeholder;
     }
 
     public static function selectConBuscador(
@@ -128,6 +124,45 @@ class Html
         return $selectHtml;
     }
 
+    private static function generaSelectOptions(string $nombreTabla, array $registros, string $elementos, string $value, string $chart):string
+    {
+        $elementosArray = explode(',',$elementos);
+
+        $optionsGenerados = "<option hidden ></option>";
+
+        foreach ($registros as $registro) {
+
+            $valorRegistroId = $registro["{$nombreTabla}_id"];
+
+            $textValueOption = '';
+
+            foreach ($elementosArray as $elemento){
+                $textValueOption .= $registro[$elemento].$chart;
+            }
+            $textValueOption = trim($textValueOption,$chart);
+
+            $selected = '';
+            if ($value == $valorRegistroId){
+                $selected = "selected='true'";
+            }
+                
+            $optionsGenerados .= "<option $selected value='$valorRegistroId'>$textValueOption</option>";
+        }
+        return $optionsGenerados;
+    }
+
+    private static function generaFinalSelects(bool $saltarLinea):string
+    {
+        $finalSelectGenerado = '';
+        $finalSelectGenerado .= "</select>";
+        $finalSelectGenerado .= "</div>";
+        $finalSelectGenerado .= "</div>";
+        if ($saltarLinea) {
+            $finalSelectGenerado .= "<div class='col-md-12'></div>";
+        }
+        return $finalSelectGenerado;
+    }
+
     public static function selectActivo(
         string $label,
         string $name,
@@ -162,6 +197,21 @@ class Html
         $submitHtml .= "</div>";
 
         return $submitHtml;
+    }
+
+    public static function linkBoton(string $urlDestino, string $label, int $col, bool $saltarLinea = false):string
+    {
+        $linkBotonHtml = '';
+        if ($saltarLinea) {
+            $linkBotonHtml .= "<div class='col-md-12'></div>";
+        }
+        $linkBotonHtml .= "<div class=col-md-$col>";
+        $linkBotonHtml .= "<div class='form-group'>";
+        $linkBotonHtml .= "<a class='btn btn-default btn-argus btn-block  btn-flat btn-sm' href='$urlDestino'>$label</a>";
+        $linkBotonHtml .= "</div>";
+        $linkBotonHtml .= "</div>";
+
+        return $linkBotonHtml;
     }
 
     public static function paginador(int $numeroDePaginas, int $pagina, string $tabla):string
@@ -206,21 +256,6 @@ class Html
         $paginadorHtml .= "</ul>"; // termina <ul>
         $paginadorHtml .= "</nav>"; // termina <nav>
         return $paginadorHtml;
-    }
-
-    public static function linkBoton(string $urlDestino, string $label, int $col, bool $saltarLinea = false):string
-    {
-        $linkBotonHtml = '';
-        if ($saltarLinea) {
-            $linkBotonHtml .= "<div class='col-md-12'></div>";
-        }
-        $linkBotonHtml .= "<div class=col-md-$col>";
-        $linkBotonHtml .= "<div class='form-group'>";
-        $linkBotonHtml .= "<a class='btn btn-default btn-argus btn-block  btn-flat btn-sm' href='$urlDestino'>$label</a>";
-        $linkBotonHtml .= "</div>";
-        $linkBotonHtml .= "</div>";
-
-        return $linkBotonHtml;
     }
 
 }
