@@ -51,10 +51,10 @@ class usuarios extends Controlador
     {
         $this->breadcrumb = true;
         
-        $this->htmlInputFormulario[] = Html::input('Nombre Completo','nombre_completo',4);
-        $this->htmlInputFormulario[] = Html::input('Correo','correo_electronico',4);
-        $this->htmlInputFormulario[] = Html::input('Usuario','usuario',4);
-        $this->htmlInputFormulario[] = Html::input('Contraseña','password',4);
+        $this->htmlInputFormulario[] = Html::inputTextRequired(4,'Nombre Completo',1,'nombre_completo');
+        $this->htmlInputFormulario[] = Html::inputTextRequired(4,'Correo',1,'correo_electronico');
+        $this->htmlInputFormulario[] = Html::inputTextRequired(4,'Usuario',1,'usuario');
+        $this->htmlInputFormulario[] = Html::inputTextRequired(4,'Contraseña',1,'password');
         $this->htmlInputFormulario[] = Html::selectConBuscador(
             'grupos',
             'Grupo', 
@@ -78,9 +78,9 @@ class usuarios extends Controlador
         $nombreMenu = $this->nombreMenu;
         $registro = $this->registro;
 
-        $this->htmlInputFormulario[] = Html::input('Nombre Completo','nombre_completo',4,$registro["{$nombreMenu}_nombre_completo"]);
-        $this->htmlInputFormulario[] = Html::input('Correo','correo_electronico',4,$registro["{$nombreMenu}_correo_electronico"]);
-        $this->htmlInputFormulario[] = Html::input('Usuario','usuario',4,$registro["{$nombreMenu}_usuario"]);
+        $this->htmlInputFormulario[] = Html::inputTextRequired(4,'Nombre Completo',1,'nombre_completo','',$registro["{$nombreMenu}_nombre_completo"]);
+        $this->htmlInputFormulario[] = Html::inputTextRequired(4,'Correo',1,'correo_electronico','',$registro["{$nombreMenu}_correo_electronico"]);
+        $this->htmlInputFormulario[] = Html::inputTextRequired(4,'Usuario',1,'usuario','',$registro["{$nombreMenu}_usuario"]);
         $this->htmlInputFormulario[] = Html::selectConBuscador(
             'grupos',
             'Grupo', 
@@ -112,7 +112,7 @@ class usuarios extends Controlador
 
         $this->registro = $resultado['registros'][0];
 
-        $this->htmlInputFormulario['inputContraseña'] = Html::input('Contraseña','password',4);
+        $this->htmlInputFormulario['inputContraseña'] = Html::inputTextRequired(4,'Contraseña',1,'password');
         $this->htmlInputFormulario['submit'] = Html::submit('cambiar contraseña',$this->llaveFormulario,4);
     }
 
