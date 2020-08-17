@@ -6,9 +6,12 @@
     <script src="adminlte3/select2/js/select2.full.min.js"></script>
     <!-- Bootstrap Switch -->
     <script src="adminlte3/bootstrap-switch/js/bootstrap-switch.min.js"></script>
-    <!-- AdminLTE App -->
+    <!-- AdminLTE3 App -->
     <script src="adminlte3/bootstrap/js/bootstrap.min.js"></script>
     <script src="adminlte3/dist/js/adminlte.min.js"></script>
+    <!-- Alertify -->
+    <script src="alertify/alertify.min.js"></script>
+    <!-- Argus JS -->
     <script src="js/argus.js"></script>
     <script>
         $(function () {
