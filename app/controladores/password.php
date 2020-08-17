@@ -30,6 +30,30 @@ class password
 
     public function cambiarPasswordBd()
     {
-        dd($_POST);
+        $datos = $_POST;
+        $nombreLlaveFormulario = $this->llaveFormulario;
+        if (!isset($datos[$nombreLlaveFormulario])) {
+            Redireccion::enviar('password','cambiarPassword',SESSION_ID);
+        }
+
+        $filtros = [
+            ['campo'=>'usuarios.password', 'valor'=>md5($datos['passwordActual']), 'signoComparacion'=>'=', 'conectivaLogica' => ''],
+            ['campo'=>'usuarios.id', 'valor'=>USUARIO_ID, 'signoComparacion'=>'=', 'conectivaLogica' => 'AND']
+        ];
+
+        $resultado = $this->Usuarios->buscarConFiltros($filtros);
+
+        if ($resultado['numeroRegistros'] != 1) {
+            Redireccion::enviar('password','cambiarPassword',SESSION_ID,'Contraseña incorrecta');
+        }
+
+        $nuevaPassword = [
+            'password' => md5($datos['passwordNueva']) 
+        ];
+
+        $this->Usuarios->modificarPorId(USUARIO_ID,$nuevaPassword);
+
+        Redireccion::enviar('inicio','index',SESSION_ID,'se cambio la contraseña');
+
     }
 }
