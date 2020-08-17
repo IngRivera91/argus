@@ -13,7 +13,7 @@ class password
 {
     private Modelo $Usuarios;
     public bool   $breadcrumb = false;
-    private string $llaveFormulario; 
+    public string $llaveFormulario; 
 
     public function __construct(Database $coneccion)
     {
@@ -24,16 +24,12 @@ class password
     public function cambiarPassword()
     {
         $this->htmlInputFormulario[] = Html::inputPassword(4,'Contraseña Actual',1,'passwordActual','','',true);
-        $this->htmlInputFormulario[] = Html::inputPassword(4,'Nueva Contraseña',1,'passwordNueva','','',true);
-        $this->htmlInputFormulario[] = Html::inputPassword(4,' Confirmar Contraseña',1,'confirmaPasswordNueva','','',true);
-        $this->htmlInputFormulario[] = Html::submit('cambiar contraseña',$this->llaveFormulario,4);
+        $this->htmlInputFormulario[] = Html::inputPassword(4,'Nueva Contraseña',2,'passwordNueva','','',true);
+        $this->htmlInputFormulario[] = Html::inputPassword(4,' Confirmar Contraseña',3,'confirmaPasswordNueva','','',true);
     }
 
     public function cambiarPasswordBd()
     {
-        $this->htmlInputFormulario[] = Html::inputPassword(4,'Contraseña Actual',1,'passwordActual','','',true);
-        $this->htmlInputFormulario[] = Html::inputPassword(4,'Nueva Contraseña',1,'passwordNueva','','',true);
-        $this->htmlInputFormulario[] = Html::inputPassword(4,' Confirmar Contraseña',1,'confirmaPasswordNueva','','',true);
-        $this->htmlInputFormulario[] = Html::submit('cambiar contraseña',$this->llaveFormulario,4);
+        dd($_POST);
     }
 }
