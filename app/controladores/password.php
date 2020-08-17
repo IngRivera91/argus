@@ -23,9 +23,9 @@ class password
 
     public function cambiarPassword()
     {
-        $this->htmlInputFormulario[] = Html::inputPassword(4,'Contraseña Actual',1,'passwordActual','','',true);
-        $this->htmlInputFormulario[] = Html::inputPassword(4,'Nueva Contraseña',2,'passwordNueva','','',true);
-        $this->htmlInputFormulario[] = Html::inputPassword(4,' Confirmar Contraseña',3,'confirmaPasswordNueva','','',true);
+        $this->htmlInputFormulario[] = Html::inputPassword(4,'Contraseña Actual','passwordActual','passwordActual','','',true);
+        $this->htmlInputFormulario[] = Html::inputPassword(4,'Nueva Contraseña','password','passwordNueva','','',true);
+        $this->htmlInputFormulario[] = Html::inputPassword(4,' Confirmar Contraseña','confirmaPassword','confirmaPasswordNueva','','',true);
     }
 
     public function cambiarPasswordBd()
