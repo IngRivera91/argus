@@ -19,7 +19,7 @@ class Html
     public static function inputText(
         int    $col,
         string $label,
-        int    $id,
+        string $id,
         string $name,
         string $placeholder = '',
         string $value       = '',
@@ -37,7 +37,7 @@ class Html
     public static function inputTextRequired(
         int    $col,
         string $label,
-        int    $id,
+        string $id,
         string $name,
         string $placeholder = '',
         string $value       = '',
@@ -55,7 +55,7 @@ class Html
     public static function inputDate(
         int    $col,
         string $label,
-        int    $id,
+        string $id,
         string $name,
         string $placeholder = '',
         string $value       = '',
@@ -73,7 +73,7 @@ class Html
     public static function inputDateRequired(
         int    $col,
         string $label,
-        int    $id,
+        string $id,
         string $name,
         string $placeholder = '',
         string $value       = '',
@@ -91,7 +91,7 @@ class Html
     public static function inputNumber(
         int    $col,
         string $label,
-        int    $id,
+        string $id,
         string $name,
         string $placeholder = '',
         string $value       = '',
@@ -109,7 +109,7 @@ class Html
     public static function inputNumberRequired(
         int    $col,
         string $label,
-        int    $id,
+        string $id,
         string $name,
         string $placeholder = '',
         string $value       = '',
@@ -127,7 +127,7 @@ class Html
     public static function inputPassword(
         int    $col,
         string $label,
-        int    $id,
+        string $id,
         string $name,
         string $placeholder = '',
         string $value       = '',
