@@ -14,7 +14,14 @@
         <!-- Select2 -->
         <link rel="stylesheet" href="adminlte3/select2/css/select2.min.css">
         <link rel="stylesheet" href="adminlte3/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+        <!-- AdminLTE3 -->
         <link rel="stylesheet" href="adminlte3/dist/css/adminlte.min.css">
+        <!-- Alertify -->
+        <link rel="stylesheet" href="alertify/css/alertify.min.css">
+        <link rel="stylesheet" href="alertify/css/themes/default.min.css">
+        <link rel="stylesheet" href="alertify/css/themes/semantic.min.css">
+        <link rel="stylesheet" href="alertify/css/themes/bootstrap.min.css">
+        <!-- Argus CSS -->
         <link rel="stylesheet" href="css/argus.css">
         <?php 
             $rutaArchivoCss = '';
