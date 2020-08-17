@@ -11,6 +11,8 @@
     },
     "require-dev": {
         "phpunit/phpunit": "8"
+    },
+    "require": {
+        "facade/ignition": "^2.3"
     }
 }
-
