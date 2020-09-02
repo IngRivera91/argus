@@ -13,7 +13,7 @@ class Menu
         int $grupoId
     ): array {
         
-        if (isset($_SESSION[SESSION_ID]['menuDefinido'])) {
+        if (isset($_SESSION[SESSION_ID]['menuDefinido']) && GUARDAR_MENU_SESSION) {
             return $_SESSION[SESSION_ID]['menuDefinido'];
         }
 
