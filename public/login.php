@@ -1,6 +1,7 @@
 <?php 
-    require_once __DIR__.'/../config.php'; 
-    require_once __DIR__.'/../vendor/autoload.php'; 
+    $rutaBase = __DIR__.'/../';
+    require_once "{$rutaBase}config.php"; 
+    require_once "{$rutaBase}/vendor/autoload.php";
 
 ?>
 <?php require_once __DIR__.'/../recursos/html/head.php'; ?>
