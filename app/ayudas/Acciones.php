@@ -14,7 +14,7 @@ class Acciones
         string $controladorActual
     ): array {
 
-        if (isset($_SESSION[SESSION_ID]["{$controladorActual}Acciones"])) {
+        if (isset($_SESSION[SESSION_ID]["{$controladorActual}Acciones"]) && GUARDAR_ACCIONES_SESSION) {
             return $_SESSION[SESSION_ID]["{$controladorActual}Acciones"];
         }
 
