@@ -45,7 +45,7 @@ class Base extends Exception
 
         if (ES_PRODUCCION)
         {
-            header('Location: '.RUTA_PROYECTO.'error.php');
+            header('Location: '.RUTA_PROYECTO.'error.php?session_id='.SESSION_ID.'&codigo='.$this->obtenCodigo());
             exit;
         }
         
