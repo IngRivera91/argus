@@ -14,6 +14,9 @@
 	define('RUTA_PROYECTO','http://localhost/argus/public/');
 	define('NOMBRE_PROYECTO','ARGUS');
 
+	define('GUARDAR_MENU_SESSION',true);
+	define('GUARDAR_ACCIONES_SESSION',true);
+
 	// texto de los campos activo
 	define('TEXTO_REGISTRO_ACTIVO','si');
 	define('TEXTO_REGISTRO_INACTIVO','no');
