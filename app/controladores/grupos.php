@@ -45,7 +45,6 @@ class grupos extends Controlador
         $this->breadcrumb = true;
         
         $this->htmlInputFormulario[] = Html::inputTextRequired(4,'Grupo',1,'nombre');
-        $this->htmlInputFormulario[] = Html::inputHidden('prueba','holis');
 
         $this->htmlInputFormulario[] = Html::submit('Registrar',$this->llaveFormulario,4);
     }
