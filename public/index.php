@@ -1,7 +1,7 @@
 <?php 
-
-require_once __DIR__.'/../config.php'; 
-require_once __DIR__.'/../vendor/autoload.php';
+$rutaBase = __DIR__.'/../';
+require_once "{$rutaBase}config.php"; 
+require_once "{$rutaBase}/vendor/autoload.php";
 
 use Ayuda\Valida;
 use Ayuda\Redireccion;
@@ -73,7 +73,7 @@ if (!in_array($controladorActual,$controladoresSinPermisos)){
 
 }
 
-if (!file_exists('../app/controladores/'.$controladorActual.'.php')){
+if (!file_exists("{$rutaBase}app/controladores/{$controladorActual}.php")){
     Redireccion::enviar('inicio','index',SESSION_ID,"No existe el controlador:{$controladorActual}");
     exit;
 }
@@ -90,7 +90,7 @@ $controlador->$metodoActual();
 
 #seleciona la vista
 
-$rutaVistasBase = '../app/vistas';
+$rutaVistasBase = "{$rutaBase}/app/vistas";
 $rutaVista = '';
 if ( $metodoActual == 'registrar') {
     $rutaVista = "{$rutaVistasBase}/1base/registrar.php";
@@ -120,9 +120,9 @@ if ($rutaVista == '') {
 $menu_navegacion = Ayuda\Menu::crear($coneccion,GRUPO_ID);
 
 ?>
-<?php require_once __DIR__.'/../recursos/html/head.php'; ?>
-<?php require_once __DIR__.'/../recursos/html/nav.php'; ?>
-<?php require_once __DIR__.'/../recursos/html/menu.php'; ?>
+<?php require_once "{$rutaBase}/recursos/html/head.php"; ?>
+<?php require_once "{$rutaBase}/recursos/html/nav.php"; ?>
+<?php require_once "{$rutaBase}/recursos/html/menu.php"; ?>
 
 <div class="container-fluid">
     
@@ -176,7 +176,7 @@ $menu_navegacion = Ayuda\Menu::crear($coneccion,GRUPO_ID);
 
 </div>
 <?php
-    require_once __DIR__.'/../recursos/html/final.php'; 
+    require_once "{$rutaBase}recursos/html/final.php"; 
     
     function validaParametroGet(string $parameto_get):void
     {
