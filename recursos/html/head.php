@@ -23,6 +23,7 @@
         <link rel="stylesheet" href="<?php echo RUTA_PROYECTO; ?>alertify/css/themes/bootstrap.min.css">
         <!-- Argus CSS -->
         <link rel="stylesheet" href="<?php echo RUTA_PROYECTO; ?>css/argus.css">
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto+Slab:wght@500&display=swap" rel="stylesheet">
         <?php 
             $rutaArchivoCss = '';
             if (isset($controladorActual) && isset($metodoActual)) {
