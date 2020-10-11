@@ -21,8 +21,7 @@ try {
     $claseDatabase = 'Clase\\'.DB_TIPO.'\\Database';
     $coneccion = new $claseDatabase();
 }catch (ErrorBase $e) {
-    $error = new ErrorBase('Error al conectarce a la base de datos',$e);
-    $error->muestraError();
+    print_r('Error al conectarce a la base de datos');
     exit;
 }
 
@@ -32,8 +31,7 @@ if ($controladorActual === 'session' && $metodoActual === 'login'){
     try{
         $resultado = $autentificacion->login();
     }catch(ErrorBase $e){
-        $error = new ErrorBase('Error al hacer login',$e);
-        $error->muestraError();
+        print_r('Error al hacer login');
         exit;
     }
     Redireccion::enviar('inicio','index',$resultado['sessionId'],'Bienvenido');
@@ -46,8 +44,7 @@ $sessionId = $_GET['session_id'];
 try{
     $datos = $autentificacion->validaSessionId($sessionId);
 }catch(ErrorBase $e){
-    $error = new ErrorBase('Error al validar session_id',$e);
-    $error->muestraError();
+    print_r('Error al validar session_id');
     exit;
 }
 
@@ -111,8 +108,7 @@ if(file_exists($vista)) {
 }
 
 if ($rutaVista == '') {
-    $error = new ErrorBase("No se puedo cargar la vista controlador:{$controladorActual} metodo:{$metodoActual}");
-    $error->muestraError();
+    print_r("No se puedo cargar la vista controlador:{$controladorActual} metodo:{$metodoActual}");
     exit;
 }
 
