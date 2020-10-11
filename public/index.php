@@ -21,7 +21,7 @@ try {
     $claseDatabase = 'Clase\\'.DB_TIPO.'\\Database';
     $coneccion = new $claseDatabase();
 }catch (ErrorBase $e) {
-    print_r('Error al conectarce a la base de datos');
+    print_r('Error al conectarce a la base de datos, favor de contactar al equipo de desarrollo');
     exit;
 }
 
@@ -31,7 +31,8 @@ if ($controladorActual === 'session' && $metodoActual === 'login'){
     try{
         $resultado = $autentificacion->login();
     }catch(ErrorBase $e){
-        print_r('Error al hacer login');
+        $mensaje = "El usuario o contraseña son incorrectos";
+        header("Location: login.php?mensaje=$mensaje");
         exit;
     }
     Redireccion::enviar('inicio','index',$resultado['sessionId'],'Bienvenido');
@@ -44,7 +45,8 @@ $sessionId = $_GET['session_id'];
 try{
     $datos = $autentificacion->validaSessionId($sessionId);
 }catch(ErrorBase $e){
-    print_r('Error al validar session_id');
+    $mensaje = "session_id no valido";
+    header("Location: login.php?mensaje=$mensaje");
     exit;
 }
 
