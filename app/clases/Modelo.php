@@ -8,7 +8,7 @@ use Clase\GeneraConsultasMySQL;
 use Error\Base AS ErrorBase;
 use Error\Esperado AS ErrorEsperado;
 
-class Modelo 
+abstract class Modelo 
 {
     private GeneraConsultas $generaConsulta;
     private string $tabla;

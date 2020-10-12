@@ -8,7 +8,7 @@ use Error\Esperado AS ErrorEsperado;
 use Error\Base AS ErrorBase;
 use Ayuda\Redireccion;
 
-class Controlador
+abstract class Controlador
 {
     public int    $sizeColumnasInputsFiltros = 3; // Define el tamaño de los elementos en el filtro de la lista
     public int    $registrosPorPagina = 10;       // Numero de registros por pagina en la lista
