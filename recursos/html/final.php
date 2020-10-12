@@ -12,7 +12,7 @@
     <!-- Alertify -->
     <script src="<?php echo RUTA_PROYECTO; ?>alertify/alertify.min.js"></script>
     <!-- Argus JS -->
-    <script src="<?php echo RUTA_PROYECTO; ?>js/argus.js"></script>
+    <script src="<?php echo RUTA_PROYECTO; ?>js/main.js"></script>
     <script>
         $(function () {
 
