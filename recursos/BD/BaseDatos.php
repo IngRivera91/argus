@@ -176,7 +176,8 @@ class BaseDatos
         
         ";
 
-        $numeroMetodos = 37;
+        $numeroMetodosEspeciales = 5;
+        $numeroMetodos = ($numeroMenus*8) + $numeroMetodosEspeciales;
         $grupoId = 1;
         for ($i = 1 ; $i < $numeroMetodos ; $i++) {
             $query .= "($i,$i,$grupoId,TRUE),";
