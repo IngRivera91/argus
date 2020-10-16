@@ -29,14 +29,10 @@ abstract class Controlador
     public string $nombreMenu;                    // Define el menu al cual se deben hacer la redirecciones
     public Modelo $modelo;                        // Modelo del menu con el que se esta trabajando
 
-    public function __construct(Modelo $modelo, string $nombreMenu, array $camposLista, array $camposFiltrosLista)
+    public function __construct()
     {
         $this->llaveFormulario = md5(SESSION_ID);
-        $this->modelo = $modelo;
-        $this->nombreMenu = $nombreMenu;
-        $this->camposLista = $camposLista;
-        $this->camposFiltrosLista = $camposFiltrosLista;
-        if (count($camposFiltrosLista) == 0) {
+        if (count($this->htmlInputFiltros) == 0) {
             $this->usarFiltros = false;
         }
     }
@@ -259,7 +255,6 @@ abstract class Controlador
 
     public function analizaInputsFiltros()
     {
-        $cols = $this->sizeColumnasInputsFiltros;
         $nameSubmit = "{$this->nombreMenu}ListaFiltro";
         if  (isset($_GET['limpiaFiltro'])) {    
             unset($_SESSION[SESSION_ID][$nameSubmit]);
@@ -271,36 +266,24 @@ abstract class Controlador
 
         if (isset($_POST[$nameSubmit])) {
             $_SESSION[SESSION_ID][$nameSubmit] = $_POST;
-            $this->generaHtmlInputFiltros($cols,$_POST);
+            $this->aplicaFiltros($_POST);
         }
 
-        if (!isset($_POST[$nameSubmit])) {
-            $this->generaHtmlInputFiltros($cols);
-        }
-        $this->htmlInputFiltros[] = Html::submit('Filtrar', $nameSubmit, $cols);
+        $this->htmlInputFiltros[] = Html::submit('Filtrar', $nameSubmit, $this->sizeColumnasInputsFiltros);
         $urlDestino = Redireccion::obtener($this->nombreMenu,'lista',SESSION_ID).'&limpiaFiltro';
-        $this->htmlInputFiltros[] = Html::linkBoton($urlDestino, 'Limpiar', $cols);
+        $this->htmlInputFiltros[] = Html::linkBoton($urlDestino, 'Limpiar', $this->sizeColumnasInputsFiltros);
     }
 
-    public function generaHtmlInputFiltros(string $cols, array $datosValue = []): void
+    public function aplicaFiltros(array $datosValue = []): void
     {
         $this->filtrosLista[] = ['campo' =>'1', 'valor'=>'1', 'signoComparacion'=>'=', 'conectivaLogica'=>''];
 
         foreach ($this->filtrosListaBase as $filtro) {
-            $this->filtrosLista = $filtro;
+            $this->filtrosLista[] = $filtro;
         }
+
+        print_r($datosValue);
         
-        $type = 'text';
-        $require = '';
-        $value= '';
-        foreach ($this->camposFiltrosLista as $label => $name) {
-            $_name = str_replace('.','_',$name); 
-            if (isset($datosValue[$_name])) {
-                $value = $datosValue[$_name];
-                $this->filtrosLista[] = ['campo' =>$name, 'valor'=>"%{$value}%", 'signoComparacion'=>'LIKE', 'conectivaLogica'=>'AND'];
-            }
-            $this->htmlInputFiltros[] = Html::inputText($cols,$label,1,$_name,'',$value);
-        }
     }
 
     public function obteneLimitPaginador(){
