@@ -16,12 +16,13 @@ class grupos extends Controlador
     public array $metodosAgrupadosPorMenu;
     public string $nombreGrupo;
     public int $grupoId;
+    public Modelo $Grupos;
     public Modelo $Metodos;
     public Modelo $MetodosGrupos;
 
     public function __construct(Database $coneccion)
     {
-        $modelo = new ModeloGrupos($coneccion);
+        $this->Grupos = new ModeloGrupos($coneccion);
         $this->Metodos = new Metodos($coneccion);
         $this->MetodosGrupos = new MetodosGrupos($coneccion);
         $nombreMenu = 'grupos';
@@ -37,7 +38,7 @@ class grupos extends Controlador
             'Grupo' => 'grupos.nombre'
         ];
 
-        parent::__construct($modelo, $nombreMenu, $camposLista, $camposFiltrosLista);
+        parent::__construct($this->Grupos, $nombreMenu, $camposLista, $camposFiltrosLista);
     }
 
     public function registrar()
@@ -57,7 +58,7 @@ class grupos extends Controlador
         $nombreMenu = $this->nombreMenu;
         $registro = $this->registro;
 
-        $this->htmlInputFormulario[] = Html::input('Grupo','nombre',4,$registro["{$nombreMenu}_nombre"]);
+        $this->htmlInputFormulario[] = Html::inputTextRequired(4,'Grupo',1,'nombre','',$registro["{$nombreMenu}_nombre"]);
 
         $this->htmlInputFormulario[] = Html::submit('Modificar',$this->llaveFormulario,4);
     }
