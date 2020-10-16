@@ -24,15 +24,21 @@ class menus extends Controlador
             'Icono' => 'menus_icono',
             'Activo' => 'menus_activo'
         ];
-
-        $this->generaInputFiltros();
         
         parent::__construct();
     }
     
-    private function generaInputFiltros (): void 
+    public function generaInputFiltros (array $datosFiltros): void 
     {
-        $this->htmlInputFiltros['menus_nombre'] = $this->htmlInputFormulario[] = Html::inputText(4,'Menu',1,'menus_nombre');
+        //values de todos los inputs vacios
+        $datos['menus+nombre'] = '';
+
+        foreach ($datosFiltros as $key => $filtro) {
+            $datos[$key] = $filtro;
+        }
+
+        $name = 'menus+nombre';
+        $this->htmlInputFiltros[$name] = $this->htmlInputFormulario[] = Html::inputText(4,'Menu',1,$name,'',$datos[$name]);
     }
 
     public function registrar()
