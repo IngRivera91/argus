@@ -268,6 +268,18 @@ abstract class Controlador
         foreach ($this->filtrosListaBase as $filtro) {
             $this->filtrosLista[] = $filtro;
         }
+
+        foreach ($this->htmlInputFiltros as $tablaCampo => $value) {
+            
+            $campo = str_replace('+','.',$tablaCampo);
+
+            $this->filtrosLista[] = [
+                'campo' =>$campo,
+                'valor'=>"%{$datosValue[$tablaCampo]}%",
+                'signoComparacion'=>'LIKE',
+                'conectivaLogica'=>'AND'
+            ];
+        }
         
     }
 
