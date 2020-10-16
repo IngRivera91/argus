@@ -15,12 +15,11 @@ class usuarios extends Controlador
 {
     private array $gruposRegistros;
     public int $usuarioId;
-    private Modelo $Usuarios;
     private Modelo $Grupos;
 
     public function __construct(Database $coneccion)
     {
-        $this->Usuarios = new ModeloUsuarios($coneccion);
+        $this->modelo = new ModeloUsuarios($coneccion);
         $this->Grupos = new ModeloGrupos($coneccion);
 
         try {
@@ -31,10 +30,10 @@ class usuarios extends Controlador
             $error->muestraError();
         }
 
-        $nombreMenu = 'usuarios';
+        $this->nombreMenu = 'usuarios';
         $this->breadcrumb = false;
 
-        $camposLista = [
+        $this->camposLista = [
             'Id' => 'usuarios_id',
             'Nombre' => 'usuarios_nombre_completo',
             'Usuario' => 'usuarios_usuario',
@@ -42,12 +41,7 @@ class usuarios extends Controlador
             
         ];
 
-        $camposFiltrosLista = [
-            'Nombre' => 'usuarios.nombre_completo',
-            'Grupo' => 'grupos.nombre'
-        ];
-
-        parent::__construct($this->Usuarios, $nombreMenu, $camposLista, $camposFiltrosLista);
+        parent::__construct();
     }
 
     public function registrar()

@@ -16,29 +16,24 @@ class grupos extends Controlador
     public array $metodosAgrupadosPorMenu;
     public string $nombreGrupo;
     public int $grupoId;
-    public Modelo $Grupos;
     public Modelo $Metodos;
     public Modelo $MetodosGrupos;
 
     public function __construct(Database $coneccion)
     {
-        $this->Grupos = new ModeloGrupos($coneccion);
+        $this->modelo = new ModeloGrupos($coneccion);
         $this->Metodos = new Metodos($coneccion);
         $this->MetodosGrupos = new MetodosGrupos($coneccion);
-        $nombreMenu = 'grupos';
+        $this->nombreMenu = 'grupos';
         $this->breadcrumb = false;
 
-        $camposLista = [
+        $this->camposLista = [
             'Id' => 'grupos_id',
             'Grupo' => 'grupos_nombre',
             'Activo' => 'grupos_activo'
         ];
 
-        $camposFiltrosLista = [
-            'Grupo' => 'grupos.nombre'
-        ];
-
-        parent::__construct($this->Grupos, $nombreMenu, $camposLista, $camposFiltrosLista);
+        parent::__construct();
     }
 
     public function registrar()

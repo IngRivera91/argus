@@ -13,12 +13,11 @@ use Modelo\Metodos AS ModeloMetodos;
 class metodos extends Controlador
 {
     private array $menuRegistros;
-    private Modelo $Metodos;
     private Modelo $Menus;
 
     public function __construct(Database $coneccion)
     {
-        $this->Metodos = new ModeloMetodos($coneccion);
+        $this->modelo = new ModeloMetodos($coneccion);
         $this->Menus = new ModeloMenus($coneccion);
 
         try {
@@ -29,10 +28,10 @@ class metodos extends Controlador
             $error->muestraError();
         }
 
-        $nombreMenu = 'metodos';
+        $this->nombreMenu = 'metodos';
         $this->breadcrumb = false;
 
-        $camposLista = [
+        $this->camposLista = [
             'Id' => 'metodos_id',
             'Menu' => 'menus_nombre',
             'Metodo' => 'metodos_nombre',
@@ -43,12 +42,7 @@ class metodos extends Controlador
             'Activo Menu' => 'metodos_activo_menu'
         ];
 
-        $camposFiltrosLista = [
-            'Menu' => 'menus.nombre',
-            'Metodo' => 'metodos.nombre'
-        ];
-
-        parent::__construct($this->Metodos, $nombreMenu, $camposLista, $camposFiltrosLista);
+        parent::__construct();
     }
 
     public function registrar()
