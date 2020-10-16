@@ -10,15 +10,14 @@ use Modelo\Menus AS ModeloMenus;
 
 class menus extends Controlador
 {
-    public Modelo $Menus;
 
     public function __construct(Database $coneccion)
     {
-        $this->Menus = new ModeloMenus($coneccion);
-        $nombreMenu = 'menus';
+        $this->modelo = new ModeloMenus($coneccion);
+        $this->nombreMenu = 'menus';
         $this->breadcrumb = false;
 
-        $camposLista = [
+        $this->camposLista = [
             'Id' => 'menus_id',
             'Menu' => 'menus_nombre',
             'Etiqueta' => 'menus_etiqueta',
@@ -26,11 +25,14 @@ class menus extends Controlador
             'Activo' => 'menus_activo'
         ];
 
-        $camposFiltrosLista = [
-            'Menu' => 'menus.nombre'
-        ];
-
-        parent::__construct($this->Menus, $nombreMenu, $camposLista, $camposFiltrosLista);
+        $this->generaInputFiltros();
+        
+        parent::__construct();
+    }
+    
+    private function generaInputFiltros (): void 
+    {
+        $this->htmlInputFiltros['menus_nombre'] = $this->htmlInputFormulario[] = Html::inputText(4,'Menu',1,'menus_nombre');
     }
 
     public function registrar()
