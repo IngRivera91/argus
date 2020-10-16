@@ -30,6 +30,9 @@ class menus extends Controlador
     
     public function generaInputFiltros (array $datosFiltros): void 
     {
+        $col = 3;
+        $this->sizeColumnasInputsFiltros = $col;
+        
         //values de todos los inputs vacios
         $datos['menus+nombre'] = '';
 
@@ -37,8 +40,10 @@ class menus extends Controlador
             $datos[$key] = $filtro;
         }
 
-        $name = 'menus+nombre';
-        $this->htmlInputFiltros[$name] = $this->htmlInputFormulario[] = Html::inputText(4,'Menu',1,$name,'',$datos[$name]);
+        $tablaCampo = 'menus+nombre';
+        $placeholder = '';
+
+        $this->htmlInputFiltros[$tablaCampo] = Html::inputText($col,'Menu',1,$tablaCampo,$placeholder,$datos[$tablaCampo]);
     }
 
     public function registrar()
