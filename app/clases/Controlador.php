@@ -13,7 +13,6 @@ abstract class Controlador
     public int    $sizeColumnasInputsFiltros = 3; // Define el tamaño de los elementos en el filtro de la lista
     public int    $registrosPorPagina = 10;       // Numero de registros por pagina en la lista
     public bool   $breadcrumb = true;             // Define si se muestran o no los breadcrumb
-    public bool   $usarFiltros = true;            // Variable que determina si se usan o no los filtros en la lista
     public bool   $redireccionar = true;          // Variable para saber si redirecciona o no 
     public array  $camposFiltrosLista = [];       // Define los campos de los filtros
     public array  $camposLista;                   // Define los campo que se van a mostrar en la lista
@@ -27,14 +26,12 @@ abstract class Controlador
     public string $htmlPaginador = '';            // Codigo html del paginador
     public string $llaveFormulario;               // Llave que se ocupa que los $_POST son de un formulario valido
     public string $nombreMenu;                    // Define el menu al cual se deben hacer la redirecciones
+    public string $nameSubmit;                    //
     public Modelo $modelo;                        // Modelo del menu con el que se esta trabajando
 
     public function __construct()
     {
         $this->llaveFormulario = md5(SESSION_ID);
-        if (count($this->htmlInputFiltros) == 0) {
-            $this->usarFiltros = false;
-        }
     }
 
     public function modificar()
@@ -211,13 +208,29 @@ abstract class Controlador
         exit;
     }
 
-    public function lista()
+    public function generaInputFiltros(array $datosFiltros): void
+    {
+        
+    }
+
+    public function lista(): void
     {
         $columnas = [];
         $orderBy = [];
 
-        if ($this->usarFiltros) {
-            $this->analizaInputsFiltros();
+        $this->nameSubmit = "{$this->nombreMenu}ListaFiltro";
+
+        $datosFiltros = $this->generaDatosFiltros();
+        $this->generaInputFiltros($datosFiltros);
+
+        if (count($datosFiltros) != 0) {
+            $this->aplicaFiltros($datosFiltros);
+        }
+
+        if (count($this->htmlInputFiltros) != 0) {
+            $this->htmlInputFiltros[] = Html::submit('Filtrar', $this->nameSubmit, $this->sizeColumnasInputsFiltros);
+            $urlDestino = Redireccion::obtener($this->nombreMenu,'lista',SESSION_ID).'&limpiaFiltro';
+            $this->htmlInputFiltros[] = Html::linkBoton($urlDestino, 'Limpiar', $this->sizeColumnasInputsFiltros);
         }
 
         $limit = $this->obteneLimitPaginador();
@@ -228,7 +241,37 @@ abstract class Controlador
         $this->registros = $resultado['registros'];
     }
 
-    public function validaRegistoId():int
+    private function generaDatosFiltros(): array
+    {
+        $datosFiltros = [];
+
+        if  (isset($_GET['limpiaFiltro'])) {    
+            unset($_SESSION[SESSION_ID][$this->nameSubmit]);
+        }
+
+        if (isset($_SESSION[SESSION_ID][$this->nameSubmit]) && !isset($_POST[$this->nameSubmit])){
+            $_POST = $_SESSION[SESSION_ID][$this->nameSubmit];
+        }
+
+        if (isset($_POST[$this->nameSubmit])) {
+            $_SESSION[SESSION_ID][$this->nameSubmit] = $_POST;
+            $datosFiltros = $_POST;
+        }
+
+        return $datosFiltros;
+    }
+
+    private function aplicaFiltros(array $datosValue = []): void
+    {
+        $this->filtrosLista[] = ['campo' =>'1', 'valor'=>'1', 'signoComparacion'=>'=', 'conectivaLogica'=>''];
+
+        foreach ($this->filtrosListaBase as $filtro) {
+            $this->filtrosLista[] = $filtro;
+        }
+        
+    }
+
+    public function validaRegistoId(): int
     {
         if (!isset($_GET['registroId'])) {
             $error = new ErrorEsperado('no se puede realizar la accion sin un registro id', $this->nombreMenu, 'lista');
@@ -253,40 +296,8 @@ abstract class Controlador
         return $registroId;
     }
 
-    public function analizaInputsFiltros()
+    public function obteneLimitPaginador(): string
     {
-        $nameSubmit = "{$this->nombreMenu}ListaFiltro";
-        if  (isset($_GET['limpiaFiltro'])) {    
-            unset($_SESSION[SESSION_ID][$nameSubmit]);
-        }
-
-        if (isset($_SESSION[SESSION_ID][$nameSubmit]) && !isset($_POST[$nameSubmit])){
-            $_POST = $_SESSION[SESSION_ID][$nameSubmit];
-        }
-
-        if (isset($_POST[$nameSubmit])) {
-            $_SESSION[SESSION_ID][$nameSubmit] = $_POST;
-            $this->aplicaFiltros($_POST);
-        }
-
-        $this->htmlInputFiltros[] = Html::submit('Filtrar', $nameSubmit, $this->sizeColumnasInputsFiltros);
-        $urlDestino = Redireccion::obtener($this->nombreMenu,'lista',SESSION_ID).'&limpiaFiltro';
-        $this->htmlInputFiltros[] = Html::linkBoton($urlDestino, 'Limpiar', $this->sizeColumnasInputsFiltros);
-    }
-
-    public function aplicaFiltros(array $datosValue = []): void
-    {
-        $this->filtrosLista[] = ['campo' =>'1', 'valor'=>'1', 'signoComparacion'=>'=', 'conectivaLogica'=>''];
-
-        foreach ($this->filtrosListaBase as $filtro) {
-            $this->filtrosLista[] = $filtro;
-        }
-
-        print_r($datosValue);
-        
-    }
-
-    public function obteneLimitPaginador(){
         $numeroRegistros = $this->modelo->obtenerNumeroRegistros($this->filtrosLista);
         $numeroPaginas = (int) (($numeroRegistros-1) / (int)$this->registrosPorPagina );
         $numeroPaginas++;
@@ -309,7 +320,8 @@ abstract class Controlador
         return $limit;
     }
 
-    public function obtenerNumeroPagina(){
+    public function obtenerNumeroPagina(): int
+    {
         $num_pagina = 1;
         if (isset($_GET['pag'])){
             $num_pagina = (int) $_GET['pag'];
