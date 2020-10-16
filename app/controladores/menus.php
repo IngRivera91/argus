@@ -3,15 +3,18 @@
 namespace Controlador;
 
 use Ayuda\Html;
+use Clase\Modelo;
 use Clase\Controlador;
 use Interfas\Database;
 use Modelo\Menus AS ModeloMenus;
 
 class menus extends Controlador
 {
+    public Modelo $Menus;
+
     public function __construct(Database $coneccion)
     {
-        $modelo = new ModeloMenus($coneccion);
+        $this->Menus = new ModeloMenus($coneccion);
         $nombreMenu = 'menus';
         $this->breadcrumb = false;
 
@@ -27,7 +30,7 @@ class menus extends Controlador
             'Menu' => 'menus.nombre'
         ];
 
-        parent::__construct($modelo, $nombreMenu, $camposLista, $camposFiltrosLista);
+        parent::__construct($this->Menus, $nombreMenu, $camposLista, $camposFiltrosLista);
     }
 
     public function registrar()
