@@ -3,6 +3,7 @@
 namespace Controlador;
 
 use Ayuda\Html;
+use Clase\Modelo;
 use Ayuda\Redireccion;
 use Clase\Controlador;
 use Interfas\Database;
@@ -14,15 +15,17 @@ class usuarios extends Controlador
 {
     private array $gruposRegistros;
     public int $usuarioId;
+    private Modelo $Usuarios;
+    private Modelo $Grupos;
 
     public function __construct(Database $coneccion)
     {
-        $modelo = new ModeloUsuarios($coneccion);
-        $modeloGrupos = new ModeloGrupos($coneccion);
+        $this->Usuarios = new ModeloUsuarios($coneccion);
+        $this->Grupos = new ModeloGrupos($coneccion);
 
         try {
             $columas = ['grupos_id','grupos_nombre'];
-            $this->gruposRegistros = $modeloGrupos->buscarTodo($columas,[],'',true)['registros'];
+            $this->gruposRegistros = $this->Grupos->buscarTodo($columas,[],'',true)['registros'];
         } catch (ErrorBase $e) {
             $error = new ErrorBase('Error al obtner los grupos');
             $error->muestraError();
@@ -44,7 +47,7 @@ class usuarios extends Controlador
             'Grupo' => 'grupos.nombre'
         ];
 
-        parent::__construct($modelo, $nombreMenu, $camposLista, $camposFiltrosLista);
+        parent::__construct($this->Usuarios, $nombreMenu, $camposLista, $camposFiltrosLista);
     }
 
     public function registrar()
