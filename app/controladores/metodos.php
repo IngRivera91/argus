@@ -3,24 +3,27 @@
 namespace Controlador;
 
 use Ayuda\Html;
+use Clase\Modelo;
 use Clase\Controlador;
 use Interfas\Database;
 use Error\Base AS ErrorBase;
-use Modelo\Metodos AS ModeloMetodos;
 use Modelo\Menus AS ModeloMenus;
+use Modelo\Metodos AS ModeloMetodos;
 
 class metodos extends Controlador
 {
     private array $menuRegistros;
+    private Modelo $Metodos;
+    private Modelo $Menus;
 
     public function __construct(Database $coneccion)
     {
-        $modelo = new ModeloMetodos($coneccion);
-        $modeloMenus = new ModeloMenus($coneccion);
+        $this->Metodos = new ModeloMetodos($coneccion);
+        $this->Menus = new ModeloMenus($coneccion);
 
         try {
             $columas = ['menus_id','menus_nombre'];
-            $this->menuRegistros = $modeloMenus->buscarTodo($columas,[],'',true)['registros'];
+            $this->menuRegistros = $this->Menus->buscarTodo($columas,[],'',true)['registros'];
         } catch (ErrorBase $e) {
             $error = new ErrorBase('Error al obtner los menus');
             $error->muestraError();
@@ -45,7 +48,7 @@ class metodos extends Controlador
             'Metodo' => 'metodos.nombre'
         ];
 
-        parent::__construct($modelo, $nombreMenu, $camposLista, $camposFiltrosLista);
+        parent::__construct($this->Metodos, $nombreMenu, $camposLista, $camposFiltrosLista);
     }
 
     public function registrar()
