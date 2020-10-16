@@ -27,7 +27,7 @@ class Html
     ) :string {
         $placeholder = self::obtenerPlaceholder($label,$placeholder);
         $inputTextHtml = '';
-        $inputTextHtml .= self::generaPrincipioInput($col,$label);
+        $inputTextHtml .= self::generaPrincipioInput($col);
         $inputTextHtml .= "<input title='$label' id='$id' name='$name' placeholder='$placeholder' value='$value' class='form-control  form-control-sm' type='text'>";
         $inputTextHtml .= self::generaFinalInput($saltarLinea);
         
@@ -45,7 +45,7 @@ class Html
     ) :string {
         $placeholder = self::obtenerPlaceholder($label,$placeholder);
         $inputTextRequiredHtml = '';
-        $inputTextRequiredHtml .= self::generaPrincipioInput($col,$label);
+        $inputTextRequiredHtml .= self::generaPrincipioInput($col);
         $inputTextRequiredHtml .= "<input title='$label' id='$id' name='$name' placeholder='$placeholder' value='$value' required class='form-control  form-control-sm' type='text'>";
         $inputTextRequiredHtml .= self::generaFinalInput($saltarLinea);
         
@@ -63,7 +63,7 @@ class Html
     ) :string {
         $placeholder = self::obtenerPlaceholder($label,$placeholder);
         $inputDateHtml = '';
-        $inputDateHtml .= self::generaPrincipioInput($col,$label);
+        $inputDateHtml .= self::generaPrincipioInput($col);
         $inputDateHtml .= "<input title='$label' id='$id' name='$name' placeholder='$placeholder' value='$value' class='form-control  form-control-sm' type='date'>";
         $inputDateHtml .= self::generaFinalInput($saltarLinea);
         
@@ -81,7 +81,7 @@ class Html
     ) :string {
         $placeholder = self::obtenerPlaceholder($label,$placeholder);
         $inputDateHtml = '';
-        $inputDateHtml .= self::generaPrincipioInput($col,$label);
+        $inputDateHtml .= self::generaPrincipioInput($col);
         $inputDateHtml .= "<input title='$label' id='$id' name='$name' placeholder='$placeholder' value='$value' required class='form-control  form-control-sm' type='date'>";
         $inputDateHtml .= self::generaFinalInput($saltarLinea);
         
@@ -99,7 +99,7 @@ class Html
     ) :string {
         $placeholder = self::obtenerPlaceholder($label,$placeholder);
         $inputNumbertHtml = '';
-        $inputNumbertHtml .= self::generaPrincipioInput($col,$label);
+        $inputNumbertHtml .= self::generaPrincipioInput($col);
         $inputNumbertHtml .= "<input title='$label' id='$id' name='$name' placeholder='$placeholder' value='$value' class='form-control  form-control-sm' type='number'>";
         $inputNumbertHtml .= self::generaFinalInput($saltarLinea);
         
@@ -117,11 +117,47 @@ class Html
     ) :string {
         $placeholder = self::obtenerPlaceholder($label,$placeholder);
         $inputNumberRequiredHtml = '';
-        $inputNumberRequiredHtml .= self::generaPrincipioInput($col,$label);
+        $inputNumberRequiredHtml .= self::generaPrincipioInput($col);
         $inputNumberRequiredHtml .= "<input title='$label' id='$id' name='$name' placeholder='$placeholder' value='$value' required class='form-control  form-control-sm' type='number'>";
         $inputNumberRequiredHtml .= self::generaFinalInput($saltarLinea);
         
         return $inputNumberRequiredHtml;
+    }
+
+    public static function inputFloat(
+        int    $col,
+        string $label,
+        string $id,
+        string $name,
+        string $placeholder = '',
+        string $value       = '',
+        bool   $saltarLinea = false
+    ) :string {
+        $placeholder = self::obtenerPlaceholder($label,$placeholder);
+        $inputNumbertHtml = '';
+        $inputNumbertHtml .= self::generaPrincipioInput($col);
+        $inputNumbertHtml .= "<input title='$label' id='$id' name='$name' placeholder='$placeholder' value='$value' class='form-control  form-control-sm' type='number' step='any'>";
+        $inputNumbertHtml .= self::generaFinalInput($saltarLinea);
+        
+        return $inputNumbertHtml;
+    }
+
+    public static function inputFloatRequired(
+        int    $col,
+        string $label,
+        string $id,
+        string $name,
+        string $placeholder = '',
+        string $value       = '',
+        bool   $saltarLinea = false
+    ) :string {
+        $placeholder = self::obtenerPlaceholder($label,$placeholder);
+        $inputNumbertHtml = '';
+        $inputNumbertHtml .= self::generaPrincipioInput($col);
+        $inputNumbertHtml .= "<input title='$label' id='$id' name='$name' placeholder='$placeholder' value='$value' required class='form-control  form-control-sm' type='number' step='any'>";
+        $inputNumbertHtml .= self::generaFinalInput($saltarLinea);
+        
+        return $inputNumbertHtml;
     }
 
     public static function inputPassword(
@@ -135,7 +171,7 @@ class Html
     ) :string {
         $placeholder = self::obtenerPlaceholder($label,$placeholder);
         $inputPasswordHtml = '';
-        $inputPasswordHtml .= self::generaPrincipioInput($col,$label);
+        $inputPasswordHtml .= self::generaPrincipioInput($col);
         $inputPasswordHtml .= "<input title='$label' id='$id' name='$name' placeholder='$placeholder' value='$value' required class='form-control  form-control-sm' type='password'>";
         $inputPasswordHtml .= self::generaFinalInput($saltarLinea);
         
