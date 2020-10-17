@@ -68,4 +68,12 @@ div.argus-lista > h3 > span {
     margin-top: .7em;
     color: var(--color-principal);
 }
+.select2-results > ul > li {
+    color: black !important; 
+    background-color: white !important;
+} 
 
+.select2-results > ul > li:hover { 
+    color: var(--color-secundario) !important; 
+    background-color: var(--color-principal) !important; 
+} 
