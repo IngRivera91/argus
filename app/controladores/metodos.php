@@ -45,6 +45,38 @@ class metodos extends Controlador
         parent::__construct();
     }
 
+    public function generaInputFiltros (array $datosFiltros): void 
+    {
+        $col = 3;
+        $this->sizeColumnasInputsFiltros = $col;
+        
+        //values de todos los inputs vacios
+        $datos['metodos+nombre'] = '';
+        $datos['menus+nombre'] = '-1';
+
+        foreach ($datosFiltros as $key => $filtro) {
+            $datos[$key] = $filtro;
+        }
+
+        $placeholder = '';
+
+        $tablaCampo = 'menus+nombre';
+        $this->htmlInputFiltros[$tablaCampo] = Html::selectConBuscador(
+            'menus_nombre',
+            'Menu', 
+            $tablaCampo, 
+            $col,
+            $this->menuRegistros,
+            'menus_nombre',
+            $datos[$tablaCampo],
+            1,
+            ''
+        );
+
+        $tablaCampo = 'metodos+nombre';
+        $this->htmlInputFiltros[$tablaCampo] = Html::inputText($col,'Metodo',2,$tablaCampo,$placeholder,$datos[$tablaCampo]);
+    }
+
     public function registrar()
     {
         $this->breadcrumb = true;
