@@ -209,7 +209,7 @@ class Html
     }
 
     public static function selectConBuscador(
-        string $nombreTabla, 
+        string $nombreCampoId, 
         string $label, 
         string $name, 
         int    $col, 
@@ -227,13 +227,13 @@ class Html
         $selectHtml .= "<select title='$label' $required name='$name' class='form-control form-control-sm select2'";
         $selectHtml .= " data-placeholder='$label'  data-select2-id='$select2Id' tabindex='-1' >";
 
-        $selectHtml .= self::generaSelectOptions($nombreTabla, $registros, $elementos, $value, $chart);
+        $selectHtml .= self::generaSelectOptions($nombreCampoId, $registros, $elementos, $value, $chart);
         $selectHtml .= self::generaFinalSelect($saltarLinea);
         return $selectHtml;
     }
 
     public static function selectMultiple(
-        string $nombreTabla,
+        string $nombreCampoId,
         string $label,
         string $name,
         int    $col,
@@ -254,12 +254,12 @@ class Html
         $selectHtml .= "</div>";
         $selectHtml .= "<select $required name='$name' class='form-control select2 select2-hidden-accessible' multiple='' data-placeholder='$label'  data-select2-id='$select2Id' tabindex='-1' aria-hidden='true'>";
         
-        $selectHtml .= self::generaSelectOptions($nombreTabla, $registros, $elementos, $value, $chart);
+        $selectHtml .= self::generaSelectOptions($nombreCampoId, $registros, $elementos, $value, $chart);
         $selectHtml .= self::generaFinalSelect($saltarLinea);
         return $selectHtml;
     }
 
-    private static function generaSelectOptions(string $nombreTabla, array $registros, string $elementos, string $value, string $chart):string
+    private static function generaSelectOptions(string $nombreCampoId, array $registros, string $elementos, string $value, string $chart):string
     {
         $elementosArray = explode(',',$elementos);
 
@@ -267,7 +267,7 @@ class Html
 
         foreach ($registros as $registro) {
 
-            $valorRegistroId = $registro["{$nombreTabla}_id"];
+            $valorRegistroId = $registro[$nombreCampoId];
 
             $textValueOption = '';
 
@@ -320,14 +320,12 @@ class Html
         bool   $saltarLinea = false
     ) :string {
 
-        $nombreTabla = "estados";
-
         $registros = [
-            ["{$nombreTabla}_id" => 1, 'texto' => TEXTO_REGISTRO_ACTIVO],
-            ["{$nombreTabla}_id" => 0, 'texto' => TEXTO_REGISTRO_INACTIVO]
+            ["id" => 1, 'texto' => TEXTO_REGISTRO_ACTIVO],
+            ["id" => 0, 'texto' => TEXTO_REGISTRO_INACTIVO]
         ];
 
-        return self::selectConBuscador($nombreTabla, $label, $name, $col, $registros, 'texto', $value, $select2Id, $required, $chart, $saltarLinea);
+        return self::selectConBuscador('id', $label, $name, $col, $registros, 'texto', $value, $select2Id, $required, $chart, $saltarLinea);
     }
 
     public static function submit(string $label, string $name, int $col, bool $saltarLinea = true):string
