@@ -37,11 +37,43 @@ class usuarios extends Controlador
             'Id' => 'usuarios_id',
             'Nombre' => 'usuarios_nombre_completo',
             'Usuario' => 'usuarios_usuario',
+            'Grupo' => 'grupos_nombre',
             'Activo' => 'usuarios_activo'
             
         ];
 
         parent::__construct();
+    }
+
+    public function generaInputFiltros (array $datosFiltros): void 
+    {
+        $col = 3;
+        $this->sizeColumnasInputsFiltros = $col;
+        
+        //values de todos los inputs vacios
+        $datos['usuarios+nombre_completo'] = '';
+        $datos['grupos+nombre'] = '-1';
+
+        foreach ($datosFiltros as $key => $filtro) {
+            $datos[$key] = $filtro;
+        }
+
+        $placeholder = '';
+
+        $tablaCampo = 'usuarios+nombre_completo';
+        $this->htmlInputFiltros[$tablaCampo] = Html::inputText($col,'Nombre',1,$tablaCampo,$placeholder,$datos[$tablaCampo]);
+
+        $tablaCampo = 'grupos+nombre';
+        $this->htmlInputFiltros[$tablaCampo] = Html::selectConBuscador(
+            'grupos_nombre',
+            'Grupo', 
+            $tablaCampo, 
+            4,
+            $this->gruposRegistros,
+            'grupos_nombre',
+            $datos[$tablaCampo],
+            1
+        );
     }
 
     public function registrar()
@@ -53,7 +85,7 @@ class usuarios extends Controlador
         $this->htmlInputFormulario[] = Html::inputTextRequired(4,'Usuario',1,'usuario');
         $this->htmlInputFormulario[] = Html::inputTextRequired(4,'Contraseña',1,'password');
         $this->htmlInputFormulario[] = Html::selectConBuscador(
-            'grupos',
+            'grupos_id',
             'Grupo', 
             'grupo_id', 
             4,
@@ -79,7 +111,7 @@ class usuarios extends Controlador
         $this->htmlInputFormulario[] = Html::inputTextRequired(4,'Correo',1,'correo_electronico','',$registro["{$nombreMenu}_correo_electronico"]);
         $this->htmlInputFormulario[] = Html::inputTextRequired(4,'Usuario',1,'usuario','',$registro["{$nombreMenu}_usuario"]);
         $this->htmlInputFormulario[] = Html::selectConBuscador(
-            'grupos',
+            'grupos_id',
             'Grupo', 
             'grupo_id', 
             4,
