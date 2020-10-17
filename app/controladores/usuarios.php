@@ -64,15 +64,17 @@ class usuarios extends Controlador
         $this->htmlInputFiltros[$tablaCampo] = Html::inputText($col,'Nombre',1,$tablaCampo,$placeholder,$datos[$tablaCampo]);
 
         $tablaCampo = 'grupos+nombre';
+
         $this->htmlInputFiltros[$tablaCampo] = Html::selectConBuscador(
             'grupos_nombre',
             'Grupo', 
             $tablaCampo, 
-            4,
+            $col,
             $this->gruposRegistros,
             'grupos_nombre',
             $datos[$tablaCampo],
-            1
+            1,
+            ''
         );
     }
 
