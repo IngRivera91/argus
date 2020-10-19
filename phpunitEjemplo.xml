@@ -16,5 +16,13 @@
         <const name="SESSION_ID" value="1"/>
         <const name="GRUPO_ID" value="1"/>
         <const name="USUARIO_ID" value="1"/>
+
+        <const name="TEXTO_REGISTRO_ACTIVO" value="si"/>
+        <const name="TEXTO_REGISTRO_INACTIVO" value="no"/>
+
+        <const name="GUARDAR_MENU_SESSION" value="true"/>
+        <const name="GUARDAR_ACCIONES_SESSION" value="true"/>
+
+        <const name="REGISTRO_RELACIONADO" value="23000"/>
     </php>
 </phpunit>
