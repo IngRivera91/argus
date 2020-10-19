@@ -26,7 +26,7 @@ abstract class Controlador
     public string $htmlPaginador = '';            // Codigo html del paginador
     public string $llaveFormulario;               // Llave que se ocupa que los $_POST son de un formulario valido
     public string $nombreMenu;                    // Define el menu al cual se deben hacer la redirecciones
-    public string $nameSubmit;                    //
+    public string $nameSubmit;                    // Nombre de el boton de submit de los filtros en las listas
     public Modelo $modelo;                        // Modelo del menu con el que se esta trabajando
 
     public function __construct()
@@ -65,6 +65,7 @@ abstract class Controlador
                 return $mensaje;
             }
             Redireccion::enviar($this->nombreMenu,'lista',SESSION_ID,$mensaje);
+            exit;
         }
 
         unset($datos[$nombreLlaveFormulario]);
@@ -99,6 +100,7 @@ abstract class Controlador
                 return $mensaje;
             }
             Redireccion::enviar($this->nombreMenu,'registrar',SESSION_ID);
+            exit;
         }
         
         unset($datos[$nombreLlaveFormulario]);
@@ -119,6 +121,7 @@ abstract class Controlador
             return $mensaje;
         }
         Redireccion::enviar($this->nombreMenu,'lista',SESSION_ID,$mensaje);
+        exit;
     }
 
     public function activarBd(){
