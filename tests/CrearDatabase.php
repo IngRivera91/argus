@@ -1,6 +1,6 @@
 <?php
 
-    require_once __DIR__.'/../../recursos/BD/BaseDatos.php';
+    require_once __DIR__.'/../recursos/BD/BaseDatos.php';
     use Clase\MySQL\Database;
     $coneccion = new Database();
     BaseDatos::crear($coneccion);
