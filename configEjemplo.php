@@ -10,7 +10,8 @@
 		error_reporting(E_ALL);
 		ini_set('display_errors', 1);
 	}
-
+	
+	define('RUTA_BASE', __DIR__ );
 	define('RUTA_PROYECTO','http://localhost/argus/public/');
 	define('NOMBRE_PROYECTO','ARGUS');
 
