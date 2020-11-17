@@ -4,7 +4,7 @@ use Clase\MySQL\Database;
 use Clase\MySQL\GeneraConsultas;
 use PHPUnit\Framework\TestCase;
 
-class ClaseMySQLGeneraConsultasTest extends TestCase
+class MySQLGeneraConsultasTest extends TestCase
 {
     /**
      * @test

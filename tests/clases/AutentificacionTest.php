@@ -9,7 +9,7 @@ use Error\Base AS ErrorBase;
 use PHPUnit\Framework\TestCase;
 use Error\Autentificacion AS ErrorAutentificacion;
 
-class ClaseAutentificacionTest extends TestCase
+class AutentificacionTest extends TestCase
 {
 
     /**
