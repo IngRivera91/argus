@@ -4,7 +4,7 @@ use Ayuda\Valida;
 use Error\Base AS ErrorBase;
 use PHPUnit\Framework\TestCase;
 
-class AyudaValidaTest extends TestCase
+class ValidaTest extends TestCase
 {
 
    

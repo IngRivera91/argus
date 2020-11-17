@@ -7,7 +7,7 @@ use Modelo\Metodos;
 use Modelo\MetodosGrupos;
 use PHPUnit\Framework\TestCase;
 
-class AyudaMenuTest extends TestCase
+class MenuTest extends TestCase
 {
     
     /**

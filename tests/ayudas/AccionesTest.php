@@ -7,7 +7,7 @@ use Modelo\Metodos;
 use Modelo\MetodosGrupos;
 use PHPUnit\Framework\TestCase;
 
-class AyudaAccionesTest extends TestCase
+class AccionesTest extends TestCase
 {
     
     /**
