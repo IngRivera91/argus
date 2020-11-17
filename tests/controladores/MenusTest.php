@@ -5,7 +5,7 @@ use Controlador\menus;
 use Error\Base AS ErrorBase;
 use PHPUnit\Framework\TestCase;
 
-class CntroladorMenusTest extends TestCase
+class CMenusTest extends TestCase
 {
     /**
      * @test
