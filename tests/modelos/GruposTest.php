@@ -7,7 +7,7 @@ use Modelo\MetodosGrupos;
 use Error\Base AS ErrorBase;
 use PHPUnit\Framework\TestCase;
 
-class ModeloGruposTest extends TestCase
+class GruposTest extends TestCase
 {
     public int $registrosExtras = 2;
     /**

@@ -6,7 +6,7 @@ use Modelo\MetodosGrupos;
 use Error\Base AS ErrorBase;
 use PHPUnit\Framework\TestCase;
 
-class ModeloMetodosTest extends TestCase
+class MetodosTest extends TestCase
 {
     /**
      * @test

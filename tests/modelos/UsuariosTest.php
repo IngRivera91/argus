@@ -1,12 +1,12 @@
 <?php
 
-use Modelo\Menus;
-use Modelo\Metodos;
+use Modelo\Grupos;
+use Modelo\Usuarios;
 use Modelo\MetodosGrupos;
 use Error\Base AS ErrorBase;
 use PHPUnit\Framework\TestCase;
 
-class ModeloMenusTest extends TestCase
+class UsuariosTest extends TestCase
 {
     /**
      * @test
@@ -26,15 +26,18 @@ class ModeloMenusTest extends TestCase
     public function crearModelo($coneccion)
     {
         $this->assertSame(1,1);
-        $Menus = new Menus($coneccion);
-        $Metodos = new Metodos($coneccion);
         $MetodosGrupos = new MetodosGrupos($coneccion);
+        $Grupos = new Grupos($coneccion);
+        $Usuarios = new Usuarios($coneccion);
 
         $MetodosGrupos->eliminarTodo();
-        $Metodos->eliminarTodo();
-        $Menus->eliminarTodo();
+        $Usuarios->eliminarTodo();
+        $Grupos->eliminarTodo();
 
-        return $Menus;
+        $grupo = ['id' => 1,'nombre' => 'nombre1' , 'activo' => 1];
+        $Grupos->registrar($grupo);
+
+        return $Usuarios;
     }
 
     /**
@@ -44,10 +47,10 @@ class ModeloMenusTest extends TestCase
     public function registrar($modelo)
     {
         $registros = [
-            ['id' => 1,'nombre' => 'nombre1' , 'activo' => 1],
-            ['id' => 2,'nombre' => 'nombre2' , 'activo' => 1],
-            ['id' => 3,'nombre' => 'nombre3' , 'activo' => 1],
-            ['id' => 4,'nombre' => 'nombre4' , 'activo' => 1],
+            ['id' => 1,'usuario' => 'usuario1', 'password' => 'userpass', 'correo_electronico' => 'mail1@mail.com', 'grupo_id' => 1 , 'activo' => 1],
+            ['id' => 2,'usuario' => 'usuario2', 'password' => 'userpass', 'correo_electronico' => 'mail2@mail.com', 'grupo_id' => 1 , 'activo' => 1],
+            ['id' => 3,'usuario' => 'usuario3', 'password' => 'userpass', 'correo_electronico' => 'mail3@mail.com', 'grupo_id' => 1 , 'activo' => 1],
+            ['id' => 4,'usuario' => 'usuario4', 'password' => 'userpass', 'correo_electronico' => 'mail4@mail.com', 'grupo_id' => 1 , 'activo' => 1],
         ];
 
         foreach ($registros as $key => $registro) {
@@ -65,7 +68,18 @@ class ModeloMenusTest extends TestCase
             } catch (ErrorBase $e) {
                 $error = $e;
             }
-            $mensajeEsperado = "menu:{$registro['nombre']} ya registrad@";
+            $mensajeEsperado = "usuario:{$registro['usuario']} ya registrad@";
+            $this->assertSame($mensajeEsperado,$error->getMessage());
+
+            $registro['usuario'] = 'nuevo_usuario';
+
+            $error = null;
+            try {
+                $resultado = $modelo->registrar($registro);
+            } catch (ErrorBase $e) {
+                $error = $e;
+            }
+            $mensajeEsperado = "correo:{$registro['correo_electronico']} ya registrad@";
             $this->assertSame($mensajeEsperado,$error->getMessage());
 
         }
@@ -85,7 +99,7 @@ class ModeloMenusTest extends TestCase
 
             $resultado = $modelo->obtenerDatosConRegistroId($registro['id']);
             $this->assertIsArray($resultado);
-            $this->assertCount(9,$resultado);
+            $this->assertCount(18,$resultado);
 
             $columnas = [];
             $orderBy = [];
@@ -94,7 +108,7 @@ class ModeloMenusTest extends TestCase
 
             $resultado = $modelo->obtenerDatosConRegistroId($registro['id'], $columnas, $orderBy, $limit, $noUsarRelaciones);
             $this->assertIsArray($resultado);
-            $this->assertCount(9,$resultado);
+            $this->assertCount(11,$resultado);
         }
         return $registros;
     }
@@ -157,7 +171,7 @@ class ModeloMenusTest extends TestCase
      */
     public function modificarPorId($modelo,$registros)
     {
-        $campoTabla = 'nombre';
+        $campoTabla = 'usuario';
         foreach ($registros as $key => $registro) {
 
             $registro[$campoTabla] = $registro[$campoTabla].'_modificado';
@@ -180,7 +194,7 @@ class ModeloMenusTest extends TestCase
             } catch (ErrorBase $e) {
                 $error = $e;
             }
-            $mensajeEsperado = "menu:{$registro[$campoTabla]} ya registrad@";
+            $mensajeEsperado = "usuario:{$registro[$campoTabla]} ya registrad@";
             $this->assertSame($mensajeEsperado,$error->getMessage());
         }
 

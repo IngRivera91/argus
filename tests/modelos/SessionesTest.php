@@ -2,11 +2,12 @@
 
 use Modelo\Grupos;
 use Modelo\Usuarios;
+use Modelo\Sessiones;
 use Modelo\MetodosGrupos;
 use Error\Base AS ErrorBase;
 use PHPUnit\Framework\TestCase;
 
-class ModeloUsuariosTest extends TestCase
+class SessionesTest extends TestCase
 {
     /**
      * @test
@@ -29,15 +30,20 @@ class ModeloUsuariosTest extends TestCase
         $MetodosGrupos = new MetodosGrupos($coneccion);
         $Grupos = new Grupos($coneccion);
         $Usuarios = new Usuarios($coneccion);
+        $Sessiones = new Sessiones($coneccion);
 
         $MetodosGrupos->eliminarTodo();
-        $Usuarios->eliminarTodo();
         $Grupos->eliminarTodo();
+        $Usuarios->eliminarTodo();
+        $Sessiones->eliminarTodo();
 
         $grupo = ['id' => 1,'nombre' => 'nombre1' , 'activo' => 1];
         $Grupos->registrar($grupo);
 
-        return $Usuarios;
+        $usuario = ['id' => 1,'usuario' => 'usuario1', 'password' => 'userpass', 'correo_electronico' => 'mail1@mail.com', 'grupo_id' => 1 , 'activo' => 1];
+        $Usuarios->registrar($usuario);
+
+        return $Sessiones;
     }
 
     /**
@@ -47,10 +53,10 @@ class ModeloUsuariosTest extends TestCase
     public function registrar($modelo)
     {
         $registros = [
-            ['id' => 1,'usuario' => 'usuario1', 'password' => 'userpass', 'correo_electronico' => 'mail1@mail.com', 'grupo_id' => 1 , 'activo' => 1],
-            ['id' => 2,'usuario' => 'usuario2', 'password' => 'userpass', 'correo_electronico' => 'mail2@mail.com', 'grupo_id' => 1 , 'activo' => 1],
-            ['id' => 3,'usuario' => 'usuario3', 'password' => 'userpass', 'correo_electronico' => 'mail3@mail.com', 'grupo_id' => 1 , 'activo' => 1],
-            ['id' => 4,'usuario' => 'usuario4', 'password' => 'userpass', 'correo_electronico' => 'mail4@mail.com', 'grupo_id' => 1 , 'activo' => 1],
+            ['id' => 1,'session_id' => 'session_id1', 'usuario_id' => 1, 'grupo_id' => 1],
+            ['id' => 2,'session_id' => 'session_id2', 'usuario_id' => 1, 'grupo_id' => 1],
+            ['id' => 3,'session_id' => 'session_id3', 'usuario_id' => 1, 'grupo_id' => 1],
+            ['id' => 4,'session_id' => 'session_id4', 'usuario_id' => 1, 'grupo_id' => 1],
         ];
 
         foreach ($registros as $key => $registro) {
@@ -68,19 +74,8 @@ class ModeloUsuariosTest extends TestCase
             } catch (ErrorBase $e) {
                 $error = $e;
             }
-            $mensajeEsperado = "usuario:{$registro['usuario']} ya registrad@";
-            $this->assertSame($mensajeEsperado,$error->getMessage());
-
-            $registro['usuario'] = 'nuevo_usuario';
-
-            $error = null;
-            try {
-                $resultado = $modelo->registrar($registro);
-            } catch (ErrorBase $e) {
-                $error = $e;
-            }
-            $mensajeEsperado = "correo:{$registro['correo_electronico']} ya registrad@";
-            $this->assertSame($mensajeEsperado,$error->getMessage());
+            $codigoError = $error->obtenCodigo();
+            $this->assertSame('23000',$codigoError);
 
         }
 
@@ -99,7 +94,7 @@ class ModeloUsuariosTest extends TestCase
 
             $resultado = $modelo->obtenerDatosConRegistroId($registro['id']);
             $this->assertIsArray($resultado);
-            $this->assertCount(18,$resultado);
+            $this->assertCount(26,$resultado);
 
             $columnas = [];
             $orderBy = [];
@@ -108,7 +103,7 @@ class ModeloUsuariosTest extends TestCase
 
             $resultado = $modelo->obtenerDatosConRegistroId($registro['id'], $columnas, $orderBy, $limit, $noUsarRelaciones);
             $this->assertIsArray($resultado);
-            $this->assertCount(11,$resultado);
+            $this->assertCount(7,$resultado);
         }
         return $registros;
     }
@@ -171,7 +166,7 @@ class ModeloUsuariosTest extends TestCase
      */
     public function modificarPorId($modelo,$registros)
     {
-        $campoTabla = 'usuario';
+        $campoTabla = 'session_id';
         foreach ($registros as $key => $registro) {
 
             $registro[$campoTabla] = $registro[$campoTabla].'_modificado';
@@ -182,20 +177,6 @@ class ModeloUsuariosTest extends TestCase
             $this->assertCount(1,$resultado);
             $mensajeEsperado = 'registro modificado';
             $this->assertSame($mensajeEsperado,$resultado['mensaje']);
-        }
-
-        for ($i = 1 ; $i < 4 ; $i++) {
-            $registro = $registros[$i]; 
-            $registro[$campoTabla] = $registros[0][$campoTabla];
-
-            $error = null;
-            try {
-                $resultado = $modelo->modificarPorId($registro['id'],$registro);
-            } catch (ErrorBase $e) {
-                $error = $e;
-            }
-            $mensajeEsperado = "usuario:{$registro[$campoTabla]} ya registrad@";
-            $this->assertSame($mensajeEsperado,$error->getMessage());
         }
 
         return $registros;

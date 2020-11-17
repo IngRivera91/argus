@@ -1,13 +1,12 @@
 <?php
 
-use Modelo\Grupos;
-use Modelo\Usuarios;
-use Modelo\Sessiones;
+use Modelo\Menus;
+use Modelo\Metodos;
 use Modelo\MetodosGrupos;
 use Error\Base AS ErrorBase;
 use PHPUnit\Framework\TestCase;
 
-class ModeloSessionesTest extends TestCase
+class MenusTest extends TestCase
 {
     /**
      * @test
@@ -27,23 +26,15 @@ class ModeloSessionesTest extends TestCase
     public function crearModelo($coneccion)
     {
         $this->assertSame(1,1);
+        $Menus = new Menus($coneccion);
+        $Metodos = new Metodos($coneccion);
         $MetodosGrupos = new MetodosGrupos($coneccion);
-        $Grupos = new Grupos($coneccion);
-        $Usuarios = new Usuarios($coneccion);
-        $Sessiones = new Sessiones($coneccion);
 
         $MetodosGrupos->eliminarTodo();
-        $Grupos->eliminarTodo();
-        $Usuarios->eliminarTodo();
-        $Sessiones->eliminarTodo();
+        $Metodos->eliminarTodo();
+        $Menus->eliminarTodo();
 
-        $grupo = ['id' => 1,'nombre' => 'nombre1' , 'activo' => 1];
-        $Grupos->registrar($grupo);
-
-        $usuario = ['id' => 1,'usuario' => 'usuario1', 'password' => 'userpass', 'correo_electronico' => 'mail1@mail.com', 'grupo_id' => 1 , 'activo' => 1];
-        $Usuarios->registrar($usuario);
-
-        return $Sessiones;
+        return $Menus;
     }
 
     /**
@@ -53,10 +44,10 @@ class ModeloSessionesTest extends TestCase
     public function registrar($modelo)
     {
         $registros = [
-            ['id' => 1,'session_id' => 'session_id1', 'usuario_id' => 1, 'grupo_id' => 1],
-            ['id' => 2,'session_id' => 'session_id2', 'usuario_id' => 1, 'grupo_id' => 1],
-            ['id' => 3,'session_id' => 'session_id3', 'usuario_id' => 1, 'grupo_id' => 1],
-            ['id' => 4,'session_id' => 'session_id4', 'usuario_id' => 1, 'grupo_id' => 1],
+            ['id' => 1,'nombre' => 'nombre1' , 'activo' => 1],
+            ['id' => 2,'nombre' => 'nombre2' , 'activo' => 1],
+            ['id' => 3,'nombre' => 'nombre3' , 'activo' => 1],
+            ['id' => 4,'nombre' => 'nombre4' , 'activo' => 1],
         ];
 
         foreach ($registros as $key => $registro) {
@@ -74,8 +65,8 @@ class ModeloSessionesTest extends TestCase
             } catch (ErrorBase $e) {
                 $error = $e;
             }
-            $codigoError = $error->obtenCodigo();
-            $this->assertSame('23000',$codigoError);
+            $mensajeEsperado = "menu:{$registro['nombre']} ya registrad@";
+            $this->assertSame($mensajeEsperado,$error->getMessage());
 
         }
 
@@ -94,7 +85,7 @@ class ModeloSessionesTest extends TestCase
 
             $resultado = $modelo->obtenerDatosConRegistroId($registro['id']);
             $this->assertIsArray($resultado);
-            $this->assertCount(26,$resultado);
+            $this->assertCount(9,$resultado);
 
             $columnas = [];
             $orderBy = [];
@@ -103,7 +94,7 @@ class ModeloSessionesTest extends TestCase
 
             $resultado = $modelo->obtenerDatosConRegistroId($registro['id'], $columnas, $orderBy, $limit, $noUsarRelaciones);
             $this->assertIsArray($resultado);
-            $this->assertCount(7,$resultado);
+            $this->assertCount(9,$resultado);
         }
         return $registros;
     }
@@ -166,7 +157,7 @@ class ModeloSessionesTest extends TestCase
      */
     public function modificarPorId($modelo,$registros)
     {
-        $campoTabla = 'session_id';
+        $campoTabla = 'nombre';
         foreach ($registros as $key => $registro) {
 
             $registro[$campoTabla] = $registro[$campoTabla].'_modificado';
@@ -177,6 +168,20 @@ class ModeloSessionesTest extends TestCase
             $this->assertCount(1,$resultado);
             $mensajeEsperado = 'registro modificado';
             $this->assertSame($mensajeEsperado,$resultado['mensaje']);
+        }
+
+        for ($i = 1 ; $i < 4 ; $i++) {
+            $registro = $registros[$i]; 
+            $registro[$campoTabla] = $registros[0][$campoTabla];
+
+            $error = null;
+            try {
+                $resultado = $modelo->modificarPorId($registro['id'],$registro);
+            } catch (ErrorBase $e) {
+                $error = $e;
+            }
+            $mensajeEsperado = "menu:{$registro[$campoTabla]} ya registrad@";
+            $this->assertSame($mensajeEsperado,$error->getMessage());
         }
 
         return $registros;
