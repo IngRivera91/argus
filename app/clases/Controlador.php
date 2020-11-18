@@ -226,7 +226,16 @@ abstract class Controlador
         $datosFiltros = $this->generaDatosFiltros();
         $this->generaInputFiltros($datosFiltros);
 
+        if (count($this->filtrosListaBase) != 0) {
+            $this->filtrosLista = [];
+            $this->filtrosLista[] = ['campo' =>'1', 'valor'=>'1', 'signoComparacion'=>'=', 'conectivaLogica'=>''];
+            foreach ($this->filtrosListaBase as $filtro) {
+                $this->filtrosLista[] = $filtro;
+            }
+        }
+
         if (count($datosFiltros) != 0) {
+            $this->filtrosLista = [];
             $this->aplicaFiltros($datosFiltros);
         }
 
