@@ -33,8 +33,8 @@ class SessionesTest extends TestCase
         $Sessiones = new Sessiones($coneccion);
 
         $MetodosGrupos->eliminarTodo();
-        $Grupos->eliminarTodo();
         $Usuarios->eliminarTodo();
+        $Grupos->eliminarTodo();
         $Sessiones->eliminarTodo();
 
         $grupo = ['id' => 1,'nombre' => 'nombre1' , 'activo' => 1];
