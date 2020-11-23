@@ -3,6 +3,7 @@
 use Modelo\Menus;
 use Modelo\Grupos;
 use Modelo\Metodos;
+use Modelo\Usuarios;
 use Modelo\MetodosGrupos;
 use Error\Base AS ErrorBase;
 use PHPUnit\Framework\TestCase;
@@ -42,11 +43,13 @@ class GruposTest extends TestCase
     public function crearModelo($coneccion,$MetodosGrupos)
     {
         $this->assertSame(1,1);
+        $Usuarios = new Usuarios($coneccion);
         $Grupos = new Grupos($coneccion);
         $Metodos = new Metodos($coneccion);
         $Menus = new Menus($coneccion);
 
         $MetodosGrupos->eliminarTodo();
+        $Usuarios->eliminarTodo();
         $Grupos->eliminarTodo();
         $Metodos->eliminarTodo();
         $Menus->eliminarTodo();
