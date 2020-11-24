@@ -143,46 +143,59 @@ class BaseDatos
             (2, 'metodos', 'METODOS', 'fas fa-list-ul', '1', '-1', '-1'),
             (3, 'grupos', 'GRUPOS', 'fas fa-users-cog', '1', '-1', '-1'),
             (4, 'usuarios', 'USUARIOS', 'fas fa-users', '1', '-1', '-1');
-
-            INSERT INTO `metodos` 
-            (nombre,etiqueta,accion,icono,menu_id,activo_menu,activo_accion,activo,usuario_registro_id,usuario_actualizacion_id)
-            VALUES
-
         ";
 
         $numeroMenus = 4;
+
+        $numeroMetodosEspeciales = 5;
+        $query .= "
+            INSERT INTO `metodos` 
+            (id,nombre,etiqueta,accion,icono,menu_id,activo_menu,activo_accion,activo,usuario_registro_id,usuario_actualizacion_id)
+            VALUES
+
+            ('1','nuevaContra','','Cambiar contraseña','fas fa-key',4,FALSE,TRUE,TRUE,-1,-1),
+            ('2','nuevaContraBd','','','',4,FALSE,FALSE,TRUE,-1,-1),
+
+            ('3','permisos','','Asigna Permisos','fas fa-plus-square',3,FALSE,TRUE,TRUE,-1,-1),
+            ('4','bajaPermiso','','','',3,FALSE,FALSE,TRUE,-1,-1),
+            ('5','altaPermiso','','','',3,FALSE,FALSE,TRUE,-1,-1),
+
+        ";
+
+        $metodoId = (int)$numeroMetodosEspeciales;
         for ($i = 1 ; $i <= $numeroMenus ; $i++) {
             $query .= "
-                ('registrar','Registrar','','',$i,TRUE,FALSE,TRUE,-1,-1),
-                ('lista','Lista','','',$i,TRUE,FALSE,TRUE,-1,-1),
-                ('registrarBd','','','',$i,FALSE,FALSE,TRUE,-1,-1),
-                ('activarBd','','Activar','fas fa-play',$i,FALSE,TRUE,TRUE,-1,-1),
-                ('desactivarBd','','Desactivar','fas fa-pause',$i,FALSE,TRUE,TRUE,-1,-1),
-                ('modificar','','Modificar','fas fa-pencil-alt',$i,FALSE,TRUE,TRUE,-1,-1),
-                ('eliminarBd','','Eliminar','fas fa-trash',$i,FALSE,TRUE,TRUE,-1,-1),
-                ('modificarBd','','','',$i,FALSE,FALSE,TRUE,-1,-1),
+            ('".($metodoId+1)."','registrar','Registrar','','',$i,TRUE,FALSE,TRUE,-1,-1),
+            ('".($metodoId+2)."','lista','Lista','','',$i,TRUE,FALSE,TRUE,-1,-1),
+            ('".($metodoId+3)."','registrarBd','','','',$i,FALSE,FALSE,TRUE,-1,-1),
+            ('".($metodoId+4)."','activarBd','','Activar','fas fa-play',$i,FALSE,TRUE,TRUE,-1,-1),
+            ('".($metodoId+5)."','desactivarBd','','Desactivar','fas fa-pause',$i,FALSE,TRUE,TRUE,-1,-1),
+            ('".($metodoId+6)."','modificar','','Modificar','fas fa-pencil-alt',$i,FALSE,TRUE,TRUE,-1,-1),
+            ('".($metodoId+7)."','eliminarBd','','Eliminar','fas fa-trash',$i,FALSE,TRUE,TRUE,-1,-1),
+            ('".($metodoId+8)."','modificarBd','','','',$i,FALSE,FALSE,TRUE,-1,-1),
             ";
+            $metodoId += 8;
         }
         
         $query .= "
-            ('nuevaContra','','Cambiar contraseña','fas fa-key',4,FALSE,TRUE,TRUE,-1,-1),
-            ('nuevaContraBd','','','',4,FALSE,FALSE,TRUE,-1,-1),
-            ('permisos','','Asigna Permisos','fas fa-plus-square',3,FALSE,TRUE,TRUE,-1,-1),
-            ('bajaPermiso','','','',3,FALSE,FALSE,TRUE,-1,-1),
-            ('altaPermiso','','','',3,FALSE,FALSE,TRUE,-1,-1);
 
-            INSERT INTO metodosgrupos (id,metodo_id,grupo_id,activo)
+            ('".($metodoId+1)."','','','','',1,FALSE,FALSE,TRUE,-1,-1);
+
+            INSERT INTO metodosgrupos (metodo_id,grupo_id,activo)
             VALUES 
         
         ";
 
-        $numeroMetodosEspeciales = 5;
         $numeroMetodos = ($numeroMenus*8) + $numeroMetodosEspeciales;
         $grupoId = 1;
         for ($i = 1 ; $i < $numeroMetodos ; $i++) {
-            $query .= "($i,$i,$grupoId,TRUE),";
+            $query .= "($i,$grupoId,TRUE),";
         }
-        $query .= "($numeroMetodos,$numeroMetodos,$grupoId,TRUE);";
+        $query .= "($numeroMetodos,$grupoId,TRUE);";
+
+        $query .= "
+        
+        ";
 
         $resultado = $coneccion->ejecutaQuery($query);
         print_r('insertar:');
