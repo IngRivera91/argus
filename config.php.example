@@ -12,7 +12,7 @@
 	}
 	
 	define('RUTA_BASE', __DIR__ );
-	define('RUTA_PROYECTO','http://localhost/argus/public/');
+	define('RUTA_PROYECTO','http://localhost/');
 	define('NOMBRE_PROYECTO','ARGUS');
 
 	define('GUARDAR_MENU_SESSION',true);
@@ -25,8 +25,8 @@
 	// datos para conectarse a la base de datos
 	define('DB_TIPO', 'MySQL');
 	define('DB_HOST', 'localhost');
-	define('DB_USER', 'root');
-	define('DB_PASSWORD', '');
+	define('DB_USER', 'user_argus');
+	define('DB_PASSWORD', 'pass_argus');
 	define('DB_NAME', 'argus');
 
 	// datos usuario super usuario
