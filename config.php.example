@@ -24,7 +24,7 @@
 
 	// datos para conectarse a la base de datos
 	define('DB_TIPO', 'MySQL');
-	define('DB_HOST', 'localhost');
+	define('DB_HOST', 'db');
 	define('DB_USER', 'user_argus');
 	define('DB_PASSWORD', 'pass_argus');
 	define('DB_NAME', 'argus');
@@ -32,7 +32,7 @@
 	// datos usuario super usuario
 	define('PROGRAMADOR_USER','admin');
 	define('PROGRAMADOR_PASSWORD','admin');
-	define('PROGRAMADOR_NOMBRE','Ricardo');
+	define('PROGRAMADOR_NOMBRE','admin');
 	define('PROGRAMADOR_EMAIL','mail@mail.com');
 	define('PROGRAMADOR_SEXO','m');
 

@@ -8,9 +8,9 @@ services:
     volumes:
       - ./:/var/www/html
     links:
-      - localhost
-  localhost:
-    image: mysql:5.7
+      - db
+  db:
+    image: mysql:8.0
     ports:
       - "3306:3306" 
     environment:
