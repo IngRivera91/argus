@@ -13,7 +13,6 @@ if ($_ENV['APP_DEBUG']) {
 session_start();
 date_default_timezone_set($_ENV['APP_TIMEZONE']);
 
-
-require_once "configDB.php"; 
-
-\Ayuda\Debug::print($_ENV);exit;
+require_once "constantes.php";
+require_once "configApp.php"; 
+require_once "configDatabase.php"; 
