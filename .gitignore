@@ -3,5 +3,5 @@
 /mysql
 /vendor
 archivos/*
-config.php
+.env
 phpunit.xml
