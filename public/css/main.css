@@ -12,13 +12,36 @@ body {
 i , .icono {
     color: var(--color-principal);
 }
+ul > li.nav-item > a.nav-link {
+    color: var(--color-principal) !important;
+}
 div.alert {
-    font-family: var(--font-family-roboto);
+    font-family: var(--font-family-open-sans);
+}
+
+div.alert-anuncio {
+    font-family: var(--font-family-open-sans);
+    color: var(--color-principal-hover) !important;
+    background-color: none !important;
+    border-color: var(--color-principal-hover) !important;
+}
+
+div.alert-anuncio > button.close {
+    color: var(--color-principal-hover) !important;
+}
+
+.main-bg-color {
+    background-color: var(--color-principal) !important;
+    color: var(--color-secundario) !important;
 }
 
 aside > a.brand-link{
     font-family: var(--font-family-roboto);
     color: var(--color-principal) !important;
+}
+
+button>i {
+    color: var(--color-secundario) !important;
 }
 
 nav > ul > li.nav-item > a {
@@ -39,7 +62,8 @@ ul.pagination > li.active > a{
 .btn-argus {
     border-color: var(--color-principal);
     background-color: var(--color-principal);
-    color: var(--color-secundario);
+    color: var(--color-secundario) !important;
+    text-decoration:none !important;
 }
 
 .btn-argus:hover {
@@ -68,7 +92,8 @@ div.argus-lista > h3 > span {
     margin-top: .7em;
     color: var(--color-principal);
 }
-.select2-results > ul > li {
+
+.select2-results> ul > li {
     color: black !important; 
     background-color: white !important;
 } 
@@ -76,4 +101,19 @@ div.argus-lista > h3 > span {
 .select2-results > ul > li:hover { 
     color: var(--color-secundario) !important; 
     background-color: var(--color-principal) !important; 
-} 
+}
+
+/* .select2-results > ul > li:focus-within { 
+    color: var(--color-secundario) !important; 
+    background-color: var(--color-principal) !important; 
+} */
+
+.select2-selection__choice {
+    color: var(--color-secundario) !important; 
+    background-color: var(--color-principal) !important; 
+    border-color: var(--color-principal)!important;
+}
+
+.callout.callout-own {
+    border-left-color: var(--color-principal);
+}
