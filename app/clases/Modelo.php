@@ -4,7 +4,6 @@ namespace Clase;
 
 use Interfas\Database;
 use Interfas\GeneraConsultas;
-use Clase\GeneraConsultasMySQL;
 use Error\Base AS ErrorBase;
 use Error\Esperado AS ErrorEsperado;
 
@@ -235,6 +234,21 @@ abstract class Modelo
             throw new ErrorBase($e->getMessage(),$e);
         }
         return ( int ) $resultado['numeroRegistros'];
+    }
+
+    public function iniciaTransaccion()
+    {
+        $this->coneccion->beginTransaction();
+    }
+
+    public function cancelaTransaccion()
+    {
+        $this->coneccion->rollBack();
+    }
+
+    public function ejecutaTransaccion()
+    {
+        $this->coneccion->commit();
     }
 
     private function eliminaColumnasProtegidas(array $resultado):array

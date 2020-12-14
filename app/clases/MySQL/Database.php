@@ -135,6 +135,21 @@ class Database implements DatabaseInterface
         }
     }
 
+    public function beginTransaction(): void
+    {
+        $this->dbh->beginTransaction();
+    }
+
+    public function rollBack(): void
+    {
+        $this->dbh->rollBack();
+    }
+
+    public function commit(): void
+    {
+        $this->dbh->commit();
+    }
+
     public function ejecutaQuery(string $query)
     {
         $this->stmt = $this->dbh->prepare($query);
@@ -145,7 +160,7 @@ class Database implements DatabaseInterface
         } 
         catch (PDOException $e)
         {
-            throw new ErrorMySQL($e,' Consulta: '.$consulta);
+            throw new ErrorMySQL($e,' Query: '.$query);
         }
     }
 

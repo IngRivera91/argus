@@ -21,5 +21,12 @@ interface Database
     public function ejecutaConsultaUpdate(string $consulta = '', array $datos = [], array $filtros = []):array;
     
     public function obtenColumnasTabla(string $tabla):array;
+
+    public function beginTransaction(): void;
+    
+    public function rollBack(): void;
+    
+    public function commit(): void;
+    
     
 }
