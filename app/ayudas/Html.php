@@ -248,13 +248,33 @@ class Html
         $selectHtml = '';
         $selectHtml .= self::generaPrincipioSelect($col,$label);
 
+        $selectHtml .= "<select title='$label' $required name='{$name}[]' class='form-control form-control-sm select2'";
+        $selectHtml .= " multiple='multiple' data-placeholder='$label'  data-select2-id='$select2Id' tabindex='-1' >";
+
+        $elementosArray = explode(',',$elementos);
+
+        $selectHtml .= "<option hidden ></option>";
+
+        foreach ($registros as $registro) {
+
+            $valorRegistroId = $registro[$nombreCampoId];
+
+            $textValueOption = '';
+
+            foreach ($elementosArray as $elemento){
+                $textValueOption .= $registro[$elemento].$chart;
+            }
+            $textValueOption = trim($textValueOption,$chart);
+
+            $selected = '';
+            if (in_array($valorRegistroId,$value)) {
+                $selected = "selected='true'";
+            }
+                
+            $selectHtml .= "<option $selected value='$valorRegistroId'>$textValueOption</option>";
+        }
+
         
-        $selectHtml .= "<div class='input-group-prepend'>";
-        $selectHtml .= "<label class='input-group-text'>Options</label>";
-        $selectHtml .= "</div>";
-        $selectHtml .= "<select $required name='$name' class='form-control select2 select2-hidden-accessible' multiple='' data-placeholder='$label'  data-select2-id='$select2Id' tabindex='-1' aria-hidden='true'>";
-        
-        $selectHtml .= self::generaSelectOptions($nombreCampoId, $registros, $elementos, $value, $chart);
         $selectHtml .= self::generaFinalSelect($saltarLinea);
         return $selectHtml;
     }
