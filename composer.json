@@ -1,12 +1,8 @@
 {
     "autoload": {
         "psr-4": {
-            "Controlador\\": "app/controladores/",
-            "Clase\\": "app/clases/",
-            "Modelo\\": "app/modelos/",
-            "Ayuda\\": "app/ayudas/",
-            "Error\\": "app/errores/",
-            "Interfas\\": "app/interfaces/"
+            "App\\": "app/",
+            "Test\\": "tests/"
         }
     },
     "require-dev": {
