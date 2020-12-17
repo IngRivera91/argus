@@ -1,10 +1,9 @@
 <?php 
 
-namespace Ayuda;
+namespace App\ayudas;
 
-use Interfas\Database;
-use Interfas\GeneraConsultas;
-use Modelo\MetodosGrupos;
+use App\interfaces\Database;
+use App\modelos\MetodosGrupos;
 
 class Menu
 {

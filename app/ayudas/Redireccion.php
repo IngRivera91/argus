@@ -1,6 +1,6 @@
 <?php
 
-namespace Ayuda;
+namespace App\ayudas;
 
 class Redireccion
 {

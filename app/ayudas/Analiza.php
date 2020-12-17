@@ -1,8 +1,6 @@
 <?php
 
-namespace Ayuda;
-
-use Error\Base AS ErrorBase;
+namespace App\ayudas;
 
 class Analiza
 {

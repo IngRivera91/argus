@@ -1,11 +1,10 @@
 <?php
 
-namespace Ayuda;
+namespace App\ayudas;
 
-use Interfas\Database;
-use Modelo\MetodosGrupos;
-use Error\Base AS ErrorBase;
-use Interfas\GeneraConsultas;
+use App\interfaces\Database;
+use App\modelos\MetodosGrupos;
+use App\errores\Base AS ErrorBase;
 
 class Valida 
 {

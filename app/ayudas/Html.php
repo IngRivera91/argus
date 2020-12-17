@@ -1,8 +1,9 @@
 <?php
 
-namespace Ayuda;
+namespace App\ayudas;
 
-use Ayuda\Redireccion;
+use App\ayudas\Redireccion;
+
 
 class Html
 {
