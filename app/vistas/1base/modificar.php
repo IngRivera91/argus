@@ -1,7 +1,6 @@
 <?php
 
-use Ayuda\Html;
-use Ayuda\Redireccion;
+use App\ayudas\Redireccion;
 
 $inputs = $controlador->htmlInputFormulario;
 $pagina = "&pag={$controlador->obtenerNumeroPagina()}";

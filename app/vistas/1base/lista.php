@@ -1,8 +1,7 @@
 <?php
 
-use Ayuda\Html;
-use Ayuda\Acciones;
-use Ayuda\Redireccion;
+use App\ayudas\Acciones;
+use App\ayudas\Redireccion;
 
 $registros = $controlador->registros;
 $inputs = $controlador->htmlInputFiltros;
