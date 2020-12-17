@@ -1,22 +1,21 @@
 <?php
 
-namespace Clase;
+namespace App\clases;
 
-use Clase\Modelo;
-use Interfas\Database;
-use Interfas\GeneraConsultas;
-use Modelo\Usuarios;
-use Modelo\Sessiones;
-use Error\Base AS ErrorBase;
+
+use App\modelos\Usuarios;
+use App\modelos\Sessiones;
+use App\interfaces\Database;
+use App\errores\Base AS ErrorBase;
 
 class Autentificacion 
 {
-    private Modelo $usuarios;
-    private Modelo $sessiones;
+    private $Usuarios;
+    private $Sessiones;
     public function __construct(Database $coneccion)
     {
-        $this->sessiones = new Sessiones($coneccion);
-        $this->usuarios = new Usuarios($coneccion);
+        $this->Sessiones = new Sessiones($coneccion);
+        $this->Usuarios = new Usuarios($coneccion);
     }
     
     public function defineConstantes(array $datos, string $sessionId):void
@@ -33,7 +32,7 @@ class Autentificacion
     {
         $this->validaUsuarioYPassword($_POST);
 
-        $usuario = $this->usuarios->login($_POST);
+        $usuario = $this->Usuarios->login($_POST);
         $fechaHora = date('Y-m-d H:i:s');
         $sessionId = md5( md5( $_POST['usuario'].$_POST['password'].$fechaHora ) );
 
@@ -44,12 +43,12 @@ class Autentificacion
 
     public function logout(string $sessionId):void
     {
-        $this->sessiones->eliminarConSessionId($sessionId);
+        $this->Sessiones->eliminarConSessionId($sessionId);
     }
 
     public function validaSessionId(string $sessionId):array
     {
-        return $this->sessiones->buscarPorSessionId($sessionId);
+        return $this->Sessiones->buscarPorSessionId($sessionId);
     }
 
     private function registraSessionId(string $sessionId, array $usuario, string $fechaHora):void
@@ -58,7 +57,7 @@ class Autentificacion
         $datos['usuario_id'] = $usuario['usuarios_id'];
         $datos['grupo_id'] = $usuario['usuarios_grupo_id'];
         $datos['fecha_registro'] = $fechaHora;
-        $this->sessiones->registrar($datos);
+        $this->Sessiones->registrar($datos);
     }
 
     private function validaUsuarioYPassword(array $datosPost):void

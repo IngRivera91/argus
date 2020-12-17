@@ -1,12 +1,12 @@
 <?php 
 
-namespace Clase;
+namespace App\clases;
 
-use Ayuda\Html;
-use Clase\Modelo;
-use Error\Esperado AS ErrorEsperado;
-use Error\Base AS ErrorBase;
-use Ayuda\Redireccion;
+use App\ayudas\Html;
+use App\clases\Modelo;
+use App\errores\Esperado AS ErrorEsperado;
+use App\errores\Base AS ErrorBase;
+use App\ayudas\Redireccion;
 
 abstract class Controlador
 {

@@ -1,11 +1,11 @@
 <?php
 
-namespace Clase;
+namespace App\clases;
 
-use Interfas\Database;
-use Interfas\GeneraConsultas;
-use Error\Base AS ErrorBase;
-use Error\Esperado AS ErrorEsperado;
+use App\interfaces\Database;
+use App\interfaces\GeneraConsultas;
+use App\errores\Base AS ErrorBase;
+use App\errores\Esperado AS ErrorEsperado;
 
 abstract class Modelo 
 {
@@ -20,7 +20,7 @@ abstract class Modelo
 
     public function __construct(Database $coneccion, string $tabla, array $relaciones, array $columnas)
     {
-        $claseGeneraConsultas = '\\Clase\\'.DB_TIPO.'\\GeneraConsultas';
+        $claseGeneraConsultas = 'App\\clases\\'.DB_TIPO.'\\GeneraConsultas';
         $this->generaConsulta = new $claseGeneraConsultas($coneccion);
         $this->coneccion = $coneccion;
         $this->tabla = $tabla;
