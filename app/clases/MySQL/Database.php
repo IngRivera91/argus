@@ -1,14 +1,14 @@
 <?php
 
-namespace Clase\MySQL;
+namespace App\clases\MySQL;
 
 use PDO;
 use PDOException;
 use PDOStatement;
-use Ayuda\Valida;
-use Ayuda\Analiza;
-use Interfas\Database AS DatabaseInterface;
-use Error\MySQL AS ErrorMySQL;
+use App\ayudas\Valida;
+use App\ayudas\Analiza;
+use App\interfaces\Database AS DatabaseInterface;
+use App\errores\MySQL AS ErrorMySQL;
 
 
 class Database implements DatabaseInterface

@@ -1,14 +1,14 @@
 <?php 
 
-namespace Clase\MySQL;
-use Ayuda\Valida;
-use Ayuda\Analiza;
-use Interfas\Database;
-use Interfas\GeneraConsultas AS GeneraConsultasInterface;
+namespace App\clases\MySQL;
+
+use App\ayudas\Valida;
+use App\ayudas\Analiza;
+use App\interfaces\Database;
+use App\interfaces\GeneraConsultas AS GeneraConsultasInterface;
 
 class GeneraConsultas implements GeneraConsultasInterface
 {
-    private Validaciones $valida;
     private Database $coneccion;
     public function __construct(Database $coneccion)
     {
