@@ -1,8 +1,8 @@
 <?php
 
-namespace Error;
+namespace App\errores;
 use PDOException;
-use Error\Base AS ErrorBase;
+use App\errores\Base AS ErrorBase;
 
 class MySQL extends ErrorBase
 {

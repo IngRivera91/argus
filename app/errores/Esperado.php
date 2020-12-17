@@ -1,8 +1,9 @@
 <?php 
 
-namespace Error;
-use Ayuda\Redireccion;
-use Error\Base AS ErrorBase;
+namespace App\errores;
+
+use App\ayudas\Redireccion;
+use App\errores\Base AS ErrorBase;
 
 class Esperado extends ErrorBase
 {
