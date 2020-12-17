@@ -1,11 +1,11 @@
 <?php 
 
-namespace Modelo;
+namespace App\modelos;
 
-use Clase\Modelo;
-use Interfas\Database;
-use Error\Base AS ErrorBase;
-use Error\Autentificacion AS ErrorAutentificacion;
+use App\clases\Modelo;
+use App\interfaces\Database;
+use App\errores\Base AS ErrorBase;
+use App\errores\Autentificacion AS ErrorAutentificacion;
 
 class Usuarios extends Modelo
 {

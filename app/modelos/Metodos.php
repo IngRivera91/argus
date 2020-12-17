@@ -1,9 +1,9 @@
 <?php 
 
-namespace Modelo;
+namespace App\modelos;
 
-use Clase\Modelo;
-use Interfas\Database;
+use App\clases\Modelo;
+use App\interfaces\Database;
 
 class Metodos extends Modelo
 {

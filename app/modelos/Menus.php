@@ -2,8 +2,8 @@
 
 namespace Modelo;
 
-use Clase\Modelo;
-use Interfas\Database;
+use App\clases\Modelo;
+use App\interfaces\Database;
 
 class Menus extends Modelo
 {

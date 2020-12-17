@@ -1,12 +1,12 @@
 <?php 
 
-namespace Modelo;
+namespace App\modelos;
 
-use Clase\Modelo;
-use Modelo\Metodos;
-use Interfas\Database;
-use Modelo\MetodosGrupos;
-use Error\Base AS ErrorBase;
+use App\clases\Modelo;
+use App\modelos\Metodos;
+use App\interfaces\Database;
+use App\modelos\MetodosGrupos;
+use App\errores\Base AS ErrorBase;
 
 class Grupos extends Modelo
 {

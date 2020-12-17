@@ -1,10 +1,10 @@
 <?php 
 
-namespace Modelo;
+namespace App\modelos;
 
-use Clase\Modelo;
-use Interfas\Database;
-use Error\Autentificacion AS ErrorAutentificacion;
+use App\clases\Modelo;
+use App\interfaces\Database;
+use App\errores\Autentificacion AS ErrorAutentificacion;
 
 class Sessiones extends Modelo
 {
