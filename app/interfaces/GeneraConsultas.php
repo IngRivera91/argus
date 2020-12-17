@@ -1,8 +1,9 @@
 <?php 
 
-namespace Interfas;
+namespace App\interfaces;
 
-use Interfas\Database;
+use App\interfaces\Database;
+
 interface GeneraConsultas 
 {
     public function __construct(Database $coneccion);

@@ -1,6 +1,6 @@
 <?php
 
-namespace Interfas;
+namespace App\interfaces;
 
 interface Database
 {
