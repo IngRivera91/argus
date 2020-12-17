@@ -1,27 +1,29 @@
 <?php 
 
-namespace Controlador;
+namespace App\controladores;
 
-use Ayuda\Html;
-use Clase\Modelo;
-use Modelo\Metodos;
-use Clase\Controlador;
-use Interfas\Database;
-use Modelo\MetodosGrupos;
-use Error\Base AS ErrorBase;
-use Modelo\Grupos AS ModeloGrupos;
+use App\ayudas\Html;
+use App\clases\Modelo;
+use App\modelos\Metodos;
+use App\clases\Controlador;
+use App\interfaces\Database;
+use App\modelos\MetodosGrupos;
+use App\errores\Base AS ErrorBase;
+use App\modelos\Grupos AS ModeloGrupos;
 
 class grupos extends Controlador
 {
     public array $metodosAgrupadosPorMenu;
     public string $nombreGrupo;
     public int $grupoId;
-    public Modelo $Metodos;
-    public Modelo $MetodosGrupos;
+    public $Metodos;
+    public $MetodosGrupos;
+    public $Grupos;
 
     public function __construct(Database $coneccion)
     {
         $this->modelo = new ModeloGrupos($coneccion);
+        $this->Grupos = new ModeloGrupos($coneccion);
         $this->Metodos = new Metodos($coneccion);
         $this->MetodosGrupos = new MetodosGrupos($coneccion);
         $this->nombreMenu = 'grupos';
@@ -80,8 +82,8 @@ class grupos extends Controlador
     {
         $grupoId = $this->validaRegistoId();
         $this->grupoId = $grupoId;
-        $this->metodosAgrupadosPorMenu = $this->modelo->obtenerMetodosAgrupadosPorMenu($grupoId);
-        $this->nombreGrupo = $this->modelo->obtenerNombreGrupo($grupoId);
+        $this->metodosAgrupadosPorMenu = $this->Grupos->obtenerMetodosAgrupadosPorMenu($grupoId);
+        $this->nombreGrupo = $this->Grupos->obtenerNombreGrupo($grupoId);
         
     }
 

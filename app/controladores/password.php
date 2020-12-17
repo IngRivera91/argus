@@ -1,17 +1,15 @@
 <?php 
 
-namespace Controlador;
+namespace App\controladores;
 
-use Ayuda\Html;
-use Clase\Modelo;
-use Modelo\Usuarios;
-use Ayuda\Redireccion;
-use Interfas\Database;
-use Error\Base AS ErrorBase;
+use App\ayudas\Html;
+use App\modelos\Usuarios;
+use App\ayudas\Redireccion;
+use App\interfaces\Database;
 
 class password
 {
-    private Modelo $Usuarios;
+    private $Usuarios;
     public bool   $breadcrumb = false;
     public string $llaveFormulario; 
 

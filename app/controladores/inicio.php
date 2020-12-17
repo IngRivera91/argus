@@ -1,19 +1,18 @@
 <?php
 
-namespace Controlador;
+namespace App\controladores;
 
-use Interfas\Database;
-use Interfas\GeneraConsultas;
+use App\interfaces\Database;
+
+
 
 class inicio
 {
-    private Database $coneccion;
-
     public bool $breadcrumb = false;
         
     public function __construct(Database $coneccion)
     {
-        $this->coneccion = $coneccion;
+        
     }
 
     public function index()

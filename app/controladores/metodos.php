@@ -1,19 +1,18 @@
 <?php 
 
-namespace Controlador;
+namespace App\controladores;
 
-use Ayuda\Html;
-use Clase\Modelo;
-use Clase\Controlador;
-use Interfas\Database;
-use Error\Base AS ErrorBase;
-use Modelo\Menus AS ModeloMenus;
-use Modelo\Metodos AS ModeloMetodos;
+use App\ayudas\Html;
+use App\clases\Controlador;
+use App\interfaces\Database;
+use App\errores\Base AS ErrorBase;
+use App\modelos\Menus AS ModeloMenus;
+use App\modelos\Metodos AS ModeloMetodos;
 
 class metodos extends Controlador
 {
     private array $menuRegistros;
-    private Modelo $Menus;
+    private $Menus;
 
     public function __construct(Database $coneccion)
     {

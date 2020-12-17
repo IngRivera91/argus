@@ -1,21 +1,20 @@
 <?php 
 
-namespace Controlador;
+namespace App\controladores;
 
-use Ayuda\Html;
-use Clase\Modelo;
-use Ayuda\Redireccion;
-use Clase\Controlador;
-use Interfas\Database;
-use Error\Base AS ErrorBase;
-use Modelo\Grupos AS ModeloGrupos;
-use Modelo\Usuarios AS ModeloUsuarios;
+use App\ayudas\Html;
+use App\ayudas\Redireccion;
+use App\clases\Controlador;
+use App\interfaces\Database;
+use App\errores\Base AS ErrorBase;
+use App\modelos\Grupos AS ModeloGrupos;
+use App\modelos\Usuarios AS ModeloUsuarios;
 
 class usuarios extends Controlador
 {
     private array $gruposRegistros;
     public int $usuarioId;
-    private Modelo $Grupos;
+    private $Grupos;
 
     public function __construct(Database $coneccion)
     {

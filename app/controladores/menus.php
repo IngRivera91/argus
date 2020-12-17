@@ -1,12 +1,11 @@
 <?php 
 
-namespace Controlador;
+namespace App\controladores;
 
-use Ayuda\Html;
-use Clase\Modelo;
-use Clase\Controlador;
-use Interfas\Database;
-use Modelo\Menus AS ModeloMenus;
+use App\ayudas\Html;
+use App\clases\Controlador;
+use App\interfaces\Database;
+use App\modelos\Menus AS ModeloMenus;
 
 class menus extends Controlador
 {
