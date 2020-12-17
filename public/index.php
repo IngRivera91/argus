@@ -2,10 +2,11 @@
 $rutaBase = __DIR__.'/../';
 require_once "{$rutaBase}app/config/requires.php"; 
 
-use Ayuda\Valida;
-use Ayuda\Redireccion;
-use Clase\Autentificacion;
-use Error\Base AS ErrorBase;
+use App\ayudas\Valida;
+use App\ayudas\Redireccion;
+use App\clases\Autentificacion;
+use App\errores\Base AS ErrorBase;
+
 $controladoresSinPermisos = ['inicio','password'];
 $parametrosGetRequeridos = array('controlador','metodo');
 
@@ -17,7 +18,7 @@ $controladorActual = $_GET['controlador'];
 $metodoActual = $_GET['metodo'];
 
 try {
-    $claseDatabase = 'Clase\\'.DB_TIPO.'\\Database';
+    $claseDatabase = 'App\\clases\\'.DB_TIPO.'\\Database';
     $coneccion = new $claseDatabase();
 }catch (ErrorBase $e) {
     print_r('Error al conectarce a la base de datos, favor de contactar al equipo de desarrollo');
@@ -76,7 +77,7 @@ if (!file_exists("{$rutaBase}app/controladores/{$controladorActual}.php")){
     exit;
 }
 
-$controladorNombre = 'Controlador\\'.$controladorActual;
+$controladorNombre = 'App\\controladores\\'.$controladorActual;
 $controlador = new $controladorNombre($coneccion);
 
 if (!method_exists($controlador,$metodoActual)){
@@ -114,7 +115,7 @@ if ($rutaVista == '') {
 }
 
 # El menu se carga hasta el final
-$menu_navegacion = Ayuda\Menu::crear($coneccion,GRUPO_ID);
+$menu_navegacion = \App\ayudas\Menu::crear($coneccion,GRUPO_ID);
 
 ?>
 <?php require_once "{$rutaBase}/recursos/html/head.php"; ?>
