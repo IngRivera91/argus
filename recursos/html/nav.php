@@ -1,4 +1,4 @@
-<?php use Ayuda\Redireccion; ?>
+<?php use App\ayudas\Redireccion; ?>
 <body class="hold-transition sidebar-mini">
     <!-- Site wrapper -->
     <div class="wrapper">
