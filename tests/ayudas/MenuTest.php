@@ -18,7 +18,7 @@ class MenuTest extends TestCase
      */
     public function menu()
     {
-        $claseDatabase = '\\App\\clases\\'.DB_TIPO.'\\Database';
+        $claseDatabase = 'App\\clases\\'.DB_TIPO.'\\Database';
         $coneccion = new $claseDatabase();
 
         $Grupos = new Grupos($coneccion);

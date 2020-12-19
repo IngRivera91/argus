@@ -18,7 +18,7 @@ class AccionesTest extends TestCase
      */
     public function acciones()
     {
-        $claseDatabase = '\\App\\clases\\'.DB_TIPO.'\\Database';
+        $claseDatabase = 'App\\clases\\'.DB_TIPO.'\\Database';
         $coneccion = new $claseDatabase();
 
         $Grupos = new Grupos($coneccion);
