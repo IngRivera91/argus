@@ -1,9 +1,11 @@
 <?php
 
-use Modelo\Menus;
-use Modelo\Metodos;
-use Modelo\MetodosGrupos;
-use Error\Base AS ErrorBase;
+namespace Test\modelos;
+
+use App\modelos\Menus;
+use App\modelos\Metodos;
+use App\errores\Base AS ErrorBase;
+use Test\LimpiarDatabase;
 use PHPUnit\Framework\TestCase;
 
 class MetodosTest extends TestCase
@@ -14,7 +16,7 @@ class MetodosTest extends TestCase
     public function crearConeccion()
     {
         $this->assertSame(1,1);
-        $claseDatabase = 'Clase\\'.DB_TIPO.'\\Database';
+        $claseDatabase = 'App\\clases\\'.DB_TIPO.'\\Database';
         $coneccion = new $claseDatabase();
         return $coneccion;
     }
@@ -28,11 +30,8 @@ class MetodosTest extends TestCase
         $this->assertSame(1,1);
         $Menus = new Menus($coneccion);
         $Metodos = new Metodos($coneccion);
-        $MetodosGrupos = new MetodosGrupos($coneccion);
 
-        $MetodosGrupos->eliminarTodo();
-        $Metodos->eliminarTodo();
-        $Menus->eliminarTodo();
+        LimpiarDatabase::start($coneccion);
 
         $menu = ['id' => 1,'nombre' => 'nombre1' , 'activo' => 1];
         $Menus->registrar($menu);

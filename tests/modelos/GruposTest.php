@@ -1,11 +1,13 @@
 <?php
 
-use Modelo\Menus;
-use Modelo\Grupos;
-use Modelo\Metodos;
-use Modelo\Usuarios;
-use Modelo\MetodosGrupos;
-use Error\Base AS ErrorBase;
+namespace Test\modelos;
+
+use App\modelos\Menus;
+use App\modelos\Grupos;
+use App\modelos\Metodos;
+use App\modelos\Usuarios;
+use App\modelos\MetodosGrupos;
+use App\errores\Base AS ErrorBase;
 use PHPUnit\Framework\TestCase;
 
 class GruposTest extends TestCase
@@ -17,7 +19,7 @@ class GruposTest extends TestCase
     public function crearConeccion()
     {
         $this->assertSame(1,1);
-        $claseDatabase = 'Clase\\'.DB_TIPO.'\\Database';
+        $claseDatabase = 'App\\clases\\'.DB_TIPO.'\\Database';
         $coneccion = new $claseDatabase();
         return $coneccion;
     

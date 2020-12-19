@@ -1,10 +1,13 @@
 <?php
 
-use Modelo\Menus;
-use Modelo\Grupos;
-use Modelo\Metodos;
-use Modelo\MetodosGrupos;
-use Error\Base AS ErrorBase;
+namespace Test\modelos;
+
+use App\modelos\Menus;
+use App\modelos\Grupos;
+use App\modelos\Metodos;
+use App\modelos\MetodosGrupos;
+use App\errores\Base AS ErrorBase;
+use Test\LimpiarDatabase;
 use PHPUnit\Framework\TestCase;
 
 class MetodosGruposTest extends TestCase
@@ -15,7 +18,7 @@ class MetodosGruposTest extends TestCase
     public function crearConeccion()
     {
         $this->assertSame(1,1);
-        $claseDatabase = 'Clase\\'.DB_TIPO.'\\Database';
+        $claseDatabase = 'App\\clases\\'.DB_TIPO.'\\Database';
         $coneccion = new $claseDatabase();
         return $coneccion;
     }
@@ -32,10 +35,7 @@ class MetodosGruposTest extends TestCase
         $Metodos = new Metodos($coneccion);
         $Menus = new Menus($coneccion);
 
-        $MetodosGrupos->eliminarTodo();
-        $Grupos->eliminarTodo();
-        $Metodos->eliminarTodo();
-        $Menus->eliminarTodo();
+        LimpiarDatabase::start($coneccion);
 
         $grupos = [
             ['id' => 1,'nombre' => 'nombre5' , 'activo' => 1],
