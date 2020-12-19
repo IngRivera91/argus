@@ -1,10 +1,13 @@
 <?php
 
-use Ayuda\Menu; 
-use Modelo\Menus;
-use Modelo\Grupos;
-use Modelo\Metodos;
-use Modelo\MetodosGrupos;
+namespace Test\ayudas;
+
+use App\ayudas\Menu;
+use App\modelos\Menus;
+use App\modelos\Grupos;
+use App\modelos\Metodos;
+use Test\LimpiarDatabase;
+use App\modelos\MetodosGrupos;
 use PHPUnit\Framework\TestCase;
 
 class MenuTest extends TestCase
@@ -15,7 +18,7 @@ class MenuTest extends TestCase
      */
     public function menu()
     {
-        $claseDatabase = 'Clase\\'.DB_TIPO.'\\Database';
+        $claseDatabase = '\\App\\clases\\'.DB_TIPO.'\\Database';
         $coneccion = new $claseDatabase();
 
         $Grupos = new Grupos($coneccion);
@@ -23,10 +26,7 @@ class MenuTest extends TestCase
         $Metodos = new Metodos($coneccion);
         $MetodosGrupos = new MetodosGrupos($coneccion);
 
-        $MetodosGrupos->eliminarTodo();
-        $Grupos->eliminarTodo();
-        $Metodos->eliminarTodo();
-        $Menus->eliminarTodo();
+        LimpiarDatabase::start($coneccion);
 
         // define menus
         $menus = [

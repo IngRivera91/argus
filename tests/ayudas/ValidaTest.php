@@ -1,7 +1,9 @@
 <?php
 
-use Ayuda\Valida;
-use Error\Base AS ErrorBase;
+namespace Test\ayudas;
+
+use App\ayudas\Valida;
+use App\errores\Base AS ErrorBase;
 use PHPUnit\Framework\TestCase;
 
 class ValidaTest extends TestCase
