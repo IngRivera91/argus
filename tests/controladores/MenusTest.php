@@ -1,9 +1,8 @@
 <?php
 
-use Modelo\Menu;
-use Controlador\menus;
-use Error\Base AS ErrorBase;
+use App\controladores\menus;
 use PHPUnit\Framework\TestCase;
+use Test\LimpiarDatabase;
 
 class CMenusTest extends TestCase
 {
@@ -13,8 +12,11 @@ class CMenusTest extends TestCase
     public function crearConeccion()
     {
         $this->assertSame(1,1);
-        $claseDatabase = 'Clase\\'.DB_TIPO.'\\Database';
+        $claseDatabase = 'App\\clases\\'.DB_TIPO.'\\Database';
         $coneccion = new $claseDatabase();
+
+        LimpiarDatabase::start($coneccion);
+
         return $coneccion;
     }
 
