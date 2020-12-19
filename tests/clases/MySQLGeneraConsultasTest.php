@@ -1,7 +1,9 @@
 <?php
 
-use Clase\MySQL\Database;
-use Clase\MySQL\GeneraConsultas;
+namespace Test\clases;
+
+use App\clases\MySQL\Database;
+use App\clases\MySQL\GeneraConsultas;
 use PHPUnit\Framework\TestCase;
 
 class MySQLGeneraConsultasTest extends TestCase
