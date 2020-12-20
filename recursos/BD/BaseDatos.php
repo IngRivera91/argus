@@ -127,6 +127,8 @@ class BaseDatos
     {
         $password = md5($password);
         $query = "
+            SET FOREIGN_KEY_CHECKS = 0;
+
             INSERT INTO grupos (nombre , activo , usuario_registro_id ,usuario_actualizacion_id)
             VALUES
             ('programador',TRUE,-1,-1);
@@ -194,7 +196,7 @@ class BaseDatos
         $query .= "($numeroMetodos,$grupoId,TRUE);";
 
         $query .= "
-        
+            SET FOREIGN_KEY_CHECKS = 1;
         ";
 
         $resultado = $coneccion->ejecutaQuery($query);
