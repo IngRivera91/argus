@@ -27,6 +27,7 @@ abstract class Controlador
     public string $llaveFormulario;               // Llave que se ocupa que los $_POST son de un formulario valido
     public string $nombreMenu;                    // Define el menu al cual se deben hacer la redirecciones
     public string $nameSubmit;                    // Nombre de el boton de submit de los filtros en las listas
+    public string $filtroEspecial = '';           // Filtro especial para las listas 
     public Modelo $modelo;                        // Modelo del menu con el que se esta trabajando
 
     public function __construct()
@@ -249,7 +250,7 @@ abstract class Controlador
         foreach ($this->camposLista as $nombre => $campo){
             $columnas[] = $campo;
         }
-        $resultado = $this->modelo->buscarConFiltros($this->filtrosLista, $columnas, $orderBy, $limit);
+        $resultado = $this->modelo->buscarConFiltros($this->filtrosLista, $this->filtroEspecial, $columnas, $orderBy, $limit);
         $this->registros = $resultado['registros'];
     }
 
@@ -322,7 +323,7 @@ abstract class Controlador
 
     public function obteneLimitPaginador(): string
     {
-        $numeroRegistros = $this->modelo->obtenerNumeroRegistros($this->filtrosLista);
+        $numeroRegistros = $this->modelo->obtenerNumeroRegistros($this->filtrosLista, $this->filtroEspecial);
         $numeroPaginas = (int) (($numeroRegistros-1) / (int)$this->registrosPorPagina );
         $numeroPaginas++;
         $numeroPagina = (int)$this->obtenerNumeroPagina();

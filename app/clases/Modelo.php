@@ -102,7 +102,7 @@ abstract class Modelo
             ['campo'=>$this->tabla.'.id', 'valor'=>$id, 'signoComparacion'=>'=', 'conectivaLogica' => '']
         ];
         try {
-            $resultado = $this->buscarConFiltros($filtros, $columnas, $orderBy, $limit, $noUsarRelaciones, $nuevasRelaciones);
+            $resultado = $this->buscarConFiltros($filtros, '', $columnas, $orderBy, $limit, $noUsarRelaciones, $nuevasRelaciones);
         } catch(ErrorBase $e) {
             throw new ErrorBase($e->getMessage(),$e);
         }
@@ -111,6 +111,7 @@ abstract class Modelo
 
     public function buscarConFiltros( 
         array $filtros,
+        string $filtroEspecial = '',
         array $columnas = [],
         array $orderBy = [],
         string $limit = '',
@@ -143,7 +144,7 @@ abstract class Modelo
         array $nuevasRelaciones = []
     ): array {
         try {
-            $resultado = $this->buscarConFiltros([], $columnas, $orderBy, $limit, $noUsarRelaciones, $nuevasRelaciones);
+            $resultado = $this->buscarConFiltros([], '', $columnas, $orderBy, $limit, $noUsarRelaciones, $nuevasRelaciones);
         } catch(ErrorBase $e) {
             throw new ErrorBase($e->getMessage(),$e);
         }
@@ -229,7 +230,7 @@ abstract class Modelo
             if (count($filtros) == 0){
                 $noUsarRelaciones = true;
             } 
-            $resultado = $this->buscarConFiltros($filtros,$columnas, $orderBy, $limit, $noUsarRelaciones);
+            $resultado = $this->buscarConFiltros($filtros, '', $columnas, $orderBy, $limit, $noUsarRelaciones);
         } catch(ErrorBase $e) {
             throw new ErrorBase($e->getMessage(),$e);
         }
