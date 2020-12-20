@@ -41,7 +41,9 @@ class Usuarios extends Modelo
             ['campo' => "usuarios.password", 'valor' =>  md5($datosPost['password']) , 'signoComparacion' => '=' , 'conectivaLogica' => 'AND']
         ];
 
-        $resultado = parent::buscarConFiltros($filtros); 
+        $filtroEspecial = '';
+
+        $resultado = parent::buscarConFiltros($filtros, $filtroEspecial); 
 
         if ( $resultado['numeroRegistros'] !== 1){
             throw new ErrorAutentificacion('usuario o contraseña incorrecto');

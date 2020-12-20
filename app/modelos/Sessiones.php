@@ -29,7 +29,9 @@ class Sessiones extends Modelo
             ['campo' => "sessiones.session_id" , 'valor' =>  $sessionId , 'signoComparacion' => '=' , 'conectivaLogica' => '' ]
         ];
 
-        $resultado = parent::buscarConFiltros($filtros);
+        $filtroEspecial = '';
+
+        $resultado = parent::buscarConFiltros($filtros, $filtroEspecial);
 
         if ( $resultado['numeroRegistros'] !== 1){
             throw new ErrorAutentificacion('sessionId no valido');

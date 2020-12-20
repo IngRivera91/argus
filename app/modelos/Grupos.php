@@ -86,13 +86,15 @@ class Grupos extends Modelo
         $filtros = [
             ['campo' => "{$this->MetodosGrupos->obtenerTabla()}.grupo_id", 'valor'=>$grupoId, 'signoComparacion'=>'=', 'conectivaLogica'=>'']
         ];
+
+        $filtroEspecial = '';
     
         $columnas = ["{$this->MetodosGrupos->obtenerTabla()}_metodo_id"];
         $orderBy = [];
         $limit = '';
         $noUsarRelaciones = true;
         try {
-            $resultado = $this->MetodosGrupos->buscarConFiltros($filtros, $columnas, $orderBy, $limit, $noUsarRelaciones);
+            $resultado = $this->MetodosGrupos->buscarConFiltros($filtros, $filtroEspecial, $columnas, $orderBy, $limit, $noUsarRelaciones);
         } catch (ErrorBase $e) {
             throw new ErrorBase('Error al tratar de obtener los MetodosGrupos',$e);
         }
