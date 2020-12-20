@@ -101,8 +101,11 @@ abstract class Modelo
         $filtros = [
             ['campo'=>$this->tabla.'.id', 'valor'=>$id, 'signoComparacion'=>'=', 'conectivaLogica' => '']
         ];
+        
+        $filtroEspecial = '';
+
         try {
-            $resultado = $this->buscarConFiltros($filtros, '', $columnas, $orderBy, $limit, $noUsarRelaciones, $nuevasRelaciones);
+            $resultado = $this->buscarConFiltros($filtros, $filtroEspecial, $columnas, $orderBy, $limit, $noUsarRelaciones, $nuevasRelaciones);
         } catch(ErrorBase $e) {
             throw new ErrorBase($e->getMessage(),$e);
         }
@@ -144,7 +147,8 @@ abstract class Modelo
         array $nuevasRelaciones = []
     ): array {
         try {
-            $resultado = $this->buscarConFiltros([], '', $columnas, $orderBy, $limit, $noUsarRelaciones, $nuevasRelaciones);
+            $filtroEspecial = '';
+            $resultado = $this->buscarConFiltros([], $filtroEspecial, $columnas, $orderBy, $limit, $noUsarRelaciones, $nuevasRelaciones);
         } catch(ErrorBase $e) {
             throw new ErrorBase($e->getMessage(),$e);
         }
@@ -223,6 +227,7 @@ abstract class Modelo
     public function obtenerNumeroRegistros(array $filtros =[]):int
     {
         try {
+            $filtroEspecial = '';
             $columnas = ['id']; 
             $orderBy = []; 
             $limit = ''; 
@@ -230,7 +235,7 @@ abstract class Modelo
             if (count($filtros) == 0){
                 $noUsarRelaciones = true;
             } 
-            $resultado = $this->buscarConFiltros($filtros, '', $columnas, $orderBy, $limit, $noUsarRelaciones);
+            $resultado = $this->buscarConFiltros($filtros, $filtroEspecial, $columnas, $orderBy, $limit, $noUsarRelaciones);
         } catch(ErrorBase $e) {
             throw new ErrorBase($e->getMessage(),$e);
         }
