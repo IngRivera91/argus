@@ -39,7 +39,9 @@ class password
             ['campo'=>'usuarios.id', 'valor'=>USUARIO_ID, 'signoComparacion'=>'=', 'conectivaLogica' => 'AND']
         ];
 
-        $resultado = $this->Usuarios->buscarConFiltros($filtros);
+        $filtroEspecial = '';
+
+        $resultado = $this->Usuarios->buscarConFiltros($filtros, $filtroEspecial);
 
         if ($resultado['numeroRegistros'] != 1) {
             Redireccion::enviar('password','cambiarPassword',SESSION_ID,'Contraseña incorrecta');
