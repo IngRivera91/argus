@@ -24,6 +24,8 @@ class Acciones
             ['campo' => "metodos.activo_accion", 'valor'=>1, 'signoComparacion'=>'=', 'conectivaLogica'=>'AND'],
             ['campo' => "menus.nombre", 'valor'=>$controladorActual, 'signoComparacion'=>'=', 'conectivaLogica'=>'AND']
         ];
+
+        $filtroEspecial = '';
         
         $columnas = [
             'metodos_nombre',
@@ -36,7 +38,7 @@ class Acciones
             'metodos.nombre' => 'ASC'
         ];
 
-        $resultado = $modeloMetodosGrupos->buscarConFiltros($filtros, $columnas, $orderBy);
+        $resultado = $modeloMetodosGrupos->buscarConFiltros($filtros, $filtroEspecial, $columnas, $orderBy);
 
         if ($resultado['numeroRegistros'] === 0){
             return [];

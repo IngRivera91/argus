@@ -87,13 +87,15 @@ class Valida
             ['campo' => "menus.nombre",         'valor'=>$controladorActual,'signoComparacion'=>'=', 'conectivaLogica'=>'AND']
         ];
 
+        $filtroEspecial = '';
+
         $columnas = [
             'id',
             'metodos_nombre',
             'menus_nombre'
         ];
 
-        $resultado = $modeloMetodosGrupos->buscarConFiltros($filtros, $columnas);
+        $resultado = $modeloMetodosGrupos->buscarConFiltros($filtros, $filtroEspecial, $columnas);
         
         if ($resultado['numeroRegistros'] == 1) {
             return true;

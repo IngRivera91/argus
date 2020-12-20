@@ -24,6 +24,8 @@ class Menu
             ['campo' => "metodos.activo_menu", 'valor'=>true, 'signoComparacion'=>'=', 'conectivaLogica'=>'AND'],
             ['campo' => "menus.activo", 'valor'=>true, 'signoComparacion'=>'=', 'conectivaLogica'=>'AND']
         ];
+
+        $filtroEspecial = '';
         
         $columnas = [
             'metodos_nombre',
@@ -38,7 +40,7 @@ class Menu
             'metodos.nombre' => 'ASC'
         ];
 
-        $resultado = $modeloMetodosGrupos->buscarConFiltros($filtros, $columnas, $orderBy);
+        $resultado = $modeloMetodosGrupos->buscarConFiltros($filtros, $filtroEspecial, $columnas, $orderBy);
 
         $menuDefinido = array();
 
