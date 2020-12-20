@@ -2,7 +2,7 @@
 require_once __DIR__.'/../app/config/requires.php';
 require_once __DIR__.'/../recursos/BD/BaseDatos.php';
 
-use Clase\MySQL\Database;
+use App\clases\MySQL\Database;
 
 $coneccion = new Database();
 
