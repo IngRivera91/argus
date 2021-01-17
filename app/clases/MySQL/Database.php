@@ -31,7 +31,7 @@ class Database implements DatabaseInterface
         $this->passwordBd = $passwordBd;
         $this->nombreBd = $nombreBd;
         
-        $dsn = 'mysql:host=' . $this->hostBd . ';dbname=' . $this->nombreBd;
+        $dsn = "mysql:host={$this->hostBd};dbname={$this->nombreBd}";
         $opciones = array(PDO::ATTR_PERSISTENT=>true, PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION);
 
         try
