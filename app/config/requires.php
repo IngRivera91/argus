@@ -5,7 +5,8 @@ require_once "{$rutaBase}/vendor/autoload.php";
 $dotenv = Dotenv\Dotenv::createImmutable($rutaBase);
 $dotenv->load();
 
-if ($_ENV['APP_DEBUG']) {
+define('ES_PRODUCCION', !$_ENV['APP_DEBUG'] );
+if (!ES_PRODUCCION) {
     error_reporting(E_ALL);
     ini_set('display_errors', 1);
 }
