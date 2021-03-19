@@ -144,7 +144,7 @@ $menu_navegacion = \App\ayudas\Menu::crear($coneccion,GRUPO_ID);
                 <div class="col-md-1"></div>
 
                 <div class="col-md-10">
-                    <div class="alert alert-default alert-argus alert-dismissible fade show" role="alert">
+                    <div class="alert alert-default alert-main alert-dismissible fade show" role="alert">
                         <strong><?php echo $_GET['mensaje']; ?></strong>.
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
@@ -169,7 +169,8 @@ $menu_navegacion = \App\ayudas\Menu::crear($coneccion,GRUPO_ID);
     <div class="float-right d-none d-sm-block">
         <b>Version</b> 1.0.0
     </div>
-    <strong>Copyright © 2020 Ing Rivera . </strong>todos los derechos reservados.
+    <strong>Copyright © 2021. </strong>todos los derechos reservados.
+    <!-- <strong>Copyright © 2020 Ing Rivera . </strong>todos los derechos reservados. -->
 </footer>
 
 </div>

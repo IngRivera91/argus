@@ -11,7 +11,7 @@
     <script src="<?php echo RUTA_PROYECTO; ?>adminlte3/dist/js/adminlte.min.js"></script>
     <!-- Alertify -->
     <script src="<?php echo RUTA_PROYECTO; ?>alertify/alertify.min.js"></script>
-    <!-- Argus JS -->
+    <!-- Main JS -->
     <script src="<?php echo RUTA_PROYECTO; ?>js/main.js"></script>
     <script>
         $(function () {

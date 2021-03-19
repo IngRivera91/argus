@@ -21,7 +21,7 @@
         <link rel="stylesheet" href="<?php echo RUTA_PROYECTO; ?>alertify/css/themes/default.min.css">
         <link rel="stylesheet" href="<?php echo RUTA_PROYECTO; ?>alertify/css/themes/semantic.min.css">
         <link rel="stylesheet" href="<?php echo RUTA_PROYECTO; ?>alertify/css/themes/bootstrap.min.css">
-        <!-- Argus CSS -->
+        <!-- Main CSS -->
         <link rel="stylesheet" href="<?php echo RUTA_PROYECTO; ?>css/variables.css">
         <link rel="stylesheet" href="<?php echo RUTA_PROYECTO; ?>css/main.css">
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto+Slab:wght@500&display=swap" rel="stylesheet">

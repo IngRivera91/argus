@@ -20,7 +20,7 @@ $acciones = Acciones::crear($coneccion, GRUPO_ID, $controladorActual);
     </div>
 </form>
 
-<div class="table-responsive argus-lista">
+<div class="table-responsive main-lista">
     <table class="table table-hover">
 
         <?php if (count($registros) > 0) { ?>

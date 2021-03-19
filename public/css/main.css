@@ -1,5 +1,5 @@
 body {
-    font-family: var(--font-family-open-sans);
+    font-family: var(--font2);
 }
 i , .icono {
     color: var(--color-principal);
@@ -8,11 +8,11 @@ ul > li.nav-item > a.nav-link {
     color: var(--color-principal) !important;
 }
 div.alert {
-    font-family: var(--font-family-open-sans);
+    font-family: var(--font2);
 }
 
 div.alert-anuncio {
-    font-family: var(--font-family-open-sans);
+    font-family: var(--font2);
     color: var(--color-principal-hover) !important;
     background-color: none !important;
     border-color: var(--color-principal-hover) !important;
@@ -28,7 +28,7 @@ div.alert-anuncio > button.close {
 }
 
 aside > a.brand-link{
-    font-family: var(--font-family-roboto);
+    font-family: var(--font1);
     color: var(--color-principal) !important;
 }
 
@@ -37,7 +37,7 @@ button>i {
 }
 
 nav > ul > li.nav-item > a {
-    font-family: var(--font-family-roboto);
+    font-family: var(--font1);
     color: var(--color-principal);
 }
 
@@ -51,20 +51,20 @@ ul.pagination > li.active > a{
     color: var(--color-secundario) !important;
 }
 
-.btn-argus {
+.btn-main {
     border-color: var(--color-principal);
     background-color: var(--color-principal);
     color: var(--color-secundario) !important;
     text-decoration:none !important;
 }
 
-.btn-argus:hover {
+.btn-main:hover {
     border-color: var(--color-principal-hover);
     background-color: var(--color-principal-hover);
     color: var(--color-secundario);
 }
 
-.alert-argus {
+.alert-main {
     background-color: var(--color-principal);
     color: var(--color-secundario);
 }
@@ -73,14 +73,14 @@ div.login-logo {
     color: var(--color-principal-hover);
 }
 
-div.argus-lista{
+div.main-lista{
     background-color: var(--color-list);
 }
-div.argus-lista > h3 {
+div.main-lista > h3 {
     color: var(--color-principal);
 }
 
-div.argus-lista > h3 > span {
+div.main-lista > h3 > span {
     margin-top: .7em;
     color: var(--color-principal);
 }
