@@ -83,7 +83,7 @@ abstract class Controlador
         }
 
         $mensaje = 'registro modificado';
-        
+
         if (!$this->redireccionar) {
             return $resultado;
         }
@@ -147,9 +147,11 @@ abstract class Controlador
         }
 
         $mensaje = 'registro activado';
+
         if (!$this->redireccionar) {
-            return $mensaje;
+            return $resultado;
         }
+        
         $url = Redireccion::obtener($this->nombreMenu,'lista',SESSION_ID,$mensaje)."&pag={$this->obtenerNumeroPagina()}";
         header("Location: {$url}");
         exit;   
@@ -173,9 +175,11 @@ abstract class Controlador
         }
 
         $mensaje = 'registro desactivado';
+
         if (!$this->redireccionar) {
-            return $mensaje;
+            return $resultado;
         }
+        
         $url = Redireccion::obtener($this->nombreMenu,'lista',SESSION_ID,$mensaje)."&pag={$this->obtenerNumeroPagina()}";
         header("Location: {$url}");
         exit;
@@ -208,9 +212,11 @@ abstract class Controlador
         }
 
         $mensaje = 'registro eliminado';
+        
         if (!$this->redireccionar) {
-            return $mensaje;
+            return $resultado;
         }
+        
         $url = Redireccion::obtener($this->nombreMenu,'lista',SESSION_ID,$mensaje)."&pag={$this->obtenerNumeroPagina()}";
         header("Location: {$url}");
         exit;
