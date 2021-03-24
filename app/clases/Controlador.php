@@ -83,9 +83,11 @@ abstract class Controlador
         }
 
         $mensaje = 'registro modificado';
+        
         if (!$this->redireccionar) {
-            return $mensaje;
+            return $resultado;
         }
+        
         $url = Redireccion::obtener($this->nombreMenu,'lista',SESSION_ID,'registro modificado')."&pag={$this->obtenerNumeroPagina()}";
         header("Location: {$url}");
         exit;   
@@ -118,9 +120,11 @@ abstract class Controlador
         }
         
         $mensaje = 'datos registrados';
+
         if (!$this->redireccionar) {
-            return $mensaje;
+            return $resultado;
         }
+        
         Redireccion::enviar($this->nombreMenu,'lista',SESSION_ID,$mensaje);
         exit;
     }
