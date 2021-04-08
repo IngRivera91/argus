@@ -210,6 +210,7 @@ class Html
     }
 
     public static function selectConBuscador(
+        string $id,
         string $nombreCampoId, 
         string $label, 
         string $name, 
@@ -225,7 +226,7 @@ class Html
         $selectHtml = '';
         $selectHtml .= self::generaPrincipioSelect($col,$label);
         
-        $selectHtml .= "<select title='$label' $required name='$name' class='form-control form-control-sm select2'";
+        $selectHtml .= "<select id='$id' title='$label' $required name='$name' class='form-control form-control-sm select2'";
         $selectHtml .= " data-placeholder='$label'  data-select2-id='$select2Id' tabindex='-1' >";
 
         $selectHtml .= self::generaSelectOptions($nombreCampoId, $registros, $elementos, $value, $chart);
@@ -234,6 +235,7 @@ class Html
     }
 
     public static function selectMultiple(
+        string $id,
         string $nombreCampoId,
         string $label,
         string $name,
@@ -249,7 +251,7 @@ class Html
         $selectHtml = '';
         $selectHtml .= self::generaPrincipioSelect($col,$label);
 
-        $selectHtml .= "<select title='$label' $required name='{$name}[]' class='form-control form-control-sm select2'";
+        $selectHtml .= "<select id='$id' title='$label' $required name='{$name}[]' class='form-control form-control-sm select2'";
         $selectHtml .= " multiple='multiple' data-placeholder='$label'  data-select2-id='$select2Id' tabindex='-1' >";
 
         $elementosArray = explode(',',$elementos);
@@ -346,7 +348,7 @@ class Html
             ["id" => 0, 'texto' => TEXTO_REGISTRO_INACTIVO]
         ];
 
-        return self::selectConBuscador('id', $label, $name, $col, $registros, 'texto', $value, $select2Id, $required, $chart, $saltarLinea);
+        return self::selectConBuscador('id','id', $label, $name, $col, $registros, 'texto', $value, $select2Id, $required, $chart, $saltarLinea);
     }
 
     public static function submit(string $label, string $name, int $col, bool $saltarLinea = true):string
