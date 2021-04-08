@@ -28,7 +28,7 @@ class Html
     ) :string {
         $placeholder = self::obtenerPlaceholder($label,$placeholder);
         $inputTextHtml = '';
-        $inputTextHtml .= self::generaPrincipioInput($col);
+        $inputTextHtml .= self::generaPrincipioInput($col, $label);
         $inputTextHtml .= "<input title='$label' id='$id' name='$name' placeholder='$placeholder' value='$value' class='form-control  form-control-sm' type='text'>";
         $inputTextHtml .= self::generaFinalInput($saltarLinea);
         
@@ -46,7 +46,7 @@ class Html
     ) :string {
         $placeholder = self::obtenerPlaceholder($label,$placeholder);
         $inputTextRequiredHtml = '';
-        $inputTextRequiredHtml .= self::generaPrincipioInput($col);
+        $inputTextRequiredHtml .= self::generaPrincipioInput($col, $label);
         $inputTextRequiredHtml .= "<input title='$label' id='$id' name='$name' placeholder='$placeholder' value='$value' required class='form-control  form-control-sm' type='text'>";
         $inputTextRequiredHtml .= self::generaFinalInput($saltarLinea);
         
@@ -64,7 +64,7 @@ class Html
     ) :string {
         $placeholder = self::obtenerPlaceholder($label,$placeholder);
         $inputDateHtml = '';
-        $inputDateHtml .= self::generaPrincipioInput($col);
+        $inputDateHtml .= self::generaPrincipioInput($col, $label);
         $inputDateHtml .= "<input title='$label' id='$id' name='$name' placeholder='$placeholder' value='$value' class='form-control  form-control-sm' type='date'>";
         $inputDateHtml .= self::generaFinalInput($saltarLinea);
         
@@ -82,7 +82,7 @@ class Html
     ) :string {
         $placeholder = self::obtenerPlaceholder($label,$placeholder);
         $inputDateHtml = '';
-        $inputDateHtml .= self::generaPrincipioInput($col);
+        $inputDateHtml .= self::generaPrincipioInput($col, $label);
         $inputDateHtml .= "<input title='$label' id='$id' name='$name' placeholder='$placeholder' value='$value' required class='form-control  form-control-sm' type='date'>";
         $inputDateHtml .= self::generaFinalInput($saltarLinea);
         
@@ -100,7 +100,7 @@ class Html
     ) :string {
         $placeholder = self::obtenerPlaceholder($label,$placeholder);
         $inputNumbertHtml = '';
-        $inputNumbertHtml .= self::generaPrincipioInput($col);
+        $inputNumbertHtml .= self::generaPrincipioInput($col, $label);
         $inputNumbertHtml .= "<input title='$label' id='$id' name='$name' placeholder='$placeholder' value='$value' class='form-control  form-control-sm' type='number'>";
         $inputNumbertHtml .= self::generaFinalInput($saltarLinea);
         
@@ -118,7 +118,7 @@ class Html
     ) :string {
         $placeholder = self::obtenerPlaceholder($label,$placeholder);
         $inputNumberRequiredHtml = '';
-        $inputNumberRequiredHtml .= self::generaPrincipioInput($col);
+        $inputNumberRequiredHtml .= self::generaPrincipioInput($col, $label);
         $inputNumberRequiredHtml .= "<input title='$label' id='$id' name='$name' placeholder='$placeholder' value='$value' required class='form-control  form-control-sm' type='number'>";
         $inputNumberRequiredHtml .= self::generaFinalInput($saltarLinea);
         
@@ -136,7 +136,7 @@ class Html
     ) :string {
         $placeholder = self::obtenerPlaceholder($label,$placeholder);
         $inputNumbertHtml = '';
-        $inputNumbertHtml .= self::generaPrincipioInput($col);
+        $inputNumbertHtml .= self::generaPrincipioInput($col, $label);
         $inputNumbertHtml .= "<input title='$label' id='$id' name='$name' placeholder='$placeholder' value='$value' class='form-control  form-control-sm' type='number' step='any'>";
         $inputNumbertHtml .= self::generaFinalInput($saltarLinea);
         
@@ -154,7 +154,7 @@ class Html
     ) :string {
         $placeholder = self::obtenerPlaceholder($label,$placeholder);
         $inputNumbertHtml = '';
-        $inputNumbertHtml .= self::generaPrincipioInput($col);
+        $inputNumbertHtml .= self::generaPrincipioInput($col, $label);
         $inputNumbertHtml .= "<input title='$label' id='$id' name='$name' placeholder='$placeholder' value='$value' required class='form-control  form-control-sm' type='number' step='any'>";
         $inputNumbertHtml .= self::generaFinalInput($saltarLinea);
         
@@ -172,18 +172,21 @@ class Html
     ) :string {
         $placeholder = self::obtenerPlaceholder($label,$placeholder);
         $inputPasswordHtml = '';
-        $inputPasswordHtml .= self::generaPrincipioInput($col);
+        $inputPasswordHtml .= self::generaPrincipioInput($col, $label);
         $inputPasswordHtml .= "<input title='$label' id='$id' name='$name' placeholder='$placeholder' value='$value' required class='form-control  form-control-sm' type='password'>";
         $inputPasswordHtml .= self::generaFinalInput($saltarLinea);
         
         return $inputPasswordHtml;
     }
 
-    private static function generaPrincipioInput(int $col):string
+    private static function generaPrincipioInput(int $col, string $label):string
     {
         $principioInputHtml = '';
         $principioInputHtml .= "<div class=col-md-$col>";
-        $principioInputHtml .= "<div class='input-group mb-3'>";
+        $principioInputHtml .= "<div class='input-group input-group-sm mb-3'>";
+        $principioInputHtml .= "<div class='input-group-prepend'>";
+        $principioInputHtml .= "<label id='inputGroup-sizing-sm' class='input-group-text'>{$label}</label>";
+        $principioInputHtml .= "</div>";
 
         return $principioInputHtml;
     }
@@ -315,7 +318,7 @@ class Html
         $principioSelectGenerado .= "<div class=col-md-$col>";
         $principioSelectGenerado .= "<div class='input-group input-group-sm mb-3'>";
         $principioSelectGenerado .= "<div class='input-group-prepend'>";
-        $principioSelectGenerado .= "<label id='inputGroup-sizing-sm' class='input-group-text'>".strtolower($label)."</label>";
+        $principioSelectGenerado .= "<label id='inputGroup-sizing-sm' class='input-group-text'>{$label}</label>";
         $principioSelectGenerado .= "</div>";
         return $principioSelectGenerado;
     }
