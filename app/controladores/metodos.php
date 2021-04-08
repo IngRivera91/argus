@@ -61,6 +61,7 @@ class metodos extends Controlador
 
         $tablaCampo = 'menus+nombre';
         $this->htmlInputFiltros[$tablaCampo] = Html::selectConBuscador(
+            'id',
             'menus_nombre',
             'Menu', 
             $tablaCampo, 
@@ -83,7 +84,7 @@ class metodos extends Controlador
         $this->htmlInputFormulario[] = Html::inputTextRequired(4,'Metodo',1,'nombre');
         $this->htmlInputFormulario[] = Html::inputText(4,'Etiqueta',1,'etiqueta');
         $this->htmlInputFormulario[] = Html::inputText(4,'Icono',1,'icono');
-        $this->htmlInputFormulario[] = Html::selectConBuscador('menus_id','Menu', 'menu_id', 3,$this->menuRegistros,'menus_nombre','-1',1);
+        $this->htmlInputFormulario[] = Html::selectConBuscador('id','menus_id','Menu', 'menu_id', 3,$this->menuRegistros,'menus_nombre','-1',1);
         $this->htmlInputFormulario[] = Html::selectActivo('Activo','activo',3,'-1',2);
         $this->htmlInputFormulario[] = Html::selectActivo('Activo Accion','activo_accion',3,'-1',3);
         $this->htmlInputFormulario[] = Html::selectActivo('Activo Menu','activo_menu',3,'-1',4);
@@ -103,6 +104,7 @@ class metodos extends Controlador
         $this->htmlInputFormulario[] = Html::inputText(4,'Etiqueta',1,'etiqueta','',$registro["{$nombreMenu}_etiqueta"]);
         $this->htmlInputFormulario[] = Html::inputText(4,'Icono',1,'icono','',$registro["{$nombreMenu}_icono"]);
         $this->htmlInputFormulario[] = Html::selectConBuscador(
+            'id',
             'menus_id',
             'Menu', 
             'menu_id', 

@@ -65,6 +65,7 @@ class usuarios extends Controlador
         $tablaCampo = 'grupos+nombre';
 
         $this->htmlInputFiltros[$tablaCampo] = Html::selectConBuscador(
+            'id',
             'grupos_nombre',
             'Grupo', 
             $tablaCampo, 
@@ -86,6 +87,7 @@ class usuarios extends Controlador
         $this->htmlInputFormulario[] = Html::inputTextRequired(4,'Usuario',1,'usuario');
         $this->htmlInputFormulario[] = Html::inputTextRequired(4,'Contraseña',1,'password');
         $this->htmlInputFormulario[] = Html::selectConBuscador(
+            'id',
             'grupos_id',
             'Grupo', 
             'grupo_id', 
@@ -112,6 +114,7 @@ class usuarios extends Controlador
         $this->htmlInputFormulario[] = Html::inputTextRequired(4,'Correo',1,'correo_electronico','',$registro["{$nombreMenu}_correo_electronico"]);
         $this->htmlInputFormulario[] = Html::inputTextRequired(4,'Usuario',1,'usuario','',$registro["{$nombreMenu}_usuario"]);
         $this->htmlInputFormulario[] = Html::selectConBuscador(
+            'id',
             'grupos_id',
             'Grupo', 
             'grupo_id', 
