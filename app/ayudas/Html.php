@@ -393,7 +393,7 @@ class Html
         
         $paginadorHtml = '';
         $paginadorHtml .= "<br><nav aria-label='navigation'>"; // inicia <nav>
-        $paginadorHtml .= "<ul class='pagination'>"; // inicia <ul>
+        $paginadorHtml .= "<ul class='pagination flex-wrap'>"; // inicia <ul>
 
         // inicia el <li> de el boton pagina anterior
         $paginadorHtml .= "<li class='$liClass' >";
