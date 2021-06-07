@@ -384,7 +384,7 @@ class Html
         return $linkBotonHtml;
     }
 
-    public static function paginador(int $numeroDePaginas, int $pagina, string $tabla):string
+   public static function paginador(int $numeroDePaginas, int $pagina, string $tabla):string
     {
         $urlBase = Redireccion::obtener($tabla,'lista',SESSION_ID).'&pag=';
 
@@ -406,10 +406,69 @@ class Html
         $paginadorHtml .= "</li>";
         // termina el <li> de el boton pagina anterior
 
-        for ($i = 1 ; $i <= $numeroDePaginas ; $i++) {
+        if ($pagina > 5) {
+
+            // inicia el <li> de el boton pagina uno
+            $paginadorHtml .= "<li class='$liClass' >";
+            $paginaAnterior = (int)$pagina-1;
+            $href = '';
+            if ($pagina > 1) { $href = "href='{$urlBase}1'"; }
+            $paginadorHtml .= "<a class='$aClas'  $href aria-label='Anterior'>";
+            $paginadorHtml .= "<span aria-hidden='true'>1</span>";
+            $paginadorHtml .= "</a>";
+            $paginadorHtml .= "</li>";
+            // termina el <li> de el boton pagina uno
+
+            // inicia el <li> de el boton ...
+            $paginadorHtml .= "<li class='$liClass' >";
+            $paginadorHtml .= "<a class='$aClas' aria-label='Anterior'>";
+            $paginadorHtml .= "<span aria-hidden='true'> ... </span>";
+            $paginadorHtml .= "</a>";
+            $paginadorHtml .= "</li>";
+            // termina el <li> de el boton ...
+
+        }
+        
+
+        $paginaInicial = $pagina - 4;
+        $paginaFinal = $pagina + 4;
+
+        if ($paginaInicial < 1) {
+            $paginaFinal += abs($paginaInicial -1);
+            $paginaInicial = 1;
+        }
+
+        if ($paginaFinal > $numeroDePaginas) {
+            $paginaInicial -= abs($paginaFinal - $numeroDePaginas);
+            $paginaFinal = $numeroDePaginas;
+        }
+
+        for ($i = $paginaInicial ; $i <= $paginaFinal ; $i++) {
             $active = '';
             if ($i == $pagina){ $active = 'active'; }
             $paginadorHtml .= "<li class='$active $liClass' ><a class='$aClas'  href='".$urlBase.$i."'>$i</a></li>";
+        }
+
+        if ($pagina < ($numeroDePaginas - 4)) {
+
+            // inicia el <li> de el boton ...
+            $paginadorHtml .= "<li class='$liClass' >";
+            $paginadorHtml .= "<a class='$aClas' aria-label='Anterior'>";
+            $paginadorHtml .= "<span aria-hidden='true'> ... </span>";
+            $paginadorHtml .= "</a>";
+            $paginadorHtml .= "</li>";
+            // termina el <li> de el boton ...
+
+            // inicia el <li> de el boton ultima pagina
+            $paginadorHtml .= "<li class='$liClass' >";
+            $paginaSiguiente = (int)$pagina+1;
+            $href = '';
+            if ($pagina < $numeroDePaginas) { $href = "href='{$urlBase}{$numeroDePaginas}'"; }
+            $paginadorHtml .= "<a class='$aClas'  $href aria-label='Anterior'>";
+            $paginadorHtml .= "<span aria-hidden='true'>$numeroDePaginas</span>";
+            $paginadorHtml .= "</a>";
+            $paginadorHtml .= "</li>";
+            // termina el <li> de el boton ultima pagina
         }
 
         // inicia el <li> de el boton pagina siguiente
