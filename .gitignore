@@ -7,3 +7,4 @@ archivos/*
 phpunit.xml
 node_modules
 public/dist/*
+.Todo
