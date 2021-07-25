@@ -2,12 +2,13 @@
   "name": "argus",
   "version": "3.0.0",
   "description": "Framework PHP con AdminLTE3",
-  "main": "index.js",
+  "private": true,
   "directories": {
     "test": "tests"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "npx webpack --config webpack.config.js --mode production",
+    "dev": "npx webpack --config webpack.config.js --mode development"
   },
   "repository": {
     "type": "git",
@@ -20,6 +21,13 @@
   },
   "homepage": "https://github.com/IscRivera91/argus#readme",
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.15.3",
     "admin-lte": "^3.1.0"
+  },
+  "devDependencies": {
+    "css-loader": "^6.2.0",
+    "style-loader": "^3.2.1",
+    "webpack": "^5.46.0",
+    "webpack-cli": "^4.7.2"
   }
 }
