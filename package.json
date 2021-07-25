@@ -1,0 +1,25 @@
+{
+  "name": "argus",
+  "version": "3.0.0",
+  "description": "Framework PHP con AdminLTE3",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IscRivera91/argus.git"
+  },
+  "author": "Ricardo Rivera Sanchez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/IscRivera91/argus/issues"
+  },
+  "homepage": "https://github.com/IscRivera91/argus#readme",
+  "dependencies": {
+    "admin-lte": "^3.1.0"
+  }
+}

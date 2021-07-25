@@ -5,3 +5,4 @@
 archivos/*
 .env
 phpunit.xml
+node_modules
