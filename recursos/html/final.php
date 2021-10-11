@@ -1,5 +1,6 @@
+    <script src="<?php echo RUTA_PROYECTO; ?>js/jquery.min.js"></script>
     <script src="<?php echo RUTA_PROYECTO; ?>dist/bundle.js"></script>
-    <?php 
+    <?php
         $rutaArchivoJs = '';
         if (isset($controladorActual) && isset($metodoActual)) {
             $rutaArchivoJs = "js/{$controladorActual}.{$metodoActual}.js";
