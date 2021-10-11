@@ -16,7 +16,7 @@ class Valida
         }
     }
 
-    public static function arrayAsociativo(string $nombreArray = '' ,array $array):void
+    public static function arrayAsociativo(string $nombreArray = '' ,array $array = []):void
     {
         array($nombreArray,$array);
         // https://cybmeta.com/comprobar-si-un-array-es-asociativo-o-secuencial-en-php
@@ -25,7 +25,7 @@ class Valida
         }
     }
 
-    public static function array(string $nombreArray = '', array $array):void
+    public static function array(string $nombreArray = '', array $array = []):void
     {        
         if (count($array) === 0) {
             throw new ErrorBase("Array:$nombreArray no puede ser un array vacio");
