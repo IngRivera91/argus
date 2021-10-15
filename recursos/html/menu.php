@@ -31,9 +31,9 @@
 
       <?php foreach ($menu_navegacion as $item_menu => $menu) { ?>
         <?php 
-          $menuControlador = $menu_navegacion[$item_menu][0];
-          $menuIcono = $menu_navegacion[$item_menu][1];
-          $menuEtiqueta = $menu_navegacion[$item_menu][2];
+          $menuControlador = $menu[0];
+          $menuIcono = $menu[1];
+          $menuEtiqueta = $menu[2];
         
           
           $imprime = '<li class="nav-item has-treeview">';

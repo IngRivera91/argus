@@ -13,6 +13,7 @@ class Analiza
         }
         if ($numero == 1) {
             return $campo;
-        }  
+        }
+        return $campo;
     }
 }

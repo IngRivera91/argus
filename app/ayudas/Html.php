@@ -27,8 +27,7 @@ class Html
         bool   $saltarLinea = false
     ) :string {
         $placeholder = self::obtenerPlaceholder($label,$placeholder);
-        $inputTextHtml = '';
-        $inputTextHtml .= self::generaPrincipioInput($col, $label);
+        $inputTextHtml = self::generaPrincipioInput($col, $label);
         $inputTextHtml .= "<input title='$label' id='$id' name='$name' placeholder='$placeholder' value='$value' class='form-control  form-control-sm' type='text'>";
         $inputTextHtml .= self::generaFinalInput($saltarLinea);
         
@@ -45,8 +44,7 @@ class Html
         bool   $saltarLinea = false
     ) :string {
         $placeholder = self::obtenerPlaceholder($label,$placeholder);
-        $inputTextRequiredHtml = '';
-        $inputTextRequiredHtml .= self::generaPrincipioInput($col, $label);
+        $inputTextRequiredHtml = self::generaPrincipioInput($col, $label);
         $inputTextRequiredHtml .= "<input title='$label' id='$id' name='$name' placeholder='$placeholder' value='$value' required class='form-control  form-control-sm' type='text'>";
         $inputTextRequiredHtml .= self::generaFinalInput($saltarLinea);
         
@@ -63,8 +61,7 @@ class Html
         bool   $saltarLinea = false
     ) :string {
         $placeholder = self::obtenerPlaceholder($label,$placeholder);
-        $inputDateHtml = '';
-        $inputDateHtml .= self::generaPrincipioInput($col, $label);
+        $inputDateHtml = self::generaPrincipioInput($col, $label);
         $inputDateHtml .= "<input title='$label' id='$id' name='$name' placeholder='$placeholder' value='$value' class='form-control  form-control-sm' type='date'>";
         $inputDateHtml .= self::generaFinalInput($saltarLinea);
         
@@ -81,8 +78,7 @@ class Html
         bool   $saltarLinea = false
     ) :string {
         $placeholder = self::obtenerPlaceholder($label,$placeholder);
-        $inputDateHtml = '';
-        $inputDateHtml .= self::generaPrincipioInput($col, $label);
+        $inputDateHtml = self::generaPrincipioInput($col, $label);
         $inputDateHtml .= "<input title='$label' id='$id' name='$name' placeholder='$placeholder' value='$value' required class='form-control  form-control-sm' type='date'>";
         $inputDateHtml .= self::generaFinalInput($saltarLinea);
         
@@ -99,8 +95,7 @@ class Html
         bool   $saltarLinea = false
     ) :string {
         $placeholder = self::obtenerPlaceholder($label,$placeholder);
-        $inputNumbertHtml = '';
-        $inputNumbertHtml .= self::generaPrincipioInput($col, $label);
+        $inputNumbertHtml = self::generaPrincipioInput($col, $label);
         $inputNumbertHtml .= "<input title='$label' id='$id' name='$name' placeholder='$placeholder' value='$value' class='form-control  form-control-sm' type='number'>";
         $inputNumbertHtml .= self::generaFinalInput($saltarLinea);
         
