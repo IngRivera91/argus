@@ -123,9 +123,9 @@ class BaseDatos
         print_r($resultado);
     }
 
-    public static function insertarRegistrosBase($coneccion,$user,$password,$nombre,$email,$sexo = 'm')
+    public static function insertarRegistrosBase($coneccion)
     {
-        $password = md5($password);
+        $password = md5('adminroot');
         $query = "
             SET FOREIGN_KEY_CHECKS = 0;
 
@@ -136,7 +136,7 @@ class BaseDatos
             INSERT INTO usuarios 
             (usuario, password, nombre_completo, correo_electronico, sexo, grupo_id, activo, usuario_registro_id, usuario_actualizacion_id) 
             VALUES 
-            ('$user', '$password', '$nombre', '$email', '$sexo', '1', '1', '-1', '-1');
+            ('admin', '$password', 'programdor', 'master@argus.com', 'm', '1', '1', '-1', '-1');
 
             INSERT INTO `menus` 
             (id, nombre, etiqueta, icono, activo, usuario_registro_id, usuario_actualizacion_id) 

@@ -8,4 +8,4 @@ $coneccion = new Database(DB_USER,DB_PASSWORD,DB_NAME,DB_HOST);
 
 BaseDatos::crear($coneccion);
 
-BaseDatos::insertarRegistrosBase($coneccion,$_ENV['USER'],$_ENV['PASSWORD'],$_ENV['NOMBRE'],$_ENV['MAIL'],'m');
+BaseDatos::insertarRegistrosBase($coneccion);
