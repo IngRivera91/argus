@@ -136,7 +136,7 @@ class BaseDatos
             INSERT INTO usuarios 
             (usuario, password, nombre_completo, correo_electronico, sexo, grupo_id, activo, usuario_registro_id, usuario_actualizacion_id) 
             VALUES 
-            ('admin', '$password', 'programdor', 'master@argus.com', 'm', '1', '1', '-1', '-1');
+            ('admin', '$password', 'programador', 'master@argus.com', 'm', '1', '1', '-1', '-1');
 
             INSERT INTO `menus` 
             (id, nombre, etiqueta, icono, activo, usuario_registro_id, usuario_actualizacion_id) 
@@ -164,7 +164,7 @@ class BaseDatos
 
         ";
 
-        $metodoId = (int)$numeroMetodosEspeciales;
+        $metodoId = $numeroMetodosEspeciales;
         for ($i = 1 ; $i <= $numeroMenus ; $i++) {
             $query .= "
             ('".($metodoId+1)."','registrar','Registrar','','',$i,TRUE,FALSE,TRUE,-1,-1),
