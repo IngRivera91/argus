@@ -6,8 +6,8 @@ use App\ayudas\Html;
 use App\clases\Controlador;
 use App\interfaces\Database;
 use App\errores\Base AS ErrorBase;
-use App\modelos\Menus AS ModeloMenus;
-use App\modelos\Metodos AS ModeloMetodos;
+use App\models\Menus AS ModeloMenus;
+use App\models\Metodos AS ModeloMetodos;
 
 class metodos extends Controlador
 {

@@ -3,7 +3,7 @@
 namespace App\controladores;
 
 use App\ayudas\Html;
-use App\modelos\Usuarios;
+use App\models\Usuarios;
 use App\ayudas\Redireccion;
 use App\interfaces\Database;
 

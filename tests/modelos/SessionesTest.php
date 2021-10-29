@@ -2,9 +2,9 @@
 
 namespace Test\modelos;
 
-use App\modelos\Grupos;
-use App\modelos\Usuarios;
-use App\modelos\Sessiones;
+use App\models\Grupos;
+use App\models\Usuarios;
+use App\models\Sessiones;
 use App\errores\Base AS ErrorBase;
 use Test\LimpiarDatabase;
 use PHPUnit\Framework\TestCase;

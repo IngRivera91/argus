@@ -2,13 +2,13 @@
 
 namespace Test;
 
-use App\modelos\Menus;
-use App\modelos\Grupos;
-use App\modelos\Metodos;
-use App\modelos\Usuarios;
-use App\modelos\Sessiones;
+use App\models\Menus;
+use App\models\Grupos;
+use App\models\Metodos;
+use App\models\Usuarios;
+use App\models\Sessiones;
 use App\interfaces\Database;
-use App\modelos\MetodosGrupos;
+use App\models\MetodosGrupos;
 
 class LimpiarDatabase
 {

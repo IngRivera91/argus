@@ -4,12 +4,12 @@ namespace App\controladores;
 
 use App\ayudas\Html;
 use App\clases\Modelo;
-use App\modelos\Metodos;
+use App\models\Metodos;
 use App\clases\Controlador;
 use App\interfaces\Database;
-use App\modelos\MetodosGrupos;
+use App\models\MetodosGrupos;
 use App\errores\Base AS ErrorBase;
-use App\modelos\Grupos AS ModeloGrupos;
+use App\models\Grupos AS ModeloGrupos;
 
 class grupos extends Controlador
 {

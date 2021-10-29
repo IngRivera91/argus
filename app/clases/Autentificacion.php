@@ -3,21 +3,14 @@
 namespace App\clases;
 
 
-use App\modelos\Usuarios;
-use App\modelos\Sessiones;
+use App\models\Usuarios;
+use App\models\Sessiones;
 use App\interfaces\Database;
 use App\errores\Base AS ErrorBase;
 
 class Autentificacion 
 {
-    private $Usuarios;
-    private $Sessiones;
-    public function __construct(Database $coneccion)
-    {
-        $this->Sessiones = new Sessiones($coneccion);
-        $this->Usuarios = new Usuarios($coneccion);
-    }
-    
+
     public function defineConstantes(array $datos, string $sessionId):void
     {
         define('USUARIO_ID',$datos['usuarios_id']);

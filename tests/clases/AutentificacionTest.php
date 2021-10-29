@@ -2,8 +2,8 @@
 
 namespace Test\clases;
 
-use App\modelos\Grupos;
-use App\modelos\Usuarios;
+use App\models\Grupos;
+use App\models\Usuarios;
 use Test\LimpiarDatabase;
 use App\clases\Autentificacion;
 use PHPUnit\Framework\TestCase;

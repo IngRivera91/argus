@@ -5,7 +5,7 @@ namespace App\controladores;
 use App\ayudas\Html;
 use App\clases\Controlador;
 use App\interfaces\Database;
-use App\modelos\Menus AS ModeloMenus;
+use App\models\Menus AS ModeloMenus;
 
 class menus extends Controlador
 {

@@ -3,7 +3,7 @@
 namespace App\ayudas;
 
 use App\interfaces\Database;
-use App\modelos\MetodosGrupos;
+use App\models\MetodosGrupos;
 use App\errores\Base AS ErrorBase;
 
 class Valida 

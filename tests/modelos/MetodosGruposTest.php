@@ -2,10 +2,10 @@
 
 namespace Test\modelos;
 
-use App\modelos\Menus;
-use App\modelos\Grupos;
-use App\modelos\Metodos;
-use App\modelos\MetodosGrupos;
+use App\models\Menus;
+use App\models\Grupos;
+use App\models\Metodos;
+use App\models\MetodosGrupos;
 use App\errores\Base AS ErrorBase;
 use Test\LimpiarDatabase;
 use PHPUnit\Framework\TestCase;

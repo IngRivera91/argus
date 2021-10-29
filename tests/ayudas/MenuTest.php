@@ -3,11 +3,11 @@
 namespace Test\ayudas;
 
 use App\ayudas\Menu;
-use App\modelos\Menus;
-use App\modelos\Grupos;
-use App\modelos\Metodos;
+use App\models\Menus;
+use App\models\Grupos;
+use App\models\Metodos;
 use Test\LimpiarDatabase;
-use App\modelos\MetodosGrupos;
+use App\models\MetodosGrupos;
 use PHPUnit\Framework\TestCase;
 
 class MenuTest extends TestCase

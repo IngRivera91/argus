@@ -2,7 +2,7 @@
 
 namespace Test\modelos;
 
-use App\modelos\Menus;
+use App\models\Menus;
 use App\errores\Base AS ErrorBase;
 use Test\LimpiarDatabase;
 use PHPUnit\Framework\TestCase;

@@ -7,8 +7,8 @@ use App\ayudas\Redireccion;
 use App\clases\Controlador;
 use App\interfaces\Database;
 use App\errores\Base AS ErrorBase;
-use App\modelos\Grupos AS ModeloGrupos;
-use App\modelos\Usuarios AS ModeloUsuarios;
+use App\models\Grupos AS ModeloGrupos;
+use App\models\Usuarios AS ModeloUsuarios;
 
 class usuarios extends Controlador
 {

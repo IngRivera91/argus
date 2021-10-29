@@ -2,11 +2,11 @@
 
 namespace Test\ayudas;
 
-use App\modelos\Menus;
-use App\modelos\Grupos;
+use App\models\Menus;
+use App\models\Grupos;
 use App\ayudas\Acciones;
-use App\modelos\Metodos;
-use App\modelos\MetodosGrupos;
+use App\models\Metodos;
+use App\models\MetodosGrupos;
 use Test\LimpiarDatabase;
 use PHPUnit\Framework\TestCase;
 
