@@ -11,6 +11,8 @@
     "require": {
         "facade/ignition": "2.7.0",
         "vlucas/phpdotenv": "^5.3.1",
-        "illuminate/database": "^8.68"
+        "illuminate/database": "^8.68",
+        "illuminate/events": "^8.68",
+        "larapack/dd": "1.*"
     }
 }
