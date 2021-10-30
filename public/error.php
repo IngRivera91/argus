@@ -1,6 +1,6 @@
-<?php 
-    $rutaBase = __DIR__.'/../';
-    require_once "{$rutaBase}app/config/requires.php"; 
+<?php
+    $pathBase = __DIR__.'/../../';
+    require_once $pathBase . "app/config/requires.php";
 
 ?>
 <?php require_once __DIR__.'/../recursos/html/head.php'; ?>

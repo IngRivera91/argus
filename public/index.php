@@ -1,7 +1,6 @@
-<?php 
-$rutaBase = __DIR__.'/../';
-require_once $rutaBase . "app/config/requires.php";
-require $rutaBase . "vendor/larapack/dd/src/helper.php";
+<?php
+$pathBase = __DIR__.'/../../';
+require_once $pathBase . "app/config/requires.php";
 
 use App\ayudas\Valida;
 use App\ayudas\Redireccion;
