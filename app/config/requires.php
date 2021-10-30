@@ -1,12 +1,12 @@
 <?php
-$rutaBase = __DIR__.'/../../';
+$pathBase = __DIR__.'/../../';
 
-require_once "{$rutaBase}/vendor/autoload.php";
-$dotenv = Dotenv\Dotenv::createImmutable($rutaBase);
+require_once $pathBase . "/vendor/autoload.php";
+$dotenv = Dotenv\Dotenv::createImmutable($pathBase);
 $dotenv->load();
 
-define('ES_PRODUCCION', !$_ENV['APP_DEBUG'] );
-if (!ES_PRODUCCION) {
+define('DEBUG_MODE', $_ENV['APP_DEBUG'] );
+if (DEBUG_MODE) {
     error_reporting(E_ALL);
     ini_set('display_errors', 1);
 }
