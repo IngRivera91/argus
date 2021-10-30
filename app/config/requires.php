@@ -1,7 +1,7 @@
 <?php
 $pathBase = __DIR__.'/../../';
 
-require_once $pathBase . "/vendor/autoload.php";
+require_once $pathBase . '/vendor/autoload.php';
 $dotenv = Dotenv\Dotenv::createImmutable($pathBase);
 $dotenv->load();
 
