@@ -1,6 +1,6 @@
-    <script src="<?php echo RUTA_PROYECTO; ?>js/jquery.min.js"></script>
-    <script src="<?php echo RUTA_PROYECTO; ?>js/select2.min.js"></script>
-    <script src="<?php echo RUTA_PROYECTO; ?>dist/bundle.js"></script>
+    <script src="<?php echo APP_URL; ?>js/jquery.min.js"></script>
+    <script src="<?php echo APP_URL; ?>js/select2.min.js"></script>
+    <script src="<?php echo APP_URL; ?>dist/bundle.js"></script>
     <?php
         $rutaArchivoJs = '';
         if (isset($controladorActual) && isset($metodoActual)) {

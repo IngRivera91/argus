@@ -15,7 +15,7 @@
         <div align="center" class="error-content">
           <h3 class="text-warning"><i class="fas fa-exclamation-triangle text-warning"></i> Algo salio mal</h3>
             <br>
-          <p><a class="btn btn-main" href="<?php echo RUTA_PROYECTO; ?>index.php?controlador=inicio&metodo=index&session_id=<?php echo $_GET['session_id']; ?>">Pagina Principal</a></p>
+          <p><a class="btn btn-main" href="<?php echo APP_URL; ?>index.php?controlador=inicio&metodo=index&session_id=<?php echo $_GET['session_id']; ?>">Pagina Principal</a></p>
 
         </div>
         <!-- /.error-content -->

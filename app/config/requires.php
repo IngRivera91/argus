@@ -14,6 +14,7 @@ if (!ES_PRODUCCION) {
 session_start();
 date_default_timezone_set($_ENV['APP_TIMEZONE']);
 
-require_once "constantes.php";
-require_once "configApp.php"; 
-require_once "configDatabase.php"; 
+require_once 'constants.php';
+require_once 'configApp.php';
+require_once 'configDatabase.php';
+require_once 'loadEloquent.php';

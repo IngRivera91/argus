@@ -6,7 +6,7 @@ class Redireccion
 {
     public static function enviar_login(string $mensaje)
     {
-        header('Location: '.RUTA_PROYECTO."login.php?mensaje=$mensaje");
+        header('Location: '.APP_URL."login.php?mensaje=$mensaje");
     }
 
     public static function enviar(string $controlador='',string $metodo='',string $session_id='',string $mensaje='',string $registroId = '',string $pagina = 'index')
@@ -39,7 +39,7 @@ class Redireccion
 
         $parametros = trim($parametros,'&');
 
-        header('Location: '.RUTA_PROYECTO.$pagina.'.php'.$parametros);
+        header('Location: '.APP_URL.$pagina.'.php'.$parametros);
     }
 
     public static function obtener(string $controlador='',string $metodo='',string $session_id='',string $mensaje='',string $registroId = '',string $pagina = 'index')
@@ -72,7 +72,7 @@ class Redireccion
 
         $parametros = trim($parametros,'&');
 
-        return RUTA_PROYECTO.$pagina.'.php'.$parametros;
+        return APP_URL.$pagina.'.php'.$parametros;
     }
 
 }

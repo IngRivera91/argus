@@ -6,9 +6,7 @@ require $rutaBase . "vendor/larapack/dd/src/helper.php";
 use App\ayudas\Valida;
 use App\ayudas\Redireccion;
 use App\errores\Base AS ErrorBase;
-use Illuminate\Database\Capsule\Manager as DB;
-use Illuminate\Events\Dispatcher;
-use Illuminate\Container\Container;
+
 
 $controladoresSinPermisos = ['inicio','password'];
 $parametrosGetRequeridos = array('controlador','metodo');
@@ -19,32 +17,6 @@ foreach ($parametrosGetRequeridos as $parametro){
 
 $controladorActual = $_GET['controlador'];
 $metodoActual = $_GET['metodo'];
-
-try {
-
-    $db = new DB;
-    $db->addConnection([
-        'driver' => DB_TIPO,
-        'host' => DB_HOST,
-        'database' => DB_NAME,
-        'username' => DB_USER,
-        'password' => DB_PASSWORD,
-        'charset' => 'utf8',
-        'collation' => 'utf8_unicode_ci',
-        'prefix' => '',
-    ]);
-
-    $db->setEventDispatcher(new Dispatcher(new Container));
-    $db->setAsGlobal();
-    $db->bootEloquent();
-
-}catch (\Exception $e) {
-    print_r('Error al conectarce a la base de datos, favor de contactar al equipo de desarrollo');
-    exit;
-}
-$users = DB::table('usuarios')->get();
-
-
 
 if ($controladorActual === 'session' && $metodoActual === 'login'){
     try{
