@@ -7,4 +7,5 @@ archivos/*
 phpunit.xml
 node_modules
 public/dist/*
+public/test.php
 .Todo
