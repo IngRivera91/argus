@@ -5,7 +5,7 @@ require_once $pathBase . '/vendor/autoload.php';
 $dotenv = Dotenv\Dotenv::createImmutable($pathBase);
 $dotenv->load();
 
-define('DEBUG_MODE', $_ENV['APP_DEBUG'] );
+define('DEBUG_MODE', (bool) $_ENV['APP_DEBUG'] );
 if (DEBUG_MODE) {
     require $pathBase . "vendor/larapack/dd/src/helper.php";
     error_reporting(E_ALL);
