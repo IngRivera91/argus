@@ -11,7 +11,7 @@
  Target Server Version : 50733
  File Encoding         : 65001
 
- Date: 04/11/2021 15:53:13
+ Date: 04/11/2021 16:09:31
 */
 
 SET NAMES utf8mb4;
@@ -236,22 +236,24 @@ CREATE TABLE `sessiones`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `sessions`;
 CREATE TABLE `sessions`  (
+  `id` bigint(11) NOT NULL AUTO_INCREMENT,
   `session_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `user_id` bigint(20) NOT NULL,
   `created_at` timestamp(0) NULL DEFAULT CURRENT_TIMESTAMP(0),
   `updated_at` timestamp(0) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
   INDEX `user_id`(`user_id`) USING BTREE,
   CONSTRAINT `sessions_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = COMPACT;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of sessions
 -- ----------------------------
-INSERT INTO `sessions` VALUES ('6b42b74e76d4a14a0929a04bbd8d7e95', 1, '2021-11-04 15:29:57', '2021-11-04 15:29:57');
-INSERT INTO `sessions` VALUES ('6f05bf719b517dda70cfc92f3452f098', 1, '2021-11-04 15:30:14', '2021-11-04 15:30:14');
-INSERT INTO `sessions` VALUES ('a5c76c8b96f9c66ab038f115f00a39b2', 1, '2021-11-04 15:30:16', '2021-11-04 15:30:16');
-INSERT INTO `sessions` VALUES ('07082fe204b984e6fb5c7d42cbdcc074', 1, '2021-11-04 15:31:40', '2021-11-04 15:31:40');
-INSERT INTO `sessions` VALUES ('4ec8d067636636205ee2949ba4b4b5c6', 1, '2021-11-04 15:35:06', '2021-11-04 15:35:06');
+INSERT INTO `sessions` VALUES (1, '6b42b74e76d4a14a0929a04bbd8d7e95', 1, '2021-11-04 15:29:57', '2021-11-04 15:29:57');
+INSERT INTO `sessions` VALUES (2, '6f05bf719b517dda70cfc92f3452f098', 1, '2021-11-04 15:30:14', '2021-11-04 15:30:14');
+INSERT INTO `sessions` VALUES (3, 'a5c76c8b96f9c66ab038f115f00a39b2', 1, '2021-11-04 15:30:16', '2021-11-04 15:30:16');
+INSERT INTO `sessions` VALUES (4, '07082fe204b984e6fb5c7d42cbdcc074', 1, '2021-11-04 15:31:40', '2021-11-04 15:31:40');
+INSERT INTO `sessions` VALUES (5, '4ec8d067636636205ee2949ba4b4b5c6', 1, '2021-11-04 15:35:06', '2021-11-04 15:35:06');
 
 -- ----------------------------
 -- Table structure for users

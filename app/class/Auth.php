@@ -23,7 +23,7 @@ class Auth
         $user = $_POST['usuario'];
         $password = self::encryptPassword($_POST['password']);
 
-        $User = User::where('user',$user)->where('password',$password)->get()->first();
+        $User = User::where('user',$user)->where('password',$password)->first();
 
         $sessionId = self::generateSessionId($user, $password);
         $Session = self::insertSessionId($sessionId, $User->id);
@@ -33,7 +33,7 @@ class Auth
 
     public static function logout(string $sessionId) : void
     {
-        $Session = Session::where('session_id', $sessionId)->get()->first();dd($Session);
+        $Session = Session::where('session_id', $sessionId)->first();
         $Session->delete();
     }
 
@@ -44,7 +44,7 @@ class Auth
 
     public static function checkSessionId(string $sessionId)
     {
-        $Session = Session::where('session_id', $sessionId)->get()->first();
+        $Session = Session::where('session_id', $sessionId)->first();
 
         define('USUARIO_ID',$Session->user_id);
         define('SESSION_ID',$sessionId);
