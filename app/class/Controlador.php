@@ -1,6 +1,6 @@
 <?php 
 
-namespace App;
+namespace App\class;
 
 use App\ayudas\Html;
 use App\errores\Esperado AS ErrorEsperado;
