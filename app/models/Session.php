@@ -4,6 +4,7 @@ namespace App\models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Session extends Model
 {
@@ -16,8 +17,7 @@ class Session extends Model
      */
     protected $fillable = [
         'session_id',
-        'usuario_id',
-        'fecha_registro',
+        'user_id',
     ];
 
     /**
@@ -29,4 +29,8 @@ class Session extends Model
         'session_id',
     ];
 
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 }

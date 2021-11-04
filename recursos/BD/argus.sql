@@ -11,11 +11,31 @@
  Target Server Version : 50733
  File Encoding         : 65001
 
- Date: 04/11/2021 14:21:38
+ Date: 04/11/2021 15:53:13
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for groups
+-- ----------------------------
+DROP TABLE IF EXISTS `groups`;
+CREATE TABLE `groups`  (
+  `id` bigint(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `activo` tinyint(11) NULL DEFAULT 1,
+  `created_user_id` bigint(11) NULL DEFAULT NULL,
+  `updated_user_id` bigint(11) NULL DEFAULT NULL,
+  `created_at` timestamp(0) NULL DEFAULT CURRENT_TIMESTAMP(0),
+  `updated_at` timestamp(0) NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0),
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = COMPACT;
+
+-- ----------------------------
+-- Records of groups
+-- ----------------------------
+INSERT INTO `groups` VALUES (1, 'Programador', 1, NULL, NULL, '2021-11-04 15:51:29', '2021-11-04 15:51:29');
 
 -- ----------------------------
 -- Table structure for grupos
@@ -227,6 +247,11 @@ CREATE TABLE `sessions`  (
 -- ----------------------------
 -- Records of sessions
 -- ----------------------------
+INSERT INTO `sessions` VALUES ('6b42b74e76d4a14a0929a04bbd8d7e95', 1, '2021-11-04 15:29:57', '2021-11-04 15:29:57');
+INSERT INTO `sessions` VALUES ('6f05bf719b517dda70cfc92f3452f098', 1, '2021-11-04 15:30:14', '2021-11-04 15:30:14');
+INSERT INTO `sessions` VALUES ('a5c76c8b96f9c66ab038f115f00a39b2', 1, '2021-11-04 15:30:16', '2021-11-04 15:30:16');
+INSERT INTO `sessions` VALUES ('07082fe204b984e6fb5c7d42cbdcc074', 1, '2021-11-04 15:31:40', '2021-11-04 15:31:40');
+INSERT INTO `sessions` VALUES ('4ec8d067636636205ee2949ba4b4b5c6', 1, '2021-11-04 15:35:06', '2021-11-04 15:35:06');
 
 -- ----------------------------
 -- Table structure for users
@@ -245,13 +270,15 @@ CREATE TABLE `users`  (
   `updated_user_id` bigint(11) NULL DEFAULT NULL,
   `created_at` timestamp(0) NULL DEFAULT CURRENT_TIMESTAMP(0),
   `updated_at` timestamp(0) NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0),
-  PRIMARY KEY (`id`) USING BTREE
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `group_id`(`group_id`) USING BTREE,
+  CONSTRAINT `users_ibfk_1` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
 ) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of users
 -- ----------------------------
-INSERT INTO `users` VALUES (1, 'admin', '22a05a99fd4e0f03d7b0d22e3b6393d1', 'asd', NULL, NULL, NULL, 0, NULL, NULL, '2021-11-04 13:59:27', '2021-11-04 14:08:53');
+INSERT INTO `users` VALUES (1, 'admin', '22a05a99fd4e0f03d7b0d22e3b6393d1', 'asd', NULL, NULL, 1, 0, NULL, NULL, '2021-11-04 13:59:27', '2021-11-04 15:51:34');
 
 -- ----------------------------
 -- Table structure for usuarios

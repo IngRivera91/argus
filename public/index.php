@@ -36,8 +36,12 @@ validaParametroGet('session_id');
 $sessionId = $_GET['session_id'];
 
 try{
-    $datos = $autentificacion->validaSessionId($sessionId);
-}catch(Exception $e){
+    Auth::checkSessionId($sessionId);
+}catch(ErrorBase $e){
+    if (DEBUG_MODE) {
+        $e->muestraError();
+        exit;
+    }
     $mensaje = "session_id no valido";
     header("Location: login.php?mensaje=$mensaje");
     exit;
@@ -45,17 +49,18 @@ try{
 
 if ($controladorActual === 'session' && $metodoActual === 'logout'){
     try{
+        Auth::logout($sessionId);
         session_destroy();
-        $resultado = $autentificacion->logout($sessionId);
-    }catch(Exception $e){
-        
+    }catch(ErrorBase $e){
+        if (DEBUG_MODE) {
+            $e->muestraError();
+            exit;
+        }
     }
     header('Location: login.php');
     exit;
 }
-
-$autentificacion->defineConstantes($datos,$sessionId);
-
+// todo bien hasta aqui
 if (!in_array($controladorActual,$controladoresSinPermisos)){
 
     if (!Valida::permiso($coneccion, GRUPO_ID, $controladorActual, $metodoActual)) {
@@ -65,12 +70,13 @@ if (!in_array($controladorActual,$controladoresSinPermisos)){
 
 }
 
-if (!file_exists("{$pathBase}app/controladores/$controladorActual.php")){
+if (!file_exists("{$pathBase}app/controllers/$controladorActual.php")){
     Redireccion::enviar('inicio','index',SESSION_ID,"No existe el controlador:$controladorActual");
     exit;
 }
 
-$controladorNombre = 'App\\controladores\\'.$controladorActual;
+
+$controladorNombre = 'App\\controllers\\'.$controladorActual;
 $controlador = new $controladorNombre;
 
 if (!method_exists($controlador,$metodoActual)){
