@@ -4,6 +4,7 @@ require_once $pathBase . "app/config/requires.php";
 
 use App\ayudas\Redireccion;
 use App\class\Auth;
+use App\errors\Base AS ErrorBase;
 
 $controladoresSinPermisos = ['inicio','password'];
 $parametrosGetRequeridos = array('controlador','metodo');
@@ -18,7 +19,11 @@ $metodoActual = $_GET['metodo'];
 if ($controladorActual === 'session' && $metodoActual === 'login'){
     try{
         $resultado = Auth::login();
-    }catch(Exception $e){
+    }catch(ErrorBase $e){
+        if (DEBUG_MODE) {
+            $e->muestraError();
+            exit;
+        }
         $mensaje = "El usuario o contraseña son incorrectos";
         header("Location: login.php?mensaje=$mensaje");
         exit;

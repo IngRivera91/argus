@@ -8,7 +8,7 @@ use App\models\Metodos;
 use App\clases\Controlador;
 use App\interfaces\Database;
 use App\models\MetodosGrupos;
-use App\errores\Base AS ErrorBase;
+use App\errors\Base AS ErrorBase;
 use App\models\Grupos AS ModeloGrupos;
 
 class grupos extends Controlador

@@ -5,7 +5,7 @@ namespace App\controllers;
 use App\ayudas\Html;
 use App\clases\Controlador;
 use App\interfaces\Database;
-use App\errores\Base AS ErrorBase;
+use App\errors\Base AS ErrorBase;
 use App\models\Menus AS ModeloMenus;
 use App\models\Metodos AS ModeloMetodos;
 
