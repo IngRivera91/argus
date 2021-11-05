@@ -60,16 +60,21 @@ if ($controladorActual === 'session' && $metodoActual === 'logout'){
     header('Location: login.php');
     exit;
 }
-// todo bien hasta aqui
+
 if (!in_array($controladorActual,$controladoresSinPermisos)){
 
-    if (!Valida::permiso($coneccion, GRUPO_ID, $controladorActual, $metodoActual)) {
-        Redireccion::enviar('inicio','index',SESSION_ID,"No tienes permisos para acceder al metodo:$metodoActual del controlador:$controladorActual");
+    if (!Auth::hasPermission($controladorActual, $metodoActual)) {
+        $mensaje  = "No tienes permisos para acceder al metodo:$metodoActual del controlador:$controladorActual";
+        if (DEBUG_MODE) {
+            echo $mensaje;
+            exit;
+        }
+        Redireccion::enviar('inicio','index',SESSION_ID,$mensaje);
         exit;
     }
 
 }
-
+// todo bien hasta aqui
 if (!file_exists("{$pathBase}app/controllers/$controladorActual.php")){
     Redireccion::enviar('inicio','index',SESSION_ID,"No existe el controlador:$controladorActual");
     exit;

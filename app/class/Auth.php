@@ -2,6 +2,8 @@
 
 namespace App\class;
 
+use App\models\Group;
+use App\models\Menu;
 use App\models\Session;
 use App\models\User;
 use Carbon\Carbon;
@@ -16,7 +18,7 @@ class Auth
     #[ArrayShape(
         ['sessionId' => "String"])
     ]
-    public static function login() : Array
+    public static function login() : array
     {
         self::checkUserAndPassword($_POST);
 
@@ -63,6 +65,26 @@ class Auth
         return md5(md5($usuario.$password.Carbon::now()));
     }
 
+    public static function hasPermission(string $currentController, string $currentMethod) : bool
+    {
+        $menuId = Menu::where('name',$currentController)->first()->id;
+
+        $result = Group::find(GRUPO_ID)->methods()
+            ->where('name',$currentMethod)
+            ->where('menu_id',$menuId)
+            ->where('activo',1)
+            ->get()->toArray();
+
+        if (count($result) == 1) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @throws ErrorBase
+     */
     private static function checkUserAndPassword(array $dataPost) : void
     {
         if ( !isset($dataPost['usuario']) )
@@ -71,7 +93,7 @@ class Auth
         }
         if ( $dataPost['usuario'] == '')
         {
-            throw new ErrorBase('$_POST[\'usuarios\'] no pude estar vacio');
+            throw new ErrorBase('$_POST[\'usuarios\'] no puede estar vacio');
         }
         if ( !isset($dataPost['password']) )
         {
@@ -79,7 +101,7 @@ class Auth
         }
         if ( $dataPost['password'] == '')
         {
-            throw new ErrorBase('$_POST[\'password\'] no pude estar vacio');
+            throw new ErrorBase('$_POST[\'password\'] no puede estar vacio');
         }
         if  ( count($dataPost) !== 2 )
         {
