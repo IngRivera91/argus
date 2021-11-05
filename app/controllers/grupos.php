@@ -4,7 +4,7 @@ namespace App\controllers;
 
 use App\ayudas\Html;
 use App\clases\Modelo;
-use App\models\Metodos;
+use App\models\Method;
 use App\clases\Controlador;
 use App\interfaces\Database;
 use App\models\MetodosGrupos;
@@ -24,7 +24,7 @@ class grupos extends Controlador
     {
         $this->modelo = new ModeloGrupos($coneccion);
         $this->Grupos = new ModeloGrupos($coneccion);
-        $this->Metodos = new Metodos($coneccion);
+        $this->Metodos = new Method($coneccion);
         $this->MetodosGrupos = new MetodosGrupos($coneccion);
         $this->nombreMenu = 'grupos';
         $this->breadcrumb = false;

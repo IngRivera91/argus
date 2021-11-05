@@ -7,7 +7,7 @@ use App\clases\Controlador;
 use App\interfaces\Database;
 use App\errors\Base AS ErrorBase;
 use App\models\Menus AS ModeloMenus;
-use App\models\Metodos AS ModeloMetodos;
+use App\models\Method AS ModeloMetodos;
 
 class metodos extends Controlador
 {

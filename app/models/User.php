@@ -23,6 +23,7 @@ class User extends Model
         'last_name',
         'email',
         'group_id',
+        'activo',
     ];
 
     /**
