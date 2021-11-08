@@ -118,7 +118,7 @@ if ($rutaVista == '') {
     print_r("No se puede cargar la vista controlador:$controladorActual metodo:$metodoActual");
     exit;
 }
-// todo bien hasta aqui
+
 # El menu se carga hasta el final
 $menu_navegacion = Html::menu(GRUPO_ID);
 
@@ -178,7 +178,6 @@ $menu_navegacion = Html::menu(GRUPO_ID);
     <!-- <strong>Copyright © 2020 Ing Rivera . </strong>todos los derechos reservados. -->
 </footer>
 
-</div>
 <?php
     require_once $pathBase . "recursos/html/final.php";
     
