@@ -2,6 +2,7 @@
 $pathBase = __DIR__.'/../';
 require_once $pathBase . "app/config/requires.php";
 
+use App\ayudas\Html;
 use App\ayudas\Redireccion;
 use App\class\Auth;
 use App\errors\Base AS ErrorBase;
@@ -74,7 +75,7 @@ if (!in_array($controladorActual,$controladoresSinPermisos)){
     }
 
 }
-// todo bien hasta aqui
+
 if (!file_exists("{$pathBase}app/controllers/$controladorActual.php")){
     Redireccion::enviar('inicio','index',SESSION_ID,"No existe el controlador:$controladorActual");
     exit;
@@ -117,9 +118,9 @@ if ($rutaVista == '') {
     print_r("No se puede cargar la vista controlador:$controladorActual metodo:$metodoActual");
     exit;
 }
-
+// todo bien hasta aqui
 # El menu se carga hasta el final
-//$menu_navegacion = Menu::crear($coneccion,GRUPO_ID);
+$menu_navegacion = Html::menu(GRUPO_ID);
 
 ?>
 <?php require_once $pathBase . "recursos/html/head.php"; ?>

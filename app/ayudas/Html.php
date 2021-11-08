@@ -3,6 +3,7 @@
 namespace App\ayudas;
 
 use App\ayudas\Redireccion;
+use App\models\Group;
 
 
 class Html
@@ -480,6 +481,48 @@ class Html
         $paginadorHtml .= "</ul>"; // termina <ul>
         $paginadorHtml .= "</nav>"; // termina <nav>
         return $paginadorHtml;
+    }
+
+    public static function menu(int $grupoId)
+    {
+
+        if (isset($_SESSION[SESSION_ID]['menuDefinido']) && GUARDAR_MENU_SESSION) {
+            return $_SESSION[SESSION_ID]['menuDefinido'];
+        }
+
+        $menu_navegacion = [];
+        $menus = \App\models\Menu::where('activo',1)->get();
+
+        foreach ($menus as $menu) {
+            $parteMenu = [
+                $menu->name,
+                $menu->icon,
+                $menu->label,
+            ];
+
+            $methods = Group::find($grupoId)->methods()
+                ->where('menu_id',$menu->id)
+                ->where('activo',1)
+                ->where('is_menu',1)
+                ->get()->toArray();
+
+            if (count($methods) == 0) {
+                continue;
+            }
+
+            foreach ($methods as $method) {
+                $parteMenu[] = [
+                    'label' => $method['label'],
+                    'metodo' => $method['name'],
+                ];
+            }
+
+            $menu_navegacion[$menu->label] = $parteMenu;
+        }
+
+        $_SESSION[SESSION_ID]['menuDefinido'] = $menu_navegacion;
+        return $menu_navegacion;
+
     }
 
 }
