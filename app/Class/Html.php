@@ -241,7 +241,7 @@ class Html
     ) :string {
         $selectHtml = self::generaPrincipioSelect($col, $label);
 
-        $selectHtml .= "<select id='$id' title='$label' $required name='$name[]' Class='form-control form-control-sm select2'";
+        $selectHtml .= "<select id='$id' title='$label' $required name='$name' Class='form-control form-control-sm select2'";
         $selectHtml .= " multiple='multiple' data-placeholder='$label'  data-select2-id='$select2Id' tabindex='-1' >";
 
         $elementosArray = explode(',',$elementos);
