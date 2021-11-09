@@ -2,12 +2,12 @@
 $pathBase = __DIR__.'/../';
 require_once $pathBase . "app/config/requires.php";
 
-use App\ayudas\Html;
-use App\ayudas\Redireccion;
-use App\class\Auth;
+use App\Class\Html;
+use App\Class\Redireccion;
+use App\Class\Auth;
 use App\Errors\Base AS ErrorBase;
 
-$controladoresSinPermisos = ['inicio','password'];
+$controladoresSinPermisos = ['Inicio','Password'];
 $parametrosGetRequeridos = array('controlador','metodo');
 
 foreach ($parametrosGetRequeridos as $parametro){
@@ -29,7 +29,7 @@ if ($controladorActual === 'session' && $metodoActual === 'login'){
         header("Location: login.php?mensaje=$mensaje");
         exit;
     }
-    Redireccion::enviar('inicio','index',$resultado['sessionId'],'Bienvenido');
+    Redireccion::enviar('Inicio','index',$resultado['sessionId'],'Bienvenido');
     exit;
 }
 
@@ -70,23 +70,23 @@ if (!in_array($controladorActual,$controladoresSinPermisos)){
             echo $mensaje;
             exit;
         }
-        Redireccion::enviar('inicio','index',SESSION_ID,$mensaje);
+        Redireccion::enviar('Inicio','index',SESSION_ID,$mensaje);
         exit;
     }
 
 }
 
-if (!file_exists("{$pathBase}app/controllers/$controladorActual.php")){
-    Redireccion::enviar('inicio','index',SESSION_ID,"No existe el controlador:$controladorActual");
+if (!file_exists("{$pathBase}app/Controllers/{$controladorActual}Controller.php")){
+    Redireccion::enviar('Inicio','index',SESSION_ID,"No existe el controlador:$controladorActual");
     exit;
 }
 
 
-$controladorNombre = 'App\\controllers\\'.$controladorActual;
+$controladorNombre = 'App\\Controllers\\'.$controladorActual.'Controller';
 $controlador = new $controladorNombre;
 
 if (!method_exists($controlador,$metodoActual)){
-    Redireccion::enviar('inicio','index',SESSION_ID,"No existe el metodo:$metodoActual del controlador:$controladorActual");
+    Redireccion::enviar('Inicio','index',SESSION_ID,"No existe el metodo:$metodoActual del controlador:$controladorActual");
     exit;
 }
 

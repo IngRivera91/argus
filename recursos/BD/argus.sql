@@ -11,7 +11,7 @@
  Target Server Version : 50733
  File Encoding         : 65001
 
- Date: 04/11/2021 18:38:38
+ Date: 09/11/2021 11:44:31
 */
 
 SET NAMES utf8mb4;
@@ -98,7 +98,7 @@ CREATE TABLE `groups`  (
 INSERT INTO `groups` VALUES (1, 'Programador', 1, NULL, NULL, '2021-11-04 15:51:29', '2021-11-04 15:51:29');
 
 -- ----------------------------
--- Table structure for menusController
+-- Table structure for menus
 -- ----------------------------
 DROP TABLE IF EXISTS `menus`;
 CREATE TABLE `menus`  (
@@ -115,12 +115,12 @@ CREATE TABLE `menus`  (
 ) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
--- Records of menusController
+-- Records of menus
 -- ----------------------------
-INSERT INTO `menus` VALUES (1, 'menusController', 'MENUS', 'fas fa-th-list', 1, -1, -1, '2021-10-25 13:09:24', '2021-10-25 13:09:24');
-INSERT INTO `menus` VALUES (2, 'metodos', 'METODOS', 'fas fa-list-ul', 1, -1, -1, '2021-10-25 13:09:24', '2021-10-25 13:09:24');
-INSERT INTO `menus` VALUES (3, 'grupos', 'GRUPOS', 'fas fa-users-cog', 1, -1, -1, '2021-10-25 13:09:24', '2021-10-25 13:09:24');
-INSERT INTO `menus` VALUES (4, 'usuarios', 'USUARIOS', 'fas fa-users', 1, -1, -1, '2021-10-25 13:09:24', '2021-10-25 13:09:24');
+INSERT INTO `menus` VALUES (1, 'Menu', 'MENUS', 'fas fa-th-list', 1, -1, -1, '2021-10-25 13:09:24', '2021-11-09 11:44:04');
+INSERT INTO `menus` VALUES (2, 'Metodo', 'METODOS', 'fas fa-list-ul', 1, -1, -1, '2021-10-25 13:09:24', '2021-11-09 11:44:10');
+INSERT INTO `menus` VALUES (3, 'Grupo', 'GRUPOS', 'fas fa-users-cog', 1, -1, -1, '2021-10-25 13:09:24', '2021-11-09 11:44:15');
+INSERT INTO `menus` VALUES (4, 'Usuario', 'USUARIOS', 'fas fa-users', 1, -1, -1, '2021-10-25 13:09:24', '2021-11-09 11:44:18');
 
 -- ----------------------------
 -- Table structure for methods
@@ -143,7 +143,7 @@ CREATE TABLE `methods`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `menu_id`(`menu_id`) USING BTREE,
   CONSTRAINT `methods_ibfk_1` FOREIGN KEY (`menu_id`) REFERENCES `menus` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 39 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = COMPACT;
+) ENGINE = InnoDB AUTO_INCREMENT = 38 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of methods
@@ -199,7 +199,7 @@ CREATE TABLE `sessions`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `user_id`(`user_id`) USING BTREE,
   CONSTRAINT `sessions_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = COMPACT;
+) ENGINE = InnoDB AUTO_INCREMENT = 22 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of sessions
@@ -211,6 +211,18 @@ INSERT INTO `sessions` VALUES (4, '07082fe204b984e6fb5c7d42cbdcc074', 1, '2021-1
 INSERT INTO `sessions` VALUES (5, '4ec8d067636636205ee2949ba4b4b5c6', 1, '2021-11-04 15:35:06', '2021-11-04 15:35:06');
 INSERT INTO `sessions` VALUES (7, '32a998e6ec37fe9878b771c69444a699', 1, '2021-11-04 16:09:36', '2021-11-04 16:09:36');
 INSERT INTO `sessions` VALUES (8, '0fb123ec67e33a3a3a61fdfd7f37e058', 1, '2021-11-04 16:10:17', '2021-11-04 16:10:17');
+INSERT INTO `sessions` VALUES (9, 'b594ed76ab2c16c707f4f64878b10afd', 1, '2021-11-05 16:52:29', '2021-11-05 16:52:29');
+INSERT INTO `sessions` VALUES (10, '78a531c5b9189382ffa74718628612d6', 1, '2021-11-05 17:08:20', '2021-11-05 17:08:20');
+INSERT INTO `sessions` VALUES (11, '0429fd70301487787f229d11dfc8f9f3', 1, '2021-11-08 10:16:10', '2021-11-08 10:16:10');
+INSERT INTO `sessions` VALUES (12, '6123a4a720522b499d1c4ec2b1f7f221', 1, '2021-11-08 11:36:34', '2021-11-08 11:36:34');
+INSERT INTO `sessions` VALUES (14, '1f27024f6184c86319858487a581f134', 1, '2021-11-08 11:40:27', '2021-11-08 11:40:27');
+INSERT INTO `sessions` VALUES (15, 'f42cb3f61baa7f150e503305b7a07526', 1, '2021-11-09 11:13:52', '2021-11-09 11:13:52');
+INSERT INTO `sessions` VALUES (16, '49d615220d55174854f1481019a5f52b', 1, '2021-11-09 11:33:45', '2021-11-09 11:33:45');
+INSERT INTO `sessions` VALUES (17, 'f72636982ea70961f160e85357fd77f0', 1, '2021-11-09 11:38:45', '2021-11-09 11:38:45');
+INSERT INTO `sessions` VALUES (18, '75540ad96576e2846802926fb6394a09', 1, '2021-11-09 11:39:30', '2021-11-09 11:39:30');
+INSERT INTO `sessions` VALUES (19, 'e05c529ecb2c86ee38bf912853479e31', 1, '2021-11-09 11:40:07', '2021-11-09 11:40:07');
+INSERT INTO `sessions` VALUES (20, 'e18e0bb1a324aa1d7f9778f2aae2ea5c', 1, '2021-11-09 11:40:29', '2021-11-09 11:40:29');
+INSERT INTO `sessions` VALUES (21, '752acccd102e196ce1281606e1670dd1', 1, '2021-11-09 11:41:54', '2021-11-09 11:41:54');
 
 -- ----------------------------
 -- Table structure for users

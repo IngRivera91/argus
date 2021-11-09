@@ -1,4 +1,4 @@
-<?php use App\ayudas\Redireccion; ?>
+<?php use App\Class\Redireccion; ?>
 <aside class="main-sidebar sidebar-light-primary elevation-4">
 
   <a  href="<?php echo Redireccion::obtener('inicio','index',SESSION_ID);?>" class="brand-link">
