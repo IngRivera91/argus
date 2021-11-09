@@ -98,7 +98,7 @@ CREATE TABLE `groups`  (
 INSERT INTO `groups` VALUES (1, 'Programador', 1, NULL, NULL, '2021-11-04 15:51:29', '2021-11-04 15:51:29');
 
 -- ----------------------------
--- Table structure for menus
+-- Table structure for menusController
 -- ----------------------------
 DROP TABLE IF EXISTS `menus`;
 CREATE TABLE `menus`  (
@@ -115,9 +115,9 @@ CREATE TABLE `menus`  (
 ) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
--- Records of menus
+-- Records of menusController
 -- ----------------------------
-INSERT INTO `menus` VALUES (1, 'menus', 'MENUS', 'fas fa-th-list', 1, -1, -1, '2021-10-25 13:09:24', '2021-10-25 13:09:24');
+INSERT INTO `menus` VALUES (1, 'menusController', 'MENUS', 'fas fa-th-list', 1, -1, -1, '2021-10-25 13:09:24', '2021-10-25 13:09:24');
 INSERT INTO `menus` VALUES (2, 'metodos', 'METODOS', 'fas fa-list-ul', 1, -1, -1, '2021-10-25 13:09:24', '2021-10-25 13:09:24');
 INSERT INTO `menus` VALUES (3, 'grupos', 'GRUPOS', 'fas fa-users-cog', 1, -1, -1, '2021-10-25 13:09:24', '2021-10-25 13:09:24');
 INSERT INTO `menus` VALUES (4, 'usuarios', 'USUARIOS', 'fas fa-users', 1, -1, -1, '2021-10-25 13:09:24', '2021-10-25 13:09:24');

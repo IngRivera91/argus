@@ -2,7 +2,7 @@
 
 namespace App\controllers;
 
-class inicio
+class InicioController
 {
     public bool $breadcrumb = false;
 
