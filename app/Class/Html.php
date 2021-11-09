@@ -2,7 +2,6 @@
 
 namespace App\Class;
 
-use App\class\Redireccion;
 use App\models\Group;
 
 
