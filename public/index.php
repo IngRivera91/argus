@@ -67,7 +67,8 @@ if (!in_array($controladorActual,$controladoresSinPermisos)){
     if (!Auth::hasPermission($controladorActual, $metodoActual)) {
         $mensaje  = "No tienes permisos para acceder al metodo:$metodoActual del controlador:$controladorActual";
         if (DEBUG_MODE) {
-            echo $mensaje;
+            $e = new ErrorBase($mensaje);
+            $e->muestraError();
             exit;
         }
         Redireccion::enviar('Inicio','index',SESSION_ID,$mensaje);

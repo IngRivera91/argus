@@ -67,7 +67,13 @@ class Auth
 
     public static function hasPermission(string $currentController, string $currentMethod) : bool
     {
-        $menuId = Menu::where('name',$currentController)->first()->id;
+        $menu = Menu::where('name',$currentController)->first();
+
+        if (!$menu) {
+            return false;
+        }
+
+        $menuId = $menu->id;
 
         $result = Group::find(GRUPO_ID)->methods()
             ->where('name',$currentMethod)

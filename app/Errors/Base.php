@@ -50,7 +50,7 @@ class Base extends Exception
             exit;
         }
         
-        echo '<font size="3">';
+        echo '<font size="5">';
         print_r($this->errorInformacion);
         echo '</font>';
     }
@@ -60,7 +60,7 @@ class Base extends Exception
         $errorAnterrior = $this->obtenErrorAnterior();
         $this->errorInformacion = 
         [
-            'mensaje'=> '<div Class="error-base-msj"><b>'.$this->message.'</b></div>',
+            'mensaje'=> '<div style="color: red"><b>'.$this->message.'</b></div>',
             'file'=> '<div><b>'.$this->file.'</b></div>',
             'line'=> '<div><b>'.$this->line.'</b></div><hr>',
             'datos'=>$errorAnterrior
