@@ -21,9 +21,9 @@
           $menuEtiqueta = $menu[2];
         
           
-          $imprime = '<li class="nav-item has-treeview">';
+          $imprime = '<li Class="nav-item has-treeview">';
           if ( $controladorActual == $menuControlador){
-            $imprime =  '<li class="nav-item has-treeview menu-open">';
+            $imprime =  '<li Class="nav-item has-treeview menu-open">';
           }
           echo $imprime;
         ?>

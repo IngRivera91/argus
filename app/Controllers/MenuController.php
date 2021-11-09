@@ -1,6 +1,6 @@
 <?php 
 
-namespace App\controllers;
+namespace App\Controllers;
 
 use App\ayudas\Html;
 use App\class\BaseController;

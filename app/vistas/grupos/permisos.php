@@ -31,7 +31,7 @@
                                             if($metodo['activo'] == 1){
                                                 $classActivo = 'con-permiso-btn';
                                             }
-                                            echo "<a onclick='permisos($metodoId,$grupoId);' id='$metodoId' class='btn btn-default $classActivo btn-flat'>".$metodo['metodo']."</a>";
+                                            echo "<a onclick='permisos($metodoId,$grupoId);' id='$metodoId' Class='btn btn-default $classActivo btn-flat'>".$metodo['metodo']."</a>";
 
                                         }
                                         ?>

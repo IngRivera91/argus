@@ -2,7 +2,7 @@
 // https://www.php.net/manual/es/language.exceptions.php
 // https://www.php.net/manual/es/language.exceptions.extending.php
 
-namespace App\errors;
+namespace App\Errors;
 
 use Exception;
 
@@ -60,7 +60,7 @@ class Base extends Exception
         $errorAnterrior = $this->obtenErrorAnterior();
         $this->errorInformacion = 
         [
-            'mensaje'=> '<div class="error-base-msj"><b>'.$this->message.'</b></div>',
+            'mensaje'=> '<div Class="error-base-msj"><b>'.$this->message.'</b></div>',
             'file'=> '<div><b>'.$this->file.'</b></div>',
             'line'=> '<div><b>'.$this->line.'</b></div><hr>',
             'datos'=>$errorAnterrior

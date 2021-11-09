@@ -7,7 +7,7 @@ use App\models\Menu;
 use App\models\Session;
 use App\models\User;
 use Carbon\Carbon;
-use App\errors\Base AS ErrorBase;
+use App\Errors\Base AS ErrorBase;
 use JetBrains\PhpStorm\ArrayShape;
 
 class Auth

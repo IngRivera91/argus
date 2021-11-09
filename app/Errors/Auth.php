@@ -1,9 +1,9 @@
 <?php 
 
-namespace App\errors;
+namespace App\Errors;
 
 use App\ayudas\Redireccion;
-use App\errors\Base AS ErrorBase;
+use App\Errors\Base AS ErrorBase;
 
 class Auth extends ErrorBase
 {

@@ -29,7 +29,7 @@ class Html
     ) :string {
         $placeholder = self::obtenerPlaceholder($label,$placeholder);
         $inputTextHtml = self::generaPrincipioInput($col, $label);
-        $inputTextHtml .= "<input title='$label' id='$id' name='$name' placeholder='$placeholder' value='$value' class='form-control  form-control-sm' type='text'>";
+        $inputTextHtml .= "<input title='$label' id='$id' name='$name' placeholder='$placeholder' value='$value' Class='form-control  form-control-sm' type='text'>";
         $inputTextHtml .= self::generaFinalInput($saltarLinea);
         
         return $inputTextHtml;
@@ -46,7 +46,7 @@ class Html
     ) :string {
         $placeholder = self::obtenerPlaceholder($label,$placeholder);
         $inputTextRequiredHtml = self::generaPrincipioInput($col, $label);
-        $inputTextRequiredHtml .= "<input title='$label' id='$id' name='$name' placeholder='$placeholder' value='$value' required class='form-control  form-control-sm' type='text'>";
+        $inputTextRequiredHtml .= "<input title='$label' id='$id' name='$name' placeholder='$placeholder' value='$value' required Class='form-control  form-control-sm' type='text'>";
         $inputTextRequiredHtml .= self::generaFinalInput($saltarLinea);
         
         return $inputTextRequiredHtml;
@@ -63,7 +63,7 @@ class Html
     ) :string {
         $placeholder = self::obtenerPlaceholder($label,$placeholder);
         $inputDateHtml = self::generaPrincipioInput($col, $label);
-        $inputDateHtml .= "<input title='$label' id='$id' name='$name' placeholder='$placeholder' value='$value' class='form-control  form-control-sm' type='date'>";
+        $inputDateHtml .= "<input title='$label' id='$id' name='$name' placeholder='$placeholder' value='$value' Class='form-control  form-control-sm' type='date'>";
         $inputDateHtml .= self::generaFinalInput($saltarLinea);
         
         return $inputDateHtml;
@@ -80,7 +80,7 @@ class Html
     ) :string {
         $placeholder = self::obtenerPlaceholder($label,$placeholder);
         $inputDateHtml = self::generaPrincipioInput($col, $label);
-        $inputDateHtml .= "<input title='$label' id='$id' name='$name' placeholder='$placeholder' value='$value' required class='form-control  form-control-sm' type='date'>";
+        $inputDateHtml .= "<input title='$label' id='$id' name='$name' placeholder='$placeholder' value='$value' required Class='form-control  form-control-sm' type='date'>";
         $inputDateHtml .= self::generaFinalInput($saltarLinea);
         
         return $inputDateHtml;
@@ -97,7 +97,7 @@ class Html
     ) :string {
         $placeholder = self::obtenerPlaceholder($label,$placeholder);
         $inputNumbertHtml = self::generaPrincipioInput($col, $label);
-        $inputNumbertHtml .= "<input title='$label' id='$id' name='$name' placeholder='$placeholder' value='$value' class='form-control  form-control-sm' type='number'>";
+        $inputNumbertHtml .= "<input title='$label' id='$id' name='$name' placeholder='$placeholder' value='$value' Class='form-control  form-control-sm' type='number'>";
         $inputNumbertHtml .= self::generaFinalInput($saltarLinea);
         
         return $inputNumbertHtml;
@@ -115,7 +115,7 @@ class Html
         $placeholder = self::obtenerPlaceholder($label,$placeholder);
         $inputNumberRequiredHtml = '';
         $inputNumberRequiredHtml .= self::generaPrincipioInput($col, $label);
-        $inputNumberRequiredHtml .= "<input title='$label' id='$id' name='$name' placeholder='$placeholder' value='$value' required class='form-control  form-control-sm' type='number'>";
+        $inputNumberRequiredHtml .= "<input title='$label' id='$id' name='$name' placeholder='$placeholder' value='$value' required Class='form-control  form-control-sm' type='number'>";
         $inputNumberRequiredHtml .= self::generaFinalInput($saltarLinea);
         
         return $inputNumberRequiredHtml;
@@ -133,7 +133,7 @@ class Html
         $placeholder = self::obtenerPlaceholder($label,$placeholder);
         $inputNumbertHtml = '';
         $inputNumbertHtml .= self::generaPrincipioInput($col, $label);
-        $inputNumbertHtml .= "<input title='$label' id='$id' name='$name' placeholder='$placeholder' value='$value' class='form-control  form-control-sm' type='number' step='any'>";
+        $inputNumbertHtml .= "<input title='$label' id='$id' name='$name' placeholder='$placeholder' value='$value' Class='form-control  form-control-sm' type='number' step='any'>";
         $inputNumbertHtml .= self::generaFinalInput($saltarLinea);
         
         return $inputNumbertHtml;
@@ -151,7 +151,7 @@ class Html
         $placeholder = self::obtenerPlaceholder($label,$placeholder);
         $inputNumbertHtml = '';
         $inputNumbertHtml .= self::generaPrincipioInput($col, $label);
-        $inputNumbertHtml .= "<input title='$label' id='$id' name='$name' placeholder='$placeholder' value='$value' required class='form-control  form-control-sm' type='number' step='any'>";
+        $inputNumbertHtml .= "<input title='$label' id='$id' name='$name' placeholder='$placeholder' value='$value' required Class='form-control  form-control-sm' type='number' step='any'>";
         $inputNumbertHtml .= self::generaFinalInput($saltarLinea);
         
         return $inputNumbertHtml;
@@ -169,7 +169,7 @@ class Html
         $placeholder = self::obtenerPlaceholder($label,$placeholder);
         $inputPasswordHtml = '';
         $inputPasswordHtml .= self::generaPrincipioInput($col, $label);
-        $inputPasswordHtml .= "<input title='$label' id='$id' name='$name' placeholder='$placeholder' value='$value' required class='form-control  form-control-sm' type='password'>";
+        $inputPasswordHtml .= "<input title='$label' id='$id' name='$name' placeholder='$placeholder' value='$value' required Class='form-control  form-control-sm' type='password'>";
         $inputPasswordHtml .= self::generaFinalInput($saltarLinea);
         
         return $inputPasswordHtml;
@@ -178,10 +178,10 @@ class Html
     private static function generaPrincipioInput(int $col, string $label):string
     {
         $principioInputHtml = '';
-        $principioInputHtml .= "<div class=col-md-$col>";
-        $principioInputHtml .= "<div class='input-group input-group-sm mb-3'>";
-        $principioInputHtml .= "<div class='input-group-prepend'>";
-        $principioInputHtml .= "<label id='inputGroup-sizing-sm' class='input-group-text'>{$label}</label>";
+        $principioInputHtml .= "<div Class=col-md-$col>";
+        $principioInputHtml .= "<div Class='input-group input-group-sm mb-3'>";
+        $principioInputHtml .= "<div Class='input-group-prepend'>";
+        $principioInputHtml .= "<label id='inputGroup-sizing-sm' Class='input-group-text'>{$label}</label>";
         $principioInputHtml .= "</div>";
 
         return $principioInputHtml;
@@ -194,7 +194,7 @@ class Html
         $finalInputHtml .= "</div>";
         
         if ($saltarLinea) {
-            $finalInputHtml .= "<div class='col-md-12'></div>";
+            $finalInputHtml .= "<div Class='col-md-12'></div>";
         }
       
         return $finalInputHtml;
@@ -225,7 +225,7 @@ class Html
         $selectHtml = '';
         $selectHtml .= self::generaPrincipioSelect($col,$label);
         
-        $selectHtml .= "<select id='$id' title='$label' $required name='$name' class='form-control form-control-sm select2'";
+        $selectHtml .= "<select id='$id' title='$label' $required name='$name' Class='form-control form-control-sm select2'";
         $selectHtml .= " data-placeholder='$label'  data-select2-id='$select2Id' tabindex='-1' >";
 
         $selectHtml .= self::generaSelectOptions($nombreCampoId, $registros, $elementos, $value, $chart);
@@ -250,7 +250,7 @@ class Html
         $selectHtml = '';
         $selectHtml .= self::generaPrincipioSelect($col,$label);
 
-        $selectHtml .= "<select id='$id' title='$label' $required name='{$name}[]' class='form-control form-control-sm select2'";
+        $selectHtml .= "<select id='$id' title='$label' $required name='{$name}[]' Class='form-control form-control-sm select2'";
         $selectHtml .= " multiple='multiple' data-placeholder='$label'  data-select2-id='$select2Id' tabindex='-1' >";
 
         $elementosArray = explode(',',$elementos);
@@ -311,10 +311,10 @@ class Html
     private static function generaPrincipioSelect(int $col, string $label):string
     {
         $principioSelectGenerado = '';
-        $principioSelectGenerado .= "<div class=col-md-$col>";
-        $principioSelectGenerado .= "<div class='input-group input-group-sm mb-3'>";
-        $principioSelectGenerado .= "<div class='input-group-prepend'>";
-        $principioSelectGenerado .= "<label id='inputGroup-sizing-sm' class='input-group-text'>{$label}</label>";
+        $principioSelectGenerado .= "<div Class=col-md-$col>";
+        $principioSelectGenerado .= "<div Class='input-group input-group-sm mb-3'>";
+        $principioSelectGenerado .= "<div Class='input-group-prepend'>";
+        $principioSelectGenerado .= "<label id='inputGroup-sizing-sm' Class='input-group-text'>{$label}</label>";
         $principioSelectGenerado .= "</div>";
         return $principioSelectGenerado;
     }
@@ -326,7 +326,7 @@ class Html
         $finalSelectGenerado .= "</div>";
         $finalSelectGenerado .= "</div>";
         if ($saltarLinea) {
-            $finalSelectGenerado .= "<div class='col-md-12'></div>";
+            $finalSelectGenerado .= "<div Class='col-md-12'></div>";
         }
         return $finalSelectGenerado;
     }
@@ -354,11 +354,11 @@ class Html
     {
         $submitHtml = '';
         if ($saltarLinea) {
-            $submitHtml = "<div class='col-md-12'></div>";
+            $submitHtml = "<div Class='col-md-12'></div>";
         }
-        $submitHtml .= "<div class=col-md-$col>";
-        $submitHtml .= "<div class='form-group'>";
-        $submitHtml .= "<button type='submit' name='$name' class='btn btn-default btn-main btn-block  btn-flat btn-sm'>$label</button>";
+        $submitHtml .= "<div Class=col-md-$col>";
+        $submitHtml .= "<div Class='form-group'>";
+        $submitHtml .= "<button type='submit' name='$name' Class='btn btn-default btn-main btn-block  btn-flat btn-sm'>$label</button>";
         $submitHtml .= "</div>";
         $submitHtml .= "</div>";
 
@@ -369,11 +369,11 @@ class Html
     {
         $linkBotonHtml = '';
         if ($saltarLinea) {
-            $linkBotonHtml .= "<div class='col-md-12'></div>";
+            $linkBotonHtml .= "<div Class='col-md-12'></div>";
         }
-        $linkBotonHtml .= "<div class=col-md-$col>";
-        $linkBotonHtml .= "<div class='form-group'>";
-        $linkBotonHtml .= "<a class='btn btn-default btn-main btn-block  btn-flat btn-sm' href='$urlDestino'>$label</a>";
+        $linkBotonHtml .= "<div Class=col-md-$col>";
+        $linkBotonHtml .= "<div Class='form-group'>";
+        $linkBotonHtml .= "<a Class='btn btn-default btn-main btn-block  btn-flat btn-sm' href='$urlDestino'>$label</a>";
         $linkBotonHtml .= "</div>";
         $linkBotonHtml .= "</div>";
 
@@ -389,14 +389,14 @@ class Html
         
         $paginadorHtml = '';
         $paginadorHtml .= "<br><nav aria-label='navigation'>"; // inicia <nav>
-        $paginadorHtml .= "<ul class='pagination flex-wrap'>"; // inicia <ul>
+        $paginadorHtml .= "<ul Class='pagination flex-wrap'>"; // inicia <ul>
 
         // inicia el <li> de el boton pagina anterior
-        $paginadorHtml .= "<li class='$liClass' >";
+        $paginadorHtml .= "<li Class='$liClass' >";
         $paginaAnterior = (int)$pagina-1;
         $href = '';
         if ($pagina > 1) { $href = "href='{$urlBase}{$paginaAnterior}'"; }
-        $paginadorHtml .= "<a class='$aClas'  $href aria-label='Anterior'>";
+        $paginadorHtml .= "<a Class='$aClas'  $href aria-label='Anterior'>";
         $paginadorHtml .= "<span aria-hidden='true'>&laquo;</span>";
         $paginadorHtml .= "</a>";
         $paginadorHtml .= "</li>";
@@ -405,19 +405,19 @@ class Html
         if ($pagina > 5) {
 
             // inicia el <li> de el boton pagina uno
-            $paginadorHtml .= "<li class='$liClass' >";
+            $paginadorHtml .= "<li Class='$liClass' >";
             $paginaAnterior = (int)$pagina-1;
             $href = '';
             if ($pagina > 1) { $href = "href='{$urlBase}1'"; }
-            $paginadorHtml .= "<a class='$aClas'  $href aria-label='Anterior'>";
+            $paginadorHtml .= "<a Class='$aClas'  $href aria-label='Anterior'>";
             $paginadorHtml .= "<span aria-hidden='true'>1</span>";
             $paginadorHtml .= "</a>";
             $paginadorHtml .= "</li>";
             // termina el <li> de el boton pagina uno
 
             // inicia el <li> de el boton ...
-            $paginadorHtml .= "<li class='$liClass' >";
-            $paginadorHtml .= "<a class='$aClas' aria-label='Anterior'>";
+            $paginadorHtml .= "<li Class='$liClass' >";
+            $paginadorHtml .= "<a Class='$aClas' aria-label='Anterior'>";
             $paginadorHtml .= "<span aria-hidden='true'> ... </span>";
             $paginadorHtml .= "</a>";
             $paginadorHtml .= "</li>";
@@ -442,25 +442,25 @@ class Html
         for ($i = $paginaInicial ; $i <= $paginaFinal ; $i++) {
             $active = '';
             if ($i == $pagina){ $active = 'active'; }
-            $paginadorHtml .= "<li class='$active $liClass' ><a class='$aClas'  href='".$urlBase.$i."'>$i</a></li>";
+            $paginadorHtml .= "<li Class='$active $liClass' ><a Class='$aClas'  href='".$urlBase.$i."'>$i</a></li>";
         }
 
         if ($pagina < ($numeroDePaginas - 4)) {
 
             // inicia el <li> de el boton ...
-            $paginadorHtml .= "<li class='$liClass' >";
-            $paginadorHtml .= "<a class='$aClas' aria-label='Anterior'>";
+            $paginadorHtml .= "<li Class='$liClass' >";
+            $paginadorHtml .= "<a Class='$aClas' aria-label='Anterior'>";
             $paginadorHtml .= "<span aria-hidden='true'> ... </span>";
             $paginadorHtml .= "</a>";
             $paginadorHtml .= "</li>";
             // termina el <li> de el boton ...
 
             // inicia el <li> de el boton ultima pagina
-            $paginadorHtml .= "<li class='$liClass' >";
+            $paginadorHtml .= "<li Class='$liClass' >";
             $paginaSiguiente = (int)$pagina+1;
             $href = '';
             if ($pagina < $numeroDePaginas) { $href = "href='{$urlBase}{$numeroDePaginas}'"; }
-            $paginadorHtml .= "<a class='$aClas'  $href aria-label='Anterior'>";
+            $paginadorHtml .= "<a Class='$aClas'  $href aria-label='Anterior'>";
             $paginadorHtml .= "<span aria-hidden='true'>$numeroDePaginas</span>";
             $paginadorHtml .= "</a>";
             $paginadorHtml .= "</li>";
@@ -468,11 +468,11 @@ class Html
         }
 
         // inicia el <li> de el boton pagina siguiente
-        $paginadorHtml .= "<li class='$liClass' >";
+        $paginadorHtml .= "<li Class='$liClass' >";
         $paginaSiguiente = (int)$pagina+1;
         $href = '';
         if ($pagina < $numeroDePaginas) { $href = "href='{$urlBase}{$paginaSiguiente}'"; }
-        $paginadorHtml .= "<a class='$aClas'  $href aria-label='Anterior'>";
+        $paginadorHtml .= "<a Class='$aClas'  $href aria-label='Anterior'>";
         $paginadorHtml .= "<span aria-hidden='true'>&raquo;</span>";
         $paginadorHtml .= "</a>";
         $paginadorHtml .= "</li>";

@@ -5,7 +5,7 @@ require_once $pathBase . "app/config/requires.php";
 use App\ayudas\Html;
 use App\ayudas\Redireccion;
 use App\class\Auth;
-use App\errors\Base AS ErrorBase;
+use App\Errors\Base AS ErrorBase;
 
 $controladoresSinPermisos = ['inicio','password'];
 $parametrosGetRequeridos = array('controlador','metodo');
