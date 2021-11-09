@@ -1,6 +1,6 @@
 <?php
 
-namespace App\class;
+namespace App\Class;
 
 use App\models\Group;
 use App\models\Menu;
