@@ -483,7 +483,7 @@ class Html
         $menu = Menu::where('name',$controladorActual)->first();
 
         if (!$menu) {
-            return false;
+            return $acciones;
         }
 
         $menuId = $menu->id;
