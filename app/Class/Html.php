@@ -9,6 +9,13 @@ use JetBrains\PhpStorm\Pure;
 
 class Html
 {
+    public static function Debug($variable) : void
+    {
+        echo '<pre>';
+        print_r($variable);
+        echo '</pre>';
+    }
+
     public static function inputHidden(
         string $name,
         string $value
