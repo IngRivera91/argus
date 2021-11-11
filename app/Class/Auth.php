@@ -2,8 +2,7 @@
 
 namespace App\Class;
 
-use App\models\Group;
-use App\models\Menu;
+use App\Models\Method;
 use App\models\Session;
 use App\models\User;
 use Carbon\Carbon;
@@ -46,7 +45,7 @@ class Auth
 
     public static function checkSessionId(string $sessionId)
     {
-        $Session = Session::where('session_id', $sessionId)->first();
+        $Session = Session::with('user')->where('session_id', $sessionId)->first();
 
         define('USUARIO_ID',$Session->user_id);
         define('SESSION_ID',$sessionId);
@@ -65,24 +64,22 @@ class Auth
         return md5(md5($usuario.$password.Carbon::now()));
     }
 
-    public static function hasPermission(string $currentController, string $currentMethod) : bool
+    public static function hasPermission(int $groupId, string $currentController, string $currentMethod) : bool
     {
-        $menu = Menu::where('name',$currentController)->first();
+        $result = Method::whereRelation('groups', 'groups.id', $groupId)
+            ->whereRelation('menu', 'menus.name', $currentController)
+            ->where('methods.name',$currentMethod)
+            ->where('activo', 1)
+            ->get()->count();
 
-        if (!$menu) {
-            return false;
+        if ($result == 1) {
+            return true;
         }
 
-        $menuId = $menu->id;
-
-        $result = Group::find(GRUPO_ID)->methods()
-            ->where('name',$currentMethod)
-            ->where('menu_id',$menuId)
-            ->where('activo',1)
-            ->get()->toArray();
-
-        if (count($result) == 1) {
-            return true;
+        if ($result > 1 && DEBUG_MODE) {
+            $e = new ErrorBase('La consulta esta obteniendo mas de dos registros');
+            $e->muestraError();
+            exit;
         }
 
         return false;

@@ -64,7 +64,7 @@ if ($controladorActual === 'session' && $metodoActual === 'logout'){
 
 if (!in_array($controladorActual,$controladoresSinPermisos)){
 
-    if (!Auth::hasPermission($controladorActual, $metodoActual)) {
+    if (!Auth::hasPermission(GRUPO_ID, $controladorActual, $metodoActual)) {
         $mensaje  = "No tienes permisos para acceder al metodo:$metodoActual del controlador:$controladorActual";
         if (DEBUG_MODE) {
             $e = new ErrorBase($mensaje);
