@@ -473,6 +473,43 @@ class Html
         return $paginadorHtml;
     }
 
+    public static function acciones(int $grupoId, string $controladorActual)
+    {
+        if (isset($_SESSION[SESSION_ID]["{$controladorActual}Acciones"]) && GUARDAR_ACCIONES_SESSION) {
+            return $_SESSION[SESSION_ID]["{$controladorActual}Acciones"];
+        }
+
+        $acciones = [];
+        $menu = Menu::where('name',$controladorActual)->first();
+
+        if (!$menu) {
+            return false;
+        }
+
+        $menuId = $menu->id;
+        $menuName = $menu->name;
+
+        $methods = Group::find($grupoId)->methods()
+            ->where('is_action',1)
+            ->where('menu_id',$menuId)
+            ->where('activo',1)
+            ->orderBy('name','ASC')
+            ->get();
+
+        foreach ($methods as $method) {
+            $acciones[$method->name] = [
+                'metodos_nombre' => $method->name,
+                'metodos_accion' => $method->action,
+                'metodos_icono' => $method->icon,
+                'menus_nombre' => $menuName,
+
+            ];
+        }
+
+        $_SESSION[SESSION_ID]["{$controladorActual}Acciones"] = $acciones;
+        return $acciones;
+    }
+
     public static function menu(int $grupoId)
     {
 
@@ -481,7 +518,7 @@ class Html
         }
 
         $menu_navegacion = [];
-        $menus = Menu::where('activo',1)->get();
+        $menus = Menu::where('activo',1)->orderBy('name','ASC')->get();
 
         foreach ($menus as $menu) {
             $parteMenu = [
