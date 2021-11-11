@@ -2,7 +2,7 @@
 
 namespace App\Class;
 
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 
 class BaseController
 {
@@ -12,6 +12,12 @@ class BaseController
     public $breadcrumb = true;
     public $registro;
     public $registros;
+    public $model;
+
+    public function lista()
+    {
+        $this->registros = $this->model::all()->toArray();
+    }
 
 
 }

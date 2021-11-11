@@ -7,6 +7,11 @@ use App\Models\Menu;
 
 class MenuController extends BaseController
 {
+    public function __construct()
+    {
+        $this->model = Menu::class;
+    }
+
     public function lista()
     {
         $this->camposLista = [
@@ -17,7 +22,7 @@ class MenuController extends BaseController
             'Activo' => 'activo'
         ];
 
-        $this->registros = Menu::all()->toArray();
+        parent::lista();
     }
 
 }
