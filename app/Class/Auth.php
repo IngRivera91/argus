@@ -24,17 +24,17 @@ class Auth
         $user = $_POST['usuario'];
         $password = self::encryptPassword($_POST['password']);
 
-        $User = User::where('user',$user)->where('password',$password)->first();
+        $User = User::query()->where('user',$user)->where('password',$password)->first();
 
         $sessionId = self::generateSessionId($user, $password);
-        $Session = self::insertSessionId($sessionId, $User->id);
+        self::insertSessionId($sessionId, $User->id);
 
         return ['sessionId' => $sessionId];
     }
 
     public static function logout(string $sessionId) : void
     {
-        $Session = Session::where('session_id', $sessionId)->first();
+        $Session = Session::query()->where('session_id', $sessionId)->first();
         $Session->delete();
     }
 
@@ -54,9 +54,9 @@ class Auth
         define('GRUPO',strtoupper($Session->user->group->name));
     }
 
-    protected static function insertSessionId(string $sessionId, int $userId)
+    protected static function insertSessionId(string $sessionId, int $userId): void
     {
-       return Session::create(['session_id' => $sessionId, 'user_id' => $userId]);
+       Session::query()->create(['session_id' => $sessionId, 'user_id' => $userId]);
     }
 
     public  static function generateSessionId(string $usuario, string $password) : String
@@ -66,7 +66,8 @@ class Auth
 
     public static function hasPermission(int $groupId, string $currentController, string $currentMethod) : bool
     {
-        $result = Method::whereRelation('groups', 'groups.id', $groupId)
+        $result = Method::query()
+            ->whereRelation('groups', 'groups.id', $groupId)
             ->whereRelation('menu', 'menus.name', $currentController)
             ->where('methods.name',$currentMethod)
             ->where('activo', 1)
