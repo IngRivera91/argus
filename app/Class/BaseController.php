@@ -13,7 +13,7 @@ class BaseController
     public int    $registrosPorPagina = 10;
 
     public array  $camposLista;
-    public $breadcrumb = true;
+    public bool $breadcrumb = true;
     public $registro;
     public $registros;
     public string $nameController;
@@ -25,22 +25,18 @@ class BaseController
         $datosFiltros = $this->generaDatosFiltros();
         $this->generaInputFiltros($datosFiltros);
 
-        if (count($datosFiltros) == 0) {
-            $this->registros = $this->model::all();
+        $consulta = $this->model::query();
+
+        foreach ($this->filtrosBaseLista AS $filtro) {
+            $consulta->where($filtro['campo'],$filtro['signoComparacion'],$filtro['valor']);
         }
 
-        if (count($this->filtrosBaseLista) != 0 && count($datosFiltros) == 0) {
-            $consulta = $this->model::query();
-
-            foreach ($this->filtrosBaseLista AS $filtro) {
-                $consulta->where($filtro['campo'],$filtro['signoComparacion'],$filtro['valor']);
-            }
-
+        if (count($datosFiltros) == 0) {
             $this->registros = $consulta->get();
         }
 
         if (count($datosFiltros) != 0) {
-             $this->aplicaFiltros($datosFiltros);
+             $this->aplicaFiltros($datosFiltros, $consulta);
         }
 
         if (count($this->htmlInputFiltros) != 0) {
@@ -52,17 +48,11 @@ class BaseController
         $this->registros = $this->registros->toArray();
     }
 
-    private function aplicaFiltros(array $datosFiltros)
+    private function aplicaFiltros(array $datosFiltros, $consulta)
     {
-        $consulta = $this->model::query();
-
-        foreach ($this->filtrosBaseLista AS $filtro) {
-            $consulta->where($filtro['campo'],$filtro['signoComparacion'],$filtro['valor']);
-        }
-
         foreach ($this->htmlInputFiltros as $tablaCampo => $value) {
             $campo = str_replace('+','.',$tablaCampo);
-            $consulta->where($campo,'LIKE',"%{$datosFiltros[$tablaCampo]}%");
+            $consulta->where($campo,'LIKE',"%$datosFiltros[$tablaCampo]%");
         }
 
         $this->registros = $consulta->get();
