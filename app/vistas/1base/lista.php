@@ -3,9 +3,21 @@
 use App\Class\Redireccion;
 
 $registros = $controlador->registros;
+$inputs = $controlador->htmlInputFiltros;
+$nameController = $controlador->nameController;
 $camposLista = $controlador->camposLista;
 $acciones = \App\Class\Html::acciones(GRUPO_ID,$controladorActual);
 ?>
+<br>
+<form autocomplete="off" role="form" method="POST" action="<?php echo Redireccion::obtener($nameController,'lista',SESSION_ID) ?>">
+    <div class="row">
+        <?php
+        foreach ($inputs as $input) {
+            echo $input;
+        }
+        ?>
+    </div>
+</form>
 
 <div class="table-responsive main-lista">
     <table class="table table-hover">
