@@ -10,7 +10,7 @@ class BaseController
     public array  $filtrosBaseLista = [];
     public array  $htmlInputFiltros = [];
     public string $nameSubmit;
-    public int    $registrosPorPagina = 2;
+    public int    $registrosPorPagina = 10;
     public string $htmlPaginador = '';
     public $consulta;
 
@@ -21,7 +21,7 @@ class BaseController
     public string $nameController;
     public $model;
 
-    public function lista()
+    protected function lista()
     {
         $this->nameSubmit = "{$this->nameController}ListaFiltro";
         $datosFiltros = $this->generaDatosFiltros();
@@ -48,7 +48,7 @@ class BaseController
         $this->registros = $this->registros->toArray();
     }
 
-    public function obtenerPaginador(): void
+    private function obtenerPaginador(): void
     {
         $numeroRegistros = $this->consulta->get()->count();
         $numeroPaginas = (int) (($numeroRegistros-1) / $this->registrosPorPagina);
@@ -99,7 +99,7 @@ class BaseController
         return $datosFiltros;
     }
 
-    public function obtenerNumeroPagina(): int
+    protected function obtenerNumeroPagina(): int
     {
         $num_pagina = 1;
         if (isset($_GET['pag'])){
