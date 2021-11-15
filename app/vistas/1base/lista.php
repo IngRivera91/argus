@@ -107,3 +107,8 @@ $acciones = \App\Class\Html::acciones(GRUPO_ID,$controladorActual);
 
     </table>
 </div>
+
+
+<?= $controlador->htmlPaginador; ?>
+
+<br>
