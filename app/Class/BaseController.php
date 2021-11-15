@@ -12,6 +12,7 @@ class BaseController
     public string $nameSubmit;
     public int    $registrosPorPagina = 2;
     public string $htmlPaginador = '';
+    public $consulta;
 
     public array  $camposLista;
     public bool $breadcrumb = true;
@@ -26,14 +27,14 @@ class BaseController
         $datosFiltros = $this->generaDatosFiltros();
         $this->generaInputFiltros($datosFiltros);
 
-        $consulta = $this->model::query();
+        $this->consulta = $this->model::query();
 
         foreach ($this->filtrosBaseLista AS $filtro) {
-            $consulta->where($filtro['campo'],$filtro['signoComparacion'],$filtro['valor']);
+            $this->consulta->where($filtro['campo'],$filtro['signoComparacion'],$filtro['valor']);
         }
 
         if (count($datosFiltros) != 0) {
-             $consulta = $this->aplicaFiltros($datosFiltros, $consulta);
+             $this->aplicaFiltros($datosFiltros);
         }
 
         if (count($this->htmlInputFiltros) != 0) {
@@ -42,40 +43,40 @@ class BaseController
             $this->htmlInputFiltros[] = Html::linkBoton($urlDestino, 'Limpiar', $this->sizeColumnasInputsFiltros);
         }
 
-        $this->obtenePaginador($consulta);
+        $this->obtenerPaginador();
 
         $this->registros = $this->registros->toArray();
     }
 
-    public function obtenePaginador($consulta): void
+    public function obtenerPaginador(): void
     {
-        $numeroRegistros = $consulta->get()->count();
-        $numeroPaginas = (int) (($numeroRegistros-1) / (int)$this->registrosPorPagina );
+        $numeroRegistros = $this->consulta->get()->count();
+        $numeroPaginas = (int) (($numeroRegistros-1) / $this->registrosPorPagina);
         $numeroPaginas++;
-        $numeroPagina = (int)$this->obtenerNumeroPagina();
+        $numeroPagina = $this->obtenerNumeroPagina();
 
         if ($numeroPagina > $numeroPaginas){
-            Redireccion::enviar($this->nameController,'lista',SESSION_ID,'');
+            Redireccion::enviar($this->nameController,'lista',SESSION_ID);
             exit;
         }
 
-        $skip = ( ($numeroPagina-1) * (int)$this->registrosPorPagina );
+        $skip = ( ($numeroPagina-1) * $this->registrosPorPagina);
         $take = $this->registrosPorPagina;
 
-        $this->registros = $consulta->skip($skip)->take($take)->get();
+        $this->registros = $this->consulta->skip($skip)->take($take)->get();
         if ($numeroPaginas > 1){
             $this->htmlPaginador = Html::paginador($numeroPaginas,$numeroPagina,$this->nameController);
         }
 
     }
 
-    private function aplicaFiltros(array $datosFiltros, $consulta)
+    private function aplicaFiltros(array $datosFiltros)
     {
         foreach ($this->htmlInputFiltros as $tablaCampo => $value) {
             $campo = str_replace('+','.',$tablaCampo);
-            $consulta->where($campo,'LIKE',"%$datosFiltros[$tablaCampo]%");
+            $this->consulta->where($campo,'LIKE',"%$datosFiltros[$tablaCampo]%");
         }
-        return $consulta;
+
     }
 
     private function generaDatosFiltros(): array
@@ -104,7 +105,7 @@ class BaseController
         if (isset($_GET['pag'])){
             $num_pagina = (int) $_GET['pag'];
         }
-        return (int)$num_pagina;
+        return $num_pagina;
     }
 
     protected function generaInputFiltros (array $datosFiltros): void
