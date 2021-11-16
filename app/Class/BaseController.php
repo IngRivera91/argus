@@ -74,8 +74,13 @@ class BaseController
     private function aplicaFiltros(array $datosFiltros)
     {
         foreach ($this->htmlInputFiltros as $tablaCampo => $value) {
-            $campo = str_replace('+','.',$tablaCampo);
-            $this->consulta->where($campo,'LIKE',"%$datosFiltros[$tablaCampo]%");
+            $arrayCampo = explode('+',$tablaCampo);
+            $tabla = $this->model::NOMBRE_TABLA;
+            $nameController = $arrayCampo[0];
+            $field = $arrayCampo[1];
+            $tableField = "{$tabla}.{$field}";
+
+            $this->consulta->where($tableField,'LIKE',"%$datosFiltros[$tablaCampo]%");
         }
 
     }
