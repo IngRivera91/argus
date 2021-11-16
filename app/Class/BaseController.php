@@ -78,7 +78,7 @@ class BaseController
             $tabla = $this->model::NOMBRE_TABLA;
             $nameController = $arrayCampo[0];
             $field = $arrayCampo[1];
-            $tableField = "{$tabla}.{$field}";
+            $tableField = "$tabla.$field";
 
             $this->consulta->where($tableField,'LIKE',"%$datosFiltros[$tablaCampo]%");
         }
