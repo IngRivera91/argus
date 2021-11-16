@@ -1,17 +1,17 @@
-<?php 
+<?php
 
 namespace App\Controllers;
 
 use App\class\BaseController;
 use App\Class\Html;
-use App\Models\Menu;
+use App\Models\Method;
 
-class MenuController extends BaseController
+class MethodController extends BaseController
 {
     public function __construct()
     {
-        $this->model = Menu::class;
-        $this->nameController = 'Menu';
+        $this->model = Method::class;
+        $this->nameController = 'Method';
     }
 
     public function lista()
@@ -20,9 +20,7 @@ class MenuController extends BaseController
 
         $this->camposLista = [
             'Id' => 'id',
-            'Menu' => 'name',
-            'Etiqueta' => 'label',
-            'Icono' => 'icon',
+            'Metodo' => 'name',
             'Activo' => 'activo'
         ];
 
@@ -38,16 +36,16 @@ class MenuController extends BaseController
         $col = 3;
         $this->sizeColumnasInputsFiltros = $col;
 
-        $datos['Menu+label'] = '';
+        $datos['Method+label'] = '';
 
         foreach ($datosFiltros as $key => $filtro) {
             $datos[$key] = $filtro;
         }
 
-        $tablaCampo = 'Menu+label';
+        $tablaCampo = 'Method+label';
         $placeholder = '';
 
-        $this->htmlInputFiltros[$tablaCampo] = Html::inputText($col,'Menu',1,$tablaCampo,$placeholder,$datos[$tablaCampo]);
+        $this->htmlInputFiltros[$tablaCampo] = Html::inputText($col,'Metodo',1,$tablaCampo,$placeholder,$datos[$tablaCampo]);
     }
 
 }
