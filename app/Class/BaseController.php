@@ -2,6 +2,7 @@
 
 namespace App\Class;
 
+use Illuminate\Database\Eloquent\Builder;
 
 class BaseController
 {
@@ -12,7 +13,7 @@ class BaseController
     public string $nameSubmit;
     public int    $registrosPorPagina = 10;
     public string $htmlPaginador = '';
-    public $consulta;
+    public Builder $consulta;
 
     public array  $camposLista;
     public bool $breadcrumb = true;

@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Group extends Model
 {
+    const NOMBRE_TABLA = 'groups';
+
     use HasFactory;
 
     /**

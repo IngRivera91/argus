@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Menu extends Model
 {
+    const NOMBRE_TABLA = 'menus';
+
     use HasFactory;
 
     /**

@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Session extends Model
 {
+    const NOMBRE_TABLA = 'sessions';
+
     use HasFactory;
 
     /**

@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class User extends Model
 {
+    const NOMBRE_TABLA = 'users';
+
     use HasFactory;
 
     /**

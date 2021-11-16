@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Method extends Model
 {
+    const NOMBRE_TABLA = 'methods';
+
     use HasFactory;
 
     /**
