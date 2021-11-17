@@ -13,6 +13,7 @@ class BaseController
     public string $nameSubmit;
     public int    $registrosPorPagina = 10;
     public string $htmlPaginador = '';
+    public array  $withs = [];
     public Builder $consulta;
 
     public array  $camposLista;
@@ -44,9 +45,17 @@ class BaseController
             $this->htmlInputFiltros[] = Html::linkBoton($urlDestino, 'Limpiar', $this->sizeColumnasInputsFiltros);
         }
 
+        $this->addRelations();
         $this->obtenerPaginador();
 
         $this->registros = $this->registros->toArray();
+    }
+
+    private function addRelations()
+    {
+        foreach ($this->withs as $with) {
+            $this->consulta->with($with);
+        }
     }
 
     private function obtenerPaginador(): void

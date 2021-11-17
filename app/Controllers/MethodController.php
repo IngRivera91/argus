@@ -18,14 +18,21 @@ class MethodController extends BaseController
     {
         $this->breadcrumb = false;
 
+        $this->withs = ['menu'];
+
         $this->camposLista = [
             'Id' => 'id',
+            'Menu' => 'menu+label',
             'Metodo' => 'name',
-            'Activo' => 'activo'
+            'Etiqueta' => 'label',
+            'Icono' => 'icon',
+            'Activo' => 'activo',
+            'Activo Accion' => 'is_action',
+            'Activo Menu' => 'is_menu',
         ];
 
 //        $this->filtrosBaseLista = [
-//            ['campo' => 'menus.id', 'valor' => 1, 'signoComparacion' => '='],
+//            ['campo' => 'tabla.compo', 'valor' => valor_campo, 'signoComparacion' => '=', 'relacion' => 'relacion'],
 //        ];
 
         parent::lista();

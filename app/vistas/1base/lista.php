@@ -60,14 +60,23 @@ $acciones = \App\Class\Html::acciones(GRUPO_ID,$controladorActual);
 
                     <?php foreach ($controlador->camposLista as $label => $campo): ?>
                         <?php
-                        $campoRegistro = $registro[$campo];
-                        # https://www.php.net/manual/es/function.stristr.php Ejemplo 2
-                        if (!stristr($campo, "activo") === false  || !stristr($campo, "is") === false) {
-                            $campoRegistro = TEXTO_REGISTRO_INACTIVO;
-                            if ($registro[$campo]) {
-                                $campoRegistro = TEXTO_REGISTRO_ACTIVO;
+                            $campoExplode = explode('+',$campo);
+
+                            if (count($campoExplode) == 1) {
+                                $campoRegistro = $registro[$campo];
                             }
-                        }
+
+                            if (count($campoExplode) == 2) {
+                                $campoRegistro = $registro[$campoExplode[0]][$campoExplode[1]];
+                            }
+
+                            # https://www.php.net/manual/es/function.stristr.php Ejemplo 2
+                            if (!stristr($campo, "activo") === false  || !stristr($campo, "is") === false) {
+                                $campoRegistro = TEXTO_REGISTRO_INACTIVO;
+                                if ($registro[$campo]) {
+                                    $campoRegistro = TEXTO_REGISTRO_ACTIVO;
+                                }
+                            }
                         ?>
                         <td><?= $campoRegistro; ?></td>
                     <?php endforeach; ?>
