@@ -62,7 +62,7 @@ $acciones = \App\Class\Html::acciones(GRUPO_ID,$controladorActual);
                         <?php
                         $campoRegistro = $registro[$campo];
                         # https://www.php.net/manual/es/function.stristr.php Ejemplo 2
-                        if (!stristr($campo, "activo") === false) {
+                        if (!stristr($campo, "activo") === false  || !stristr($campo, "is") === false) {
                             $campoRegistro = TEXTO_REGISTRO_INACTIVO;
                             if ($registro[$campo]) {
                                 $campoRegistro = TEXTO_REGISTRO_ACTIVO;
