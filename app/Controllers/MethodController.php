@@ -21,7 +21,9 @@ class MethodController extends BaseController
     {
         $this->breadcrumb = false;
 
-        $this->withs = ['menu'];
+        $this->listaWiths = ['menu'];
+        $this->filtroWiths['Menu'] = 'menu';
+        $this->filtroTableWiths['Menu'] = 'menus';
 
         $this->camposLista = [
             'Id' => 'id',
@@ -47,7 +49,7 @@ class MethodController extends BaseController
         $this->sizeColumnasInputsFiltros = $col;
 
         $datos['Method+name'] = '';
-        $datos['Menu+label'] = '';
+        $datos['Menu+id'] = '';
 
         foreach ($datosFiltros as $key => $filtro) {
             $datos[$key] = $filtro;
@@ -55,10 +57,10 @@ class MethodController extends BaseController
 
         $placeholder = '';
 
-        $tablaCampo = 'Menu+label';
+        $tablaCampo = 'Menu+id';
         $this->htmlInputFiltros[$tablaCampo] = Html::selectConBuscador(
             'selectMenu',
-            'label',
+            'id',
             'Menu',
             $tablaCampo,
             $col,

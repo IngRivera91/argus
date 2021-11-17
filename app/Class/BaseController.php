@@ -13,7 +13,9 @@ class BaseController
     public string $nameSubmit;
     public int    $registrosPorPagina = 10;
     public string $htmlPaginador = '';
-    public array  $withs = [];
+    public array  $listaWiths = [];
+    public array  $filtroWiths = [];
+    public array  $filtroTableWiths = [];
     public Builder $consulta;
 
     public array  $camposLista;
@@ -53,8 +55,8 @@ class BaseController
 
     private function addRelations()
     {
-        foreach ($this->withs as $with) {
-            $this->consulta->with($with);
+        foreach ($this->listaWiths as $listaWith) {
+            $this->consulta->with($listaWith);
         }
     }
 
@@ -96,6 +98,15 @@ class BaseController
             if ($nameController == $this->nameController) {
                 $tableField = "$tabla.$field";
                 $this->consulta->where($tableField,'LIKE',"%$datosFiltros[$tablaCampo]%");
+            }
+
+            if ($nameController != $this->nameController) {
+                $this->consulta->whereRelation(
+                    $this->filtroWiths[$nameController],
+                    "{$this->filtroTableWiths[$nameController]}.$field",
+                    "=",
+                    $datosFiltros[$tablaCampo]
+                );
             }
 
 
