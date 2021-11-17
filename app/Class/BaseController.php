@@ -7,23 +7,23 @@ use Illuminate\Database\Eloquent\Builder;
 class BaseController
 {
 
-    public int    $sizeColumnasInputsFiltros = 3;
-    public array  $filtrosBaseLista = [];
-    public array  $htmlInputFiltros = [];
-    public string $nameSubmit;
-    public int    $registrosPorPagina = 10;
-    public string $htmlPaginador = '';
-    public array  $listaWiths = [];
-    public array  $filtroWiths = [];
-    public array  $filtroTableWiths = [];
-    public Builder $consulta;
+    protected Builder $consulta;
+    protected string  $nameSubmit;
+    protected array   $filtrosBaseLista = [];
+    protected array   $listaWiths = [];
+    protected array   $filtroTableWiths = [];
+    protected array   $filtroWiths = [];
+    protected int     $registrosPorPagina = 10;
+    protected int     $sizeColumnasInputsFiltros = 3;
+    protected         $model;
 
-    public array  $camposLista;
-    public bool $breadcrumb = true;
-    public $registro;
-    public $registros;
-    public string $nameController;
-    public $model;
+    public string     $htmlPaginador = '';
+    public string     $nameController;
+    public array      $camposLista;
+    public array      $htmlInputFiltros = [];
+    public bool       $breadcrumb = true;
+    public            $registro;
+    public            $registros;
 
     protected function lista()
     {
