@@ -4,14 +4,17 @@ namespace App\Controllers;
 
 use App\class\BaseController;
 use App\Class\Html;
+use App\Models\Menu;
 use App\Models\Method;
 
 class MethodController extends BaseController
 {
+    private array $menus;
     public function __construct()
     {
         $this->model = Method::class;
         $this->nameController = 'Method';
+        $this->menus = Menu::query()->get()->toArray();
     }
 
     public function lista()
@@ -43,15 +46,30 @@ class MethodController extends BaseController
         $col = 3;
         $this->sizeColumnasInputsFiltros = $col;
 
-        $datos['Method+label'] = '';
+        $datos['Method+name'] = '';
+        $datos['Menu+label'] = '';
 
         foreach ($datosFiltros as $key => $filtro) {
             $datos[$key] = $filtro;
         }
 
-        $tablaCampo = 'Method+label';
         $placeholder = '';
 
+        $tablaCampo = 'Menu+label';
+        $this->htmlInputFiltros[$tablaCampo] = Html::selectConBuscador(
+            'selectMenu',
+            'label',
+            'Menu',
+            $tablaCampo,
+            $col,
+            $this->menus,
+            'label',
+            $datos[$tablaCampo],
+            1,
+            ''
+        );
+
+        $tablaCampo = 'Method+name';
         $this->htmlInputFiltros[$tablaCampo] = Html::inputText($col,'Metodo',1,$tablaCampo,$placeholder,$datos[$tablaCampo]);
     }
 

@@ -60,6 +60,7 @@ class BaseController
 
     private function obtenerPaginador(): void
     {
+
         $numeroRegistros = $this->consulta->get()->count();
         $numeroPaginas = (int) (($numeroRegistros-1) / $this->registrosPorPagina);
         $numeroPaginas++;
@@ -83,13 +84,21 @@ class BaseController
     private function aplicaFiltros(array $datosFiltros)
     {
         foreach ($this->htmlInputFiltros as $tablaCampo => $value) {
-            $arrayCampo = explode('+',$tablaCampo);
-            $tabla = $this->model::NOMBRE_TABLA;
-            $nameController = $arrayCampo[0];
-            $field = $arrayCampo[1];
-            $tableField = "$tabla.$field";
 
-            $this->consulta->where($tableField,'LIKE',"%$datosFiltros[$tablaCampo]%");
+            $arrayCampo = explode('+',$tablaCampo);
+
+            $tabla = $this->model::NOMBRE_TABLA;
+
+            $nameController = $arrayCampo[0];
+
+            $field = $arrayCampo[1];
+
+            if ($nameController == $this->nameController) {
+                $tableField = "$tabla.$field";
+                $this->consulta->where($tableField,'LIKE',"%$datosFiltros[$tablaCampo]%");
+            }
+
+
         }
 
     }

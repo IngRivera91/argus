@@ -27,7 +27,7 @@ class MenuController extends BaseController
         ];
 
 //        $this->filtrosBaseLista = [
-//            ['campo' => 'menus.id', 'valor' => 1, 'signoComparacion' => '='],
+//            ['campo' => 'tabla.compo', 'valor' => valor_campo, 'signoComparacion' => '=', 'relacion' => 'relacion'],
 //        ];
 
         parent::lista();
