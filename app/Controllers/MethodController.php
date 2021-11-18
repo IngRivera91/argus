@@ -37,6 +37,7 @@ class MethodController extends BaseController
             'Id' => 'id',
             'Menu' => 'menu+label',
             'Metodo' => 'name',
+            'Accion' => 'action',
             'Etiqueta' => 'label',
             'Icono' => 'icon',
             'Activo' => 'activo',
@@ -112,10 +113,11 @@ class MethodController extends BaseController
         $this->breadcrumb = true;
 
         $registro = $this->registro;
-        Html::Debug($registro);exit;
-        $this->htmlInputFormulario[] = Html::inputTextRequired(4,'Metodo',1,'name','',$registro['name']);
-        $this->htmlInputFormulario[] = Html::inputText(4,'Etiqueta',1,'label','',$registro['label']);
-        $this->htmlInputFormulario[] = Html::inputText(4,'Icono',1,'icon','',$registro['icon']);
+
+        $this->htmlInputFormulario[] = Html::inputTextRequired(3,'Metodo',1,'name','',$registro['name']);
+        $this->htmlInputFormulario[] = Html::inputText(3,'Accion',2,'action','',$registro['action']);
+        $this->htmlInputFormulario[] = Html::inputText(3,'Etiqueta',1,'label','',$registro['label']);
+        $this->htmlInputFormulario[] = Html::inputText(3,'Icono',1,'icon','',$registro['icon']);
         $this->htmlInputFormulario[] = Html::selectConBuscador(
             'id',
             'id',
