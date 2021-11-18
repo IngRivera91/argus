@@ -73,7 +73,14 @@ class BaseController
         $datos = $this->validaDatosFormulario();
 
         try {
+            $this->consulta = $this->model::query();
+            $this->registro = $this->consulta->find($registroId);
 
+            foreach ($datos AS $key => $valor) {
+                $this->registro->$key = $valor;
+            }
+            $this->registro->updated_user_id = USUARIO_ID;
+            $this->registro->save();
         } catch (ErrorBase $e) {
             if (DEBUG_MODE) {
                 $error = new ErrorBase($e->getMessage());
