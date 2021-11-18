@@ -2,6 +2,7 @@
 
 namespace App\Class;
 
+use App\Errors\Base AS ErrorBase;
 use Illuminate\Database\Eloquent\Builder;
 
 class BaseController
@@ -9,6 +10,7 @@ class BaseController
 
     protected Builder $consulta;
     protected string  $nameSubmit;
+    protected string  $llaveFormulario;                // Llave que se ocupa que los $_POST son de un formulario valido
 
     // ['campo' => 'tabla.campo', 'valor' => 'valor_campo', 'signoComparacion' => '=', 'relacion' => 'relacion'],
     protected array   $filtrosBaseLista = [];
@@ -24,10 +26,49 @@ class BaseController
     public string     $nameController;
     public array      $camposLista;
     public array      $htmlInputFiltros = [];
+    public array      $htmlInputFormulario = [];
     public bool       $breadcrumb = true;
     public            $registro;
     public            $registros;
 
+    public function __construct()
+    {
+        $this->llaveFormulario = md5(SESSION_ID);
+    }
+
+    public function registrarBd()
+    {
+        $datos = $_POST;
+        $nombreLlaveFormulario = $this->llaveFormulario;
+        if (!isset($datos[$nombreLlaveFormulario])) {
+            $mensaje = 'llave no valida';
+            if (DEBUG_MODE) {
+                $e = new ErrorBase($mensaje);
+                $e->muestraError();exit;
+            }
+            Redireccion::enviar($this->nameController,'registrar',SESSION_ID);
+            exit;
+        }
+
+        unset($datos[$nombreLlaveFormulario]);
+
+        try {
+            $this->model::create($datos);
+        } catch (\Exception $e) {
+            if (DEBUG_MODE) {
+                $error = new ErrorBase($e->getMessage());
+                $error->muestraError();exit;
+            }
+            $mensaje = 'No se pudo efectuar el registro';
+            Redireccion::enviar($this->nameController,'lista',SESSION_ID,$mensaje);
+            exit;
+        }
+
+        $mensaje = 'datos registrados';
+
+        Redireccion::enviar($this->nameController,'lista',SESSION_ID,$mensaje);
+        exit;
+    }
 
     /***
      * Star the functions for the list
