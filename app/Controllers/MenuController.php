@@ -12,6 +12,7 @@ class MenuController extends BaseController
     {
         $this->model = Menu::class;
         $this->nameController = 'Menu';
+        parent::__construct();
     }
 
     public function lista()

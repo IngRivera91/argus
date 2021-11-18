@@ -15,6 +15,7 @@ class MethodController extends BaseController
         $this->model = Method::class;
         $this->nameController = 'Method';
         $this->menus = Menu::query()->get()->toArray();
+        parent::__construct();
     }
 
     public function lista()
@@ -75,6 +76,33 @@ class MethodController extends BaseController
 
         $tablaCampo = 'Method+name';
         $this->htmlInputFiltros[$tablaCampo] = Html::inputText($col,'Metodo',1,$tablaCampo,$placeholder,$datos[$tablaCampo]);
+    }
+
+    public function registrar(){
+        $this->breadcrumb = true;
+
+        $this->htmlInputFormulario[] = Html::inputTextRequired(3,'Metodo',1,'name');
+        $this->htmlInputFormulario[] = Html::inputText(3,'Accion',2,'action');
+        $this->htmlInputFormulario[] = Html::inputText(3,'Etiqueta',3,'label');
+        $this->htmlInputFormulario[] = Html::inputText(3,'Icono',4,'icon');
+
+        $this->htmlInputFormulario[] = Html::selectConBuscador(
+            'id',
+            'id',
+            'Menu',
+            'menu_id',
+            3,
+            $this->menus,
+            'label',
+            '-1',
+            1
+        );
+
+        $this->htmlInputFormulario[] = Html::selectActivo('Activo','activo',3,'-1',2);
+        $this->htmlInputFormulario[] = Html::selectActivo('Activo Accion','is_action',3,'-1',3);
+        $this->htmlInputFormulario[] = Html::selectActivo('Activo Menu','is_menu',3,'-1',4);
+
+        $this->htmlInputFormulario[] = Html::submit('Registrar',$this->llaveFormulario,3);
     }
 
 }
