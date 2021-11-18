@@ -26,14 +26,14 @@ class BaseController
     protected int     $sizeColumnasInputsFiltros = 3;  // tamaño de los inputs de los filtros de la lista
     protected         $model;
 
+    public Collection|Model|array $registro;
     public Collection|array $registros;
-    public Collection|array $registro;
-    public string           $htmlPaginador = '';
-    public string           $nameController;
-    public array            $camposLista;
-    public array            $htmlInputFiltros = [];
-    public array            $htmlInputFormulario = [];
-    public bool             $breadcrumb = true;
+    public string $htmlPaginador = '';
+    public string $nameController;
+    public array $camposLista;
+    public array $htmlInputFiltros = [];
+    public array $htmlInputFormulario = [];
+    public bool $breadcrumb = true;
 
     public function __construct()
     {
@@ -55,6 +55,8 @@ class BaseController
         }
 
         unset($datos[$nombreLlaveFormulario]);
+        $datos['created_user_id'] = USUARIO_ID;
+        $datos['updated_user_id'] = USUARIO_ID;
 
         try {
             $this->consulta = $this->model::query();
@@ -75,25 +77,54 @@ class BaseController
         exit;
     }
 
+    public function activarBd(){
+
+        $registroId = $this->validaRegistoId();
+        $this->consulta = $this->model::query();
+
+        try {
+            $this->registro = $this->consulta->find($registroId);
+            $this->registro->activo = 1;
+            $this->registro->save();
+        } catch (Exception $e) {
+            $mensaje = 'error al intentar activar el registro';
+            if (DEBUG_MODE) {
+                $error = new ErrorBase($e->getMessage());
+                $error->muestraError();exit;
+            }
+            $url = Redireccion::obtener($this->nameController,'lista',SESSION_ID,$mensaje)."&pag={$this->obtenerNumeroPagina()}";
+            header("Location: $url");
+            exit;
+        }
+
+        $mensaje = 'registro activado';
+
+        $url = Redireccion::obtener($this->nameController,'lista',SESSION_ID,$mensaje)."&pag={$this->obtenerNumeroPagina()}";
+        header("Location: {$url}");
+        exit;
+    }
+
     public function eliminarBd()
     {
         $registroId = $this->validaRegistoId();
         $this->consulta = $this->model::query();
+
         try {
             $this->registro = $this->consulta->find($registroId);
             $this->registro->delete();
         } catch (Exception $e) {
             $codigoError = $e->getCode();
+            $mensaje = 'error al intentar eliminar el registro';
             if ($codigoError == REGISTRO_RELACIONADO) {
                 $mensaje = 'No se puede eliminar un registro que esta relacionado';
-                if (DEBUG_MODE) {
-                    $error = new ErrorBase($e->getMessage());
-                    $error->muestraError();exit;
-                }
-                $url = Redireccion::obtener($this->nameController,'lista',SESSION_ID,$mensaje)."&pag={$this->obtenerNumeroPagina()}";
-                header("Location: $url");
-                exit;
             }
+            if (DEBUG_MODE) {
+                $error = new ErrorBase($e->getMessage());
+                $error->muestraError();exit;
+            }
+            $url = Redireccion::obtener($this->nameController,'lista',SESSION_ID,$mensaje)."&pag={$this->obtenerNumeroPagina()}";
+            header("Location: $url");
+            exit;
         }
 
         $mensaje = 'registro eliminado';
