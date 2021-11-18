@@ -13,7 +13,6 @@ class BaseController
 {
 
     protected Builder $consulta;
-    protected string  $model;
     protected string  $nameSubmit;
     protected string  $llaveFormulario;                // Llave que se ocupa que los $_POST son de un formulario valido
 
@@ -25,6 +24,7 @@ class BaseController
     protected array   $filtroRelations = [];           // [nameController => relation]
     protected int     $registrosPorPagina = 10;        // Numero de registro por pagina en la lista
     protected int     $sizeColumnasInputsFiltros = 3;  // tamaño de los inputs de los filtros de la lista
+    protected         $model;
 
     public Collection|array $registros;
     public Collection|array $registro;
@@ -57,7 +57,8 @@ class BaseController
         unset($datos[$nombreLlaveFormulario]);
 
         try {
-            $resultado = $this->model::create($datos);
+            $this->consulta = $this->model::query();
+            $resultado = $this->consulta->create($datos);
         } catch (Exception $e) {
             if (DEBUG_MODE) {
                 $error = new ErrorBase($e->getMessage());
@@ -79,8 +80,8 @@ class BaseController
         $registroId = $this->validaRegistoId();
         $this->consulta = $this->model::query();
         try {
-            $registro = $this->consulta->findOrFail($registroId);
-            $registro->delete();
+            $this->registro = $this->consulta->find($registroId);
+            $this->registro->delete();
         } catch (Exception $e) {
             $codigoError = $e->getCode();
             if ($codigoError == REGISTRO_RELACIONADO) {
