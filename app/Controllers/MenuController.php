@@ -47,4 +47,31 @@ class MenuController extends BaseController
         $this->htmlInputFiltros[$tablaCampo] = Html::inputText($col,'Menu',1,$tablaCampo,$placeholder,$datos[$tablaCampo]);
     }
 
+    public function registrar()
+    {
+        $this->breadcrumb = true;
+
+        $this->htmlInputFormulario[] = Html::inputTextRequired(4,'Menu',1,'name');
+        $this->htmlInputFormulario[] = Html::inputTextRequired(4,'Etiqueta',1,'label');
+        $this->htmlInputFormulario[] = Html::inputTextRequired(4,'Icono',1,'icon');
+        $this->htmlInputFormulario[] = Html::selectActivo('Activo','activo',4,'-1',2);
+
+        $this->htmlInputFormulario[] = Html::submit('Registrar',$this->llaveFormulario,4);
+    }
+
+    public function modificar()
+    {
+        parent::modificar();
+        $this->breadcrumb = true;
+
+        $registro = $this->registro;
+
+        $this->htmlInputFormulario[] = Html::inputTextRequired(4,'Menu',1,'name','',$registro['name']);
+        $this->htmlInputFormulario[] = Html::inputTextRequired(4,'Etiqueta',1,'label','',$registro['label']);
+        $this->htmlInputFormulario[] = Html::inputTextRequired(4,'Icono',1,'icon','',$registro['icon']);
+        $this->htmlInputFormulario[] = Html::selectActivo('Activo','activo',4,$registro['activo'],2);
+
+        $this->htmlInputFormulario[] = Html::submit('Modificar',$this->llaveFormulario,4);
+    }
+
 }
