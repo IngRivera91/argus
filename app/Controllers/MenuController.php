@@ -26,10 +26,6 @@ class MenuController extends BaseController
             'Activo' => 'activo'
         ];
 
-//        $this->filtrosBaseLista = [
-//            ['campo' => 'tabla.compo', 'valor' => valor_campo, 'signoComparacion' => '=', 'relacion' => 'relacion'],
-//        ];
-
         parent::lista();
     }
 

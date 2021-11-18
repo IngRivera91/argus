@@ -9,12 +9,15 @@ class BaseController
 
     protected Builder $consulta;
     protected string  $nameSubmit;
+
+    // ['campo' => 'tabla.campo', 'valor' => 'valor_campo', 'signoComparacion' => '=', 'relacion' => 'relacion'],
     protected array   $filtrosBaseLista = [];
-    protected array   $listaWiths = [];
-    protected array   $filtroTableWiths = [];
-    protected array   $filtroWiths = [];
-    protected int     $registrosPorPagina = 10;
-    protected int     $sizeColumnasInputsFiltros = 3;
+
+    protected array   $listaRelations = [];            // [nameController => relation]
+    protected array   $filtroTableRelations = [];      // [nameController => nameTabla]
+    protected array   $filtroRelations = [];           // [nameController => relation]
+    protected int     $registrosPorPagina = 10;        // Numero de registro por pagina en la lista
+    protected int     $sizeColumnasInputsFiltros = 3;  // tamaño de los inputs de los filtros de la lista
     protected         $model;
 
     public string     $htmlPaginador = '';
@@ -25,6 +28,10 @@ class BaseController
     public            $registro;
     public            $registros;
 
+
+    /***
+     * Star the functions for the list
+     */
     protected function lista()
     {
         $this->nameSubmit = "{$this->nameController}ListaFiltro";
@@ -33,15 +40,13 @@ class BaseController
 
         $this->consulta = $this->model::query();
 
-        foreach ($this->filtrosBaseLista AS $filtro) {
-            $this->consulta->where($filtro['campo'],$filtro['signoComparacion'],$filtro['valor']);
-        }
+        $this->aplicarFiltrosBase();
 
         if (count($datosFiltros) != 0) {
              $this->aplicaFiltros($datosFiltros);
         }
 
-        if (count($this->htmlInputFiltros) != 0) {
+        if ($this->existeFiltrosLista()) {
             $this->htmlInputFiltros[] = Html::submit('Filtrar', $this->nameSubmit, $this->sizeColumnasInputsFiltros);
             $urlDestino = Redireccion::obtener($this->nameController,'lista',SESSION_ID).'&limpiaFiltro';
             $this->htmlInputFiltros[] = Html::linkBoton($urlDestino, 'Limpiar', $this->sizeColumnasInputsFiltros);
@@ -53,10 +58,39 @@ class BaseController
         $this->registros = $this->registros->toArray();
     }
 
+    private function existeFiltrosLista() : bool
+    {
+        return count($this->htmlInputFiltros) != 0;
+    }
+
+    private function aplicarFiltrosBase()
+    {
+        /**
+         * $this->filtrosBaseLista = [
+         *      ['campo' => 'tabla.compo', 'valor' => valor_campo, 'signoComparacion' => '=', 'relacion' => 'relacion'],
+         * ];
+         */
+
+        foreach ($this->filtrosBaseLista AS $filtro) {
+            if ($filtro['relacion'] == '') {
+                $this->consulta->where($filtro['campo'],$filtro['signoComparacion'],$filtro['valor']);
+            }
+
+            if ($filtro['relacion'] != '') {
+                $this->consulta->whereRelation(
+                    $filtro['relacion'],
+                    $filtro['campo'],
+                    $filtro['signoComparacion'],
+                    $filtro['valor']
+                );
+            }
+        }
+    }
+
     private function addRelations()
     {
-        foreach ($this->listaWiths as $listaWith) {
-            $this->consulta->with($listaWith);
+        foreach ($this->listaRelations as $listaRelation) {
+            $this->consulta->with($listaRelation);
         }
     }
 
@@ -102,13 +136,12 @@ class BaseController
 
             if ($nameController != $this->nameController) {
                 $this->consulta->whereRelation(
-                    $this->filtroWiths[$nameController],
-                    "{$this->filtroTableWiths[$nameController]}.$field",
+                    $this->filtroRelations[$nameController],
+                    "{$this->filtroTableRelations[$nameController]}.$field",
                     "=",
                     $datosFiltros[$tablaCampo]
                 );
             }
-
 
         }
 
@@ -147,6 +180,5 @@ class BaseController
     {
 
     }
-
 
 }

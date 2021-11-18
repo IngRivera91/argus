@@ -21,9 +21,15 @@ class MethodController extends BaseController
     {
         $this->breadcrumb = false;
 
-        $this->listaWiths = ['menu'];
-        $this->filtroWiths['Menu'] = 'menu';
-        $this->filtroTableWiths['Menu'] = 'menus';
+        $this->listaRelations = ['menu'];
+
+        $this->filtroRelations = [
+            'Menu' => 'menu'
+        ];
+
+        $this->filtroTableRelations = [
+            'Menu' => 'menus'
+        ];
 
         $this->camposLista = [
             'Id' => 'id',
@@ -35,10 +41,6 @@ class MethodController extends BaseController
             'Activo Accion' => 'is_action',
             'Activo Menu' => 'is_menu',
         ];
-
-//        $this->filtrosBaseLista = [
-//            ['campo' => 'tabla.compo', 'valor' => valor_campo, 'signoComparacion' => '=', 'relacion' => 'relacion'],
-//        ];
 
         parent::lista();
     }
