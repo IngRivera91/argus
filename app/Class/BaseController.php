@@ -7,11 +7,13 @@ use App\Errors\Expected AS ErrorEsperado;
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 
 class BaseController
 {
 
     protected Builder $consulta;
+    protected string  $model;
     protected string  $nameSubmit;
     protected string  $llaveFormulario;                // Llave que se ocupa que los $_POST son de un formulario valido
 
@@ -23,7 +25,6 @@ class BaseController
     protected array   $filtroRelations = [];           // [nameController => relation]
     protected int     $registrosPorPagina = 10;        // Numero de registro por pagina en la lista
     protected int     $sizeColumnasInputsFiltros = 3;  // tamaño de los inputs de los filtros de la lista
-    protected         $model;
 
     public Collection|array $registros;
     public Collection|array $registro;
