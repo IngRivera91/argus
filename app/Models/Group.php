@@ -22,6 +22,9 @@ class Group extends Model
         'session_id',
         'user_id',
         'activo',
+        'created_user_id',
+        'updated_user_id',
+
     ];
 
     public function users(): HasMany

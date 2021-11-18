@@ -27,6 +27,8 @@ class Method extends Model
         'is_menu',
         'is_action',
         'activo',
+        'created_user_id',
+        'updated_user_id',
 
     ];
 

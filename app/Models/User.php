@@ -26,6 +26,9 @@ class User extends Model
         'email',
         'group_id',
         'activo',
+        'created_user_id',
+        'updated_user_id',
+
     ];
 
     /**

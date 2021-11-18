@@ -22,6 +22,9 @@ class Menu extends Model
         'label',
         'icon',
         'activo',
+        'created_user_id',
+        'updated_user_id',
+
     ];
 
     public function methods(): HasMany
