@@ -6,6 +6,7 @@ use App\Errors\Base AS ErrorBase;
 use App\Errors\Expected AS ErrorEsperado;
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 
 class BaseController
 {
@@ -24,14 +25,14 @@ class BaseController
     protected int     $sizeColumnasInputsFiltros = 3;  // tamaño de los inputs de los filtros de la lista
     protected         $model;
 
-    public string     $htmlPaginador = '';
-    public string     $nameController;
-    public array      $camposLista;
-    public array      $htmlInputFiltros = [];
-    public array      $htmlInputFormulario = [];
-    public bool       $breadcrumb = true;
-    public            $registro;
-    public            $registros;
+    public Collection|array $registros;
+    public Collection|array $registro;
+    public string           $htmlPaginador = '';
+    public string           $nameController;
+    public array            $camposLista;
+    public array            $htmlInputFiltros = [];
+    public array            $htmlInputFormulario = [];
+    public bool             $breadcrumb = true;
 
     public function __construct()
     {
