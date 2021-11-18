@@ -3,6 +3,8 @@
 namespace App\Class;
 
 use App\Errors\Base AS ErrorBase;
+use App\Errors\Expected AS ErrorEsperado;
+use Exception;
 use Illuminate\Database\Eloquent\Builder;
 
 class BaseController
@@ -53,8 +55,8 @@ class BaseController
         unset($datos[$nombreLlaveFormulario]);
 
         try {
-            $this->model::create($datos);
-        } catch (\Exception $e) {
+            $resultado = $this->model::create($datos);
+        } catch (Exception $e) {
             if (DEBUG_MODE) {
                 $error = new ErrorBase($e->getMessage());
                 $error->muestraError();exit;
@@ -68,6 +70,69 @@ class BaseController
 
         Redireccion::enviar($this->nameController,'lista',SESSION_ID,$mensaje);
         exit;
+    }
+
+    public function eliminarBd()
+    {
+        $registroId = $this->validaRegistoId();
+        $this->consulta = $this->model::query();
+        try {
+            $registro = $this->consulta->findOrFail($registroId);
+            $registro->delete();
+        } catch (Exception $e) {
+            $codigoError = $e->getCode();
+            if ($codigoError == REGISTRO_RELACIONADO) {
+                $mensaje = 'No se puede eliminar un registro que esta relacionado';
+                if (DEBUG_MODE) {
+                    $error = new ErrorBase($e->getMessage());
+                    $error->muestraError();exit;
+                }
+                $url = Redireccion::obtener($this->nameController,'lista',SESSION_ID,$mensaje)."&pag={$this->obtenerNumeroPagina()}";
+                header("Location: $url");
+                exit;
+            }
+        }
+
+        $mensaje = 'registro eliminado';
+
+        $url = Redireccion::obtener($this->nameController,'lista',SESSION_ID,$mensaje)."&pag={$this->obtenerNumeroPagina()}";
+        header("Location: $url");
+        exit;
+    }
+
+    protected function validaRegistoId(): int
+    {
+        if (!isset($_GET['registroId'])) {
+            $mensaje = 'no se puede realizar la accion sin un registro id';
+            $error = new ErrorEsperado($mensaje, $this->nameController, 'lista');
+
+            if (DEBUG_MODE) {
+                $error = new ErrorBase($mensaje);
+            }
+
+            $error->muestraError();
+            exit;
+        }
+
+        $registroId = (int) $_GET['registroId'];
+
+        if (!$this->existeRegistroId($registroId)) {
+            $mensaje = 'no se puede realizar la accion si el registro no existe';
+            $error = new ErrorEsperado($mensaje, $this->nameController, 'lista');
+            if (DEBUG_MODE) {
+                $error = new ErrorBase($mensaje);
+            }
+            $error->muestraError();
+            exit;
+        }
+
+        return $registroId;
+    }
+
+    protected function existeRegistroId(int $registroId) : bool
+    {
+        $this->consulta = $this->model::query();
+        return $this->consulta->where('id',$registroId)->get()->count();
     }
 
     /***
