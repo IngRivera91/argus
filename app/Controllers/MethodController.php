@@ -15,14 +15,15 @@ class MethodController extends BaseController
         $this->model = Method::class;
         $this->nameController = 'Method';
         $this->menus = Menu::query()->get()->toArray();
+
+        $this->listaRelations = ['menu'];
+
         parent::__construct();
     }
 
     public function lista()
     {
         $this->breadcrumb = false;
-
-        $this->listaRelations = ['menu'];
 
         $this->filtroRelations = [
             'Menu' => 'menu'
