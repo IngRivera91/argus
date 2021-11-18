@@ -30,7 +30,7 @@ class Html
         string $id,
         string $name,
         string $placeholder = '',
-        string $value       = '',
+        string|null $value       = '',
         bool   $saltarLinea = false
     ) :string {
         $placeholder = self::obtenerPlaceholder($label,$placeholder);
@@ -47,7 +47,7 @@ class Html
         string $id,
         string $name,
         string $placeholder = '',
-        string $value       = '',
+        string|null $value       = '',
         bool   $saltarLinea = false
     ) :string {
         $placeholder = self::obtenerPlaceholder($label,$placeholder);
@@ -64,7 +64,7 @@ class Html
         string $id,
         string $name,
         string $placeholder = '',
-        string $value       = '',
+        string|null $value       = '',
         bool   $saltarLinea = false
     ) :string {
         $placeholder = self::obtenerPlaceholder($label,$placeholder);
@@ -81,7 +81,7 @@ class Html
         string $id,
         string $name,
         string $placeholder = '',
-        string $value       = '',
+        string|null $value       = '',
         bool   $saltarLinea = false
     ) :string {
         $placeholder = self::obtenerPlaceholder($label,$placeholder);
@@ -98,7 +98,7 @@ class Html
         string $id,
         string $name,
         string $placeholder = '',
-        string $value       = '',
+        string|null $value       = '',
         bool   $saltarLinea = false
     ) :string {
         $placeholder = self::obtenerPlaceholder($label,$placeholder);
@@ -115,7 +115,7 @@ class Html
         string $id,
         string $name,
         string $placeholder = '',
-        string $value       = '',
+        string|null $value       = '',
         bool   $saltarLinea = false
     ) :string {
         $placeholder = self::obtenerPlaceholder($label,$placeholder);
@@ -132,7 +132,7 @@ class Html
         string $id,
         string $name,
         string $placeholder = '',
-        string $value       = '',
+        string|null $value       = '',
         bool   $saltarLinea = false
     ) :string {
         $placeholder = self::obtenerPlaceholder($label,$placeholder);
@@ -149,7 +149,7 @@ class Html
         string $id,
         string $name,
         string $placeholder = '',
-        string $value       = '',
+        string|null $value       = '',
         bool   $saltarLinea = false
     ) :string {
         $placeholder = self::obtenerPlaceholder($label,$placeholder);
@@ -166,7 +166,7 @@ class Html
         string $id,
         string $name,
         string $placeholder = '',
-        string $value       = '',
+        string|null $value       = '',
         bool   $saltarLinea = false
     ) :string {
         $placeholder = self::obtenerPlaceholder($label,$placeholder);
@@ -216,7 +216,7 @@ class Html
         int    $col, 
         array  $registros   = array(),
         string $elementos   = '', 
-        string $value       = '-1', 
+        string|null $value       = '-1',
         int    $select2Id   = 1, 
         string $required    = 'required',
         string $chart       = ' ', 

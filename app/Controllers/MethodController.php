@@ -106,4 +106,32 @@ class MethodController extends BaseController
         $this->htmlInputFormulario[] = Html::submit('Registrar',$this->llaveFormulario,3);
     }
 
+    public function modificar()
+    {
+        parent::modificar();
+        $this->breadcrumb = true;
+
+        $registro = $this->registro;
+        Html::Debug($registro);exit;
+        $this->htmlInputFormulario[] = Html::inputTextRequired(4,'Metodo',1,'name','',$registro['name']);
+        $this->htmlInputFormulario[] = Html::inputText(4,'Etiqueta',1,'label','',$registro['label']);
+        $this->htmlInputFormulario[] = Html::inputText(4,'Icono',1,'icon','',$registro['icon']);
+        $this->htmlInputFormulario[] = Html::selectConBuscador(
+            'id',
+            'id',
+            'Menu',
+            'menu_id',
+            3,
+            $this->menus,
+            'label',
+            $registro['menu']['id'],
+            1
+        );
+        $this->htmlInputFormulario[] = Html::selectActivo('Activo','activo',3,$registro['activo'],2);
+        $this->htmlInputFormulario[] = Html::selectActivo('Activo Accion','is_action',3,$registro['is_action'],3);
+        $this->htmlInputFormulario[] = Html::selectActivo('Activo Menu','is_menu',3,$registro['is_menu'],4);
+
+        $this->htmlInputFormulario[] = Html::submit('Modificar',$this->llaveFormulario,4);
+    }
+
 }
