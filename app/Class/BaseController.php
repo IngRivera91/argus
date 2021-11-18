@@ -42,19 +42,8 @@ class BaseController
 
     public function registrarBd()
     {
-        $datos = $_POST;
-        $nombreLlaveFormulario = $this->llaveFormulario;
-        if (!isset($datos[$nombreLlaveFormulario])) {
-            $mensaje = 'llave no valida';
-            if (DEBUG_MODE) {
-                $e = new ErrorBase($mensaje);
-                $e->muestraError();exit;
-            }
-            Redireccion::enviar($this->nameController,'registrar',SESSION_ID);
-            exit;
-        }
+        $datos = $this->validaDatosFormulario();
 
-        unset($datos[$nombreLlaveFormulario]);
         $datos['created_user_id'] = USUARIO_ID;
         $datos['updated_user_id'] = USUARIO_ID;
 
@@ -66,7 +55,7 @@ class BaseController
                 $error = new ErrorBase($e->getMessage());
                 $error->muestraError();exit;
             }
-            $mensaje = 'No se pudo efectuar el registro';
+            $mensaje = 'error al crear el registro';
             Redireccion::enviar($this->nameController,'lista',SESSION_ID,$mensaje);
             exit;
         }
@@ -74,6 +63,31 @@ class BaseController
         $mensaje = 'datos registrados';
 
         Redireccion::enviar($this->nameController,'lista',SESSION_ID,$mensaje);
+        exit;
+    }
+
+    public function modificarBd()
+    {
+        $registroId = $this->validaRegistoId();
+
+        $datos = $this->validaDatosFormulario();
+
+        try {
+
+        } catch (ErrorBase $e) {
+            if (DEBUG_MODE) {
+                $error = new ErrorBase($e->getMessage());
+                $error->muestraError();exit;
+            }
+            $mensaje = 'error al modificar el registro';
+            Redireccion::enviar($this->nameController,'lista',SESSION_ID,$mensaje);
+            exit;
+        }
+
+        $mensaje = 'registro modificado';
+
+        $url = Redireccion::obtener($this->nameController,'lista',SESSION_ID,$mensaje)."&pag={$this->obtenerNumeroPagina()}";
+        header("Location: {$url}");
         exit;
     }
 
@@ -118,6 +132,25 @@ class BaseController
     /***
      * Star the functions private & protected
      */
+
+    private function validaDatosFormulario() : array
+    {
+        $datos = $_POST;
+        $nombreLlaveFormulario = $this->llaveFormulario;
+        if (!isset($datos[$nombreLlaveFormulario])) {
+            $mensaje = 'llave no valida';
+            if (DEBUG_MODE) {
+                $e = new ErrorBase($mensaje);
+                $e->muestraError();exit;
+            }
+            Redireccion::enviar($this->nameController,'lista',SESSION_ID);
+            exit;
+        }
+
+        unset($datos[$nombreLlaveFormulario]);
+
+        return $datos;
+    }
 
     private function baseActivaDesactiva(int $value, string $action, string $success)
     {
