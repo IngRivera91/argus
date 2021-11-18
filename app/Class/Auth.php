@@ -2,12 +2,14 @@
 
 namespace App\Class;
 
+use App\Errors\Base;
 use App\Models\Method;
 use App\models\Session;
 use App\models\User;
 use Carbon\Carbon;
 use App\Errors\Base AS ErrorBase;
 use JetBrains\PhpStorm\ArrayShape;
+use Symfony\Component\VarDumper\Dumper\DataDumperInterface;
 
 class Auth
 {
@@ -43,9 +45,14 @@ class Auth
         return md5(md5($password.APP_KEY));
     }
 
+    /**
+     * @throws ErrorBase
+     */
     public static function checkSessionId(string $sessionId)
     {
         $Session = Session::with('user')->where('session_id', $sessionId)->first();
+
+        if (!$Session) throw new ErrorBase('sessionId no encontrado');
 
         define('USUARIO_ID',$Session->user_id);
         define('SESSION_ID',$sessionId);
