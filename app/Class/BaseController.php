@@ -66,6 +66,26 @@ class BaseController
         exit;
     }
 
+    public function modificar()
+    {
+        $registroId = $this->validaRegistoId();
+
+        try {
+            $this->consulta = $this->model::query();
+            $this->addRelations();
+            $this->registro = $this->consulta->find($registroId)->toArray();
+        } catch (Exception $e) {
+            if (DEBUG_MODE) {
+                $error = new ErrorBase($e->getMessage());
+                $error->muestraError();exit;
+            }
+            $mensaje = 'error al obtener los datos del registro a modificar';
+            Redireccion::enviar($this->nameController,'lista',SESSION_ID,$mensaje);
+            exit;
+        }
+
+    }
+
     public function modificarBd()
     {
         $registroId = $this->validaRegistoId();
@@ -81,7 +101,7 @@ class BaseController
             }
             $this->registro->updated_user_id = USUARIO_ID;
             $this->registro->save();
-        } catch (ErrorBase $e) {
+        } catch (Exception $e) {
             if (DEBUG_MODE) {
                 $error = new ErrorBase($e->getMessage());
                 $error->muestraError();exit;
@@ -359,7 +379,7 @@ class BaseController
         return $datosFiltros;
     }
 
-    protected function obtenerNumeroPagina(): int
+    public function obtenerNumeroPagina(): int
     {
         $num_pagina = 1;
         if (isset($_GET['pag'])){
