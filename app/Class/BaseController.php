@@ -78,30 +78,11 @@ class BaseController
     }
 
     public function activarBd(){
+        $this->baseActivaDesactiva(1,'activar','activado');
+    }
 
-        $registroId = $this->validaRegistoId();
-        $this->consulta = $this->model::query();
-
-        try {
-            $this->registro = $this->consulta->find($registroId);
-            $this->registro->activo = 1;
-            $this->registro->save();
-        } catch (Exception $e) {
-            $mensaje = 'error al intentar activar el registro';
-            if (DEBUG_MODE) {
-                $error = new ErrorBase($e->getMessage());
-                $error->muestraError();exit;
-            }
-            $url = Redireccion::obtener($this->nameController,'lista',SESSION_ID,$mensaje)."&pag={$this->obtenerNumeroPagina()}";
-            header("Location: $url");
-            exit;
-        }
-
-        $mensaje = 'registro activado';
-
-        $url = Redireccion::obtener($this->nameController,'lista',SESSION_ID,$mensaje)."&pag={$this->obtenerNumeroPagina()}";
-        header("Location: {$url}");
-        exit;
+    public function desactivarBd(){
+        $this->baseActivaDesactiva(0,'desactivar','desactivado');
     }
 
     public function eliminarBd()
@@ -131,6 +112,37 @@ class BaseController
 
         $url = Redireccion::obtener($this->nameController,'lista',SESSION_ID,$mensaje)."&pag={$this->obtenerNumeroPagina()}";
         header("Location: $url");
+        exit;
+    }
+
+    /***
+     * Star the functions private & protected
+     */
+
+    private function baseActivaDesactiva(int $value, string $action, string $success)
+    {
+        $registroId = $this->validaRegistoId();
+        $this->consulta = $this->model::query();
+
+        try {
+            $this->registro = $this->consulta->find($registroId);
+            $this->registro->activo = $value;
+            $this->registro->save();
+        } catch (Exception $e) {
+            $mensaje = "error al intentar $action el registro";
+            if (DEBUG_MODE) {
+                $error = new ErrorBase($e->getMessage());
+                $error->muestraError();exit;
+            }
+            $url = Redireccion::obtener($this->nameController,'lista',SESSION_ID,$mensaje)."&pag={$this->obtenerNumeroPagina()}";
+            header("Location: $url");
+            exit;
+        }
+
+        $mensaje = "registro $success";
+
+        $url = Redireccion::obtener($this->nameController,'lista',SESSION_ID,$mensaje)."&pag={$this->obtenerNumeroPagina()}";
+        header("Location: {$url}");
         exit;
     }
 
