@@ -238,6 +238,7 @@ class BaseController
     protected function existeRegistroId(int $registroId) : bool
     {
         $this->consulta = $this->model::query();
+        $this->aplicarFiltrosBase();
         return $this->consulta->where('id',$registroId)->get()->count();
     }
 
