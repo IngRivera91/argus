@@ -5,9 +5,14 @@ namespace App\Controllers;
 use App\Class\BaseController;
 use App\Class\Html;
 use App\Models\Group;
+use App\Errors\Base AS ErrorBase;
+use App\Models\Method;
 
 class GroupController extends BaseController
 {
+    public array $metodosAgrupadosPorMenu;
+    public string $nombreGrupo;
+    public int $grupoId;
     public function __construct()
     {
         $this->model = Group::class;
@@ -60,5 +65,73 @@ class GroupController extends BaseController
         $this->htmlInputFormulario[] = Html::inputTextRequired(4,'Grupo',1,'name','',$registro['name']);
         $this->htmlInputFormulario[] = Html::selectActivo('Activo','activo',4,$registro['activo'],2);
         $this->htmlInputFormulario[] = Html::submit('Modificar',$this->llaveFormulario,4);
+    }
+
+    public function permisos()
+    {
+        $grupoId = $this->validaRegistoId();
+        $this->grupoId = $grupoId;
+        $this->metodosAgrupadosPorMenu = Group::obtenerMetodosAgrupadosPorMenu($grupoId);
+        $this->nombreGrupo = Group::query()->find($grupoId)->name;
+
+    }
+
+    public function altaPermiso()
+    {
+        try {
+
+            $metodoId = $this->validaMetodoId();
+            $grupoId = $this->validaGrupoId();
+
+            $datos = ['grupo_id' => $grupoId, 'metodo_id' => $metodoId, 'activo' => 1];
+            // Todo: ver como hacer el registro con atach
+
+        } catch (ErrorBase $e) {
+            header('Content-Type: application/json');
+            $json = json_encode(['respuesta' => false,'error' => $e->getMessage()]);
+            echo $json;
+            exit;
+        }
+
+        header('Content-Type: application/json');
+        $json = json_encode(['respuesta' => true,'error' => '']);
+        echo $json;
+        exit;
+
+    }
+
+    /**
+     * @throws ErrorBase
+     */
+    private function validaMetodoId(): int
+    {
+        if (!isset($_GET['metodoId'])) throw new ErrorBase('se esperaba el parametro GET metodoId');
+
+        $metodoId = (int) $_GET['metodoId'];
+
+        if (!$this->existeModelRegistroId($metodoId, Method::class)) throw new ErrorBase('el metodoId no existe');
+
+        return $metodoId;
+
+    }
+
+    /**
+     * @throws ErrorBase
+     */
+    private function validaGrupoId(): int
+    {
+        if (!isset($_GET['grupoId'])) throw new ErrorBase('se esperaba el parametro GET grupoId');
+
+        $grupoId = (int) $_GET['grupoId'];
+
+        if (!$this->existeModelRegistroId($grupoId,Group::class)) throw new ErrorBase('el grupoId no existe');
+
+        return $grupoId;
+    }
+
+    private function existeModelRegistroId(int $registroId, $model) : bool
+    {
+        $this->consulta = $model::query();
+        return $this->consulta->where('id',$registroId)->get()->count();
     }
 }

@@ -14,7 +14,7 @@ function permisos(metodoId,grupoId) {
         ponerClase = classSinPermiso;
     }
 
-    var url = 'index.php?controlador=grupos&metodo='+metodo+'&session_id='+session_id+'&metodoId='+metodoId+'&grupoId='+grupoId;
+    var url = 'index.php?controlador=Group&metodo='+metodo+'&session_id='+session_id+'&metodoId='+metodoId+'&grupoId='+grupoId;
     
     $.ajax({
         url: url,
