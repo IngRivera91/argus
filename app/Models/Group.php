@@ -26,27 +26,40 @@ class Group extends Model
 
     ];
 
-    public static function test () {
+    public static function obtenerMetodosAgrupadosPorMenu(int $groupId) {
 
         $menus = Menu::query()
             ->with('methods')
-            ->orderBy('name','ASC')
+            ->orderBy('label','ASC')
             ->get();
 
-        $array = [];
+        $methodsIds = self::query()->find($groupId)->methods;
+
+        $ids = [];
+
+        foreach ($methodsIds as $methodsId) {
+            $ids[] = $methodsId->id;
+        }
+
+        $metodosAgrupadosPorMenu = [];
 
         foreach ($menus as $menu) {
 
             foreach ($menu->methods as $key => $method) {
-                $array[$menu->name][$key] = [
+                $activo = 0;
+                if (in_array($method->id, $ids)) {
+                    $activo = 1;
+                }
+                $metodosAgrupadosPorMenu[strtolower($menu->label)][$key] = [
                     'id' => $method->id,
                     'metodo' => $method->name,
+                    'activo' => $activo,
                 ];
             }
 
         }
 
-        return $array;
+        return $metodosAgrupadosPorMenu;
     }
 
     public function users(): HasMany
