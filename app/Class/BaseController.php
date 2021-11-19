@@ -332,7 +332,9 @@ class BaseController
     private function aplicaFiltros(array $datosFiltros)
     {
         foreach ($this->htmlInputFiltros as $tablaCampo => $value) {
-
+            if ($datosFiltros[$tablaCampo] == '') {
+                continue;
+            }
             $arrayCampo = explode('+',$tablaCampo);
 
             $tabla = $this->model::NOMBRE_TABLA;
