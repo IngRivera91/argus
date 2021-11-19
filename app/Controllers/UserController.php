@@ -2,10 +2,14 @@
 
 namespace App\Controllers;
 
+use App\Class\Auth;
 use App\class\BaseController;
 use App\Class\Html;
+use App\Class\Redireccion;
+use App\Errors\Base as ErrorBase;
 use App\Models\Group;
 use App\Models\User;
+use Exception;
 
 class UserController extends BaseController
 {
@@ -130,5 +134,44 @@ class UserController extends BaseController
         );
 
         $this->htmlInputFormulario[] = Html::submit('Modificar',$this->llaveFormulario,4);
+    }
+
+    public function nuevaContra()
+    {
+        parent::modificar();
+
+        $this->htmlInputFormulario['inputContraseña'] = Html::inputTextRequired(4,'Contraseña',1,'password');
+        $this->htmlInputFormulario['submit'] = Html::submit('cambiar contraseña',$this->llaveFormulario,4);
+    }
+
+    public function nuevaContraBd()
+    {
+
+        $datos = $this->validaDatosFormulario();
+
+        try {
+            $this->consulta = $this->model::query();
+            $this->registro = $this->consulta->find($datos['usuarioId']);
+            $this->registro->password = Auth::encryptPassword($datos['password']);
+            $this->registro->updated_user_id = USUARIO_ID;
+            $this->registro->save();
+        } catch (Exception $e) {
+            if (DEBUG_MODE) {
+                $error = new ErrorBase($e->getMessage());
+                $error->muestraError();exit;
+            }
+            $mensaje = 'error al tratar de cambiar la contraseña';
+            Redireccion::enviar($this->nameController,'lista',SESSION_ID,$mensaje);
+            exit;
+        }
+
+        $this->registro->password = md5($datos['password']);
+        $this->registro->save();
+
+        $mensaje = 'se cambio la contraseña';
+
+        $url = Redireccion::obtener($this->nameController,'lista',SESSION_ID,$mensaje)."&pag={$this->obtenerNumeroPagina()}";
+        header("Location: {$url}");
+        exit;
     }
 }

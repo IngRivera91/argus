@@ -160,7 +160,7 @@ class BaseController
      * Star the functions private & protected
      */
 
-    private function validaDatosFormulario() : array
+    protected function validaDatosFormulario() : array
     {
         $datos = $_POST;
         $nombreLlaveFormulario = $this->llaveFormulario;
