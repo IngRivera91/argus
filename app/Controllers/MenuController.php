@@ -61,7 +61,7 @@ class MenuController extends BaseController
 
     public function modificar()
     {
-        parent::modificar();
+        parent::obtenerRegistroArrayConGetRegistroId();
         $this->breadcrumb = true;
 
         $registro = $this->registro;

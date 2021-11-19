@@ -118,7 +118,7 @@ class UserController extends BaseController
 
     public function modificar()
     {
-        parent::modificar();
+        parent::obtenerRegistroArrayConGetRegistroId();
         $this->breadcrumb = true;
 
         $registro = $this->registro;
@@ -144,7 +144,7 @@ class UserController extends BaseController
 
     public function nuevaContra()
     {
-        parent::modificar();
+        parent::obtenerRegistroArrayConGetRegistroId();
 
         $this->htmlInputFormulario['inputContraseña'] = Html::inputTextRequired(4,'Contraseña',1,'password');
         $this->htmlInputFormulario['submit'] = Html::submit('cambiar contraseña',$this->llaveFormulario,4);

@@ -66,7 +66,7 @@ class BaseController
         exit;
     }
 
-    public function modificar()
+    public function obtenerRegistroArrayConGetRegistroId()
     {
         $registroId = $this->validaRegistoId();
 
