@@ -153,7 +153,7 @@ class BaseController
                 $error = new ErrorBase($e->getMessage());
                 $error->muestraError();exit;
             }
-            $mensaje = 'error al obtener los datos del registro a modificar';
+            $mensaje = 'error al obtener los datos del registro';
             Redireccion::enviar($this->nameController,'lista',SESSION_ID,$mensaje);
             exit;
         }
