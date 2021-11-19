@@ -66,26 +66,6 @@ class BaseController
         exit;
     }
 
-    public function obtenerRegistroArrayConGetRegistroId()
-    {
-        $registroId = $this->validaRegistoId();
-
-        try {
-            $this->consulta = $this->model::query();
-            $this->addRelations();
-            $this->registro = $this->consulta->find($registroId)->toArray();
-        } catch (Exception $e) {
-            if (DEBUG_MODE) {
-                $error = new ErrorBase($e->getMessage());
-                $error->muestraError();exit;
-            }
-            $mensaje = 'error al obtener los datos del registro a modificar';
-            Redireccion::enviar($this->nameController,'lista',SESSION_ID,$mensaje);
-            exit;
-        }
-
-    }
-
     public function modificarBd()
     {
         $registroId = $this->validaRegistoId();
@@ -159,6 +139,26 @@ class BaseController
     /***
      * Star the functions private & protected
      */
+
+    protected function obtenerRegistroArrayConGetRegistroId()
+    {
+        $registroId = $this->validaRegistoId();
+
+        try {
+            $this->consulta = $this->model::query();
+            $this->addRelations();
+            $this->registro = $this->consulta->find($registroId)->toArray();
+        } catch (Exception $e) {
+            if (DEBUG_MODE) {
+                $error = new ErrorBase($e->getMessage());
+                $error->muestraError();exit;
+            }
+            $mensaje = 'error al obtener los datos del registro a modificar';
+            Redireccion::enviar($this->nameController,'lista',SESSION_ID,$mensaje);
+            exit;
+        }
+
+    }
 
     protected function validaDatosFormulario() : array
     {
