@@ -13,18 +13,16 @@ class BaseController
 {
 
     protected Builder $consulta;
-    protected string  $nameSubmit;
-    protected string  $llaveFormulario;                // Llave que se ocupa que los $_POST son de un formulario valido
-
+    protected string $nameSubmit;
+    protected string $llaveFormulario; // Llave que se ocupa que los $_POST son de un formulario valido
     // ['campo' => 'tabla.campo', 'valor' => 'valor_campo', 'signoComparacion' => '=', 'relacion' => 'relacion'],
-    protected array   $filtrosBaseLista = [];
-
-    protected array   $listaRelations = [];            // [nameController => relation]
-    protected array   $filtroTableRelations = [];      // [nameController => nameTabla]
-    protected array   $filtroRelations = [];           // [nameController => relation]
-    protected int     $registrosPorPagina = 10;        // Numero de registro por pagina en la lista
-    protected int     $sizeColumnasInputsFiltros = 3;  // tamaño de los inputs de los filtros de la lista
-    protected         $model;
+    protected array $filtrosBase = []; // Se debe declarar en el constructor
+    protected array $listaRelations = []; // [nameController => relation]
+    protected array $filtroTableRelations = []; // [nameController => nameTabla]
+    protected array $filtroRelations = []; // [nameController => relation]
+    protected int $registrosPorPagina = 10; // Numero de registro por pagina en la lista
+    protected int $sizeColumnasInputsFiltros = 3; // tamaño de los inputs de los filtros de la lista
+    protected $model;
 
     public Collection|Model|array $registro;
     public Collection|array $registros;
@@ -279,12 +277,12 @@ class BaseController
     private function aplicarFiltrosBase()
     {
         /**
-         * $this->filtrosBaseLista = [
+         * $this->filtrosBase = [
          *      ['campo' => 'tabla.compo', 'valor' => valor_campo, 'signoComparacion' => '=', 'relacion' => 'relacion'],
          * ];
          */
 
-        foreach ($this->filtrosBaseLista AS $filtro) {
+        foreach ($this->filtrosBase AS $filtro) {
             if ($filtro['relacion'] == '') {
                 $this->consulta->where($filtro['campo'],$filtro['signoComparacion'],$filtro['valor']);
             }
