@@ -1,5 +1,3 @@
-[![Source Code][badge-source]][source]
-
 # Argus
 Framework propio programado con PHP, OPP, MVC y MySQL para realizar proyectos freelance de una manera mas rapida y sencilla, ya que cuenta con las herramientas, clases y elementos que habitualmente ocupo al desarrollar un nuevo sistema, y con cada sistema que realizo con este framework poco a poco voy agregando mas funcionalidades a la base del mismo.
 
@@ -33,6 +31,3 @@ despues seguir todos los pasos ya se puede iniciar session con los siguientes da
 
 ## Licencia
 [MIT license](https://opensource.org/licenses/MIT).
-
-[source]: https://github.com/IscRivera91/argus
-[badge-source]: https://img.shields.io/badge/source-eclipxe13/CfdiUtils-blue?logo=github&style=flat-square
