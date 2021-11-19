@@ -110,6 +110,12 @@ class UserController extends BaseController
         $this->htmlInputFormulario[] = Html::submit('Registrar',$this->llaveFormulario,4);
     }
 
+    public function registrarBd()
+    {
+        $_POST['password'] = Auth::encryptPassword($_POST['password']);
+        parent::registrarBd();
+    }
+
     public function modificar()
     {
         parent::modificar();
