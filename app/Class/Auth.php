@@ -2,14 +2,12 @@
 
 namespace App\Class;
 
-use App\Errors\Base;
+use App\Errors\Base as ErrorBase;
 use App\Models\Method;
 use App\models\Session;
 use App\models\User;
 use Carbon\Carbon;
-use App\Errors\Base AS ErrorBase;
 use JetBrains\PhpStorm\ArrayShape;
-use Symfony\Component\VarDumper\Dumper\DataDumperInterface;
 
 class Auth
 {
@@ -27,6 +25,8 @@ class Auth
         $password = self::encryptPassword($_POST['password']);
 
         $User = User::query()->where('user',$user)->where('password',$password)->first();
+
+        if (!$User) throw new ErrorBase('usuario o contraseña incorrectos');
 
         $sessionId = self::generateSessionId($user, $password);
         self::insertSessionId($sessionId, $User->id);
