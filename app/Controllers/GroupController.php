@@ -100,6 +100,29 @@ class GroupController extends BaseController
 
     }
 
+    public function bajaPermiso()
+    {
+        try {
+
+            $metodoId = $this->validaMetodoId();
+            $grupoId = $this->validaGrupoId();
+
+            // Todo: ver como eliminar el registro con detach
+
+        } catch (ErrorBase $e) {
+            header('Content-Type: application/json');
+            $json = json_encode(['respuesta' => false,'error' => $e->getMessage()]);
+            echo $json;
+            exit;
+        }
+
+        header('Content-Type: application/json');
+        $json = json_encode(['respuesta' => true,'error' => '']);
+        echo $json;
+        exit;
+
+    }
+
     /**
      * @throws ErrorBase
      */
