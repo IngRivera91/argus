@@ -11,7 +11,7 @@
  Target Server Version : 50733
  File Encoding         : 65001
 
- Date: 15/11/2021 18:07:15
+ Date: 18/11/2021 23:02:48
 */
 
 SET NAMES utf8mb4;
@@ -198,8 +198,8 @@ CREATE TABLE `sessions`  (
   `updated_at` timestamp(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `user_id`(`user_id`) USING BTREE,
-  CONSTRAINT `sessions_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 36 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = COMPACT;
+  CONSTRAINT `sessions_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB AUTO_INCREMENT = 37 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of sessions
@@ -231,6 +231,7 @@ INSERT INTO `sessions` VALUES (31, '812338c512d59fcec2d5e79ce636c3e9', 1, '2021-
 INSERT INTO `sessions` VALUES (32, '16aa7d5440d008198b2a286059a17bb8', 1, '2021-11-12 10:06:22', '2021-11-12 10:06:22');
 INSERT INTO `sessions` VALUES (33, '79402b859982a3946c4e2fba719949e9', 1, '2021-11-12 10:07:39', '2021-11-12 10:07:39');
 INSERT INTO `sessions` VALUES (35, '32f54fc2a47a6abc027d0263c667a116', 1, '2021-11-15 18:05:55', '2021-11-15 18:05:55');
+INSERT INTO `sessions` VALUES (36, '4e702529c3dd45a11ba91def83391986', 1, '2021-11-18 23:01:31', '2021-11-18 23:01:31');
 
 -- ----------------------------
 -- Table structure for users
