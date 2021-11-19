@@ -171,9 +171,6 @@ class UserController extends BaseController
             exit;
         }
 
-        $this->registro->password = md5($datos['password']);
-        $this->registro->save();
-
         $mensaje = 'se cambio la contraseña';
 
         $url = Redireccion::obtener($this->nameController,'lista',SESSION_ID,$mensaje)."&pag={$this->obtenerNumeroPagina()}";
