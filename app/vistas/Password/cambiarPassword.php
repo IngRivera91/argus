@@ -10,7 +10,7 @@ $llave = $controlador->llaveFormulario;
 <h3>Cambiar Contraseña</h3>
 <br>
 
-<?php  $rutaPOST = Redireccion::obtener('password','cambiarPasswordBd',SESSION_ID); ?>
+<?php  $rutaPOST = Redireccion::obtener('Password','cambiarPasswordBd',SESSION_ID); ?>
 <form id="cambiarPassword" autocomplete="off" role="form" method="POST" action="<?= $rutaPOST  ?>" onsubmit="return cambiarPassword()">
     <div class="row">
         <?php
