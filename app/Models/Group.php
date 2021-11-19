@@ -26,6 +26,29 @@ class Group extends Model
 
     ];
 
+    public static function test () {
+
+        $menus = Menu::query()
+            ->with('methods')
+            ->orderBy('name','ASC')
+            ->get();
+
+        $array = [];
+
+        foreach ($menus as $menu) {
+
+            foreach ($menu->methods as $key => $method) {
+                $array[$menu->name][$key] = [
+                    'id' => $method->id,
+                    'metodo' => $method->name,
+                ];
+            }
+
+        }
+
+        return $array;
+    }
+
     public function users(): HasMany
     {
         return $this->hasMany(User::class);
@@ -33,6 +56,6 @@ class Group extends Model
 
     public function methods(): BelongsToMany
     {
-        return $this->belongsToMany(Method::class)->withTimestamps();
+        return $this->belongsToMany(Method::class)->withTimestamps()->orderBy('name','ASC');
     }
 }
