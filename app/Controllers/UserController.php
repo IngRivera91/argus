@@ -102,9 +102,7 @@ class UserController extends BaseController
             'group_id',
             4,
             $this->grupos,
-            'name',
-            '-1',
-            1
+            'name'
         );
 
         $this->htmlInputFormulario[] = Html::submit('Registrar',$this->llaveFormulario,4);
@@ -135,8 +133,7 @@ class UserController extends BaseController
             4,
             $this->grupos,
             'name',
-            $registro['group']['id'],
-            1
+            $registro['group']['id']
         );
 
         $this->htmlInputFormulario[] = Html::submit('Modificar',$this->llaveFormulario,4);
@@ -156,8 +153,7 @@ class UserController extends BaseController
         $datos = $this->validaDatosFormulario();
 
         try {
-            $this->consulta = $this->model::query();
-            $this->registro = $this->consulta->find($datos['usuarioId']);
+            $this->registro = User::query()->find($datos['usuarioId']);
             $this->registro->password = Auth::encryptPassword($datos['password']);
             $this->registro->updated_user_id = USUARIO_ID;
             $this->registro->save();
@@ -174,7 +170,7 @@ class UserController extends BaseController
         $mensaje = 'se cambio la contraseña';
 
         $url = Redireccion::obtener($this->nameController,'lista',SESSION_ID,$mensaje)."&pag={$this->obtenerNumeroPagina()}";
-        header("Location: {$url}");
+        header("Location: $url");
         exit;
     }
 }
