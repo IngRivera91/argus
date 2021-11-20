@@ -83,8 +83,8 @@ class GroupController extends BaseController
             $metodoId = $this->validaMetodoId();
             $grupoId = $this->validaGrupoId();
 
-            $datos = ['grupo_id' => $grupoId, 'metodo_id' => $metodoId, 'activo' => 1];
-            // Todo: ver como hacer el registro con atach
+            $Group = Group::query()->find($grupoId);
+            $Group->methods()->attach($metodoId);
 
         } catch (ErrorBase $e) {
             header('Content-Type: application/json');
@@ -107,7 +107,8 @@ class GroupController extends BaseController
             $metodoId = $this->validaMetodoId();
             $grupoId = $this->validaGrupoId();
 
-            // Todo: ver como eliminar el registro con detach
+            $Group = Group::query()->find($grupoId);
+            $Group->methods()->detach($metodoId);
 
         } catch (ErrorBase $e) {
             header('Content-Type: application/json');
