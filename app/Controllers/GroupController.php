@@ -7,6 +7,7 @@ use App\Class\Html;
 use App\Models\Group;
 use App\Errors\Base AS ErrorBase;
 use App\Models\Method;
+use Exception;
 
 class GroupController extends BaseController
 {
@@ -86,7 +87,7 @@ class GroupController extends BaseController
             $Group = Group::query()->find($grupoId);
             $Group->methods()->attach($metodoId);
 
-        } catch (ErrorBase $e) {
+        } catch (Exception $e) {
             header('Content-Type: application/json');
             $json = json_encode(['respuesta' => false,'error' => $e->getMessage()]);
             echo $json;
@@ -110,7 +111,7 @@ class GroupController extends BaseController
             $Group = Group::query()->find($grupoId);
             $Group->methods()->detach($metodoId);
 
-        } catch (ErrorBase $e) {
+        } catch (Exception $e) {
             header('Content-Type: application/json');
             $json = json_encode(['respuesta' => false,'error' => $e->getMessage()]);
             echo $json;
