@@ -1,13 +1,13 @@
-<?php 
-$rutaBase = __DIR__.'/../';
-require_once "{$rutaBase}app/config/requires.php"; 
+<?php
+$pathBase = __DIR__.'/../';
+require_once $pathBase . "app/config/requires.php";
 
-use App\ayudas\Valida;
-use App\ayudas\Redireccion;
-use App\clases\Autentificacion;
-use App\errores\Base AS ErrorBase;
+use App\Class\Html;
+use App\Class\Redireccion;
+use App\Class\Auth;
+use App\Errors\Base AS ErrorBase;
 
-$controladoresSinPermisos = ['inicio','password'];
+$controladoresSinPermisos = ['Inicio','Password'];
 $parametrosGetRequeridos = array('controlador','metodo');
 
 foreach ($parametrosGetRequeridos as $parametro){
@@ -17,25 +17,19 @@ foreach ($parametrosGetRequeridos as $parametro){
 $controladorActual = $_GET['controlador'];
 $metodoActual = $_GET['metodo'];
 
-try {
-    $claseDatabase = 'App\\clases\\'.DB_TIPO.'\\Database';
-    $coneccion = new $claseDatabase();
-}catch (ErrorBase $e) {
-    print_r('Error al conectarce a la base de datos, favor de contactar al equipo de desarrollo');
-    exit;
-}
-
-$autentificacion = new Autentificacion($coneccion);
-
 if ($controladorActual === 'session' && $metodoActual === 'login'){
     try{
-        $resultado = $autentificacion->login();
+        $resultado = Auth::login();
     }catch(ErrorBase $e){
+        if (DEBUG_MODE) {
+            $e->muestraError();
+            exit;
+        }
         $mensaje = "El usuario o contraseña son incorrectos";
         header("Location: login.php?mensaje=$mensaje");
         exit;
     }
-    Redireccion::enviar('inicio','index',$resultado['sessionId'],'Bienvenido');
+    Redireccion::enviar('Inicio','index',$resultado['sessionId'],'Bienvenido');
     exit;
 }
 
@@ -43,8 +37,12 @@ validaParametroGet('session_id');
 $sessionId = $_GET['session_id'];
 
 try{
-    $datos = $autentificacion->validaSessionId($sessionId);
+    Auth::checkSessionId($sessionId);
 }catch(ErrorBase $e){
+    if (DEBUG_MODE) {
+        $e->muestraError();
+        exit;
+    }
     $mensaje = "session_id no valido";
     header("Location: login.php?mensaje=$mensaje");
     exit;
@@ -52,36 +50,44 @@ try{
 
 if ($controladorActual === 'session' && $metodoActual === 'logout'){
     try{
+        Auth::logout($sessionId);
         session_destroy();
-        $resultado = $autentificacion->logout($sessionId);
     }catch(ErrorBase $e){
-        
+        if (DEBUG_MODE) {
+            $e->muestraError();
+            exit;
+        }
     }
     header('Location: login.php');
     exit;
 }
 
-$autentificacion->defineConstantes($datos,$sessionId);
-
 if (!in_array($controladorActual,$controladoresSinPermisos)){
 
-    if (!Valida::permiso($coneccion, GRUPO_ID, $controladorActual, $metodoActual)) {
-        Redireccion::enviar('inicio','index',SESSION_ID,"No tienes permisos para acceder al metodo:{$metodoActual} del controlador:{$controladorActual}");
+    if (!Auth::hasPermission(GRUPO_ID, $controladorActual, $metodoActual)) {
+        $mensaje  = "No tienes permisos para acceder al metodo:$metodoActual del controlador:$controladorActual";
+        if (DEBUG_MODE) {
+            $e = new ErrorBase($mensaje);
+            $e->muestraError();
+            exit;
+        }
+        Redireccion::enviar('Inicio','index',SESSION_ID,$mensaje);
         exit;
     }
 
 }
 
-if (!file_exists("{$rutaBase}app/controladores/{$controladorActual}.php")){
-    Redireccion::enviar('inicio','index',SESSION_ID,"No existe el controlador:{$controladorActual}");
+if (!file_exists("{$pathBase}app/Controllers/{$controladorActual}Controller.php")){
+    Redireccion::enviar('Inicio','index',SESSION_ID,"No existe el controlador:$controladorActual");
     exit;
 }
 
-$controladorNombre = 'App\\controladores\\'.$controladorActual;
-$controlador = new $controladorNombre($coneccion);
+
+$controladorNombre = 'App\\Controllers\\'.$controladorActual.'Controller';
+$controlador = new $controladorNombre;
 
 if (!method_exists($controlador,$metodoActual)){
-    Redireccion::enviar('inicio','index',SESSION_ID,"No existe el metodo:{$metodoActual} del controlador:{$controladorActual}");
+    Redireccion::enviar('Inicio','index',SESSION_ID,"No existe el metodo:$metodoActual del controlador:$controladorActual");
     exit;
 }
 
@@ -89,38 +95,38 @@ $controlador->$metodoActual();
 
 #seleciona la vista
 
-$rutaVistasBase = "{$rutaBase}/app/vistas";
+$rutaVistasBase = $pathBase . '/app/vistas';
 $rutaVista = '';
 if ( $metodoActual == 'registrar') {
-    $rutaVista = "{$rutaVistasBase}/1base/registrar.php";
+    $rutaVista = "$rutaVistasBase/1base/registrar.php";
 }
 
 if ($metodoActual == 'modificar') {
-    $rutaVista = "{$rutaVistasBase}/1base/modificar.php";
+    $rutaVista = "$rutaVistasBase/1base/modificar.php";
 }
 
 if ($metodoActual == 'lista') {
-    $rutaVista = "{$rutaVistasBase}/1base/lista.php";
+    $rutaVista = "$rutaVistasBase/1base/lista.php";
 }
 
-$vista = "{$rutaVistasBase}/{$controladorActual}/{$metodoActual}.php";
+$vista = "$rutaVistasBase/$controladorActual/$metodoActual.php";
 
 if(file_exists($vista)) {
     $rutaVista = $vista;
 }
 
 if ($rutaVista == '') {
-    print_r("No se puedo cargar la vista controlador:{$controladorActual} metodo:{$metodoActual}");
+    print_r("No se puede cargar la vista controlador:$controladorActual metodo:$metodoActual");
     exit;
 }
 
 # El menu se carga hasta el final
-$menu_navegacion = \App\ayudas\Menu::crear($coneccion,GRUPO_ID);
+$menu_navegacion = Html::menu(GRUPO_ID);
 
 ?>
-<?php require_once "{$rutaBase}/recursos/html/head.php"; ?>
-<?php require_once "{$rutaBase}/recursos/html/nav.php"; ?>
-<?php require_once "{$rutaBase}/recursos/html/menu.php"; ?>
+<?php require_once $pathBase . "recursos/html/head.php"; ?>
+<?php require_once $pathBase . "recursos/html/nav.php"; ?>
+<?php require_once $pathBase . "recursos/html/menu.php"; ?>
 
 <div class="container-fluid">
     
@@ -167,19 +173,18 @@ $menu_navegacion = \App\ayudas\Menu::crear($coneccion,GRUPO_ID);
 
 <footer class="main-footer">
     <div class="float-right d-none d-sm-block">
-        <b>Version</b> 1.0.0
+        <b>Version</b> 2.1.3
     </div>
     <strong>Copyright © 2021. </strong>todos los derechos reservados.
     <!-- <strong>Copyright © 2020 Ing Rivera . </strong>todos los derechos reservados. -->
 </footer>
 
-</div>
 <?php
-    require_once "{$rutaBase}recursos/html/final.php"; 
+    require_once $pathBase . "recursos/html/final.php";
     
-    function validaParametroGet(string $parameto_get):void
+    function validaParametroGet(string $parametro_get):void
     {
-        if (!isset($_GET[$parameto_get]) || is_null($_GET[$parameto_get]) || (string)$_GET[$parameto_get] === ''){
+        if (!isset($_GET[$parametro_get]) || is_null($_GET[$parametro_get]) || (string)$_GET[$parametro_get] === ''){
             header('Location: login.php');
             exit;
         }

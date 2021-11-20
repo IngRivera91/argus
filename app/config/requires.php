@@ -1,12 +1,13 @@
 <?php
-$rutaBase = __DIR__.'/../../';
+$pathBase = __DIR__.'/../../';
+require_once $pathBase . '/vendor/autoload.php';
 
-require_once "{$rutaBase}/vendor/autoload.php";
-$dotenv = Dotenv\Dotenv::createImmutable($rutaBase);
+$dotenv = Dotenv\Dotenv::createImmutable($pathBase);
 $dotenv->load();
 
-define('ES_PRODUCCION', !$_ENV['APP_DEBUG'] );
-if (!ES_PRODUCCION) {
+define('DEBUG_MODE', (bool) $_ENV['APP_DEBUG'] );
+if (DEBUG_MODE) {
+    require $pathBase . "vendor/larapack/dd/src/helper.php";
     error_reporting(E_ALL);
     ini_set('display_errors', 1);
 }
@@ -14,6 +15,7 @@ if (!ES_PRODUCCION) {
 session_start();
 date_default_timezone_set($_ENV['APP_TIMEZONE']);
 
-require_once "constantes.php";
-require_once "configApp.php"; 
-require_once "configDatabase.php"; 
+require_once 'constants.php';
+require_once 'configApp.php';
+require_once 'configDatabase.php';
+require_once 'loadEloquent.php';
