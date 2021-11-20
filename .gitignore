@@ -1,4 +1,5 @@
 .idea/
+public/test.php
 .phpunit.result.cache
 /mysql
 /vendor
