@@ -6,8 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" type="image/gif" href="<?php echo RUTA_PROYECTO; ?>img/favicon.ico"/>
+    <link rel="shortcut icon" type="image/gif" href="<?php echo APP_URL; ?>img/favicon.ico"/>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto+Slab:wght@500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="<?php echo RUTA_PROYECTO; ?>css/select2.min.css">
-    <title><?= NOMBRE_PROYECTO ?></title>
+    <link rel="stylesheet" href="<?php echo APP_URL; ?>css/select2.min.css">
+    <title><?= APP_NAME ?></title>
 </head>

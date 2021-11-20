@@ -1,4 +1,4 @@
-<?php use App\ayudas\Redireccion; ?>
+<?php use App\Class\Redireccion; ?>
 <body class="hold-transition sidebar-mini">
     <!-- Site wrapper -->
     <div class="wrapper">
@@ -22,7 +22,7 @@
 
                 <div class="dropdown-menu dropdown-menu dropdown-menu">
 
-                    <a href="<?php echo Redireccion::obtener('password','cambiarPassword',SESSION_ID); ?>"class="dropdown-item text-center">
+                    <a href="<?php echo Redireccion::obtener('Password','cambiarPassword',SESSION_ID); ?>"class="dropdown-item text-center">
                         Cambiar Contraseña
                     </a>
                     <div class="dropdown-divider"></div>
