@@ -14,6 +14,7 @@ class MethodController extends BaseController
     {
         $this->model = Method::class;
         $this->nameController = 'Method';
+        $this->nameModel = 'Method';
         $this->menus = Menu::query()->get()->toArray();
 
         $this->listaRelations = ['menu'];

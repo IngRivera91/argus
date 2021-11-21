@@ -18,6 +18,7 @@ class UserController extends BaseController
     {
         $this->model = User::class;
         $this->nameController = 'User';
+        $this->nameModel = 'User';
         $this->grupos = Group::query()->get()->toArray();
 
         $this->listaRelations = ['group'];

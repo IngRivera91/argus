@@ -18,6 +18,7 @@ class GroupController extends BaseController
     {
         $this->model = Group::class;
         $this->nameController = 'Group';
+        $this->nameModel = 'Group';
         parent::__construct();
     }
 
