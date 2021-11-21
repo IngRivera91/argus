@@ -14,12 +14,13 @@ class BaseController
 
     protected Builder $consulta;
     protected string $nameSubmit;
+    protected string $nameModel;
     protected string $llaveFormulario; // Llave que se ocupa que los $_POST son de un formulario valido
     // ['campo' => 'tabla.campo', 'valor' => 'valor_campo', 'signoComparacion' => '=', 'relacion' => 'relacion'],
     protected array $filtrosBase = []; // Se debe declarar en el constructor
-    protected array $listaRelations = []; // [nameController => relation]
-    protected array $filtroTableRelations = []; // [nameController => nameTabla]
-    protected array $filtroRelations = []; // [nameController => relation]
+    protected array $listaRelations = []; // [nameModel => relation]
+    protected array $filtroTableRelations = []; // [nameModel => nameTabla]
+    protected array $filtroRelations = []; // [nameModel => relation]
     protected int $registrosPorPagina = 10; // Numero de registro por pagina en la lista
     protected int $sizeColumnasInputsFiltros = 3; // tamaño de los inputs de los filtros de la lista
     protected $model;
