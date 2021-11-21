@@ -95,7 +95,7 @@ class UserController extends BaseController
         $this->htmlInputFormulario[] = Html::inputTextRequired(4,'Correo',3,'email');
         $this->htmlInputFormulario[] = Html::inputTextRequired(4,'Usuario',4,'user');
         $this->htmlInputFormulario[] = Html::inputTextRequired(4,'Contraseña',5,'password');
-        $this->htmlInputFormulario[] = Html::selectConBuscador(
+        $this->htmlInputFormulario['SelectGroup'] = Html::selectConBuscador(
             'selectGroups',
             'id',
             'Grupo',
@@ -125,7 +125,7 @@ class UserController extends BaseController
         $this->htmlInputFormulario[] = Html::inputTextRequired(4,'Apellidos',2,'last_name','',$registro['last_name']);
         $this->htmlInputFormulario[] = Html::inputTextRequired(4,'Correo',3,'email','',$registro['email']);
         $this->htmlInputFormulario[] = Html::inputTextRequired(4,'Usuario',4,'user','',$registro['user']);
-        $this->htmlInputFormulario[] = Html::selectConBuscador(
+        $this->htmlInputFormulario['SelectGroup'] = Html::selectConBuscador(
             'selectGroups',
             'id',
             'Grupo',
