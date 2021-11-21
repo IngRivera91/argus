@@ -339,19 +339,19 @@ class BaseController
 
             $tabla = $this->model::NOMBRE_TABLA;
 
-            $nameController = $arrayCampo[0];
+            $nameModel = $arrayCampo[0];
 
             $field = $arrayCampo[1];
 
-            if ($nameController == $this->nameController) {
+            if ($nameModel == $this->nameModel) {
                 $tableField = "$tabla.$field";
                 $this->consulta->where($tableField,'LIKE',"%$datosFiltros[$tablaCampo]%");
             }
 
-            if ($nameController != $this->nameController) {
+            if ($nameModel != $this->nameModel) {
                 $this->consulta->whereRelation(
-                    $this->filtroRelations[$nameController],
-                    "{$this->filtroTableRelations[$nameController]}.$field",
+                    $this->filtroRelations[$nameModel],
+                    "{$this->filtroTableRelations[$nameModel]}.$field",
                     "=",
                     $datosFiltros[$tablaCampo]
                 );
