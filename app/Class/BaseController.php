@@ -43,6 +43,9 @@ class BaseController
     {
         $datos = $this->validaDatosFormulario();
 
+        if (!isset($datos['activo'])) {
+            $datos['activo'] = true;
+        }
         $datos['created_user_id'] = USUARIO_ID;
         $datos['updated_user_id'] = USUARIO_ID;
 
