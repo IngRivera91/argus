@@ -2,7 +2,7 @@
 
 namespace App\Errors;
 
-use App\ayudas\Redireccion;
+use App\Class\Redireccion;
 use App\Errors\Base AS ErrorBase;
 
 class Expected extends ErrorBase

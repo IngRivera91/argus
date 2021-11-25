@@ -4,8 +4,8 @@ namespace App\Class;
 
 use App\Errors\Base as ErrorBase;
 use App\Models\Method;
-use App\models\Session;
-use App\models\User;
+use App\Models\Session;
+use App\Models\User;
 use Carbon\Carbon;
 use JetBrains\PhpStorm\ArrayShape;
 

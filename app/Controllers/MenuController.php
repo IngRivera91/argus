@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use App\class\BaseController;
+use App\Class\BaseController;
 use App\Class\Html;
 use App\Models\Menu;
 

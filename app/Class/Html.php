@@ -2,8 +2,8 @@
 
 namespace App\Class;
 
-use App\models\Group;
-use App\models\Menu;
+use App\Models\Group;
+use App\Models\Menu;
 use JetBrains\PhpStorm\Pure;
 
 

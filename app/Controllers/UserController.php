@@ -3,7 +3,7 @@
 namespace App\Controllers;
 
 use App\Class\Auth;
-use App\class\BaseController;
+use App\Class\BaseController;
 use App\Class\Html;
 use App\Class\Redireccion;
 use App\Errors\Base as ErrorBase;
