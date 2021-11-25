@@ -1,6 +1,6 @@
 <?php
 
-use App\ayudas\Redireccion;
+use App\Class\Redireccion;
 
 $inputs = $controlador->htmlInputFormulario;
 $llave = $controlador->llaveFormulario;
@@ -11,7 +11,7 @@ $llave = $controlador->llaveFormulario;
 <br>
 
 <?php  $rutaPOST = Redireccion::obtener('Password','cambiarPasswordBd',SESSION_ID); ?>
-<form id="cambiarPassword" autocomplete="off" role="form" method="POST" action="<?= $rutaPOST  ?>" onsubmit="return cambiarPassword()">
+<form id="cambiarPassword" autocomplete="off" role="form" method="POST" action="<?= $rutaPOST  ?>" >
     <div class="row">
         <?php
             foreach ($inputs as $input) {
