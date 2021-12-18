@@ -1,9 +1,7 @@
 <?php
-    $pathBase = __DIR__.'/../';
-    require_once $pathBase . "app/config/requires.php";
-
+    require_once 'vendor.config.php';
+    require_once __DIR__.'/../recursos/html/head.php';
 ?>
-<?php require_once __DIR__.'/../recursos/html/head.php'; ?>
 
 <br><br>
 <body class="hold-transition">

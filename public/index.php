@@ -1,6 +1,6 @@
 <?php
-$pathBase = __DIR__.'/../';
-require_once $pathBase . "app/config/requires.php";
+
+require_once 'vendor.config.php';
 
 use App\Class\Html;
 use App\Class\Redireccion;
