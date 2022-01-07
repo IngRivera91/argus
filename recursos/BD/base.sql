@@ -5,7 +5,7 @@
  Source Server Type    : MySQL
  Source Server Version : 50733
  Source Host           : localhost:3306
- Source Schema         : argus
+ Source Schema         : base
 
  Target Server Type    : MySQL
  Target Server Version : 50733

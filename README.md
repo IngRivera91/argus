@@ -25,7 +25,7 @@ Proyecto variables
 
 6. ejecuater el comando `npm run dev`
 
-7. importar en la base de datos el archivo `/recursos/BD/argus.sql`
+7. importar en la base de datos el archivo `/recursos/BD/base.sql`
 
 despues seguir todos los pasos ya se puede iniciar session con los siguientes datos `usuario: admin` `password: adminroot`
 
