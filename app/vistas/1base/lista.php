@@ -60,23 +60,42 @@ $acciones = \App\Class\Html::acciones(GRUPO_ID,$controladorActual);
 
                     <?php foreach ($controlador->camposLista as $label => $campo): ?>
                         <?php
-                            $campoExplode = explode('+',$campo);
-
-                            if (count($campoExplode) == 1) {
+                        $campoExplode = explode('+',$campo);
+                        $campoRegistro = '';
+                        if (count($campoExplode) == 1) {
+                            $multicampos = explode('>',$campo);
+                            if (count($multicampos) == 1) {
                                 $campoRegistro = $registro[$campo];
                             }
-
-                            if (count($campoExplode) == 2) {
-                                $campoRegistro = $registro[$campoExplode[0]][$campoExplode[1]];
-                            }
-
-                            # https://www.php.net/manual/es/function.stristr.php Ejemplo 2
-                            if (!stristr($campo, "activo") === false  || !stristr($campo, "is") === false) {
-                                $campoRegistro = TEXTO_REGISTRO_INACTIVO;
-                                if ($registro[$campo]) {
-                                    $campoRegistro = TEXTO_REGISTRO_ACTIVO;
+                            if (count($multicampos) > 1) {
+                                $campoRegistro = '';
+                                foreach ($multicampos as $multicampo) {
+                                    $campoRegistro .= ' '.$registro[$multicampo];
                                 }
                             }
+                        }
+
+                        if (count($campoExplode) == 2) {
+                            $multicampos = explode('>',$campoExplode[1]);
+
+                            if (count($multicampos) == 1) {
+                                $campoRegistro = $registro[$campoExplode[0]][$campoExplode[1]];
+                            }
+                            if (count($multicampos) > 1) {
+                                $campoRegistro = '';
+                                foreach ($multicampos as $multicampo) {
+                                    $campoRegistro .= ' '.$registro[$campoExplode[0]][$multicampo];
+                                }
+                            }
+                        }
+
+                        # https://www.php.net/manual/es/function.stristr.php Ejemplo 2
+                        if (!stristr($campo, "activo") === false  || !stristr($campo, "is") === false) {
+                            $campoRegistro = TEXTO_REGISTRO_INACTIVO;
+                            if ($registro[$campo]) {
+                                $campoRegistro = TEXTO_REGISTRO_ACTIVO;
+                            }
+                        }
                         ?>
                         <td><?= $campoRegistro; ?></td>
                     <?php endforeach; ?>
