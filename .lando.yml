@@ -15,7 +15,6 @@ tooling:
       - appserver: composer install
       - node: npm install
       - node: npm run dev
-      - database: db-import ./recursos/BD/base.sql
 services:
   node:
     type: node:16
