@@ -7,11 +7,13 @@ module.exports = {
       './node_modules/admin-lte/plugins/bootstrap-switch/js/bootstrap-switch.min.js',
       './node_modules/admin-lte/plugins/bootstrap/js/bootstrap.min.js',
       './node_modules/admin-lte/dist/js/adminlte.min.js',
-      './src/',
+      './src/js/index.js',
+      './src/js/permisos.js',
     ],
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, './public/dist'),
+    library: 'EntryPoint'
   },
   module: {
     rules: [
