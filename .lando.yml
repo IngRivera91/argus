@@ -1,0 +1,21 @@
+name: argus
+recipe: lamp
+config:
+  php: '8.1'
+  database: mysql:8.0
+  webroot: ./public/
+tooling:
+  node:
+    service: node
+  npm:
+    service: node
+  dev:
+    cmd:
+      - appserver: cp example.env .env
+      - appserver: composer install
+      - node: npm install
+      - node: npm run dev
+      - database: db-import ./recursos/BD/base.sql
+services:
+  node:
+    type: node:16
