@@ -175,8 +175,8 @@ $menu_navegacion = Html::menu(GRUPO_ID);
     <div class="float-right d-none d-sm-block">
         <b>Version</b> 2.0.1
     </div>
-    <strong>Copyright © 2021. </strong>todos los derechos reservados.
-    <!-- <strong>Copyright © 2020 Ing Rivera . </strong>todos los derechos reservados. -->
+<!--    <strong>Copyright © 2021. </strong>todos los derechos reservados.-->
+     <strong>Copyright © 2022 Ing Rivera . </strong>todos los derechos reservados.
 </footer>
 
 <?php
