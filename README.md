@@ -14,7 +14,7 @@ despues seguir todos los pasos ya se puede iniciar session con los siguientes da
 
 ## configuracion en un servidor remoto
 ### Pre-requisitos
-- php8
+- php8.1
 - composer
 - npm
 - mysql
