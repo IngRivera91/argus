@@ -8,7 +8,6 @@ Framework propio programado con PHP, OPP, MVC y MySQL para realizar proyectos fr
 ### Configuracion
 1. iniciar el proyecto con el comando `lando start`
 2. configurar el proyecto con el comando `lando dev`
-3. importar la base de datos con el comando `lando db-import ./base.sql`
 
 despues seguir todos los pasos ya se puede iniciar session con los siguientes datos `usuario: admin` `password: adminroot`
 
@@ -39,4 +38,4 @@ despues seguir todos los pasos ya se puede iniciar session con los siguientes da
 despues seguir todos los pasos ya se puede iniciar session con los siguientes datos `usuario: admin` `password: adminroot`
 
 ## Licencia
-[MIT license](https://opensource.org/licenses/MIT)..
+[MIT license](https://opensource.org/licenses/MIT).
