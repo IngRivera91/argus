@@ -39,4 +39,4 @@ despues seguir todos los pasos ya se puede iniciar session con los siguientes da
 despues seguir todos los pasos ya se puede iniciar session con los siguientes datos `usuario: admin` `password: adminroot`
 
 ## Licencia
-[MIT license](https://opensource.org/licenses/MIT).
+[MIT license](https://opensource.org/licenses/MIT)..
