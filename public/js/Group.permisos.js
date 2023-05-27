@@ -1,5 +1,5 @@
 
-function(metodoId,grupoId) {
+function permisos(metodoId,grupoId) {
 
     let session_id = document.getElementById('session_id').value;
     let classConPermiso = 'con-permiso-btn';
@@ -17,7 +17,7 @@ function(metodoId,grupoId) {
 
     let url = 'index.php?controlador=Group&metodo='+metodo+'&session_id='+session_id+'&metodoId='+metodoId+'&grupoId='+grupoId;
 
-    fetch(url,{method: 'POST'})
+    fetch(url,{method: 'GET'})
     .then(function(response) {
         if(response.ok) {
             document.getElementById(metodoId).classList.remove(quitarClase);

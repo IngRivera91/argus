@@ -27,13 +27,9 @@ despues seguir todos los pasos ya se puede iniciar session con los siguientes da
 
 4. asignar el usuario` user_argus` a la base de datos `argus`
 
-4. ejecutar el comando `composer install`
+5. ejecutar el comando `composer install`
 
-5. ejecutar el comando `npm install`
-
-6. ejecuater el comando `npm run dev`
-
-7. importar en la base de datos el archivo `base.sql`
+6. importar en la base de datos el archivo `base.sql`
 
 despues seguir todos los pasos ya se puede iniciar session con los siguientes datos `usuario: admin` `password: adminroot`
 

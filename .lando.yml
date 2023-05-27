@@ -5,22 +5,13 @@ config:
   database: mysql:8.0
   webroot: ./public/
 tooling:
-  node:
-    service: node
-  npm:
-    service: node
   dev:
     cmd:
       - appserver: cp example.env .env
       - appserver: composer install
-      - node: npm install
-      - node: npm run dev
       - database: mysql -u lamp -h database --password=lamp --execute="DROP DATABASE lamp;CREATE DATABASE lamp;"
       - database: mysql -u lamp -h database --password=lamp --database="lamp" < ./base.sql
   reset-db:
     cmd:
       - database: mysql -u lamp -h database --password=lamp --execute="DROP DATABASE lamp;CREATE DATABASE lamp;"
       - database: mysql -u lamp -h database --password=lamp --database="lamp" < ./base.sql
-services:
-  node:
-    type: node:16
