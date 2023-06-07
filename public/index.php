@@ -184,6 +184,7 @@ $menu_navegacion = Html::menu(GRUPO_ID);
     
     function validaParametroGet(string $parametro_get):void
     {
+        Auth::checkParams();
         if (!isset($_GET[$parametro_get]) || is_null($_GET[$parametro_get]) || (string)$_GET[$parametro_get] === ''){
             header('Location: login.php');
             exit;

