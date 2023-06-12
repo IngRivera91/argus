@@ -9,7 +9,7 @@ class AdminController extends UserController
         parent::__construct();
         $this->nameController = 'Admin';
         $this->filtrosBase = [
-            ['campo' => 'users.group_id', 'valor' => GRUPO_ADMINISTRADORES_ID, 'signoComparacion' => '=', 'relacion' => ''],
+            ['campo' => 'users.group_id', 'valor' => GRUPO_ADMINISTRADORES_ID, 'signoComparacion' => '='],
         ];
     }
 

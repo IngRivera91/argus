@@ -282,17 +282,36 @@ class BaseController
     {
         /**
          * $this->filtrosBase = [
-         *      ['campo' => 'tabla.compo', 'valor' => valor_campo, 'signoComparacion' => '=', 'relacion' => 'relacion'],
+         *      [
+         *       'campo' => 'tabla.campo',
+         *       'valor' => valor_campo,
+         *       'signoComparacion' => '=',
+         *       'relacion' => 'relacion',// this field is not required
+         *       'orWhere' => 'true' // this field is not required
+         *      ],
          * ];
          */
 
         foreach ($this->filtrosBase AS $filtro) {
-            if ($filtro['relacion'] == '') {
+            if (!isset($filtro['relacion']) && !isset($filtro['orWhere'])) {
                 $this->consulta->where($filtro['campo'],$filtro['signoComparacion'],$filtro['valor']);
             }
 
-            if ($filtro['relacion'] != '') {
+            if (!isset($filtro['relacion']) && isset($filtro['orWhere'])) {
+                $this->consulta->orWhere($filtro['campo'],$filtro['signoComparacion'],$filtro['valor']);
+            }
+
+            if (isset($filtro['relacion']) && !isset($filtro['orWhere'])) {
                 $this->consulta->whereRelation(
+                    $filtro['relacion'],
+                    $filtro['campo'],
+                    $filtro['signoComparacion'],
+                    $filtro['valor']
+                );
+            }
+
+            if (isset($filtro['relacion']) && isset($filtro['orWhere'])) {
+                $this->consulta->orWhereRelation(
                     $filtro['relacion'],
                     $filtro['campo'],
                     $filtro['signoComparacion'],
