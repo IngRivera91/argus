@@ -24,9 +24,11 @@ class BaseController
     protected int $registrosPorPagina = 10; // Numero de registro por pagina en la lista
     protected int $sizeColumnasInputsFiltros = 3; // tamaño de los inputs de los filtros de la lista
     protected $model;
+    protected bool $obtenerRegistrosSinPaginador = false;
 
     public Collection|Model|array $registro;
     public Collection|array $registros;
+    public Collection|array $registrosSinPaginador;
     public string $htmlPaginador = '';
     public string $nameController;
     public array $camposLista;
@@ -272,6 +274,11 @@ class BaseController
         }
 
         $this->addRelations();
+
+        if ($this->obtenerRegistrosSinPaginador) {
+            $this->registrosSinPaginador = $this->consulta->get()->toArray();
+        }
+
         $this->obtenerPaginador();
 
         $this->registros = $this->registros->toArray();
