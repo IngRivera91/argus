@@ -173,10 +173,10 @@ $menu_navegacion = Html::menu(GRUPO_ID);
 
 <footer class="main-footer">
     <div class="float-right d-none d-sm-block">
-        <b>Version</b> 2.0.1
+        <b>Version</b> 3.0.0
     </div>
 <!--    <strong>Copyright © 2021. </strong>todos los derechos reservados.-->
-     <strong>Copyright © 2022 Ing Rivera . </strong>todos los derechos reservados.
+     <strong>Copyright © 2025 Ing Rivera . </strong>todos los derechos reservados.
 </footer>
 
 <?php
