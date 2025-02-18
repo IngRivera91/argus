@@ -32,7 +32,7 @@ class AdminController extends UserController
         unset($this->htmlInputFormulario['SelectGroup']);
     }
 
-    public function registrarBd()
+    public function registrarBd(bool $noRedirect = false)
     {
         $_POST['group_id'] = GRUPO_ADMINISTRADORES_ID;
         parent::registrarBd();
