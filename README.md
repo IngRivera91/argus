@@ -3,7 +3,7 @@ Framework propio programado con PHP, OPP, MVC y MySQL para realizar proyectos fr
 
 ## configuracion
 ### Pre-requisitos
-- php8.1
+- php8.3
 - composer
 - npm
 - mysql
