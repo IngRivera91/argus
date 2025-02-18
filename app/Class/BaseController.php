@@ -369,9 +369,19 @@ class BaseController
 
             $field = $arrayCampo[1];
 
+            $operator = 'LIKE';
+            if (isset($arrayCampo[2])) {
+                $operator = $arrayCampo[2];
+            }
+
+            $value = "$datosFiltros[$tablaCampo]";
+            if ($operator == 'LIKE') {
+                $value = "%{$datosFiltros[$tablaCampo]}%";
+            }
+
             if ($nameModel == $this->nameModel) {
                 $tableField = "$tabla.$field";
-                $this->consulta->where($tableField,'LIKE',"%$datosFiltros[$tablaCampo]%");
+                $this->consulta->where(column: $tableField,operator: $operator, value: $value);
             }
 
             if ($nameModel != $this->nameModel) {
