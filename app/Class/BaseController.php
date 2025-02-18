@@ -39,7 +39,7 @@ class BaseController
         $this->llaveFormulario = md5(SESSION_ID);
     }
 
-    public function registrarBd()
+    public function registrarBd(bool $noRedirect = false)
     {
         $datos = $this->validaDatosFormulario();
 
@@ -60,6 +60,10 @@ class BaseController
             $mensaje = 'error al crear el registro';
             Redireccion::enviar($this->nameController,'lista',SESSION_ID,$mensaje);
             exit;
+        }
+
+        if ($noRedirect) {
+            return $resultado;
         }
 
         $mensaje = 'datos registrados';
